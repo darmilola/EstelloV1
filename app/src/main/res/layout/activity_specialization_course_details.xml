@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:padding="0dp"
+    tools:context=".course_details">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        app:backgroundTint="#157ECF"
+        android:textColor="@color/White"
+        android:textSize="16dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        app:cornerRadius="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/opensansreg"
+        android:id="@+id/course_details_enrollment_button"
+        android:text="Enroll for 30$ (starts Aug 5)"
+        android:layout_gravity="bottom"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/course_details_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:fitsSystemWindows="true"
+        android:background="@color/White"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/course_detail_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="left"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextSizeMedium"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textColor="@color/White"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="40dp"
+                    android:lineSpacingExtra="1dp"
+                    android:gravity="center|left"
+                    android:maxLines="3"
+                    android:fontFamily="@font/opensansbold"
+                    android:id="@+id/course_detail_course_title"
+                    android:ellipsize="end"
+                    android:text="The Science Of Well-Being"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:layout_marginLeft="20dp"
+                        android:progressTint="@color/yellow"
+                        android:rating="4" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:fontFamily="@font/opensansreg"
+                        android:textSize="@dimen/small_text_size"
+                        android:textColor="@color/white"
+                        android:text="4.9 (20k)"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offered By"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:layout_marginTop="20dp"/>
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:tint="@color/white"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="left"
+                    android:src="@drawable/yale"/>
+
+
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/course_details_intro_video"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    app:auto_show="true"
+                    app:use_artwork="true"
+                    app:keep_content_on_player_reset="true"
+                    app:surface_type="surface_view"
+                    app:show_buffering="always"
+                    app:controller_layout_id="@layout/custom_course_detail_player" />
+            </LinearLayout>
+
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/course_detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                android:gravity="center"
+                app:contentInsetStart="0dp"
+                app:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="17dp"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:fontFamily="@font/opensansreg"
+                        android:maxLines="1"
+                        android:id="@+id/course_details_toolbar_title"
+                        android:ellipsize="end"
+                        android:layout_marginRight="50dp"/>
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/share_icon"
+                        android:tint="@color/white"
+                        android:padding="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_height="50dp"/>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <include
+        layout="@layout/content_course_details" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

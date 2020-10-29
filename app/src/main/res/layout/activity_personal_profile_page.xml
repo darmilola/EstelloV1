@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#FDF9FD"
+    android:padding="0dp"
+    tools:context=".course_details">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/profile_page_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/profile_page_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="left"
+            app:title="Eva J Bloomberg"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextSizeMedium"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/cliff" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/transparent"
+                        android:orientation="horizontal">
+
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:id="@+id/activity_main_user_profile_profile_image"
+                            fresco:roundAsCircle="true"
+                            android:layout_marginRight="10dp"
+                            fresco:roundingBorderColor="#fa2d65"
+                            fresco:roundingBorderWidth="0.5dp"
+                            fresco:actualImageScaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="50dp"
+                            fresco:placeholderImage="@drawable/beautifullady"
+                            fresco:placeholderImageScaleType="fitXY"/>
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="20dp"
+                            android:text="Follow"
+                            app:cornerRadius="5dp"
+                            android:background="@color/transparent"
+                            android:textAllCaps="false"
+                            android:textColor="@color/White"
+                            app:backgroundTint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:layout_marginTop="1dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="3.1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:id="@+id/personal_profile_profile_name"
+                            android:textColor="@color/black"
+                            android:text="Eva J Bloomberg"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:gravity="center"
+                            android:id="@+id/personal_profile_profession"
+                            android:text="Web Designer and Developer"
+                            android:textColor="#A3A2A2"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/personal_profile_about"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            android:text="Am Bloomberg a web developer with the Bloomberg inc am here to see how things goed and its nice to be here"
+                            android:textColor="#747373"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:gravity="center"
+                            android:id="@+id/personal_profile_web_link"
+                            android:text="www.evabloomberg.com"
+                            android:textColor="#4848E9"
+                            android:textSize="13dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
+                        android:gravity="center|left"
+                        android:orientation="horizontal"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="#c8c8c8"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="90dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="5dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="3dp"
+                                android:src="@drawable/facebooklogo"/>
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/twitterlogo"/>
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerInside"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/linkedinlogo"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="90dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey"
+                            android:textSize="12dp"
+                            android:id="@+id/personal_profile_followers_title"
+                            android:text="FOLLOWERS"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/personal_profile_followers_value"
+                            android:text="53k"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="#c8c8c8"/>
+                    <LinearLayout
+                        android:layout_width="90dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey"
+                            android:textSize="12dp"
+                            android:id="@+id/personal_profile_following_title"
+                            android:text="FOLLOWING"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/personal_profile_following_value"
+                            android:layout_marginTop="5dp"
+                            android:text="24"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="#c8c8c8"/>
+                    <LinearLayout
+                        android:layout_width="70dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey"
+                            android:textSize="12dp"
+                            android:id="@+id/personal_profile_tutored_title"
+                            android:text="TUTORED"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/personal_profile_tutored_value"
+                            android:text="26k"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:tint="@color/colorPrimary"
+                        android:id="@+id/persnal_profile_more"
+                        android:src="@drawable/selectedmore"
+                        android:layout_marginLeft="20dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/personal_profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center|right"
+               android:layout_marginRight="10dp">
+               <ImageView
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:tint="#fa2d65"
+                   android:src="@drawable/selecteddm"/>
+
+           </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/personal_profile_page_content_main"/>
+    <include layout="@layout/personal_profile_bottom_sheet"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

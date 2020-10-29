@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:drag="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/user_profile_view_profile_bottomsheet"
+    android:background="#60000000">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ViewUserProfile">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/family"
+            android:scaleType="fitXY"/>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="60dp"
+           android:layout_gravity="top"
+           android:background="@drawable/userprofilegradient"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/userprofilegradient2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="22dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="20dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensansbold"
+                android:text="Damilola Akinterinwa"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="2"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:text="Message"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/message_background_design"
+            android:textColor="@color/black"
+            android:textSize="@dimen/regular_text_size"
+            android:fontFamily="@font/opensansreg"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:text="Edit Profile"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/message_background_design"
+            android:textColor="@color/black"
+            android:textSize="@dimen/regular_text_size"
+            android:fontFamily="@font/opensansreg"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="Damilola"
+             android:layout_marginRight="20dp"
+             android:maxLines="1"
+             android:ellipsize="end"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="10dp"
+             android:textColor="@color/black"
+             android:textSize="@dimen/regular_text_size"
+             android:fontFamily="@font/opensansreg"/>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="5dp"
+             android:fontFamily="@font/opensansreg"
+             android:text="Display name"
+             android:textColor="#747070"
+             android:textSize="@dimen/small_regular_text_size" />
+         <View
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:layout_marginTop="10dp"
+             android:background="#DFDFDF"/>
+
+     </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1:19 PM"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/regular_text_size"
+                    android:fontFamily="@font/opensansreg"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Local Time"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#747070"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/small_regular_text_size"
+                    android:fontFamily="@font/opensansreg"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#DFDFDF"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+238102853533"
+                    android:layout_marginRight="20dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/opensansreg"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#747070"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/small_regular_text_size"
+                    android:fontFamily="@font/opensansreg"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#DFDFDF"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/opensansreg"
+                    android:maxLines="1"
+                    android:text="damilolaakinterinwa@gmail.com"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:text="Email"
+                    android:textColor="#747070"
+                    android:textSize="@dimen/small_regular_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#DFDFDF" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+</LinearLayout>

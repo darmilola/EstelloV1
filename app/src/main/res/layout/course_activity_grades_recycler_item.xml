@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:background="@drawable/dark_outline_circle">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:tint="@color/black"
+                            android:src="@drawable/lock_2x"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2.8"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/dark_text_color"
+                        android:layout_marginTop="15dp"
+                        android:textSize="13dp"
+                        android:gravity="left"
+                        android:fontFamily="@font/opensansbold"
+                        android:id="@+id/grades_recycler_item_grade_title"
+                        android:text="How To Use the Interactive TextBook"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center|right"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100%"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="5dp"
+                            android:textSize="13dp"
+                            android:id="@+id/grades_recycler_item_grade_value"
+                            android:fontFamily="@font/opensansbold"/>
+
+
+                </LinearLayout>
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/grades_recycler_item_assesment_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensansreg"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text="Quiz"
+                        android:textColor="@color/light_text_color"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight: 12.50%"
+                        android:textColor="@color/light_text_color"
+                        android:textSize="12dp"
+                        android:id="@+id/grades_recycler_item_assesment_weight"
+                        android:fontFamily="@font/opensansreg"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="3.5"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|top">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#DBDBDB" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="3.5"
+                    android:id="@+id/grades_recycler_item_assesment_unlock"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/training_materials_section_details_video_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensansreg"
+                        android:gravity="left"
+                        android:text="Complete the previous item to unlock this"
+                        android:textColor="@color/light_text_color"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

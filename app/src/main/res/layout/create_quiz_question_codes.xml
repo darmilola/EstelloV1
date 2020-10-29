@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#FDF9FD"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="4"
+        android:minHeight="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Question 5"
+            android:textSize="12dp"
+            android:fontFamily="@font/latoreg"
+            android:gravity="center|left"
+            android:layout_weight="0.8"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/create_quiz_question_number_codes"
+            android:textColor="#c8c8c8"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3.2"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+
+          <WebView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/create_quiz_question_question_codes"
+              tools:ignore="WebViewLayout" />
+
+
+
+     </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:id="@+id/create_quiz_question_dropdown_codes"
+            android:layout_gravity="center"
+            android:tint="@color/colorPrimary"
+            android:src="@drawable/down_icon"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c8c8c8"/>
+</LinearLayout>

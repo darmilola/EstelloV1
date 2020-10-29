@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusableInTouchMode="false"
+    android:focusedByDefault="false"
+    android:background="@color/light_primary"
+    tools:context=".Fragments.CreateCourseDetails">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:layout_marginBottom="10dp">
+
+
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="130dp"
+           android:layout_margin="5dp"
+           android:orientation="horizontal">
+
+           <TextView
+               android:layout_width="100dp"
+               android:layout_height="wrap_content"
+               android:text="Course Title"
+               android:textColor="#807D7D"
+               android:textSize="15dp"
+               android:id="@+id/create_course_details_course_title"
+               android:layout_marginTop="10dp"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
+
+               <com.google.android.material.textfield.TextInputLayout
+                   android:id="@+id/create_course_details_course_title_layout"
+                   style="@style/create_course_field"
+                   android:layout_width="match_parent"
+                   android:layout_height="130dp"
+                   android:gravity="center"
+                   app:boxCornerRadiusBottomEnd="5dp"
+                   app:boxCornerRadiusBottomStart="5dp"
+                   app:boxCornerRadiusTopEnd="5dp"
+                   app:boxCornerRadiusTopStart="5dp"
+                   app:boxStrokeColor="@color/colorAccent"
+                   app:counterEnabled="true"
+                   app:counterMaxLength="80"
+                   app:counterTextColor="@color/green"
+                   app:errorEnabled="true"
+                   app:errorTextAppearance="@style/ErrorText"
+                   app:hintEnabled="false">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:id="@+id/create_course_details_course_title_edittext"
+                       android:layout_width="match_parent"
+                       android:layout_height="100dp"
+                       android:gravity="left|top"
+                       android:hint="Type here..."
+                       android:maxLength="80"
+                       android:maxLines="5"
+                       android:textColor="@color/colorAccent"
+                       android:textColorHint="#c8c8c8"
+                       android:textSize="16sp" />
+               </com.google.android.material.textfield.TextInputLayout>
+           </LinearLayout>
+            </LinearLayout>
+
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="5dp"
+               android:orientation="horizontal">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="70dp"
+                   android:layout_marginRight="10dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="100dp"
+                       android:layout_height="match_parent"
+                       android:text="Skills to be Acquired"
+                       android:textColor="#807D7D"
+                       android:gravity="center|left"
+                       android:id="@+id/create_course_details_skills_to_acquire_title"
+                       android:layout_alignParentLeft="true"
+                       android:textSize="15dp"
+                       android:layout_marginTop="10dp"/>
+
+                   <com.google.android.material.button.MaterialButton
+                       android:layout_width="160dp"
+                       android:layout_height="50dp"
+                       android:text="Manage Skills"
+                       app:cornerRadius="5dp"
+                       android:textAllCaps="false"
+                       android:id="@+id/create_course_details_manage_skills"
+                       android:layout_alignParentRight="true"
+                       android:layout_marginTop="15dp"/>
+               </RelativeLayout>
+
+           </LinearLayout>
+
+
+           <com.adroitandroid.chipcloud.ChipCloud
+               xmlns:chipcloud="http://schemas.android.com/apk/res-auto"
+               android:id="@+id/selected_skill_chip_cloud"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               chipcloud:selectMode="none"
+               chipcloud:allCaps="false"
+               android:visibility="gone"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               chipcloud:deselectedFontColor="@color/colorPrimary"
+               chipcloud:gravity="staggered"
+               chipcloud:minHorizontalSpacing="20dp"
+               chipcloud:verticalSpacing="10dp"
+               chipcloud:deselectedColor="#F8DED5F5"
+               chipcloud:textSize="14sp"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_margin="5dp"
+               android:gravity="center|left"
+               android:orientation="horizontal">
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:text="Course fee (USD)"
+                   android:textColor="#807D7D"
+                   android:textSize="15dp"
+                   android:id="@+id/create_course_details_course_fee_title" />
+               <io.sulek.currencyfield.CurrencyField
+                   android:layout_width="200dp"
+                   android:layout_height="40dp"
+                   app:attrCurrencyCode="USD"
+                   android:textColor="@color/colorPrimary"
+                   android:paddingLeft="10dp"
+                   android:textSize="15dp"
+                   android:hint="Enter fee"
+                   android:id="@+id/create_course_details_course_fee_value"
+                   android:background="@drawable/create_course_edittext_background"/>
+           </LinearLayout>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:text="your minimum course fee is $25 please check our pricing page for more info."
+               android:textColor="#F85252"
+               android:visibility="gone"
+               android:id="@+id/create_course_details_minimum_fee_error"
+               android:textSize="12dp" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="5dp"
+               android:gravity="center|left"
+               android:orientation="horizontal">
+
+               <com.google.android.material.checkbox.MaterialCheckBox
+                   android:layout_width="match_parent"
+                   android:layout_height="40dp"
+                   android:textSize="17dp"
+                   android:textColor="#807D7D"
+                   android:id="@+id/create_course_details_sponsored_checkbox"
+                   android:text="Sponsored Course"/>
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="70dp"
+               android:layout_margin="5dp"
+               android:gravity="center"
+               android:orientation="horizontal">
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:text="Maximum Participants"
+                   android:textColor="#807D7D"
+                   android:textSize="15dp"
+                   android:id="@+id/create_course_details_maximum_participants_title"
+                   android:layout_marginTop="5dp"/>
+               <com.warkiz.widget.IndicatorStayLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical">
+
+                   <com.warkiz.widget.IndicatorSeekBar
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       app:isb_max="500"
+                       app:isb_min="1"
+                       app:isb_user_seekable="true"
+                       app:isb_progress="1"
+                       app:isb_seek_smoothly="true"
+                       app:isb_tick_marks_ends_hide="false"
+                       app:isb_tick_marks_swept_hide="false"
+                       app:isb_show_indicator="rounded_rectangle"
+                       app:isb_show_tick_marks_type="oval"
+                       app:isb_tick_marks_size="13dp"
+                       />
+               </com.warkiz.widget.IndicatorStayLayout>
+           </LinearLayout>
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="70dp"
+               android:gravity="center|left">
+
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Date"
+                   android:textColor="#807D7D"
+                   android:textSize="15dp"
+                   android:layout_marginLeft="5dp"
+                   android:id="@+id/create_course_details_set_date_title"
+                   android:layout_marginTop="5dp"/>
+
+
+
+               <com.google.android.material.button.MaterialButton
+                   android:layout_width="160dp"
+                   android:layout_height="50dp"
+                   android:text="Set Date"
+                   app:cornerRadius="5dp"
+                   android:layout_marginRight="10dp"
+                   android:textAllCaps="false"
+                   android:id="@+id/create_course_details_set_date_button"
+                   android:layout_alignParentRight="true" />
+           </RelativeLayout>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_marginLeft="10dp"
+               android:hint="30 August, 2020  to  May 15, 2021"
+               android:textColor="@color/colorPrimary"
+               android:textColorHint="#c8c8c8"
+               android:textSize="17dp"
+               android:id="@+id/create_course_details_course_date_value"
+               android:gravity="center|left"
+               android:paddingLeft="10dp"
+               android:background="@drawable/create_course_edittext_background"
+               android:layout_marginRight="10dp"/>
+
+
+
+
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="70dp"
+               android:layout_marginRight="10dp"
+               android:orientation="horizontal">
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:layout_alignParentLeft="true"
+                   android:layout_marginTop="10dp"
+                   android:gravity="center|left"
+                   android:text="Tags"
+                   android:layout_marginLeft="5dp"
+                   android:id="@+id/create_course_details_tags_title"
+                   android:textColor="#807D7D"
+                   android:textSize="15dp" />
+
+               <com.google.android.material.button.MaterialButton
+                   android:layout_width="160dp"
+                   android:layout_height="50dp"
+                   android:text="Manage Tags"
+                   app:cornerRadius="5dp"
+                   android:textAllCaps="false"
+                   android:id="@+id/create_course_details_manage_tags"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginTop="15dp"/>
+           </RelativeLayout>
+
+           <com.adroitandroid.chipcloud.ChipCloud
+        xmlns:chipcloud="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/selected_tags_chip_cloud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        chipcloud:selectMode="none"
+        chipcloud:allCaps="false"
+        android:visibility="gone"
+               android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        chipcloud:deselectedFontColor="@color/colorPrimary"
+        chipcloud:gravity="staggered"
+        chipcloud:minHorizontalSpacing="20dp"
+        chipcloud:verticalSpacing="10dp"
+        chipcloud:deselectedColor="#F8DED5F5"
+        chipcloud:textSize="14sp"/>
+
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="140dp"
+               android:orientation="horizontal">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:text="Course Image"
+                   android:textSize="15dp"
+                   android:id="@+id/create_course_details_course_image_title"
+                   android:layout_marginLeft="5dp"
+                   android:layout_alignParentLeft="true"
+                   android:textColor="#807D7D"/>
+
+               <LinearLayout
+                   android:layout_width="130dp"
+                   android:layout_height="130dp"
+                   android:layout_marginRight="50dp"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   android:background="@drawable/create_course_edittext_background"
+                   android:layout_alignParentRight="true">
+                   <ImageView
+                       android:layout_width="80dp"
+                       android:layout_height="80dp"
+                       android:scaleType="centerInside"
+                       android:src="@drawable/course_image_placeholder"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="center"
+                       android:text="Upload"
+                       android:id="@+id/create_course_details_upload_image_text"
+                       android:textColor="@color/green"/>
+               </LinearLayout>
+
+
+           </RelativeLayout>
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginTop="5dp">
+               <com.google.android.material.switchmaterial.SwitchMaterial
+                   android:layout_width="wrap_content"
+                   android:layout_height="50dp"/>
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:layout_marginRight="10dp"
+                   android:textSize="15dp"
+                   android:id="@+id/course_privacy_text"
+                   android:textColor="#807D7D"
+                   android:text="Restrict Access (Only Accessible to people with link)"/>
+
+           </LinearLayout>
+       </LinearLayout>
+   </ScrollView>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

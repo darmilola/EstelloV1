@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_primary"
+    tools:context=".course_training_page">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/course_training_search_course_root"
+        android:background="@drawable/course_training_layout_toolbar_design">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/course_training_search_layout_background">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="3.3"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Search Class"
+                    android:textSize="15dp"
+                    android:focusableInTouchMode="false"
+                    android:focusedByDefault="false"
+                    android:id="@+id/coursee_training_search_class_text"
+                    android:background="@drawable/course_training_search_edit_background"
+                    android:textColorHint="@color/colorPrimary"
+                    android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.7"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/searchicon"
+                            android:tint="@color/colorPrimary"></ImageView>
+
+                    </LinearLayout>
+                        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <com.estello.android.splashscreen.Model.NoSwipeableViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content_frame"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="55dp"
+        android:orientation="vertical">
+
+    </com.estello.android.splashscreen.Model.NoSwipeableViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chip_nav_card"
+            app:cardElevation="5dp">
+
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

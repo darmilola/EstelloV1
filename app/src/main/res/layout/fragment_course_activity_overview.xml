@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Fragments.CourseActivityOverview">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/course_activity_overview_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="#F0F0F0"
+        app:tabGravity="fill"
+        app:tabIndicator="@drawable/overview_tab_indicator_layerlist"
+        app:tabIndicatorColor="#12043C"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="center"
+        app:tabMode="auto"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/White"
+        app:tabTextAppearance="@style/WeeksTabTextAppearance"
+        app:tabTextColor="#646464"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8" />
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/course_activity_overview_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F3F3F3">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+
+</LinearLayout>

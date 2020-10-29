@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="30dp"
+    android:layout_marginTop="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/light_primary"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/clappingView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/clapping" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/hahaView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/haha" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loveView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/love" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/angryView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/angry" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/sadView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/sad" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

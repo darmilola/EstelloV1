@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/White"
+    tools:context=".StartingSoonMore">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/classes_you_may_like_more_toolbar"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:gravity="center|left"
+            android:layout_marginLeft="15dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/classes_you_may_like_more_title"
+            android:textColor="@color/White"
+            android:text="Classes you may like"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/starting_soon_more_recycler_item"
+        android:id="@+id/classes_you_may_like_more_recycler_view"/>
+</LinearLayout>

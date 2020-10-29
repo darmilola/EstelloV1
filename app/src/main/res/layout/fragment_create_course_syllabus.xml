@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/light_primary"
+    tools:context=".Fragments.CreateCourseSyllabus">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:elevation="5dp"
+        android:fontFamily="@font/latoreg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/create_course_syllabus_add_new_syllabus_button"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:text="Add New Section"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginRight="10dp"
+                android:id="@+id/create_course_add_new__syllabus_recyclerview"
+                tools:listitem="@layout/syllabus_section_details">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

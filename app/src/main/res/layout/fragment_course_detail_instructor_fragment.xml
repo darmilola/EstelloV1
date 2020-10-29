@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/transparent"
+    tools:context=".Fragments.course_detail_instructor_fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:weightSum="6"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:gravity="left|center"
+            android:layout_height="match_parent">
+
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    fresco:roundAsCircle="true"
+                    android:id="@+id/personal_profile_page_profile_picture"
+                    fresco:placeholderImage="@drawable/man"
+                    android:layout_marginLeft="20dp"
+                    fresco:actualImageScaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    fresco:placeholderImageScaleType="fitXY"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:id="@+id/course_detail_fragment_instructor_profile_profile_name"
+                    android:textColor="@color/black"
+                    android:text="Eva J Bloomberg"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:id="@+id/course_detail_fragment_instructor_profile_profession"
+                    android:text="Professor of Mathematics"
+                    android:textColor="#3C3A3A"
+                    android:textSize="12dp" />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:tint="#3C3A3A"
+                android:src="@drawable/right_arrow_2_2x"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+</LinearLayout>

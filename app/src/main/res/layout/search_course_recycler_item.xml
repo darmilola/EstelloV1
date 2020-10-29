@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/White"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3.2"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/more_courses_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensansreg"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text="This  is a 3-day training on how to make online youtube video and bring them available in a matter of time, yeah am a winner this is the truth of the matter so lets face "
+                        android:textColor="#3C3A3A"
+                        android:textSize="16dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensansreg"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:layout_marginLeft="10dp"
+                        android:text="University of Michigan"
+                        android:textColor="#7A7A7A"
+                        android:textSize="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp">
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/opensansreg"
+                            android:gravity="center"
+                            android:textAppearance="@style/ChipStyle"
+                            android:text="Specialization"
+                            android:textColor="#3C3A3A"/>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="3dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/star"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#7A7A7A"
+                            android:gravity="center"
+                            android:textSize="14dp"
+                            android:text="4.9"
+                            android:layout_marginRight="7dp"
+                            android:fontFamily="@font/opensansreg"/>
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#B8B8B8" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#7A7A7A"
+                            android:gravity="center"
+                            android:layout_marginLeft="7dp"
+                            android:textSize="14dp"
+                            android:layout_marginRight="7dp"
+                            android:text="20k Students"
+                            android:fontFamily="@font/opensansreg"/>
+
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="4dp"
+                            android:layout_height="match_parent"
+                            android:background="#B8B8B8"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#7A7A7A"
+                            android:gravity="center"
+                            android:layout_marginLeft="7dp"
+                            android:textSize="14dp"
+                            android:text="Mixed"
+                            android:fontFamily="@font/opensansreg"/>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center|top"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="2dp"
+                        app:cardCornerRadius="6dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:scaleType="fitXY"
+                                android:id="@+id/explore_courses_image"
+                                android:src="@drawable/soc2"/>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+         <View
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:layout_marginTop="15dp"
+             android:background="#606B6A6A"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

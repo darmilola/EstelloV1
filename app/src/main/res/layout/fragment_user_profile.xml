@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:gravity="center"
+                    android:text="Profile"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/woman2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:textSize="@dimen/regular_text_size"
+                    android:text="Damilola Akinterinwa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:background="@drawable/user_profile_view_profile_background"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/user_male_2x" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="View profile"
+                    android:id="@+id/user_profile_view_profile"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="#4E4E4E" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/newdownload"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Downloads"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/dollar_coin_2x"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Earnings"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/checkmark_2x"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Verification"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/newsettings"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Settings"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:background="#DFDFDF"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/addfriends"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Invite a friend"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/newprivacy"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Privacy Policy"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/newlogout"
+                    android:tint="#201D1D" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|left"
+                    android:text="Logout"
+                    android:fontFamily="@font/opensansreg"
+                    android:textSize="@dimen/regular_text_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+    </LinearLayout>
+</LinearLayout>

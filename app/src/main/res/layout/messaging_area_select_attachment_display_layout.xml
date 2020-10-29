@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/messaging_area_pictures_layout_nested_scroll"
+    android:visibility="gone"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messaging_area_picture_layout_recyclerview"
+        tools:itemCount="30"
+        tools:listitem="@layout/messaging_area_picture_select_item"/>
+
+    </androidx.core.widget.NestedScrollView>
+

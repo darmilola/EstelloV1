@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center|left"
+    android:orientation="horizontal"
+    android:background="@color/light_primary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center|top"
+            android:layout_marginRight="65dp"
+            android:layout_alignParentLeft="true">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="7dp"
+                android:layout_marginTop="5dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/bookicon"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center|top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#c8c8c8"
+                    android:layout_marginTop="10dp"
+                    android:textSize="17dp"
+                    android:id="@+id/training_material_details_ebook_name"
+                    android:text="Polymerase Chain Reactions (Imaging features of COVID-19)"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="#c8c8c8"
+                        android:textSize="13dp"
+                        android:id="@+id/training_materials_details_reading"
+                        android:text="Reading"/>
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/grey_circle"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginLeft="6dp"
+                        android:textColor="#c8c8c8"
+                        android:id="@+id/training_materials_details_ebook_time_to_complete"
+                        android:textSize="13dp"
+                        android:text="25 mins"/>
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/grey_circle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginLeft="6dp"
+                        android:textColor="#c8c8c8"
+                        android:textSize="13dp"
+                        android:id="@+id/training_materials_details_ebook_downloading"
+                        android:text="Downloading"/>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            app:progress_stroke_width="2dp"
+            app:progress_start_degree="-90"
+            app:drawBackgroundOutsideProgress="true"
+            app:progress_shader="sweep"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            app:progress_style="line"
+            app:progress_text_color="#fa2d65"
+            app:progress_text_size="10dp"
+            app:progress_stroke_cap="round"
+            app:progress_blur_style="solid"
+            app:progress_blur_radius="1dp"
+            app:line_width="4dp"
+            app:progress_start_color="@color/colorPrimary"
+            app:line_count="30">
+
+        </com.dinuscxj.progressbar.CircleProgressBar>
+
+    </RelativeLayout>
+</LinearLayout>

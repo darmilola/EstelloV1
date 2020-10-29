@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#FDF9FD"
+    android:padding="0dp"
+    tools:context=".course_details">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/course_details_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/course_detail_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="left"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextSizeMedium"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical">
+
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/woman"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:weightSum="4">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="2.5"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_height="60dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/big_regular_text_size"
+                            android:text="JAN O'NEIL"
+                            android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/larsseit"
+                            android:textColor="@color/black"
+                            android:maxLines="1"
+                            android:layout_marginRight="10dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/small_regular_text_size"
+                            android:text="Creative Director at Bad Co"
+                            android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/larsseitlight"
+                            android:textColor="@color/black"
+                            android:maxLines="1"
+                            android:layout_marginRight="10dp"/>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.5"
+                        android:text="Message"
+                        android:textAllCaps="false"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/regular_text_size"
+                    android:text="Summary"
+                    android:layout_marginLeft="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/larsseit"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/small_regular_text_size"
+                    android:text="@string/large_text"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:lineSpacingExtra="7dp"
+                    android:justificationMode="inter_word"
+                    android:fontFamily="@font/larsseitlight"
+                    android:textColor="@color/dark_grey"
+                    android:layout_marginRight="20dp"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/course_detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+
+ </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+  <include layout="@layout/instructors_profile_course_content"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

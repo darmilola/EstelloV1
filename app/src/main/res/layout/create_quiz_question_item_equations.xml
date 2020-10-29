@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FDF9FD"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="4"
+        android:minHeight="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Question 5"
+            android:textSize="12dp"
+            android:fontFamily="@font/latoreg"
+            android:gravity="center|left"
+            android:layout_weight="0.8"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/create_quiz_question_number_equations"
+            android:textColor="#c8c8c8"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3.2"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+
+
+
+            <katex.hourglass.in.mathlib.MathView
+                app:setTextColor="@color/colorPrimary"
+                app:setTextSize="15sp"
+                app:setClickable="false"
+                android:id="@+id/create_quiz_question_question__equations"
+                app:setViewBackgroundColor="@color/transparent"
+                app:setText="$\\int_0^\\infty e^{-x^2} dx=\\frac{\\sqrt{\\pi}}{2}$"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:id="@+id/create_quiz_question_dropdown_equations"
+            android:layout_gravity="center"
+            android:tint="@color/colorPrimary"
+            android:src="@drawable/down_icon"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c8c8c8"/>
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="70dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_height="70dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/light_grey"
+        app:cardCornerRadius="3dp"
+        android:layout_marginTop="4dp">
+
+        <LinearLayout
+           android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/woman3"/>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <LinearLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right|top"
+        android:background="@drawable/messaging_area_file_remove">
+
+
+        <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="1dp"
+        android:src="@drawable/cancel_action"/>
+    </LinearLayout>
+</FrameLayout>

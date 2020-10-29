@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECECEC"
+    tools:context=".Fragments.downloadsFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/download_fragment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:listitem="@layout/downloads_recycler_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

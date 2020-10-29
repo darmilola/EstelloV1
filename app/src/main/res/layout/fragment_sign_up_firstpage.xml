@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/White"
+    android:focusableInTouchMode="true"
+    android:focusedByDefault="false"
+    tools:context=".Fragments.sign_up_firstpage">
+
+    <TextView
+        android:layout_width= "match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello,"
+        android:textSize="30dp"
+        android:id="@+id/sign_up_firstpage_hello"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let's Introduce"
+        android:textSize="20dp"
+        android:id="@+id/sign_up_firstpage_lets_introduce"
+        android:layout_marginTop="10dp"
+        android:textColor="#c8c8c8"
+        />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_fullname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="20dp"
+
+        app:errorEnabled="true"
+        style="@style/sign_up_field"
+        app:errorTextAppearance="@style/ErrorText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your full name"
+            android:inputType="text"
+            android:textColorHint="#c8c8c8"
+            android:background="#00000000"
+
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_email_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="20dp"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="#c8c8c8"
+        style="@style/sign_up_field"
+        android:layout_marginRight="20dp"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/ErrorText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:textColorHint="#c8c8c8"
+            android:background="#00000000"
+            android:textColor="@color/colorAccent" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

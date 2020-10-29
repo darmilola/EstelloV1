@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/light_primary"
+    tools:context=".Fragments.MyCourses">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/mycourses_toolbar"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="My Courses"
+            android:textSize="17dp"
+            android:id="@+id/mycourses_toolbar_title"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+
+
+
+
+                 <com.google.android.material.button.MaterialButton
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:textSize="16dp"
+                     android:maxLines="1"
+                     android:ellipsize="end"
+                     app:elevation="5dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_marginRight="15dp"
+                     android:id="@+id/my_courses_startnew_course"
+                     android:textColor="@color/white"
+                     android:textAllCaps="false"
+                     android:text="Start new Course"/>
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:nestedScrollingEnabled="false"
+             tools:listitem="@layout/my_courses_recycler_item"
+             android:id="@+id/my_courses_recyclerview">
+
+         </androidx.recyclerview.widget.RecyclerView>
+
+     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

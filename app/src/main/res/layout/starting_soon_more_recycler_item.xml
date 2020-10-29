@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginTop="2dp"
+    android:background="@color/White"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White"
+            android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:weightSum="4">
+
+
+
+
+
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="2.9"
+                   android:gravity="left"
+                   android:layout_marginTop="10dp"
+                   android:orientation="vertical"
+                   android:layout_height="match_parent">
+
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/black"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginRight="10dp"
+                       android:layout_marginTop="10dp"
+                       android:gravity="left"
+                       android:id="@+id/more_courses_title"
+                       android:ellipsize="end"
+                       android:maxLines="4"
+                       android:lineSpacingExtra="1dp"
+                       android:textSize="14dp"
+                       android:text="This is a 3-day training on how to make online youtube video and bring them available in a matter of time, yeah am a winner"/>
+
+                   <TextView
+                       android:id="@+id/more_courses_instructor_details"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginRight="10dp"
+                       android:layout_marginTop="5dp"
+                       android:ellipsize="end"
+                       android:gravity="left"
+                       android:maxLines="2"
+                       android:text="Micheal Glazen Web Developer at TrollTech"
+                       android:textColor="#c8c8c8"
+                       android:textColorLink="#9C27B0"
+                       android:textSize="13dp" />
+
+
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <androidx.cardview.widget.CardView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:cardElevation="5dp"
+                       app:cardCornerRadius="10dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:background="@color/transparent"
+                           android:orientation="vertical">
+                           <ImageView
+                               android:layout_width="90dp"
+                               android:layout_height="90dp"
+                               android:scaleType="fitXY"
+                               android:id="@+id/explore_courses_image"
+                               android:src="@drawable/codingpic"/>
+
+                       </LinearLayout>
+                   </androidx.cardview.widget.CardView>    </LinearLayout>
+
+           </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c8c8c8"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"/>
+                 </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

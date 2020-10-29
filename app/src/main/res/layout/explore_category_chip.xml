@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="1dp"
+    android:background="@drawable/exploretopicschipbackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.robertlevonyan.views.chip.Chip
+        android:id="@+id/chipTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Art and Humanities"
+        app:fontFamily="@font/opensansreg"
+        app:mcv_backgroundColor="@color/white"
+        app:mcv_textColor="#3C3A3A" />
+</LinearLayout>

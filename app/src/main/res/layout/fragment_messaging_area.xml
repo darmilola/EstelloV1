@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="false"
+    tools:showIn="@layout/activity_qand_aforum"
+    android:background="@color/white"
+    android:id="@+id/messaging_area_bottomsheet"
+    app:behavior_peekHeight="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
+        android:id="@+id/bottomsheet_inner_layout"
+        android:gravity="center"
+        android:layout_gravity="top"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:background="#60A5A4A4"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/messaging_fullscreen_reverse_layout"
+            android:gravity="right">
+
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="10dp"
+                android:tint="@color/light_text_color"
+                android:src="@drawable/full_screen_reverse_2x"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:minHeight="35dp"
+            android:orientation="horizontal">
+
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_weight="4.3"
+                android:scrollbars="none"
+                android:id="@+id/rtEdittextScrollview"
+                android:layout_height="wrap_content">
+
+                <com.estello.android.splashscreen.Model.RtEdittextScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:layout_marginRight="3dp"
+                    android:maxHeight="150dp"
+                    android:scrollbars="vertical"
+                    android:scrollbarSize="3dp"
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/bottom_sheet_edittext"
+                    android:textSize="@dimen/small_regular_text_size"
+                    android:inputType="textMultiLine"
+                    android:fontFamily="@font/opensansreg"
+                    android:background="@drawable/transparent_background"
+                    android:textColorHint="@color/dark_text_color"
+                    android:hint="Ping QandA"/>
+            </ScrollView>
+
+
+
+            <LinearLayout
+                android:layout_width="40dp"
+                android:gravity="center|top"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:id="@+id/QandAEdittextFullScreen"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="10dp"
+                    android:tint="@color/light_text_color"
+                    android:src="@drawable/full_screen_2x"/>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:gravity="right|center"
+                android:layout_marginRight="10dp"
+                android:visibility="visible"
+                android:id="@+id/QandAEdittextCameraFileIconsLayout"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/transparent">
+
+
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/light_dark_outline_circle">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:paddingBottom="3dp"
+                        android:id="@+id/messaging_area_picture_select_bottomsheet"
+                        android:tint="@color/dark_text_color"
+                        android:src="@drawable/camera_icon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/light_dark_outline_circle">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:tint="@color/dark_text_color"
+                        android:src="@drawable/new_mic_icon"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/QandAEdittextFile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="2dp"
+                    android:src="@drawable/file_upload"
+                    android:tint="@color/dark_text_color" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <include layout="@layout/text_formatting_toolbar_layout"/>
+
+</LinearLayout>

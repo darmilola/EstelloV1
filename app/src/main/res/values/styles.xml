@@ -1,0 +1,125 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorHint">@color/hintcolor</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+    </style>
+
+
+    <style name="ChipStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="fontFamily">@font/opensansreg</item>
+    </style>
+
+    <style name="Widget.BottomNavigationStyle" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/BottomNavigationTextStyle</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationTextStyle</item>
+    </style>
+
+    <style name="BottomNavigationTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12dp</item>
+        <item name="fontFamily">@font/clannews</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="AppTheme.TransparentWindow">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+
+    </style>
+
+
+    <style name="CollapsedAppBarTextSizeMedium" parent="@android:style/TextAppearance.Medium">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/opensansbold</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="WeeksTabTextAppearance" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/opensansreg</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="OverviewTabFirstElementAppearance" parent="TextAppearance.AppCompat.Small">
+
+        <item name="android:fontFamily">@font/opensansbold</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textAllCaps">false</item>
+
+    </style>
+
+    <style name="SequenceTitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/dark_text_color</item>
+        <item name="android:maxLines">7</item>
+        <item name="android:fontFamily">@font/opensansbold</item>
+    </style>
+
+
+
+    <style name="SequenceDesc" parent="@android:style/TextAppearance.Medium">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/dark_text_color</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:fontFamily">@font/opensansreg</item>
+    </style>
+    <style name="sign_up_field" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeWidth">3dp</item>
+        <item name="android:textColorHint">#c8c8c8</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="create_course_field" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeWidth">3dp</item>
+        <item name="android:textColorHint">#c8c8c8</item>
+
+    </style>
+
+    <style name="ErrorText" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

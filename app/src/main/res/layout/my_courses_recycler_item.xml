@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="265dp"
+        app:cardCornerRadius="6dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/white"
+            android:paddingBottom="15dp"
+            android:paddingTop="5dp"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tint="#3C3A3A"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/newgreymoreopt" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="40dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/opensansreg"
+                        android:text="University Of Michigan"
+                        android:textColor="#3C3A3A"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:ellipsize="end"
+                        android:gravity="left"
+                        android:maxLines="3"
+                        android:minHeight="70dp"
+                        android:fontFamily="@font/opensansbold"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/course_title"
+                        android:text="COVID-19: What You Need to Know(CME Eligible)"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:maxLines="1"
+                    android:layout_marginBottom="3dp"
+                    android:ellipsize="end"
+                    android:text="Session 2 (Python Basics the Exodus)"
+                    android:textColor="#3C3A3A"
+                    android:textSize="14dp" />
+
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:progress="40"
+                    android:max="100"
+                    android:progressDrawable="@drawable/custom_progress_drawable"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:background="#c8c8c8" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:id="@+id/status"
+                    android:fontFamily="@font/opensansreg"
+                    android:text="Ongoing Ends Oct 25"
+                    android:textColor="#3C3A3A"
+                    android:textSize="14dp" />
+
+                <ImageButton
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/circle_button_back"
+                    android:src="@drawable/rightarrow"
+                    android:padding="10dp"
+                    android:layout_marginTop="3dp"
+                    android:scaleType="centerInside"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/sign_up_next_page_button"
+                    android:layout_marginLeft="30dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

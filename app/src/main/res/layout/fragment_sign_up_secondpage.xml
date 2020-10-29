@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/White"
+    tools:context=".Fragments.sign_up_firstpage">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello,"
+        android:textSize="30dp"
+        android:id="@+id/sign_up_second_page_hello"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Micheal,Glazen"
+        android:textSize="20dp"
+        android:id="@+id/sign_up_second_page_firstname_lastname"
+        android:layout_marginTop="10dp"
+        android:textColor="#c8c8c8"
+       />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What do you want to do on SOD?"
+        android:textSize="20dp"
+        android:id="@+id/sign_up_second_page_whattodo"
+        android:layout_marginTop="20dp"
+        android:textColor="#c8c8c8"
+        />
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:id="@+id/acquire_new_skills"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Acquire new Skills"/>
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:id="@+id/organise_trainings"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Train and mentor learners"/>
+</LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:weightSum="5"
+    android:baselineAligned="false"
+    android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="0.7"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:strokeWidth="0.5dp"
+            app:strokeColor="@color/grey"
+            app:cardCornerRadius="3dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Profile Picture Of Post Maker"
+                android:src="@drawable/uni1"/>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4.3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Alan Pozo Rosadio"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/airbold"
+                android:maxLines="1"
+                android:maxWidth="250dp"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="2:54 PM"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/light_grey"
+                android:fontFamily="@font/airreg"
+                android:maxLines="1"
+                android:maxWidth="250dp"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <include layout="@layout/forum_post_question_type_tag"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            android:text="@string/large_text"
+            android:fontFamily="@font/airreg"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="6dp"
+            tools:targetApi="o" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.arthurivanets.arvi.widget.PlayableItemsRecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2"
+                android:id="@+id/forum_post_attachments_recyclerview"
+                tools:listitem="@layout/forum_post_item_attachments_type_video"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="3dp"
+                app:lottie_rawRes="@raw/clapping"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="3dp"
+                app:lottie_rawRes="@raw/haha"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <com.airbnb.lottie.LottieAnimationView
+
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                app:lottie_rawRes="@raw/love"
+                app:lottie_autoPlay="true"
+                android:layout_marginLeft="3dp"
+                app:lottie_loop="true"/>
+            <com.airbnb.lottie.LottieAnimationView
+
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                app:lottie_rawRes="@raw/sad"
+                android:layout_marginLeft="3dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                app:lottie_rawRes="@raw/angry"
+                app:lottie_autoPlay="true"
+                android:layout_marginLeft="3dp"
+                app:lottie_loop="true"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:text="1k"
+                android:id="@+id/reaction_count"
+                android:textSize="14dp"
+                android:fontFamily="@font/sourcereg"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="7dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/forum_post_item_last_comments_recycler_item"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="5"
+                    android:id="@+id/forum_post_recent_comments_recylerview"
+                    tools:itemCount="5"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:text="12 replies"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/sourcereg"
+                android:textColor="@color/blue"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

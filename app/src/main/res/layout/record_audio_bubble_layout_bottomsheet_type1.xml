@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_gravity="right|bottom"
+    android:layout_marginBottom="45dp"
+    android:visibility="gone"
+    android:elevation="1dp"
+    android:layout_marginRight="2dp"
+    android:id="@+id/record_audio_bubble_root_bottomsheet_type1"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="65dp"
+        android:orientation="vertical"
+        android:background="@drawable/audio_record_bubble_bottomsheet">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:fontFamily="@font/opensansreg"
+        android:text="Hold to record, release to send"/>
+
+
+    </LinearLayout>
+</LinearLayout>

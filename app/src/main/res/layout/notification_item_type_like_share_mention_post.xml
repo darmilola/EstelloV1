@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FDF9FD"
+    android:minHeight="65dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="7"
+        android:orientation="horizontal">
+
+ <LinearLayout
+     android:layout_width="0dp"
+     android:gravity="center"
+     android:layout_height="match_parent"
+     android:minHeight="60dp"
+     android:layout_weight="1.5">
+
+
+     <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
+         android:id="@+id/activity_main_user_profile_profile_image"
+         android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:layout_alignParentRight="true"
+         android:layout_gravity="center"
+         fresco:actualImageScaleType="fitXY"
+         fresco:placeholderImage="@drawable/churchpic"
+         fresco:placeholderImageScaleType="fitXY"
+         fresco:roundAsCircle="true"
+         fresco:roundingBorderColor="#fa2d65"
+         fresco:roundingBorderWidth="1dp" />
+ </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0dp"
+            android:ellipsize="end"
+            android:gravity="center|left"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:padding="10dp"
+            android:text="chccreated a new training  xxgx xgxgx xgxgx xgxgx xgxshshs hshs hhhshhh shshs hshgx xxggxgx xxgx xgbe hout."
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3h"
+            android:layout_weight="0.5"
+            android:id="@+id/notfication_timestamp"
+            android:textSize="15dp"
+            android:textColor="#fa2d65"
+            android:gravity="right"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#c8c8c8"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"/>
+</LinearLayout>

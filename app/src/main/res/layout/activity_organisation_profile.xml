@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:padding="0dp"
+    tools:context=".course_details">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/course_details_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/course_detail_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="left"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextSizeMedium"
+            app:contentScrim="?attr/colorPrimary"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/university"
+                    android:scaleType="fitXY"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:weightSum="4">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="2.5"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:text="Massachusetts institute of Technology Massachusetts Avenue Cambridge"
+                                android:layout_marginLeft="10dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:fontFamily="@font/opensanssemibold"
+                                android:textColor="@color/black"
+                                android:maxLines="2"
+                                android:layout_marginRight="10dp"/>
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="#c8c8c8"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"/>
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/opensansreg"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="www.massachusets.edu"
+                                android:textColor="#107AB1"
+                                android:textSize="15dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="#c8c8c8"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"/>
+
+
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_weight="1.5"
+                            app:cornerRadius="3dp"
+                            android:text="Message"
+                            android:fontFamily="@font/opensansreg"
+                            android:textAllCaps="false"/>
+
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:text="@string/large_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:lineSpacingExtra="5dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/opensansreg"
+                        android:textColor="#3C3A3A"
+                        android:layout_marginRight="20dp"/>
+
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/organisation_profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/organisation_profile_content"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

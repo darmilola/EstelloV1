@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    tools:context=".course_details">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/course_details_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/course_detail_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="left"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextSizeMedium"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            android:minHeight="150dp"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp">
+
+                    <ImageButton
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/colored_circle_button"
+                        android:src="@drawable/rightarrow"
+                        android:elevation="5dp"
+                        android:padding="10dp"
+                        android:id="@+id/course_training_welcome_enter"
+                        android:layout_marginBottom="3dp"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginTop="40dp"
+                        android:scaleType="centerInside"
+                        android:layout_marginRight="30dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradienttype2"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="23dp">
+
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:paddingLeft="30dp"
+                                android:paddingRight="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="50dp"
+                                android:src="@drawable/yale"
+                                android:tint="#3C3A3A" />
+
+
+                            <TextView
+                                android:id="@+id/course_training_welcome_course_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="30dp"
+                                android:paddingRight="30dp"
+                                android:layout_marginTop="20dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/opensansreg"
+                                android:gravity="center"
+                                android:maxLines="3"
+                                android:text="Yale University Machine Learrning  computers to act without being explicitly programmed"
+                                android:textColor="#3C3A3A"
+                                android:textSize="18dp" />
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:id="@+id/animationView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/liveclass" />
+                        </LinearLayout>
+
+
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/course_training_welcome_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/course_training_welcome_content"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

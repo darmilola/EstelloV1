@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:slk="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+<androidx.appcompat.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:id="@+id/preview_question_toolbar"
+    android:background="@color/colorPrimary">
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:text="Preview"
+       android:fontFamily="@font/latoreg"
+       android:textColor="@color/white"
+       android:gravity="center|left"
+       android:textSize="18dp"/>
+</androidx.appcompat.widget.Toolbar>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+    <com.slackwise.slackwisequestionview.SlackWiseQuestionView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:minHeight="350dp"
+        slk:setViewType = "equation"
+        slk:setEquationSize = "25dp"
+        slk:setEquation = "$\\int_0^\\infty e^{-x^2} dx=\\frac{\\sqrt{\\pi}}{2}$"
+        android:id="@+id/preview_question_question_view"
+        android:background="@color/light_primary"
+        slk:setTypeFace="@font/latoreg"
+        slk:setPadding="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.slackwise.slackwisebuttongroup.SlackWiseButtonGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.slackwise.slackwisebuttongroup.SlackWiseButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:minHeight="50dp"
+                android:gravity="center|left"
+                slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
+                slk:setText = " am no view type What  is the first ingredient in making a blue hammer"
+                slk:setTextColor="@color/white"
+                slk:setTextSize="15dp"
+                slk:setViewType = "text"
+                android:layout_margin="10dp"
+                android:background="@drawable/quiz_option_background"
+                slk:setTypeFace="@font/latoreg"
+                slk:setPadding="10dp"/>
+
+
+            <com.slackwise.slackwisebuttongroup.SlackWiseButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:minHeight="50dp"
+                android:gravity="center|left"
+                slk:setViewType = "equation"
+                slk:setEquationSize = "15dp"
+                slk:setEquation = "$\\int_0^\\infty e^{-x^2} dx=\\frac{\\sqrt{\\pi}}{2}$"
+                slk:setEquationColor = "@color/white"
+                slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
+                slk:setEquationViewBackgroundColor="@color/transparent"
+                android:layout_margin="10dp"
+                android:background="@drawable/quiz_option_background"
+                slk:setTypeFace="@font/latoreg"
+                slk:setPadding="10dp"/>
+            <com.slackwise.slackwisebuttongroup.SlackWiseButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:minHeight="50dp"
+                android:gravity="center|left"
+                slk:setViewType = "text"
+                slk:setText = "What  is the first ingredient in making a blue hammer"
+                slk:setTextColor="@color/white"
+                slk:setTextSize="15dp"
+                slk:selectedTextColor = "@color/green"
+                slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
+                android:layout_margin="10dp"
+                android:background="@drawable/quiz_option_background"
+                slk:setTypeFace="@font/latoreg"
+                slk:setPadding="10dp"/>
+            <com.slackwise.slackwisebuttongroup.SlackWiseButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:minHeight="50dp"
+                android:gravity="center|left"
+                slk:setViewType = "code"
+                slk:setLang="java"
+                slk:setCode = "x + y = 15;"
+                slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
+                android:layout_margin="10dp"
+                android:background="@drawable/quiz_option_background"
+                slk:setPadding="10dp"/>
+
+
+        </com.slackwise.slackwisebuttongroup.SlackWiseButtonGroup>
+    </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

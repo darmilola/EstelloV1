@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#c8c8c8"
+    tools:context=".Fragments.NotificationFragment">
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       tools:listitem="@layout/notification_item_type_like_share_mention_post"
+       android:id="@+id/notification_recyclerview">
+
+   </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

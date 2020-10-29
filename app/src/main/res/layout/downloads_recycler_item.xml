@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="#c8c8c8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:weightSum="3">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="2.5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:id="@+id/downloads_course_title"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Covid-19: What you need to know (CME Eligible)"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#c8c8c8"
+                    android:textSize="13dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/download_course_instructor"
+                    android:layout_marginTop="2dp"
+                    android:text="Coursera Lectures"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#c8c8c8"
+                    android:textSize="13dp"
+                    android:maxLines="1"
+                    android:id="@+id/download_file_size"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:text="168 MB"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/newdelete"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

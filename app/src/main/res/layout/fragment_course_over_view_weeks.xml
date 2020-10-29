@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="#F3F3F3"
+    android:orientation="vertical"
+    tools:context=".Fragments.CourseOverViewWeeksFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <com.google.android.material.card.MaterialCardView
+               android:layout_width="match_parent"
+               android:layout_height="120dp"
+               android:focusableInTouchMode="true"
+               android:layout_marginTop="20dp"
+               app:cardBackgroundColor="@color/white"
+               app:cardElevation="1dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="horizontal"
+                   android:weightSum="3">
+
+                   <TextView
+                       android:layout_width="0dp"
+                       android:layout_height="match_parent"
+                       android:layout_weight="2"
+                       android:textSize="14dp"
+                       android:gravity="center|left"
+                       android:paddingLeft="20dp"
+                       android:paddingBottom="10dp"
+                       android:paddingTop="10dp"
+                       android:ellipsize="end"
+                       android:maxLines="4"
+                       android:justificationMode="inter_word"
+                       android:id="@+id/course_week_title"
+                       android:fontFamily="@font/opensansreg"
+                       android:textColor="@color/dark_text_color"
+                       android:text="How To Program in Python 2 and Java for Beginners and other pro who wish to learn in a conducive environment and with better security thank you for every bit"/>
+
+                  <LinearLayout
+                      android:layout_width="0dp"
+                      android:gravity="center"
+                      android:layout_height="match_parent"
+                      android:layout_weight="0.2">
+
+                      <View
+                          android:layout_width="0.5dp"
+                          android:layout_height="match_parent"
+                          android:layout_marginBottom="15dp"
+                          android:layout_marginTop="15dp"
+                          android:background="#DBDBDB" />
+                  </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="match_parent"
+                       android:layout_weight="0.8"
+                       android:gravity="center"
+                       android:orientation="vertical">
+
+                       <ImageView
+                           android:layout_width="25dp"
+                           android:layout_height="25dp"
+                           android:src="@drawable/cloud_download_2x"
+                           android:tint="#5C36CE"/>
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Download"
+                           android:gravity="center"
+                           android:id="@+id/course_overview_week_download_text"
+                           android:textSize="14dp"
+                           android:textColor="@color/dark_text_color"
+                           android:fontFamily="@font/opensansreg"/>
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="250 MB"
+                           android:gravity="center"
+                           android:id="@+id/course_overview_week_file_size"
+                           android:textSize="@dimen/small_text_size"
+                           android:textColor="@color/light_text_color"
+                           android:fontFamily="@font/opensansreg"/>
+                   </LinearLayout>
+               </LinearLayout>
+           </com.google.android.material.card.MaterialCardView>
+
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="20dp"
+                   tools:itemCount="3"
+                   android:nestedScrollingEnabled="false"
+                   android:id="@+id/course_week_sections_recyclerview"
+                   tools:listitem="@layout/course_activity_week_section_details_item_video"
+                   android:layout_height="wrap_content"/>
+           </RelativeLayout>
+
+
+       </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

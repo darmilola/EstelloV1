@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="250dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_height="220dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White"
+            android:orientation="vertical">
+            <com.allattentionhere.autoplayvideos.AAH_VideoImage
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:id="@+id/explore_courses_image"
+                android:src="@drawable/churchpic"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/starting_soon_course_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="3"
+                android:paddingRight="20dp"
+                android:text="Master yea its a master of science in mathematics so. so. so of Business Administration(iMBA) University of illinois at Urbana-Champaign"
+                android:textColor="#505050"
+                android:textSize="12dp" />
+
+
+
+</LinearLayout>

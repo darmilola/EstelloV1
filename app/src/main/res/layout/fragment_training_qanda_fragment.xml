@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_primary"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:focusableInTouchMode="true"
+                app:cardCornerRadius="7dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        fresco:roundAsCircle="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/personal_profile_page_profile_picture"
+                        android:layout_gravity="center"
+                        fresco:placeholderImage="@drawable/codingpic"
+                        fresco:roundingBorderColor="@color/colorPrimary"
+                        fresco:roundingBorderWidth="1dp"
+                        fresco:actualImageScaleType="fitXY"
+                        android:layout_alignParentRight="true"
+                        fresco:placeholderImageScaleType="fitXY"/>
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:id="@+id/personal_profile_profile_name"
+                        android:textColor="#c8c8c8"
+                        android:text="Ask your Question"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/training_qanda_recyclerview"
+                tools:listitem="@layout/training_post_item">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

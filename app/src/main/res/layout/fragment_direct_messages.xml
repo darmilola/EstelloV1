@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".Fragments.DirectMessages">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/starting_soon_more_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:gravity="bottom|center"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:gravity="center|bottom"
+                    android:text="Direct Messages"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:gravity="center|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_gravity="bottom"
+                    android:tint="@color/white"
+                    android:src="@drawable/newsearchicon"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/direct_message_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/direct_message_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/new_compose_message"
+        app:tint = "@color/white"
+        app:maxImageSize="20dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

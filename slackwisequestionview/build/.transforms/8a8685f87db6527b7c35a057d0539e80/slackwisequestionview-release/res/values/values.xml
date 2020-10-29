@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="White">#ffffff</color>
+    <color name="grey">#c8c8c8</color>
+    <string name="app_name">SlackWiseQuestionView</string>
+    <declare-styleable name="slk">
+
+        <attr format="color|reference" name="setTextColor"/>
+        <attr format="dimension|reference" name="setTextSize"/>
+        <attr format="reference" name="setTypeFace"/>
+        <attr format="string|reference" name="setText"/>
+        <attr format="reference|string" name="setCode"/>
+        <attr format="string|reference" name="setLang">
+            <enum name="java" value="1"/>
+            <enum name="python" value="2"/>
+            <enum name="javascript" value="3"/>
+            <enum name="ruby" value="4"/>
+            <enum name="csharp" value="5"/>
+            <enum name="php" value="6"/>
+            <enum name="sql" value="7"/>
+            <enum name="cplusplus" value="8"/>
+        </attr>
+        <attr format="reference|color" name="setEquationColor"/>
+        <attr format="reference|string" name="setEquation"/>
+        <attr format="color|reference" name="setEquationViewBackgroundColor"/>
+        <attr format="dimension|reference" name="setEquationSize"/>
+        <attr format="string" name="setViewType">
+            <enum name="text" value="1"/>
+            <enum name="code" value="2"/>
+            <enum name="equation" value="3"/>
+        </attr>
+        <attr format="reference|dimension" name="setPadding"/>
+    </declare-styleable>
+</resources>

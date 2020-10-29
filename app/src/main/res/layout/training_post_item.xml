@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="#c8c8c8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:weightSum="6"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    fresco:roundAsCircle="true"
+                    android:id="@+id/personal_profile_page_profile_picture"
+                    android:layout_gravity="center"
+                    fresco:placeholderImage="@drawable/codingpic"
+                    fresco:roundingBorderColor="@color/colorPrimary"
+                    fresco:roundingBorderWidth="1dp"
+                    fresco:actualImageScaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    fresco:placeholderImageScaleType="fitXY"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center|left">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:id="@+id/training_post_profile_name"
+                    android:textColor="@color/black"
+                    android:text="Eva J Bloomberg"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:id="@+id/training_post_timestamp"
+                    android:text="10:07 AM"
+                    android:textColor="#A3A2A2"
+                    android:textSize="12dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/black"
+                  android:textSize="15dp"
+                  android:layout_marginTop="15dp"
+                  android:text="&#8942;"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:id="@+id/training_post_post_text"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/large_text"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#c8c8c8"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="#c8c8c8"
+                android:paddingLeft="20dp"
+                android:id="@+id/training_post_add_comment"
+                android:paddingRight="20dp"
+                android:text="Add Comment"
+                android:gravity="center|left"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

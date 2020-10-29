@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/syllabus_detail_section_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center"
+                android:justificationMode="inter_word"
+                android:fontFamily="@font/opensansbold"
+                android:text="Section 5 and Homework 4 (First Module with Racket)"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/syllabus_detail_section_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center"
+                android:justificationMode="inter_word"
+                android:fontFamily="@font/opensansreg"
+                android:text="Lets get Started programming with racket and then learning idioms related to delaying evaluation. The welcome message has a few additional comments and picking up a new language and how to approach the homework assignment, so lets get started"
+                android:textColor="#3C3A3A"
+                android:textSize="13dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bookicon"
+                    android:tint="#0AAD66" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#3C3A3A"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:id="@+id/syllabus_detail_section_material_count"
+                    android:text="7 videos, 3 readings, 3 Quizzes"
+                    android:gravity="center|left"/>
+            </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <ImageView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:tint="@color/pinkypinky"
+                   android:src="@drawable/podcasts_2_2x"
+                   android:layout_gravity="center"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:layout_marginLeft="5dp"
+                   android:text="3 hours Live"
+                   android:textSize="13dp"
+                   android:fontFamily="@font/opensansreg"
+                   android:id="@+id/syllabus_detail_live_sessions_count"
+                   android:textColor="#3C3A3A"
+                   android:gravity="center|left"/>
+           </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

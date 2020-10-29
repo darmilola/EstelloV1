@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_primary"
+    tools:context=".Fragments.downloadsFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/mydownloads_toolbar"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="My Downloads"
+            android:textSize="17dp"
+            android:id="@+id/mydownloads_toolbar_title"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/download_fragment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="2dp"
+        tools:listitem="@layout/downloads_recycler_item">
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

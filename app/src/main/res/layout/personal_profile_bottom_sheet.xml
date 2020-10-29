@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp"
+    android:id="@+id/profile_bottom_sheet_layout"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:behavior_hideable = "true"
+    app:behavior_peekHeight = "0dp">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/selectedtutoring"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="My Courses"
+                android:textSize="18dp"
+                android:id="@+id/personal_profile_my_courses"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/clouddownload"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Downloads"
+                android:textSize="18dp"
+                android:id="@+id/personal_profile_downloaded_materials"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:gravity="center|left"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="35dp"
+            android:tint="@color/colorPrimary"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/editprofile"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Edit"
+            android:textSize="18dp"
+            android:id="@+id/editprofile"
+            android:gravity="center"
+            android:fontFamily="@font/larsseit"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/chevronright"/>
+
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="left|center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="35dp"
+                android:tint="@color/colorPrimary"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/settings"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Settings"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/larsseit"
+                android:id="@+id/profile_settings"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="35dp"
+                android:tint="@color/colorPrimary"
+                android:layout_marginRight="5dp"
+
+                android:src="@drawable/money"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Earnings"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:id="@+id/profile_earning"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="32dp"
+                android:tint="@color/colorPrimary"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/verify"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Verification"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:id="@+id/profile_verification"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c8c8c8"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/invite"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Invite a friend"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:id="@+id/profile_invite_a_friend"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/help"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Help"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/bookpro"
+                android:id="@+id/profile__help"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/chevronright"/>
+
+    </RelativeLayout>
+</LinearLayout>

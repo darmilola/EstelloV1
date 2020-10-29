@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ExploreDisplaySelectedTopic">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/explore_display_selected_courses_toolbar"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:gravity="center|left"
+            android:layout_marginLeft="15dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/opensansreg"
+            android:id="@+id/explore_display_selected_courses_toolbar_title"
+            android:textColor="@color/White"
+            android:text="Most Popular Courses"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/explore_display_selected_topic_recycler_item"
+        android:id="@+id/explore_display_selected_courses_recyclerview"/>
+
+</LinearLayout>

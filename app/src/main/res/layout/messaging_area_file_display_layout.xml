@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E6E6E6"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:spanCount="3"
+        tools:itemCount="30"
+        tools:listitem="@layout/messaging_area_file_display_item" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/camera_icon"
+        app:backgroundTint="@color/White"
+        app:elevation="3dp"
+        app:fabSize="auto"
+        app:maxImageSize="30dp"
+        app:tint="#2B0331" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

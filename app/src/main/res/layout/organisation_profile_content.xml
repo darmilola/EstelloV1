@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#c8c8c8"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:text="Instructors"
+                    android:gravity="center"
+                    android:layout_alignParentLeft="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/opensansbold"
+                    android:layout_marginBottom="10dp" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#3C3A3A"
+                    android:text="See All"
+                    android:layout_alignParentRight="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:textSize="17dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/opensansreg"
+                    android:layout_marginBottom="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="4"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    android:id="@+id/organisation_instructors_profile_recyclerview"
+                    android:stretchMode="columnWidth"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/organisation_profile_instructor_item"/>
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#c8c8c8"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Courses"
+                android:focusableInTouchMode="true"
+                android:layout_marginLeft="20dp"
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/opensansbold"
+                android:layout_marginBottom="10dp" />
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginRight="5dp"
+                android:id="@+id/instructor_profile_recyclerview"
+                tools:listitem="@layout/instructor_profile_courses_item">
+            </androidx.recyclerview.widget.RecyclerView>
+   </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

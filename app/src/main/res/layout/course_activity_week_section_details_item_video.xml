@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:layout_weight="4"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center|top"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/dark_outline_circle">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:tint="@color/black"
+                    android:src="@drawable/ic_play_arrow"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:gravity="center|top">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/dark_text_color"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14dp"
+                    android:gravity="left"
+                    android:fontFamily="@font/opensansreg"
+                    android:id="@+id/training_materials_section_details_video_name"
+                    android:text="How To Use the Interactive TextBook"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:fontFamily="@font/opensansreg"
+                        android:id="@+id/training_materials_section_details_video"
+                        android:textColor="@color/light_text_color"
+                        android:textSize="13dp"
+                        android:text="Video"/>
+                    <ImageView
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="1dp"
+                        android:tint="@color/light_text_color"
+                        android:src="@drawable/grey_circle"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:fontFamily="@font/opensansreg"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/light_text_color"
+                        android:textSize="13dp"
+                        android:id="@+id/training_materials_section_details_video_time_to_complete"
+                        android:text="25 min"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center|top"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="17dp"
+            android:layout_gravity="center"
+            android:tint="#5C36CE"
+            android:src="@drawable/cloud_download_2x"/>
+    </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#DBDBDB" />
+</LinearLayout>

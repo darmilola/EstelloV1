@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="230dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="3dp"
+        app:cardBackgroundColor="#4a154b"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/quiz_item_triangle_background"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="10dp"
+                        android:src="@drawable/triangle"
+                        android:tint="#4a154b" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/create_quiz_item_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/latoreg"
+                        android:text="Quiz 1"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/create_quiz_item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/latoreg"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text="Mathematical Modelling of Ebola Virus Disease By Damilola Akinterinwa Okay now "
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/create_quiz_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/latoreg"
+                android:gravity="left|center"
+                android:maxLines="3"
+                android:text=" This is my project nnn on modelling i did last year it was realy Mathematical Modelling of Ebola Virus Disease By Damilola Akinterinwa Okay now "
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_quiz_item_edit"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/latoreg"
+                android:text="Edit"
+                android:textAllCaps="false"
+                android:textColor="#4a154b"
+                android:textSize="18dp"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="20dp" />
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

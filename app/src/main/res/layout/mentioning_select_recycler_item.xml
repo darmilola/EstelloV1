@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center|left"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <ImageView
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:src="@drawable/online_icon"
+        android:tint="#868585" />
+
+    <ImageView
+        xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        fresco:placeholderImage="@drawable/greyimage"
+        fresco:actualImageScaleType="centerCrop"
+        android:elevation="2dp"
+        android:src="@color/colorPrimary"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/attachment_video_thumbnail"
+        fresco:placeholderImageScaleType="centerCrop"/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:maxWidth="190dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:fontFamily="@font/airreg"
+                android:text="DM Guru Prasanna Prassana dpsingh"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center|left"
+            android:text="D Sree Rangan D lakshm"
+            android:maxLines="1"
+            android:textSize="14dp"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/airreg"
+            android:ellipsize="end"
+            android:maxWidth="100dp"
+            android:layout_height="match_parent"/>
+
+</LinearLayout>

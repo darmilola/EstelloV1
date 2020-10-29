@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:background="#FDF9FD">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:text="A"
+            android:fontFamily="@font/clanbold"
+            android:textColor="#5F5E5E"
+            android:textSize="15dp" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout"
+            android:id="@+id/create_quiz_question_optionA_value_codes"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#c8c8c8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:text="B"
+            android:fontFamily="@font/clanbold"
+            android:textColor="#5F5E5E"
+            android:textSize="15dp" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout"
+            android:id="@+id/create_quiz_question_optionB_value_codes"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#c8c8c8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/syllabus_detail_section_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:text="C"
+            android:fontFamily="@font/clanbold"
+            android:textColor="#5F5E5E"
+            android:textSize="15dp" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout"
+            android:id="@+id/create_quiz_question_optionC_value_codes"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#c8c8c8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:text="D"
+            android:fontFamily="@font/clanbold"
+            android:textColor="#5F5E5E"
+            android:textSize="15dp" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout"
+            android:id="@+id/create_quiz_question_optionD_value_codes"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#c8c8c8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:text="Answer"
+            android:fontFamily="@font/clanbold"
+            android:textColor="#5F5E5E"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/create_quiz_question_answer_value_codes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:fontFamily="@font/clanbold"
+            android:text="B"
+            android:textColor="@color/green"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#c8c8c8"/>
+
+</LinearLayout>

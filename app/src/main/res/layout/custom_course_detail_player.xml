@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Preview"
+        android:fontFamily="@font/opensansreg"
+        android:id="@+id/course_details_preview"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="left"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <ImageButton android:id="@id/exo_play"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_primary_background"
+        style="@style/ExoMediaButton.Play"/>
+
+    <ImageButton android:id="@id/exo_pause"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_primary_background"
+        style="@style/ExoMediaButton.Pause"/>
+
+    </FrameLayout>
+
+
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:id="@id/exo_progress"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:thumbTint="@color/colorPrimary"
+        app:played_color="@color/colorPrimary"
+        app:unplayed_color="@color/White"
+        app:buffered_color="#569C27B0"
+        app:bar_height="2dp"
+        android:background="@color/transparent"/>
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/White"
+    tools:context=".StartingSoonMore">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/starting_soon_more_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/starting_soon_more_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:ellipsize="end"
+            android:gravity="center|left"
+            android:maxLines="1"
+            android:fontFamily="@font/opensansreg"
+            android:text="Classes Starting Soon"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/explore_recycler_item_type2"
+    android:id="@+id/starting_soon_more_recycler_view"/>
+</LinearLayout>

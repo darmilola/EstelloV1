@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_primary"
+    tools:context=".CreateOrEditQuiz">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        app:contentInsetStart="0dp"
+        android:id="@+id/create_or_edit_quiz_item_toolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="17dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="left|center"
+            android:text="Create Quiz"
+            android:fontFamily="@font/latoreg"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/delete_icon"
+            android:tint="@color/white"/>
+    </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quiz Title"
+                    android:fontFamily="@font/latoreg"
+                    android:textColor="#807D7D"
+                    android:textSize="15dp"
+                    android:id="@+id/create_or_edit_quiz_item_title"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/create_or_edit_quiz_item_value_layout"
+                        style="@style/create_course_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:gravity="center"
+                        app:boxCornerRadiusBottomEnd="5dp"
+                        app:boxCornerRadiusBottomStart="5dp"
+                        app:boxCornerRadiusTopEnd="5dp"
+                        app:boxCornerRadiusTopStart="5dp"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="50"
+                        android:fontFamily="@font/latoreg"
+                        app:counterTextColor="@color/green"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/ErrorText"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_or_edit_quiz_item_title_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:gravity="left|top"
+                            android:hint="Type here..."
+                            android:maxLength="50"
+                            android:maxLines="5"
+                            android:fontFamily="@font/latoreg"
+                            android:textColor="@color/colorAccent"
+                            android:textColorHint="#c8c8c8"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quiz Description"
+                    android:textColor="#807D7D"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/latoreg"
+                    android:id="@+id/create_or_edit_quiz_item_description"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/create_or_edit_quiz_item_description_layout"
+                        style="@style/create_course_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/latoreg"
+                        app:boxCornerRadiusBottomEnd="5dp"
+                        app:boxCornerRadiusBottomStart="5dp"
+                        app:boxCornerRadiusTopEnd="5dp"
+                        app:boxCornerRadiusTopStart="5dp"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="100"
+                        app:counterTextColor="@color/green"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/ErrorText"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_or_edit_quiz_item_description_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:gravity="left|top"
+                            android:hint="Type here..."
+                            android:maxLength="100"
+                            android:maxLines="5"
+                            android:fontFamily="@font/latoreg"
+                            android:textColor="@color/colorAccent"
+                            android:textColorHint="#c8c8c8"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:paddingBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Questions Per Trial"
+                    android:textColor="#807D7D"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/latoreg"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/create_or_edit_quiz_item_questions_per_trial_title"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/create_or_edit_quiz_item_questions_per_trial_value_layout"
+                        style="@style/create_course_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxCornerRadiusBottomEnd="5dp"
+                        app:boxCornerRadiusBottomStart="5dp"
+                        app:boxCornerRadiusTopEnd="5dp"
+                        app:boxCornerRadiusTopStart="5dp"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:counterTextColor="@color/green"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/ErrorText"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_or_edit_quiz_item_questions_per_trial_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="left|top"
+                            android:hint="123"
+                            android:maxLines="1"
+                            android:fontFamily="@font/latoreg"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:textColor="@color/colorAccent"
+                            android:textColorHint="#c8c8c8"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:paddingBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pass Grade(%)"
+                    android:textColor="#807D7D"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/latoreg"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/create_or_edit_quiz_item_pass_grade_title"
+                    android:layout_marginTop="15dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/create_or_edit_quiz_item_pass_grade_value_layout"
+                        style="@style/create_course_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxCornerRadiusBottomEnd="5dp"
+                        app:boxCornerRadiusBottomStart="5dp"
+                        app:boxCornerRadiusTopEnd="5dp"
+                        app:boxCornerRadiusTopStart="5dp"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:counterTextColor="@color/green"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/ErrorText"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_or_edit_quiz_item_pass_grade_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="left|top"
+                            android:hint="123"
+                            android:maxLines="1"
+                            android:fontFamily="@font/latoreg"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:textColor="@color/colorAccent"
+                            android:textColorHint="#c8c8c8"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#807D7D"
+                    android:text="Related Syllabus Section"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/latoreg"
+                    android:id="@+id/create_or_edit_quiz_item_select_section_title"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="Select Section"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/latoreg"
+                    android:id="@+id/create_or_edit_quiz_item_select_section_button"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:text="Section 5"
+                android:fontFamily="@font/latoreg"
+                android:textSize="16dp"
+                android:id="@+id/create_or_edit_quiz_item_selected_section_name"
+                android:layout_marginLeft="25dp"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#807D7D"
+                    android:text="Questions"
+                    android:fontFamily="@font/latoreg"
+                    android:id="@+id/create_or_edit_quiz_item_question_title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:text="Add Question"
+                    android:gravity="center"
+                    android:fontFamily="@font/latoreg"
+                    android:id="@+id/create_or_edit_quiz_item_add_question"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/create_or_edit_quiz_item_question_recyclerview"
+                android:nestedScrollingEnabled="false"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

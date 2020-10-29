@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FCF0FD"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="horizontal">
+
+
+
+        <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/activity_main_user_profile_profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImage="@drawable/churchpic"
+            fresco:placeholderImageScaleType="fitXY"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/colorPrimary"
+            fresco:roundingBorderWidth="1dp" />
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:ellipsize="end"
+            android:gravity="center|left"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="3"
+            android:padding="10dp"
+            android:text="JJ Thompson just hchc chbchc cbchc cbcg chchc chchc chhc chhc chhc chbhbhch chccreated a new training be he first to check it out."
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3h"
+        android:id="@+id/notfication_timestamp"
+        android:textSize="15dp"
+        android:textColor="#fa2d65"
+        android:gravity="right"
+        android:layout_marginRight="20dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"/>
+</LinearLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradienttype1"
+    tools:context=".Welcome">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:gravity="center">
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="22dp"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="20dp"
+            android:text="Estello"/>
+    </LinearLayout>
+
+
+    <com.estello.android.splashscreen.Model.AutoScrollViewPager
+        android:id="@+id/welcome_pager"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="20dp"/>
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/welcome_card"
+      app:cardBackgroundColor="#00000000"
+      app:cardElevation="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|top">
+        <com.rd.PageIndicatorView
+            android:id="@+id/pageIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:piv_animationType="scale"
+            android:layout_marginTop="20dp"
+            app:piv_dynamicCount="true"
+            app:piv_radius="3dp"
+            app:piv_interactiveAnimation="true"
+            app:piv_selectedColor="#fa2d65"
+            app:piv_unselectedColor="#c8c8c8"
+            app:piv_viewPager="@id/welcome_pager"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="26dp"
+          android:gravity="center"
+          android:fontFamily="@font/sourcesemi"
+          android:id="@+id/welcome_slide_title"
+          android:text="Acquire New Skill"
+          android:layout_marginTop="20dp"
+          android:textColor="#000000"/>
+
+
+        <TextView
+            android:id="@+id/welcome_slide_exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/sourcereg"
+            android:gravity="top|center"
+            android:minHeight="80dp"
+            android:padding="5dp"
+            android:text="ok i now know you better grow your skill to a whole new level UpSkill grow your skill to a whole new level "
+            android:textColor="#A5A4A4"
+            android:textSize="18dp" />
+
+
+
+         <com.google.android.material.button.MaterialButton
+             android:layout_width="match_parent"
+             android:layout_height="53dp"
+             android:id="@+id/welcome_slide_create_account"
+             android:layout_marginLeft="40dp"
+             android:textAllCaps="false"
+             android:textSize="18dp"
+             android:layout_marginRight="40dp"
+             android:text="Create New Account"
+             android:fontFamily="@font/sourcereg"
+             android:textColor="@color/White"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Log In"
+          android:id="@+id/welcome_slide_login"
+          android:gravity="center"
+          android:fontFamily="@font/sourcereg"
+          android:layout_marginTop="10dp"
+          android:textColor="@color/colorAccent"
+          android:textSize="18dp"/>
+
+
+
+
+    </LinearLayout>
+  </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

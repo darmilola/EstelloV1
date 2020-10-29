@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:background="@color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/White">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/activity_main_user_profile_profile_image"
+                            fresco:roundAsCircle="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center"
+                            fresco:placeholderImage="@drawable/churchpic"
+                            fresco:roundingBorderColor="@color/colorPrimary"
+                            fresco:roundingBorderWidth="1dp"
+                            fresco:actualImageScaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            fresco:placeholderImageScaleType="fitXY"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:gravity="center|left"
+                                android:textSize="16dp"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:id="@+id/network_sender_fullname"
+                                android:text="Chelsea Jackson"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#c8c8c8"
+                                android:layout_marginTop="3dp"
+                                android:textSize="12dp"
+                                android:text="WebDeveloper|AI Enthusiast|pro"
+                                android:ellipsize="end"
+                                android:id="@+id/network_sender_profession"
+                                android:maxLines="1"/>
+
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="2d  ago"
+                        android:textSize="12dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#c8c8c8"
+                        android:layout_height="match_parent"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <com.hendraanggrian.appcompat.widget.SocialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:hashtagColor = "@color/hashtag_color"
+                app:mentionColor = "@color/mention_color"
+                android:text="# #AndroidDev welcome to the new world @damilola i say this we are goig to be the best #AndroidDev welcome to the new world @damilola i say this we are goig to be the best #AndroidDev welcome to the new world @damilola i say this we are goig to be the best #AndroidDev welcome to the new world @damilola i say this we are goig to be the bestAndroidDev welcome to the new world @damilola i say this we are goig to be the best"
+                android:textColor="@color/black"
+                android:fontFamily="@font/latoreg"
+                android:textSize="16dp"
+                android:lineSpacingExtra="2dp"
+                android:id="@+id/network_post_text"
+                app:socialFlags="hashtag|mention|hyperlink">
+
+            </com.hendraanggrian.appcompat.widget.SocialTextView>
+
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/SliderView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderCircularHandlerEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#ECECEC"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationView"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="3dp"
+                        app:lottie_rawRes="@raw/clapping"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="3dp"
+                        app:lottie_rawRes="@raw/haha"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <com.airbnb.lottie.LottieAnimationView
+
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        app:lottie_rawRes="@raw/love"
+                        app:lottie_autoPlay="true"
+                        android:layout_marginLeft="3dp"
+                        app:lottie_loop="true"/>
+                    <com.airbnb.lottie.LottieAnimationView
+
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        app:lottie_rawRes="@raw/sad"
+                        android:layout_marginLeft="3dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        app:lottie_rawRes="@raw/angry"
+                        app:lottie_autoPlay="true"
+                        android:layout_marginLeft="3dp"
+                        app:lottie_loop="true"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#c8c8c8"
+                        android:text="1k"
+                        android:id="@+id/reaction_count"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:layout_alignParentRight="true">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#c8c8c8"
+                        android:text="201k"
+                        android:id="@+id/comment_count"
+                        android:layout_marginLeft="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#c8c8c8"
+                        android:text="Comments"
+                        android:id="@+id/comments_title"
+                        android:layout_marginLeft="5dp"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#ECECEC"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/react_layout"
+                    android:gravity="center|left">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/react_button"
+                        android:background="@color/transparent"
+                        android:src="@drawable/clappingunreacted" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2k"
+                        android:id="@+id/clap_only_count"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/coloredcomment" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comment"
+                        android:id="@+id/comment_select_title"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13dp"
+                        android:layout_marginLeft="3dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:gravity="center|right">
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/newshare" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Share"
+                        android:id="@+id/share_title"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:minHeight="45dp"
+                android:layout_marginBottom="5dp"
+                android:weightSum="5"
+                android:layout_marginRight="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2">
+
+
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        fresco:roundAsCircle="true"
+                        android:layout_gravity="center"
+                        fresco:placeholderImage="@drawable/codingpic"
+                        fresco:roundingBorderColor="@color/colorPrimary"
+                        fresco:roundingBorderWidth="1dp"
+                        fresco:actualImageScaleType="fitXY"
+                        android:layout_alignParentRight="true"
+                        fresco:placeholderImageScaleType="fitXY"/>
+                </LinearLayout>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4.6"
+                    android:hint="Write Your Comment..."
+                    android:padding="10dp"
+                    android:minHeight="35dp"
+                    android:id="@+id/write_your_comment"
+                    android:textSize="13dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/comment_box_rect"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:gravity="left">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/newsendicon"/>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
