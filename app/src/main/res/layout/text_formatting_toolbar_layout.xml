@@ -70,6 +70,7 @@
                             ctr:setHorizontalScrollHeight="85dp"
                             ctr:setItalicizeActionSrc="@drawable/italics_action"
                             ctr:setLinkActionSrc="@drawable/link_action"
+                            ctr:setSizeIncActionSrc="@drawable/size_increment"
                             ctr:setNumberActionSrc="@drawable/number_action"
                             ctr:setSelectedActionBackground="@drawable/selected_format_background"
                             ctr:setStrikeActionSrc="@drawable/strike_action"

@@ -44,7 +44,8 @@
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:orientation="horizontal">
+             android:orientation="horizontal"
+             android:layout_marginTop="5dp">
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
@@ -72,13 +73,24 @@
          </LinearLayout>
 
          <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:ellipsize="end"
+             android:fontFamily="@font/airreg"
+             android:maxLines="1"
+             android:maxWidth="250dp"
+             android:text="Hawaii, USA"
+             android:textColor="#5F5F5F"
+             android:textSize="14dp" />
+
+         <TextView
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:textSize="17dp"
              android:textColor="@color/black"
              android:text="@string/large_text"
              android:fontFamily="@font/airreg"
-             android:layout_marginTop="5dp"
+             android:layout_marginTop="10dp"
              android:lineSpacingExtra="6dp"
              tools:targetApi="o" />
 
@@ -146,9 +158,10 @@
                  android:layout_height="wrap_content"
                  android:textColor="@color/blue"
                  android:text="1k"
+                 android:layout_marginTop="2dp"
                  android:id="@+id/reaction_count"
                  android:textSize="14dp"
-                 android:fontFamily="@font/sourcereg"
+                 android:fontFamily="@font/airreg"
                  android:layout_marginLeft="5dp"/>
          </LinearLayout>
 
@@ -158,19 +171,19 @@
              android:orientation="horizontal">
 
              <RelativeLayout
-             android:layout_width="wrap_content"
-             android:layout_height="30dp"
-             android:layout_marginTop="7dp">
-
-             <androidx.recyclerview.widget.RecyclerView
                  android:layout_width="wrap_content"
-                 android:layout_height="match_parent"
-                 tools:listitem="@layout/forum_post_item_last_comments_recycler_item"
-                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                 app:spanCount="5"
-                 android:id="@+id/forum_post_recent_comments_recylerview"
-                 tools:itemCount="5"/>
-         </RelativeLayout>
+                 android:layout_height="30dp"
+                 android:layout_marginTop="7dp">
+
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     tools:listitem="@layout/forum_post_item_last_comments_recycler_item"
+                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                     app:spanCount="5"
+                     android:id="@+id/forum_post_recent_comments_recylerview"
+                     tools:itemCount="5"/>
+             </RelativeLayout>
 
              <TextView
                  android:layout_width="wrap_content"
@@ -178,8 +191,9 @@
                  android:textSize="17dp"
                  android:gravity="center"
                  android:text="12 replies"
+                 android:layout_marginTop="5dp"
                  android:layout_marginLeft="10dp"
-                 android:fontFamily="@font/sourcereg"
+                 android:fontFamily="@font/airreg"
                  android:textColor="@color/blue"/>
          </LinearLayout>
      </LinearLayout>

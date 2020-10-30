@@ -83,7 +83,7 @@
             android:textColor="#5F5F5F"
             android:textSize="14dp" />
 
-        <include layout="@layout/forum_post_question_type_tag"/>
+        <include layout="@layout/forum_post_suggestion_type_tag"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

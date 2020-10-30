@@ -29,8 +29,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="55dp"
                 android:orientation="horizontal"
-                android:id="@+id/QandAFormatToolBarDisplayLayout"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:id="@+id/QandAFormatToolBarDisplayLayout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,6 +68,7 @@
                             ctr:setBoldActionSrc="@drawable/bold_action"
                             ctr:setBulletActionSrc="@drawable/list_3_2x"
                             ctr:setHorizontalScrollHeight="85dp"
+                            ctr:setSizeIncActionSrc="@drawable/size_increment"
                             ctr:setItalicizeActionSrc="@drawable/italics_action"
                             ctr:setLinkActionSrc="@drawable/link_action"
                             ctr:setNumberActionSrc="@drawable/number_action"
@@ -91,20 +92,31 @@
                 android:id="@+id/QandAAttachmentLayout"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="28dp"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/QandADisplayFormatToolbarIcon"
-                    android:src="@drawable/format_icon"
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
                     android:visibility="visible"
-                    android:tint="@color/dark_text_color" />
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/QandASuggestionSelectLayout"
+                    android:background="@drawable/yellow_colored_circle">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:padding="3dp"
+                        android:id="@+id/QandASuggestionSelect"
+                        android:tint="#F5C23A"
+                        android:src="@drawable/iconfinder_idea"/>
+                </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:gravity="center"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginRight="5dp"
                     android:visibility="visible"
                     android:id="@+id/QandAQuestionSelectLayout"
                     android:background="@drawable/colored_circle_outline">
@@ -117,6 +129,15 @@
                         android:tint="@color/blue"
                         android:src="@drawable/newquestionicon"/>
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="28dp"
+                    android:layout_marginRight="25dp"
+                    android:id="@+id/QandADisplayFormatToolbarIcon"
+                    android:src="@drawable/format_icon"
+                    android:visibility="visible"
+                    android:tint="@color/dark_text_color" />
 
                 <LinearLayout
                     android:layout_width="30dp"

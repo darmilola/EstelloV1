@@ -78,6 +78,10 @@ public interface RTToolbar {
 
     void setNumber(boolean enabled);
 
+    void setSizeInc(int size,boolean enabled);
+
+    void setSizeDec(int size,boolean enabled);
+
     void setAlignment(Layout.Alignment alignment);
 
 

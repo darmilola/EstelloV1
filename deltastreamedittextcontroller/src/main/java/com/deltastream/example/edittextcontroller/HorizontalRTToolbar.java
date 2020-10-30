@@ -17,6 +17,7 @@
 package com.deltastream.example.edittextcontroller;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     private boolean isLinkChecked = false;
     private boolean isBulletChecked = false;
     private boolean isNumbersChecked = false;
+    private boolean isSizeIncChecked = false;
     /*
      * The buttons
      */
@@ -61,6 +64,8 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     public ImageView mLink;
     public ImageView mBullet;
     public ImageView mNumbers;
+    public ImageView mSizeInc;
+
 
 
     /**
@@ -78,6 +83,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     Drawable linkActionDrawable;
     Drawable bulletActionDrawable;
     Drawable numberActionDrawable;
+    Drawable sizeIncActionDrawable;
     Drawable selectedActionBackground;
     Drawable unSelectedActionBackground;
     LinearLayout editorScrollView;
@@ -133,6 +139,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
             italicizeActionDrawable = a.getDrawable(R.styleable.ctr_setItalicizeActionSrc);
             strikeActionDrawable = a.getDrawable(R.styleable.ctr_setStrikeActionSrc);
             linkActionDrawable = a.getDrawable(R.styleable.ctr_setLinkActionSrc);
+            sizeIncActionDrawable = a.getDrawable(R.styleable.ctr_setSizeIncActionSrc);
             bulletActionDrawable = a.getDrawable(R.styleable.ctr_setBulletActionSrc);
             numberActionDrawable = a.getDrawable(R.styleable.ctr_setNumberActionSrc);
             selectedActionBackground = a.getDrawable(R.styleable.ctr_setSelectedActionBackground);
@@ -158,13 +165,16 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
         mLink = view.findViewById(R.id.link_action);
         mNumbers = view.findViewById(R.id.numbers_action);
         mStrike = view.findViewById(R.id.strike_action);
+        mSizeInc = view.findViewById(R.id.size_increase_action);
         mBold.setImageDrawable(boldActionDrawable);
+        mSizeInc.setImageDrawable(sizeIncActionDrawable);
         mBullet.setImageDrawable(bulletActionDrawable);
         mItalicize.setImageDrawable(italicizeActionDrawable);
         mLink.setImageDrawable(linkActionDrawable);
         mNumbers.setImageDrawable(numberActionDrawable);
         mStrike.setImageDrawable(strikeActionDrawable);
         mStrike.setBackground(unSelectedActionBackground);
+        mSizeInc.setBackground(unSelectedActionBackground);
         mBold.setBackground(unSelectedActionBackground);
         mBullet.setBackground(unSelectedActionBackground);
         mItalicize.setBackground(unSelectedActionBackground);
@@ -177,9 +187,11 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
         mLink.setOnClickListener(this);
         mNumbers.setOnClickListener(this);
         mStrike.setOnClickListener(this);
+        mSizeInc.setOnClickListener(this);
         mBold.setColorFilter(actionButtonTint);
         mNumbers.setColorFilter(actionButtonTint);
         mLink.setColorFilter(actionButtonTint);
+        mSizeInc.setColorFilter(actionButtonTint);
         mItalicize.setColorFilter(actionButtonTint);
         mBullet.setColorFilter(actionButtonTint);
         mStrike.setColorFilter(actionButtonTint);
@@ -193,6 +205,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
             mLink.setPadding(dpPadding, dpPadding, dpPadding, dpPadding);
             mBullet.setPadding(dpPadding, dpPadding, dpPadding, dpPadding);
             mNumbers.setPadding(dpPadding, dpPadding, dpPadding, dpPadding);
+            mSizeInc.setPadding(dpPadding,dpPadding,dpPadding,dpPadding);
         }
 
         if (actionButtonSize != 0) {
@@ -209,7 +222,8 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
             mBullet.getLayoutParams().width = dpSize; //mBullet.requestLayout();
             mNumbers.getLayoutParams().height = dpSize;
             mNumbers.getLayoutParams().width = dpSize; //mNumbers.requestLayout();
-
+            mSizeInc.getLayoutParams().height = dpSize;
+            mSizeInc.getLayoutParams().width = dpSize;
             editorScrollView.requestLayout();
         }
 
@@ -323,6 +337,21 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
         authBackground(mNumbers, enabled);
     }
 
+    @Override
+    public void setSizeInc(int size,boolean enabled) {
+
+            setmSizeIncChecked(enabled);
+            authBackground(mSizeInc,enabled);
+    }
+
+    @Override
+    public void setSizeDec(int size, boolean enabled) {
+
+        setmSizeIncChecked(enabled);
+        authBackground(mSizeInc,enabled);
+
+    }
+
 
     @Override
     public void setAlignment(Layout.Alignment alignment) {
@@ -332,6 +361,10 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     private void setBoldChecked(boolean checkStatus) {
 
         this.isBoldChecked = checkStatus;
+
+    }
+    private void setmSizeIncChecked(boolean checkedStatus){
+        this.isSizeIncChecked = checkedStatus;
 
     }
 
@@ -378,6 +411,10 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
         return isBulletChecked;
     }
 
+    public boolean isSizeIncChecked() {
+        return isSizeIncChecked;
+    }
+
     public boolean isNumbersChecked() {
 
         return isNumbersChecked;
@@ -386,8 +423,10 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     private void authBackground(ImageView imageView, boolean checkStatus) {
 
         if (checkStatus) {
+
             imageView.setBackground(selectedActionBackground);
             imageView.setColorFilter(actionButtonSelectedSrcTint);
+
         } else {
 
             imageView.setBackground(unSelectedActionBackground);
@@ -412,18 +451,20 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
                 setBoldChecked(!isBoldChecked);
                 authBackground(mBold, isBoldChecked);
-
-
                 mListener.onEffectSelected(Effects.BOLD, isBoldChecked());
+
             } else if (id == R.id.italics_action) {
+
                 setItalicsChecked(!isItalicsChecked);
                 authBackground(mItalicize, isItalicsChecked());
                 mListener.onEffectSelected(Effects.ITALIC, isItalicsChecked());
+
             } else if (id == R.id.strike_action) {
 
                 setStrikeChecked(!isStrikeChecked);
                 authBackground(mStrike, isStrikeChecked());
                 mListener.onEffectSelected(Effects.STRIKETHROUGH, isStrikeChecked());
+
             } else if (id == R.id.numbers_action) {
 
                 setNumbersChecked(!isNumbersChecked);
@@ -442,6 +483,24 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
                 mListener.onCreateLink();
 
             }
+            else if(id == R.id.size_increase_action){
+
+                if(isSizeIncChecked()){
+
+                    mListener.onEffectSelected(Effects.FONTSIZE,dpToPx(17));
+                    setmSizeIncChecked(isSizeIncChecked);
+                    authBackground(mSizeInc,!isSizeIncChecked());
+
+                }
+                else {
+
+                    mListener.onEffectSelected(Effects.FONTSIZE, dpToPx(22));
+                    setmSizeIncChecked(!isSizeIncChecked);
+                    authBackground(mSizeInc, isSizeIncChecked());
+
+                }
+
+            }
 
 
         }
@@ -450,5 +509,8 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
 
 
+    public static int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
+    }
 
 }

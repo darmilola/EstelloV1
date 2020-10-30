@@ -18,6 +18,7 @@ package com.deltastream.example.edittextcontroller;
 
 import android.content.Intent;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.text.Layout.Alignment;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -504,17 +506,16 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         boolean isItalic = false;
         boolean isUnderLine = false;
         boolean isStrikethrough = false;
-        boolean isSuperscript = false;
-        boolean isSubscript = false;
         boolean isBullet = false;
         boolean isNumber = false;
+        boolean isSizeInc = false;
         List<Alignment> alignments = null;
         List<Integer> sizes = null;
         List<Integer> fontColors = null;
         List<Integer> bgColors = null;
 
         // check if effect exists in selection
-        for (com.deltastream.example.edittextcontroller.effects.Effect effect : Effects.ALL_EFFECTS) {
+        for (Effect effect : Effects.ALL_EFFECTS) {
             if (effect.existsInSelection(editor)) {
                 if (effect instanceof BoldEffect) {
                     isBold = true;
@@ -524,11 +525,8 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
                     isUnderLine = true;
                 } else if (effect instanceof StrikethroughEffect) {
                     isStrikethrough = true;
-                } else if (effect instanceof SuperscriptEffect) {
-                    isSuperscript = true;
-                } else if (effect instanceof SubscriptEffect) {
-                    isSubscript = true;
-                } else if (effect instanceof BulletEffect) {
+                }
+                else if (effect instanceof BulletEffect) {
                     isBullet = true;
                 } else if (effect instanceof NumberEffect) {
                     isNumber = true;
@@ -536,10 +534,12 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
                     alignments = Effects.ALIGNMENT.valuesInSelection(editor);
                 } else if (effect instanceof AbsoluteSizeEffect) {
                     sizes = Effects.FONTSIZE.valuesInSelection(editor);
+                    isSizeInc = true;
                 }
                 else if (effect instanceof ForegroundColorEffect) {
                     fontColors = Effects.FONTCOLOR.valuesInSelection(editor);
                 }
+
             }
         }
 
@@ -558,18 +558,35 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
             if (alignments != null && alignments.size() == 1) {
                 toolbar.setAlignment(alignments.get(0));
             } else {
+
                 boolean isRTL = Helper.isRTL(editor.getText(), start, end);
                 toolbar.setAlignment(isRTL ? Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL);
             }
             if (fontColors != null) {
                 toolbar.setFontColor(Color.parseColor("#c8c8c8"));
-            } else {
+            }
+            else if(isSizeInc) {
+
+                if(sizes.get(0) == dpToPx(17)){
+
+                    toolbar.setSizeInc(sizes.get(0),false);
+                }
+                else{
+                    toolbar.setSizeInc(sizes.get(0),true);
+                }
+
+
+            }
+            else {
 
             }
         }
 
     }
 
+    public static int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
+    }
     @Override
     /* @inheritDoc */
     public void onTextChanged(RTEditText editor, Spannable before, Spannable after,

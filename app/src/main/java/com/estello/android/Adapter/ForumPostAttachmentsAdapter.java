@@ -49,6 +49,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeFile = 0;
     private static int typeImage = 1;
     private static int typeVideo = 2;
+    private static int typeAudio = 3;
     Config config;
     long playBackPosition = 0;
     public List<VideosViewHolder> videosViewHolderList = new ArrayList<>();
@@ -83,6 +84,12 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_item_attachments_type_video, parent, false);
             return new VideosViewHolder(parent,view2,config);
+
+        }
+        else if(viewType == typeAudio){
+
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_attachments_item_type_audio, parent, false);
+            return new AudioViewHolder(view2);
 
         }
         return  null;
@@ -227,6 +234,10 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             return  typeVideo;
         }
+        else if(attachmentsList.get(position).getAttachmentTypeCode() == typeAudio){
+
+            return  typeAudio;
+        }
 
         return typeImage;
     }
@@ -251,6 +262,17 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
 
         public FileViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+
+        }
+    }
+
+    public class AudioViewHolder extends RecyclerView.ViewHolder{
+
+
+
+        public AudioViewHolder(@NonNull View itemView) {
             super(itemView);
 
 

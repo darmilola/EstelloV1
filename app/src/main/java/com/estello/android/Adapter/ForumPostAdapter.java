@@ -29,8 +29,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static int typeDate = 0;
     private static int typePost = 1;
     private static int typeQuestion = 2;
+    private static int typeIdea = 3;
     private PostViewHolder postViewHolder;
     private QuestionPostViewHolder questionPostViewHolder;
+    private SuggestionsPostViewHolder suggestionsPostViewHolder;
 
     public ForumPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList) {
 
@@ -54,6 +56,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_question, parent, false);
             return new QuestionPostViewHolder(view2);
+        }
+        else if(viewType == typeIdea){
+
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_suggestion, parent, false);
+            return new SuggestionsPostViewHolder(view2);
         }
         return null;
 
@@ -124,6 +131,31 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
         }
+        if (forumPostList.get(position).getType() == typeIdea) {
+
+            suggestionsPostViewHolder = (SuggestionsPostViewHolder) holder;
+
+            LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
+            suggestionsPostViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
+            ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
+
+            Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config);
+
+            suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+            suggestionsPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
+            suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
+            //postViewHolder.attachmentsRecyclerView.onResume();
+            //postViewHolder.attachmentsRecyclerView.setCacheManager(CacheManager.DEFAULT);
+
+
+        }
 
 
     }
@@ -147,6 +179,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             return typeQuestion;
         }
+        else if(forumPostList.get(position).getType() == typeIdea){
+
+            return  typeIdea;
+        }
         return typePost;
     }
 
@@ -159,6 +195,9 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             postViewHolder.attachmentsRecyclerView.pausePlayback();
         }
+        if(suggestionsPostViewHolder != null){
+            suggestionsPostViewHolder.attachmentsRecyclerView.pausePlayback();
+        }
     }
     public void resumePlayBack(){
 
@@ -170,6 +209,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             postViewHolder.attachmentsRecyclerView.onResume();
         }
+        if(suggestionsPostViewHolder != null){
+
+            suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
+        }
     }
     public void destroyPlayer(){
 
@@ -180,6 +223,9 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if(postViewHolder != null){
 
             postViewHolder.attachmentsRecyclerView.onDestroy();
+        }
+        if(suggestionsPostViewHolder != null){
+            suggestionsPostViewHolder.attachmentsRecyclerView.onDestroy();
         }
     }
 
@@ -204,6 +250,22 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         PlayableItemsRecyclerView attachmentsRecyclerView;
 
         public QuestionPostViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
+            recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
+
+
+        }
+
+    }
+
+    public class SuggestionsPostViewHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView recentCommentsRecyclerView;
+        PlayableItemsRecyclerView attachmentsRecyclerView;
+
+        public SuggestionsPostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);

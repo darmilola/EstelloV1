@@ -90,8 +90,6 @@ public class QandAForum extends AppCompatActivity {
     LinearLayout QandAattachmentsPicturesLayout;
     ImageView QandAattchmentsFile;
 
-
-
     HorizontalRTToolbar bottomSheetformatToolbar;
     LinearLayout bottomSheetformatArea;
     LinearLayout bottomSheetToolbarDisplayLayout;
@@ -1820,6 +1818,10 @@ public class QandAForum extends AppCompatActivity {
             ForumPostAttachmentsModel forumPostAttachmentsModel4 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(1,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
             ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4","https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(0,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(3,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+
+
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
             for(int i = 0; i < 1; i++){
 
@@ -1827,6 +1829,8 @@ public class QandAForum extends AppCompatActivity {
                 forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel4);
                 forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel5);
                 forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel6);
+                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel7);
+                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel8);
 
 
             }
@@ -1834,6 +1838,7 @@ public class QandAForum extends AppCompatActivity {
             postModel.setPostGroupDate("October 15 2020");
             ForumPostModel postModel2 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,1);
             ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
+            ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
             forumPostModelArrayList = new ArrayList<>();
             for(int i = 0; i < 1; i++){
                 forumPostModelArrayList.add(postModel);
@@ -1841,6 +1846,7 @@ public class QandAForum extends AppCompatActivity {
 
                     forumPostModelArrayList.add(postModel2);
                     forumPostModelArrayList.add(postModel3);
+                    forumPostModelArrayList.add(postModel4);
                 }
             }
             return null;

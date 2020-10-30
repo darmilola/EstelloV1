@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="92f6f76c-0570-4f13-afa0-6264ccd54825" name="Default Changelist" comment="night">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Adapter/MentionSelectionAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Model/MentionSelectionModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-hdpi/online_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-mdpi/online_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/online_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-xxhdpi/online_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-xxxhdpi/online_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/mention_selection_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/mentioning_select_recycler_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/QandAForum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/QandAForum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_course.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_course.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_qand_aforum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_qand_aforum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../deltastreamedittextcontroller/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../deltastreamedittextcontroller/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/MentionHashTagListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/MentionHashTagListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditText.java" beforeDir="false" afterPath="$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/consumer-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/androidTest/java/com/deltastream/example/edittextcontroller/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/Bold.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/ClonedSpannableString.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/HorizontalRTToolbar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/LinkFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditText.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditTextListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditorMovementMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTOperationManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTToolbar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTToolbarListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/RTApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/RTProxy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/RTProxyImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTEditable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTHtml.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTPlainText.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTSpanned.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/api/format/RTText.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/AccumulatedParagraphStyle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/ConverterHtmlToSpanned.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/ConverterHtmlToText.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/ConverterSpannedToHtml.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/ConverterTextToHtml.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/ParagraphType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/SingleParagraphStyle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/AttributesImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/AutoDetector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/Element.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/ElementType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/HTMLModels.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/HTMLScanner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/HTMLSchema.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/HTMLWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/Patterns.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/ScanHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/Scanner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/Schema.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/AggregateTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/CharSequenceTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/CodePointTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/EntityArrays.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/LookupTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/NumericEntityEscaper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/NumericEntityUnescaper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/converter/tagsoup/util/StringEscapeUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/AbsoluteSizeEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/AlignmentEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/BackgroundColorEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/BoldEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/BooleanEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/BulletEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/CharacterEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/CharacterSpanCollector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/Effect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/Effects.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/ForegroundColorEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/IndentationEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/IntegerEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/ItalicEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/LinkEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/NumberEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/ParagraphEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/ParagraphSpanCollector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/ParagraphSpanProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/SpanCollectMode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/SpanCollector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/StrikethroughEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/SubscriptEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/SuperscriptEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/effects/UnderlineEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/AbsoluteSizeSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/AlignmentSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/BackgroundColorSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/BaseListItemSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/BoldSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/BulletSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/ForegroundColorSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/IndentationSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/ItalicSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/LinkSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/NumberSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/RTParagraphSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/RTSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/StrikethroughSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/SubscriptSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/SuperscriptSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/spans/UnderlineSpan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/Helper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/Paragraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/RTLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/Selection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/Charsets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/FilenameUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/IOCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/IOUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/LineIterator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/input/ClosedInputStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/output/ByteArrayOutputStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/io/output/StringBuilderWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/validator/DomainValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/validator/EmailValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/validator/InetAddressValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/validator/RegexValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/utils/validator/UrlValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/circle_primary_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_bold.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_bullet.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_italics.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_link.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_numbers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-anydpi/ic_action_strike.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_italics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_link.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_numbers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-hdpi/ic_action_strike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_italics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_link.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_numbers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-mdpi/ic_action_strike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_italics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_link.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_numbers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xhdpi/ic_action_strike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_italics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_link.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_numbers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable-xxhdpi/ic_action_strike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable/mimg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/drawable/transparent_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/font/font.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/font/opensansreg.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/layout/editor_layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/layout/link_dialog.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/values/attrs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../edittextcontroller/src/test/java/com/deltastream/example/edittextcontroller/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../settings.gradle" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="03918098CL000930" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/../deltastreamedittextcontroller">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sms" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sms" type="f1a62948:ProjectNode" />
+                <item name="deltastreamedittextcontroller" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sms" type="f1a62948:ProjectNode" />
+                <item name="deltastreamedittextcontroller" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sms" type="f1a62948:ProjectNode" />
+                <item name="deltastreamedittextcontroller" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="android" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sms" type="f1a62948:ProjectNode" />
+                <item name="deltastreamedittextcontroller" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/mention_selection_layout.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/QandAForum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="178" column="7" selection-start-line="178" selection-start-column="7" selection-end-line="178" selection-end-column="7" />
+              <folding>
+                <element signature="e#60266#60267#0" expanded="true" />
+                <element signature="e#60337#60338#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/MentionHashTagListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="48">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditText.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="150" column="27" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Adapter/MentionSelectionAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="481">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_qand_aforum.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/messaging_area_bottomsheet.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+        <option value="$PROJECT_DIR$/../build.gradle" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_qand_aforum.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Model/MentionSelectionModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Adapter/MentionSelectionAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/messaging_area_bottomsheet.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/QandAForum.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/mention_selection_layout.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__Codeview_1_0_0_webviewcode_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_alpha08_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_rc01_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_alpha05_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_2_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_alpha05_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_2_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0_beta01_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0_rc01_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_concurrent_concurrent_futures_1_0_0_beta01_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_0_beta8_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_0_beta8_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_alpha01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_beta01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_2_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_exifinterface_exifinterface_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_alpha08_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_2_0_alpha01_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_2_0_alpha01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_2_0_alpha01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_alpha05_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_beta01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_beta01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_beta01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_beta01_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_alpha04_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__artifacts_slackwisebuttongroup_unspecified_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__artifacts_slackwisequestionview_unspecified_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_3_4_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_allattentionhere_autoplayvideos_0_2_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_amulyakhare_com_amulyakhare_textdrawable_1_0_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_arthurivanets_arvi_arvi_1_2_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_beloo_widget_ChipsLayoutManager_0_3_7_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_bignerdranch_android_expandablerecyclerview_3_0_0_RC1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_dinuscxj_circleprogressbar_1_3_6_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_drawee_1_10_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fbcore_1_10_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fresco_1_10_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_1_10_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_base_1_10_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_keyframes_keyframes_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_fxn769_bubbletabbar_1_0_5_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_JarvanMo_ExoVideoView_2_1_6_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_adroitandroid_ChipCloud_2_2_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_clans_fab_1_6_4_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_davidmigloz_drag_to_close_1_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_pchmn_MaterialChipsInput_1_0_8_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_psinetron_slycalendarview_0_0_9_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_smarteist_autoimageslider_1_3_2_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_transferwise_sequence_layout_1_0_11_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_warkiz_widget_indicatorseekbar_2_1_2_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_zhpanvip_viewpagerindicator_1_0_4_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_core_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_dash_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_hls_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_smoothstreaming_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_ui_2_11_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_alpha07_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_1_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_hendraanggrian_appcompat_socialview_0_3_rc1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_henryblue_ijkplayerlibrary_ijkplayer_java_1_0_3_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_henryblue_mxvideoplayer_xvideoplayer_1_1_6_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_8_5_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_annotations_8_5_1_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_kofigyan_stateprogressbar_stateprogressbar_1_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_ramijemli_percentagechartview_percentagechartview_0_3_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_robertlevonyan_view_MaterialChipView_2_0_4_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_romandanylyk_pageindicatorview_1_0_3_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_17_4_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_71828_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_stepstone_stepper_material_stepper_4_3_1_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_thoughtbot_expandablerecyclerview_1_3_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__de_greenrobot_eventbus_2_4_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_1_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__in_hourglass_mathrender_katexmathview_1_0_3_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_inflationx_calligraphy3_3_0_0_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_inflationx_viewpump_2_0_3_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__io_sulek_currencyfield_1_0_12_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_greenrobot_eventbus_3_2_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_71_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_71_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_71_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_all_1_8_4_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__ru_tinkoff_scrollingpagerindicator_scrollingpagerindicator_1_0_6_aar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle__tm_charlie_androidlib_expandable_textview_2_0_2_aar.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="23" />
+    <option name="y" value="8" />
+    <option name="width" value="629" />
+    <option name="height" value="771" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="splashscreen" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="splashscreen" type="462c0819:PsiDirectoryNode" />
+              <item name="Adapter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="splashscreen" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92f6f76c-0570-4f13-afa0-6264ccd54825" name="Default Changelist" comment="" />
+      <created>1603726330772</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603726330772</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Capture Tool" order="0" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.28851965" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Resources Explorer" order="6" />
+      <window_info id="Designer" order="7" />
+      <window_info id="Captures" order="8" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Run" />
+      <window_info anchor="bottom" id="Debug" />
+      <window_info anchor="bottom" id="Statistic" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Build" order="4" weight="0.327787" />
+      <window_info anchor="bottom" id="Logcat" order="5" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Gradle" order="1" weight="0.32930514" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" />
+      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.30362538" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/res/layout/editor_layout.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_course.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../slackwisebuttongroup/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../slackwisequestionview/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_downloads.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Model/MentionSelectionModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Adapter/more_adapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/Adapter/MentionSelectionAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/MentionHashTagListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../deltastreamedittextcontroller/src/main/java/com/deltastream/example/edittextcontroller/RTEditText.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="150" column="27" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/android/splashscreen/QandAForum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="178" column="7" selection-start-line="178" selection-start-column="7" selection-end-line="178" selection-end-column="7" />
+          <folding>
+            <element signature="e#60266#60267#0" expanded="true" />
+            <element signature="e#60337#60338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_qand_aforum.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/record_audio_bubble_layout_bottomsheet_type1.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/messaging_area_bottomsheet.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/record_delete_anim_layout_bottomsheet_type1.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-953">
+          <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/mention_selection_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -36,8 +36,6 @@ public interface RTToolbarListener {
     void onClearFormatting();
 
     void onCreateLink();
-
-
     void onMentionSelected();
     void onHashTagSelected();
     void onStopMentioning();
