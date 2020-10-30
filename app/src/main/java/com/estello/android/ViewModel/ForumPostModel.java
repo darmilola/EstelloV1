@@ -3,7 +3,6 @@ package com.estello.android.ViewModel;
 import java.util.ArrayList;
 
 public class ForumPostModel {
-
     private ArrayList<User> recentReplyingUsersList;
     private ArrayList<ForumPostAttachmentsModel> postAttachmentList;
     private String forumPostText;
