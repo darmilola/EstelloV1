@@ -23,6 +23,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.QuoteSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 
 
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
@@ -579,6 +580,7 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         String fontName = null;
 
         String style = attributes.getValue("", "style");
+        String color = attributes.getValue("","color");
         if (style != null) {
             for (String part : style.toLowerCase(Locale.ENGLISH).split(";")) {
                 if (part.startsWith("font-size")) {
@@ -598,7 +600,8 @@ public class ConverterHtmlToSpanned implements ContentHandler {
                         int end = matcher.end();
                         fgColor = part.substring(start, end);
                     }
-                } else if (part.startsWith("background-color")) {
+                }
+                else if (part.startsWith("background-color")) {
                     Matcher matcher = FONT_COLOR.matcher(part);
                     if (matcher.find(0)) {
                         int start = matcher.start();
@@ -609,12 +612,24 @@ public class ConverterHtmlToSpanned implements ContentHandler {
             }
         }
 
+       /* if(color != null){
+
+            String part  =  color.toLowerCase(Locale.ENGLISH);
+            Matcher matcher = FONT_COLOR.matcher(part);
+            if (matcher.find(0)) {
+                int start = matcher.start();
+                int end = matcher.end();
+                fgColor = part.substring(start, end);
+
+            }
+        }*/
+        Log.e(fgColor, "startFont: ");
         fontName = attributes.getValue("", "face");
 
         int len = mResult.length();
         Font font = new Font()
                 .setSize(size)
-                .setFGColor(fgColor)
+                .setFGColor("0xFF0000")//(fgColor)
                 .setBGColor(bgColor)
                 .setFontFace(fontName);
         mResult.setSpan(font, len, len, Spanned.SPAN_MARK_MARK);

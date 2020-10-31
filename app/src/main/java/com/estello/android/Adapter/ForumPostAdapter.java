@@ -1,6 +1,11 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,14 @@ import com.arthurivanets.arvi.Config;
 import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
 import com.arthurivanets.arvi.widget.PlayableItemsContainer;
 import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+import com.deltastream.example.edittextcontroller.RTEditText;
+import com.deltastream.example.edittextcontroller.RTextView;
+import com.deltastream.example.edittextcontroller.api.format.RTFormat;
+import com.deltastream.example.edittextcontroller.api.format.RTHtml;
+import com.deltastream.example.edittextcontroller.api.format.RTSpanned;
+import com.deltastream.example.edittextcontroller.api.format.RTText;
+import com.deltastream.example.edittextcontroller.converter.ConverterHtmlToSpanned;
+import com.estello.android.QandAForum;
 import com.estello.android.ViewModel.ForumPostModel;
 
 import com.estello.android.R;
@@ -17,6 +30,7 @@ import com.estello.android.R;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -76,6 +90,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             postViewHolder = (PostViewHolder) holder;
 
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String text = preferences.getString("1","");
+            postViewHolder.textView.setText(text);
+
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
@@ -92,8 +110,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             postViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             postViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.setCacheManager(CacheManager.DEFAULT);
+
 
 
         } else if (forumPostList.get(position).getType() == typeDate) {
@@ -109,6 +126,13 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (forumPostList.get(position).getType() == typeQuestion) {
 
             questionPostViewHolder = (QuestionPostViewHolder) holder;
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            String text =  preferences.getString("2","");
+            RTHtml rtHtml = new RTHtml(text);
+            //HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
+            questionPostViewHolder.textView.setText(rtHtml);
 
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -126,14 +150,18 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             questionPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             questionPostViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.setCacheManager(CacheManager.DEFAULT);
+
 
 
         }
         if (forumPostList.get(position).getType() == typeIdea) {
 
             suggestionsPostViewHolder = (SuggestionsPostViewHolder) holder;
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String text = preferences.getString("3","");
+            suggestionsPostViewHolder.textView.setText(text);
+
 
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -151,8 +179,8 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             suggestionsPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.onResume();
-            //postViewHolder.attachmentsRecyclerView.setCacheManager(CacheManager.DEFAULT);
+
+
 
 
         }
@@ -233,12 +261,14 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
+        TextView textView;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
             recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
+            textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
 
 
         }
@@ -248,12 +278,14 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
+        RTextView textView;
 
         public QuestionPostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
             recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
+            textView = itemView.findViewById(R.id.forum_post_recycler_item_question_textview);
 
 
         }
@@ -264,13 +296,14 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
+        TextView textView;
 
         public SuggestionsPostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
             recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
-
+            textView = itemView.findViewById(R.id.forum_post_recycler_item_suggestion_textview);
 
         }
 

@@ -311,12 +311,12 @@ public class ConverterSpannedToHtml {
             mOut.append(size);
             mOut.append("px\">");
         } else if (style instanceof ForegroundColorSpan) {
-            mOut.append("<font style=\"color:#");
+            mOut.append("<font color = '#");
             String color = Integer.toHexString(((ForegroundColorSpan) style).getForegroundColor() + 0x01000000);
             while (color.length() < 6) {
                 color = "0" + color;
             }
-            mOut.append(color);
+            mOut.append(color+"'");
             mOut.append("\">");
         } else if (style instanceof BackgroundColorSpan) {
             mOut.append("<font style=\"background-color:#");

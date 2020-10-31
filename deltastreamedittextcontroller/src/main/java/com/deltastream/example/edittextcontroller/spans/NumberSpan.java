@@ -64,8 +64,8 @@ public class NumberSpan extends BaseListItemSpan implements LeadingMarginSpan, R
             Paint.Style oldStyle = p.getStyle();
             float oldTextSize = p.getTextSize();
             p.setStyle(Paint.Style.FILL);
-            float textSize = determineTextSize(spanned, start, end, oldTextSize);
-            p.setTextSize(textSize);
+            //float textSize = determineTextSize(spanned, start, end, oldTextSize);
+            p.setTextSize(35);
             mWidth = p.measureText(mNr + ".");
 
             // draw the number

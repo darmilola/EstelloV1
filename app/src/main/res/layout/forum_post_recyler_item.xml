@@ -88,11 +88,11 @@
              android:layout_height="wrap_content"
              android:textSize="17dp"
              android:textColor="@color/black"
+             android:id="@+id/forum_post_recycler_item_textview"
              android:text="@string/large_text"
              android:fontFamily="@font/airreg"
              android:layout_marginTop="10dp"
-             android:lineSpacingExtra="6dp"
-             tools:targetApi="o" />
+             android:lineSpacingExtra="6dp"/>
 
 
          <RelativeLayout

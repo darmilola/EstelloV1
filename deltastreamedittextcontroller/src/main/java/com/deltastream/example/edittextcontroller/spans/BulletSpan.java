@@ -16,6 +16,7 @@
 
 package com.deltastream.example.edittextcontroller.spans;
 
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -23,6 +24,7 @@ import android.graphics.Path.Direction;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
+import android.util.TypedValue;
 
 /**
  * Implementation for a bullet point LeadingMarginSpan
@@ -68,12 +70,16 @@ public class BulletSpan extends BaseListItemSpan implements LeadingMarginSpan, R
             p.setStyle(Paint.Style.FILL);
 
             // draw the bullet point
-            int size = Math.max(Math.round(determineTextSize(spanned, start, end, p.getTextSize()) / 9f), 4);
-            draw(c, p, x, dir, top, bottom, size);
+           // int size = Math.max(Math.round(determineTextSize(spanned, start, end, p.getTextSize()) / 9f), 8);
+            draw(c, p, x, dir, top, bottom, 8);
 
             // restore paint
             p.setStyle(oldStyle);
         }
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
     }
 
     private void draw(Canvas c, Paint p, int x, int dir, int top, int bottom, int size) {

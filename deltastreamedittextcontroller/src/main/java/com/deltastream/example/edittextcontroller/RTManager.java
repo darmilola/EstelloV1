@@ -567,7 +567,7 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
             }
             else if(isSizeInc) {
 
-                if(sizes.get(0) == dpToPx(17)){
+                if(sizes.get(0) == 17){
 
                     toolbar.setSizeInc(sizes.get(0),false);
                 }

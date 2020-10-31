@@ -84,7 +84,7 @@
             android:textSize="14dp" />
 
         <include layout="@layout/forum_post_question_type_tag"/>
-        <TextView
+        <com.deltastream.example.edittextcontroller.RTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
@@ -93,7 +93,7 @@
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="6dp"
-            tools:targetApi="o" />
+            android:id="@+id/forum_post_recycler_item_question_textview"/>
 
 
         <RelativeLayout

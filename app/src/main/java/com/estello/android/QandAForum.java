@@ -79,6 +79,7 @@ public class QandAForum extends AppCompatActivity {
     LinearLayout edittextFullScreen;
     LinearLayout edittextCameraFileLayout;
     LinearLayout QandAQuestionSelectLayout;
+    LinearLayout QandASuggetsionSelectLayout;
     LinearLayout QandAToolbarDisplayLayout;
     LinearLayout QandAattachmentLayout;
     LinearLayout QandAformattingAreaLayout;
@@ -161,6 +162,7 @@ public class QandAForum extends AppCompatActivity {
     int selectionInStartHashTagging;
     boolean selectionChangeFromMentioning  = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
+    int i  = 0;
 
 
 
@@ -196,7 +198,7 @@ public class QandAForum extends AppCompatActivity {
                 if(selectionInStartMentioning > rtEditText.getSelectionStart()) selectionInStartMentioning = rtEditText.getSelectionStart();
                 selectionChangeFromMentioning = true;
                 rtEditText.getText().replace(selectionInStartMentioning,rtEditText.getSelectionStart(),"");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(),"Damilola Akinterinwa");
+                rtEditText.getText().insert(rtEditText.getSelectionStart(),"Damilola"+"\u00A0"+"Akinterinwa");
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
 
             }
@@ -309,6 +311,7 @@ public class QandAForum extends AppCompatActivity {
         //bottom_sheet = findViewById(R.id.messaging_area_bottomsheet);
 
         QandAQuestionSelectLayout = findViewById(R.id.QandAQuestionSelectLayout);
+        QandASuggetsionSelectLayout = findViewById(R.id.QandASuggestionSelectLayout);
         QandAattachmentsPicturesLayout = findViewById(R.id.QandAattachmentsPicturesLayout);
         QandAattchmentsFile = findViewById(R.id.QandAAttachmentFileSelect);
         QandAattachmentsRecyclerView = findViewById(R.id.q_and_a_attachments_recyclerview);
@@ -681,8 +684,9 @@ public class QandAForum extends AppCompatActivity {
              @Override
              public void onClick(View view) {
 
-                 bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
-                 QandAattachmentsRecyclerView.setVisibility(View.GONE);
+                   saveTextToSharedPref();
+ //                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
+  //               QandAattachmentsRecyclerView.setVisibility(View.GONE);
                  //bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
                  //((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
              }
@@ -1539,6 +1543,7 @@ public class QandAForum extends AppCompatActivity {
         QandAattchmentsFile.setVisibility(View.GONE);
         QandAattachmentsPicturesLayout.setVisibility(View.GONE);
         QandAQuestionSelectLayout.setVisibility(View.GONE);
+        QandASuggetsionSelectLayout.setVisibility(View.GONE);
 
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
         lp1.leftMargin = 30;
@@ -1556,6 +1561,7 @@ public class QandAForum extends AppCompatActivity {
         QandAattchmentsFile.setVisibility(View.VISIBLE);
         QandAattachmentsPicturesLayout.setVisibility(View.VISIBLE);
         QandAQuestionSelectLayout.setVisibility(View.VISIBLE);
+        QandASuggetsionSelectLayout.setVisibility(View.VISIBLE);
 
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(65,65);
         audiorecordViewTypeActivityRoot.setLayoutParams(lp1);
@@ -1861,5 +1867,15 @@ public class QandAForum extends AppCompatActivity {
 
 
         }
+    }
+
+    private void saveTextToSharedPref(){
+
+        i = i + 1;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QandAForum.this);
+        if(i == 1) preferences.edit().putString("1",rtEditText.getText(RTFormat.HTML)).apply();
+        if(i == 2) preferences.edit().putString("2",rtEditText.getText(RTFormat.HTML)).apply();
+        if(i == 3) preferences.edit().putString("3",rtEditText.getText(RTFormat.HTML)).apply();
+
     }
 }

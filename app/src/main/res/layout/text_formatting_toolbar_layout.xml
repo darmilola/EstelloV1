@@ -92,10 +92,42 @@
                 android:id="@+id/AttachmentLayout"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/yellow_colored_circle">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:padding="3dp"
+                        android:tint="#F5C23A"
+                        android:src="@drawable/iconfinder_idea"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:visibility="visible"
+                    android:background="@drawable/colored_circle_outline">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:padding="3dp"
+                        android:tint="@color/blue"
+                        android:src="@drawable/newquestionicon"/>
+                </LinearLayout>
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="28dp"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="25dp"
                     android:id="@+id/DisplayFormatToolbarIcon"
                     android:src="@drawable/format_icon"
                     android:tint="@color/dark_text_color" />
@@ -124,6 +156,21 @@
                     android:id="@+id/messaging_area_bottomsheet_file_select2"
                     android:tint="@color/dark_text_color" />
 
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_gravity="right|center"
+                    android:id="@+id/recordIconImageLayout"
+                    android:background="@drawable/deep_grey_outline_circle">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:tint="@color/light_grey"
+                        android:src="@drawable/new_mic_icon"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

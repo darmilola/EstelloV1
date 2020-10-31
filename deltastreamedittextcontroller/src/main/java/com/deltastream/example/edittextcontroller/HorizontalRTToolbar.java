@@ -475,8 +475,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
                 setBulletChecked(!isBulletChecked);
                 authBackground(mBullet, isBulletChecked());
-                //mListener.onEffectSelected(Effects.BULLET, isBulletChecked());
-                mListener.onEffectSelected(Effects.FONTCOLOR, Color.parseColor("#465ED3"));
+                mListener.onEffectSelected(Effects.BULLET, isBulletChecked());
 
             } else if (id == R.id.link_action) {
 
@@ -487,14 +486,14 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
                 if(isSizeIncChecked()){
 
-                    mListener.onEffectSelected(Effects.FONTSIZE,dpToPx(17));
+                    mListener.onEffectSelected(Effects.FONTSIZE,17);
                     setmSizeIncChecked(isSizeIncChecked);
                     authBackground(mSizeInc,!isSizeIncChecked());
 
                 }
                 else {
 
-                    mListener.onEffectSelected(Effects.FONTSIZE, dpToPx(22));
+                    mListener.onEffectSelected(Effects.FONTSIZE, 22);
                     setmSizeIncChecked(!isSizeIncChecked);
                     authBackground(mSizeInc, isSizeIncChecked());
 

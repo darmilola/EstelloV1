@@ -81,7 +81,10 @@ abstract class CharacterEffect<V, C extends RTSpan<V>> extends Effect<V, C> {
         if (value != null) {
             RTSpan<V> newSpan = newSpan(value);
             if (newSpan != null) {
-                str.setSpan(newSpan, selection.start(), selection.end(), flags);
+                int currentSelection;
+                if(selection.start() == -1) currentSelection = 0;
+                else currentSelection = selection.start();
+                str.setSpan(newSpan, currentSelection, selection.end(), flags);
             }
         }
     }
