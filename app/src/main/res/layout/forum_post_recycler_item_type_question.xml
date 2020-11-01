@@ -93,6 +93,7 @@
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="6dp"
+            android:textColorHighlight="#10464ed3"
             android:id="@+id/forum_post_recycler_item_question_textview"/>
 
 

@@ -60,6 +60,10 @@
         android:fontStyle="normal"
         android:font="@font/antebreg"/>
 
+    <font
+        android:fontStyle="normal"
+        android:font="@font/ai"/>
+
 </font-family>
 
 

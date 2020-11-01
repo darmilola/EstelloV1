@@ -85,7 +85,7 @@
                         android:layout_marginTop="3dp"
                         android:textColorHighlight="#10464ed3"
                         android:id="@+id/bottom_sheet_edittext"
-                        android:textSize="16dp"
+                        android:textSize="17dp"
                         android:lineSpacingExtra="4dp"
                         android:inputType="textMultiLine"
                         ctr:socialFlag="hashtag|mention"
@@ -94,7 +94,7 @@
                         android:fontFamily="@font/airreg"
                         android:background="@drawable/transparent_background"
                         android:textColorHint="@color/dark_text_color"
-                        android:textColor="@color/dark_text_color"
+                        android:textColor="@color/black"
                         android:hint="Ping QandA"/>
                </ScrollView>
 

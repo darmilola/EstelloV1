@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="10dp"
+    android:weightSum="7"
+    android:background="#00000000"
+    android:id="@+id/rich_link_card"
+    android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_prev"
+            android:orientation="vertical">
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:strokeWidth="0.5dp"
+                        app:strokeColor="@color/grey"
+                        app:cardCornerRadius="3dp">
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Profile Picture Of Post Maker"
+                            android:src="@drawable/woman"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="linkedln.com"
+                        android:textSize="10dp"
+                        android:layout_marginLeft="7dp"
+                        android:fontFamily="@font/airreg"
+                        android:textColor="@color/light_text_color"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Louis Beryl on Linkedln: #TheStartupStack #dadjokes"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/airsemi"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#TheStartupStack RocketPlace we're proud to bring you some of the highest #dadjokes around! This one coutesy of Vanhack iiya brotzky"
+                android:textSize="15dp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/airreg"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:strokeColor="@color/grey"
+                app:strokeWidth="0.5dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="5dp">
+
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/greyimage"
+                    android:id="@+id/forum_post_attachments_imageview"
+                    android:adjustViewBounds="true"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:strokeWidth="0.5dp"
+            app:strokeColor="@color/grey"
+            app:cardCornerRadius="3dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Profile Picture Of Post Maker"
+                android:src="@drawable/woman"/>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
