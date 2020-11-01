@@ -83,7 +83,7 @@
              android:textColor="#5F5F5F"
              android:textSize="14dp" />
 
-         <TextView
+         <com.deltastream.example.edittextcontroller.RTextView
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:textSize="17dp"
@@ -95,6 +95,10 @@
              android:lineSpacingExtra="6dp"/>
 
 
+         <com.estello.android.ViewModel.RichLinkView.RichLinkView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/richlinkview"/>
          <RelativeLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent">

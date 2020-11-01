@@ -84,7 +84,7 @@
             android:textSize="14dp" />
 
         <include layout="@layout/forum_post_suggestion_type_tag"/>
-        <TextView
+        <com.deltastream.example.edittextcontroller.RTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
@@ -94,6 +94,10 @@
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="6dp" />
+        <com.estello.android.ViewModel.RichLinkView.RichLinkView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/richlinkview"/>
 
 
         <RelativeLayout

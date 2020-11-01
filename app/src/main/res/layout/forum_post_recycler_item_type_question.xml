@@ -96,6 +96,10 @@
             android:textColorHighlight="#10464ed3"
             android:id="@+id/forum_post_recycler_item_question_textview"/>
 
+          <com.estello.android.ViewModel.RichLinkView.RichLinkView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/richlinkview"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -466,7 +466,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
                 } else{
 
-                    RTTypeface typeface = FontManager.getTypeface("Air Soft W00 Bold");
+                    RTTypeface typeface = FontManager.getTypeface("Air W00 Semibold");
                     mListener.onEffectSelected(Effects.TYPEFACE, typeface);
                     setBoldChecked(!isBoldChecked);
                     authBackground(mBold, isBoldChecked());
