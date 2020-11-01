@@ -17,19 +17,20 @@
 package com.deltastream.example.edittextcontroller.effects;
 
 
-import android.text.style.TypefaceSpan;
+
 
 import com.deltastream.example.edittextcontroller.RTEditText;
+import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
 import com.deltastream.example.edittextcontroller.spans.AbsoluteSizeSpan;
 import com.deltastream.example.edittextcontroller.spans.BackgroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 import com.deltastream.example.edittextcontroller.spans.ForegroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
-import com.deltastream.example.edittextcontroller.spans.MentionColorSpan;
 import com.deltastream.example.edittextcontroller.spans.StrikethroughSpan;
 import com.deltastream.example.edittextcontroller.spans.SubscriptSpan;
 import com.deltastream.example.edittextcontroller.spans.SuperscriptSpan;
+import com.deltastream.example.edittextcontroller.spans.TypefaceSpan;
 import com.deltastream.example.edittextcontroller.spans.UnderlineSpan;
 
 
@@ -46,7 +47,8 @@ public class Effects {
     public static final Effect<Integer, AbsoluteSizeSpan> FONTSIZE = new AbsoluteSizeEffect();         // non-boolean effect
     public static final Effect<Integer, ForegroundColorSpan> FONTCOLOR = new ForegroundColorEffect();
     public static final Effect<Integer, BackgroundColorSpan> BGCOLOR = new BackgroundColorEffect();    // non-boolean effect
-    public static final Effect<String, LinkSpan> LINK = new LinkEffect();                              // non-boolean effect
+    public static final Effect<String, LinkSpan> LINK = new LinkEffect();
+    public static final Effect<RTTypeface, TypefaceSpan> TYPEFACE = new TypefaceEffect();  // non-boolean effect
 
     // paragraph effects
     public static final BulletEffect BULLET = new BulletEffect();                                      // boolean effect
@@ -70,6 +72,7 @@ public class Effects {
         ALL_EFFECTS.add(FONTSIZE);
         ALL_EFFECTS.add(FONTCOLOR);
         ALL_EFFECTS.add(BGCOLOR);
+        ALL_EFFECTS.add(TYPEFACE);
         ALL_EFFECTS.add(LINK);
         // paragraph effects
         ALL_EFFECTS.add(BULLET);
@@ -93,6 +96,7 @@ public class Effects {
         FORMATTING_EFFECTS.add(SUBSCRIPT);
         FORMATTING_EFFECTS.add(FONTSIZE);
         FORMATTING_EFFECTS.add(FONTCOLOR);
+        FORMATTING_EFFECTS.add(TYPEFACE);
         FORMATTING_EFFECTS.add(BGCOLOR);
         FORMATTING_EFFECTS.add(LINK);
 

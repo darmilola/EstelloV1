@@ -16,8 +16,15 @@
 
 package com.deltastream.example.edittextcontroller.spans;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.text.TextPaint;
 import android.text.style.URLSpan;
 import android.view.View;
+
+import com.deltastream.example.edittextcontroller.R;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * A wrapper around an android.text.style.URLSpan that forwards clicks to the
@@ -26,6 +33,7 @@ import android.view.View;
  */
 public class LinkSpan extends URLSpan implements RTSpan<String> {
 
+    Context context;
     public interface LinkSpanListener {
         void onClick(LinkSpan linkSpan);
     }
@@ -33,6 +41,7 @@ public class LinkSpan extends URLSpan implements RTSpan<String> {
     public LinkSpan(String url) {
         super(url);
     }
+
 
     @Override
     public void onClick(View view) {
@@ -44,6 +53,13 @@ public class LinkSpan extends URLSpan implements RTSpan<String> {
     @Override
     public String getValue() {
         return getURL();
+    }
+
+    @Override
+    public void updateDrawState(TextPaint ds){
+        super.updateDrawState(ds);
+        ds.setUnderlineText(false);
+        ds.setColor(Color.parseColor("#465ED3"));
     }
 
 }

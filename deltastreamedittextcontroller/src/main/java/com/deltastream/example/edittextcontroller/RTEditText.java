@@ -49,6 +49,7 @@ import com.deltastream.example.edittextcontroller.effects.Effects;
 import com.deltastream.example.edittextcontroller.spans.BulletSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
+import com.deltastream.example.edittextcontroller.spans.LinkSpan.LinkSpanListener;
 import com.deltastream.example.edittextcontroller.spans.NumberSpan;
 import com.deltastream.example.edittextcontroller.spans.RTSpan;
 import com.deltastream.example.edittextcontroller.utils.Paragraph;
@@ -70,7 +71,7 @@ import androidx.core.util.Supplier;
 
  * The actual rich text editor (extending android.widget.EditText).
  */
-public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWatcher, LinkSpan.LinkSpanListener,SocialView{
+public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWatcher, LinkSpanListener{
 
 
     // don't allow any formatting in text mode
@@ -134,12 +135,6 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
     @NonNull
     private ColorStateList hashtagColors;
     @NonNull private ColorStateList mentionColors;
-    @NonNull private ColorStateList hyperlinkColors;
-    @Nullable private SocialView.OnClickListener hashtagClickListener;
-    @Nullable private SocialView.OnClickListener mentionClickListener;
-    @Nullable private SocialView.OnClickListener hyperlinkClickListener;
-    @Nullable private OnChangedListener hashtagChangedListener;
-    @Nullable private OnChangedListener mentionChangedListener;
     ForegroundColorSpan foregroundSpan;
     MentionHashTagListener mentionHashTagListener;
     int hashTagIsComing = 0;
@@ -156,14 +151,14 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
         this.mentionHashTagListener = mentionHashTagListener;
     }
 
-    public void setMentionChangedListener(@Nullable OnChangedListener mentionChangedListener) {
-        this.mentionChangedListener = mentionChangedListener;
-    }
+
 
 
     public RTEditText(Context context) {
-        super(context);
 
+        super(context);
+        addTextChangedListener(this);
+        setMovementMethod(RTEditorMovementMethod.getInstance());
     }
 
     public RTEditText(Context context, AttributeSet attrs) {
@@ -177,7 +172,9 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
     }
 
     private void init(AttributeSet attrs) {
+
         addTextChangedListener(this);
+
         // we need this or links won't be clickable
         setMovementMethod(RTEditorMovementMethod.getInstance());
         //setText(getText(RTFormat.PLAIN_TEXT), TextView.BufferType.SPANNABLE);
@@ -823,172 +820,6 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
         if (mUseRTFormatting && mListener != null) {
            mListener.onClick(this, linkSpan);
         }
-    }
-
-    /**
-     * Returns regex that are responsible for finding <b>hashtags</b>.
-     * By default, the pattern are {@code #(\w+)}.
-     */
-    @NonNull
-    @Override
-    public Pattern getHashtagPattern() {
-
-        return hashtagPattern != null ? hashtagPattern : Pattern.compile("#(\\w+)");
-    }
-
-    @NonNull
-    @Override
-    public Pattern getMentionPattern() {
-        return mentionPattern != null ? mentionPattern : Pattern.compile("@(\\w+)");
-    }
-
-
-
-    @Override
-    public void setHashtagPattern(@Nullable Pattern pattern) {
-        if (hashtagPattern != pattern) {
-            hashtagPattern = pattern;
-
-        }
-    }
-
-    @Override
-    public void setMentionPattern(@Nullable Pattern pattern) {
-        if (mentionPattern != null) {
-            mentionPattern = pattern;
-
-        }
-    }
-
-
-
-    @Override
-    public boolean isHashtagEnabled() {
-        return (flags | FLAG_HASHTAG) == flags;
-    }
-
-    @Override
-    public boolean isMentionEnabled() {
-        return (flags | FLAG_MENTION) == flags;
-    }
-
-
-
-    @Override
-    public void setHashtagEnabled(boolean enabled) {
-        if (enabled != isHashtagEnabled()) {
-            flags = enabled ? flags | FLAG_HASHTAG : flags & (~FLAG_HASHTAG);
-
-        }
-    }
-
-    @Override
-    public void setMentionEnabled(boolean enabled) {
-        if (enabled != isMentionEnabled()) {
-            flags = enabled ? flags | FLAG_MENTION : flags & (~FLAG_MENTION);
-
-        }
-    }
-
-
-
-    @NonNull
-    @Override
-    public ColorStateList getHashtagColors() {
-        return hashtagColors;
-    }
-
-    @NonNull
-    @Override
-    public ColorStateList getMentionColors() {
-        return mentionColors;
-    }
-
-
-
-    @Override
-    public void setHashtagColors(@NonNull ColorStateList colors) {
-        hashtagColors = colors;
-
-    }
-
-    @Override
-    public void setMentionColors(@NonNull ColorStateList colors) {
-        mentionColors = colors;
-
-    }
-
-
-    @Override
-    public int getHashtagColor() {
-        return getHashtagColors().getDefaultColor();
-    }
-
-    @Override
-    public int getMentionColor() {
-        return getMentionColors().getDefaultColor();
-    }
-
-
-
-    @Override
-    public void setHashtagColor(int color) {
-        setHashtagColors(ColorStateList.valueOf(color));
-    }
-
-    @Override
-    public void setMentionColor(int color) {
-        setMentionColors(ColorStateList.valueOf(color));
-    }
-
-    @Override
-    public void setOnHashtagClickListener(@Nullable SocialView.OnClickListener listener) {
-        //ensureMovementMethod(listener);
-        hashtagClickListener = listener;
-
-    }
-
-    @Override
-    public void setOnMentionClickListener(@Nullable SocialView.OnClickListener listener) {
-        //ensureMovementMethod(listener);
-        mentionClickListener = listener;
-
-    }
-
-
-
-    @Override
-    public void setHashtagTextChangedListener(@Nullable OnChangedListener listener) {
-        hashtagChangedListener = listener;
-    }
-
-    @Override
-    public void setMentionTextChangedListener(@Nullable OnChangedListener listener) {
-        mentionChangedListener = listener;
-    }
-
-    @NonNull
-    @Override
-    public List<String> getHashtags() {
-        return listOf(getText(RTFormat.PLAIN_TEXT), getHashtagPattern());
-    }
-
-    @NonNull
-    @Override
-    public List<String> getMentions() {
-        return listOf(getText(RTFormat.SPANNED), getMentionPattern());
-    }
-
-
-
-
-    private static int indexOfNextNonLetterDigit(CharSequence text, int start) {
-        for (int i = start + 1; i < text.length(); i++) {
-            if (!Character.isLetterOrDigit(text.charAt(i))) {
-                return i;
-            }
-        }
-        return text.length();
     }
 
     private static int indexOfPreviousNonLetterDigit(CharSequence text, int start, int end) {

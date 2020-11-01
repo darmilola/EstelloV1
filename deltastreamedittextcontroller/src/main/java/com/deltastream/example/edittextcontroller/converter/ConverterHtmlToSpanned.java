@@ -17,6 +17,7 @@
 package com.deltastream.example.edittextcontroller.converter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -30,10 +31,14 @@ import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.deltastream.example.edittextcontroller.api.format.RTSpanned;
 import com.deltastream.example.edittextcontroller.converter.tagsoup.HTMLSchema;
 import com.deltastream.example.edittextcontroller.converter.tagsoup.Parser;
+import com.deltastream.example.edittextcontroller.fonts.FontManager;
+import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
 import com.deltastream.example.edittextcontroller.spans.AbsoluteSizeSpan;
 import com.deltastream.example.edittextcontroller.spans.AlignmentSpan;
+import com.deltastream.example.edittextcontroller.spans.BackgroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 import com.deltastream.example.edittextcontroller.spans.BulletSpan;
+import com.deltastream.example.edittextcontroller.spans.ForegroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.IndentationSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
@@ -41,6 +46,7 @@ import com.deltastream.example.edittextcontroller.spans.NumberSpan;
 import com.deltastream.example.edittextcontroller.spans.StrikethroughSpan;
 import com.deltastream.example.edittextcontroller.spans.SubscriptSpan;
 import com.deltastream.example.edittextcontroller.spans.SuperscriptSpan;
+import com.deltastream.example.edittextcontroller.spans.TypefaceSpan;
 import com.deltastream.example.edittextcontroller.spans.UnderlineSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
 
@@ -75,6 +81,8 @@ public class ConverterHtmlToSpanned implements ContentHandler {
     private String mSource;
     private Parser mParser;
     private SpannableStringBuilder mResult;
+    private int listCount = 1;
+    Context context;
 
     private Stack<AccumulatedParagraphStyle> mParagraphStyles = new Stack<AccumulatedParagraphStyle>();
 
@@ -329,7 +337,9 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         } else if (tag.equalsIgnoreCase("small")) {
             int size = Helper.convertPxToSp(14);
             end(Small.class, new AbsoluteSizeSpan(size));
-        }else if (tag.equalsIgnoreCase("blockquote")) {
+        } else if (tag.equalsIgnoreCase("font")) {
+            endFont();
+        } else if (tag.equalsIgnoreCase("blockquote")) {
             handleP();
             end(Blockquote.class, new QuoteSpan());
         } else if (tag.equalsIgnoreCase("a")) {
@@ -383,12 +393,13 @@ public class ConverterHtmlToSpanned implements ContentHandler {
     /**
      * Handles OL and UL start tags
      */
+
     private void startList(boolean isOrderedList, Attributes attributes) {
         boolean isIndentation = isIndentation(attributes);
 
         ParagraphType newType = isIndentation && isOrderedList ? ParagraphType.INDENTATION_OL :
                 isIndentation && !isOrderedList ? ParagraphType.INDENTATION_UL :
-                        isOrderedList ? ParagraphType.NUMBERING :
+                        isOrderedList ? ParagraphType.NUMBERING:
                                 ParagraphType.BULLET;
 
         AccumulatedParagraphStyle currentStyle = mParagraphStyles.isEmpty() ? null : mParagraphStyles.peek();
@@ -408,10 +419,12 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         }
     }
 
+
     /**
      * Handles OL and UL end tags
      */
     private void endList(boolean orderedList) {
+        listCount = 1;
         if (!mParagraphStyles.isEmpty()) {
             AccumulatedParagraphStyle style = mParagraphStyles.peek();
             ParagraphType type = style.getType();
@@ -450,6 +463,7 @@ public class ConverterHtmlToSpanned implements ContentHandler {
             int indent = currentStyle.getAbsoluteIndent();
             boolean isIndentation = isIndentation(attributes);
 
+            Log.e(String.valueOf(indent), "startList: ");
             if (type.isIndentation() || isIndentation) {
                 listTag = new UL(indent, true);
             } else if (type.isNumbering()) {
@@ -471,19 +485,19 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         List list = (List) getLast(List.class);
         if (list != null) {
             if (mResult.length() == 0 || mResult.charAt(mResult.length() - 1) != '\n') {
-                mResult.append('\n');
+                mResult.append("\n");
             }
             int start = mResult.getSpanStart(list);
             int end = mResult.length();
 
-            int nrOfIndents = list.mNrOfIndents;
+            int nrOfIndents = 0;//list.mNrOfIndents;
             if (!list.mIsIndentation) {
                 nrOfIndents--;
                 int margin = Helper.getLeadingMarging();
                 // use SPAN_EXCLUSIVE_EXCLUSIVE here, will be replaced later anyway when the cleanup function is called
                 Object span = list instanceof UL ?
                         new BulletSpan(margin, start == end, false, false) :
-                        new NumberSpan(1, margin, start == end, false, false);
+                        new NumberSpan(listCount++, margin, start == end, false, false);
                 mResult.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
@@ -629,13 +643,62 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         int len = mResult.length();
         Font font = new Font()
                 .setSize(size)
-                .setFGColor("0xFF0000")//(fgColor)
+                .setFGColor(fgColor)//(fgColor)
                 .setBGColor(bgColor)
                 .setFontFace(fontName);
         mResult.setSpan(font, len, len, Spanned.SPAN_MARK_MARK);
     }
 
 
+    private void endFont() {
+        int len = mResult.length();
+        Object obj = getLast(Font.class);
+        int where = mResult.getSpanStart(obj);
+
+        mResult.removeSpan(obj);
+
+        if (where != len) {
+            Font font = (Font) obj;
+
+            // font type face
+            if (font.hasFontFace()) {
+                // Note: use SPAN_EXCLUSIVE_EXCLUSIVE, the TemporarySpan will be replaced by a SPAN_EXCLUSIVE_INCLUSIVE span
+                RTTypeface typeface = FontManager.getTypeface(font.mFontFace);
+                if (typeface != null) {
+                    TemporarySpan span = new TemporarySpan(new TypefaceSpan(typeface));
+                    mResult.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+
+            // text size
+            if (font.hasSize()) {
+                // Note: use SPAN_EXCLUSIVE_EXCLUSIVE, the TemporarySpan will later be replaced by a SPAN_EXCLUSIVE_INCLUSIVE span
+                int size = Helper.convertPxToSp(font.mSize);
+                TemporarySpan span = new TemporarySpan(new AbsoluteSizeSpan(size));
+                mResult.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            // font color
+            if (font.hasFGColor()) {
+                int c = getHtmlColor(font.mFGColor);
+                if (c != -1) {
+                    // Note: use SPAN_EXCLUSIVE_EXCLUSIVE, the TemporarySpan will be replaced by a SPAN_EXCLUSIVE_INCLUSIVE span
+                    TemporarySpan span = new TemporarySpan(new ForegroundColorSpan(c | 0xFF000000));
+                    mResult.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+
+            // font background color
+            if (font.hasBGColor()) {
+                int c = getHtmlColor(font.mBGColor);
+                if (c != -1) {
+                    // Note: use SPAN_EXCLUSIVE_EXCLUSIVE, the TemporarySpan will be replaced by a SPAN_EXCLUSIVE_INCLUSIVE span
+                    TemporarySpan span = new TemporarySpan(new BackgroundColorSpan(c | 0xFF000000));
+                    mResult.setSpan(span, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
+    }
 
     private void startAHref(Attributes attributes) {
         String href = attributes.getValue("", "href");

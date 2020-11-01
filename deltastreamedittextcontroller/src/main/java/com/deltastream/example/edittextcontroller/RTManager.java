@@ -51,7 +51,9 @@ import com.deltastream.example.edittextcontroller.effects.SpanCollectMode;
 import com.deltastream.example.edittextcontroller.effects.StrikethroughEffect;
 import com.deltastream.example.edittextcontroller.effects.SubscriptEffect;
 import com.deltastream.example.edittextcontroller.effects.SuperscriptEffect;
+import com.deltastream.example.edittextcontroller.effects.TypefaceEffect;
 import com.deltastream.example.edittextcontroller.effects.UnderlineEffect;
+import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 import com.deltastream.example.edittextcontroller.spans.RTSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
@@ -509,35 +511,30 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         boolean isBullet = false;
         boolean isNumber = false;
         boolean isSizeInc = false;
-        List<Alignment> alignments = null;
         List<Integer> sizes = null;
-        List<Integer> fontColors = null;
-        List<Integer> bgColors = null;
+        List<RTTypeface> typefaces = null;
+
 
         // check if effect exists in selection
         for (Effect effect : Effects.ALL_EFFECTS) {
             if (effect.existsInSelection(editor)) {
-                if (effect instanceof BoldEffect) {
-                    isBold = true;
-                } else if (effect instanceof ItalicEffect) {
+              if (effect instanceof ItalicEffect) {
                     isItalic = true;
                 } else if (effect instanceof UnderlineEffect) {
                     isUnderLine = true;
-                } else if (effect instanceof StrikethroughEffect) {
+                } else if (effect instanceof TypefaceEffect) {
+                    typefaces = Effects.TYPEFACE.valuesInSelection(editor);
+                    isBold = true;
+                }else if (effect instanceof StrikethroughEffect) {
                     isStrikethrough = true;
                 }
                 else if (effect instanceof BulletEffect) {
                     isBullet = true;
                 } else if (effect instanceof NumberEffect) {
                     isNumber = true;
-                } else if (effect instanceof AlignmentEffect) {
-                    alignments = Effects.ALIGNMENT.valuesInSelection(editor);
                 } else if (effect instanceof AbsoluteSizeEffect) {
                     sizes = Effects.FONTSIZE.valuesInSelection(editor);
                     isSizeInc = true;
-                }
-                else if (effect instanceof ForegroundColorEffect) {
-                    fontColors = Effects.FONTCOLOR.valuesInSelection(editor);
                 }
 
             }
@@ -545,37 +542,36 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
 
         // update toolbar(s)
         for (RTToolbar toolbar : mToolbars.values()) {
-            toolbar.setBold(isBold);
             toolbar.setItalic(isItalic);
             toolbar.setUnderline(isUnderLine);
             toolbar.setStrikethrough(isStrikethrough);
             toolbar.setBullet(isBullet);
             toolbar.setNumber(isNumber);
 
-            // alignment (left, center, right)
 
-            // alignment (left, center, right)
-            if (alignments != null && alignments.size() == 1) {
-                toolbar.setAlignment(alignments.get(0));
-            } else {
+           if(isBold){
 
-                boolean isRTL = Helper.isRTL(editor.getText(), start, end);
-                toolbar.setAlignment(isRTL ? Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL);
-            }
-            if (fontColors != null) {
-                toolbar.setFontColor(Color.parseColor("#c8c8c8"));
-            }
-            else if(isSizeInc) {
 
-                if(sizes.get(0) == 17){
+               if(typefaces.get(0).getName().equalsIgnoreCase("Air Soft W00 Regular")){
+
+                   toolbar.setBold(false);
+               }
+               else{
+
+                   toolbar.setBold(true);
+               }
+           }
+
+            if(isSizeInc) {
+
+                if(sizes.get(0) == dpToPx(17)){
 
                     toolbar.setSizeInc(sizes.get(0),false);
                 }
                 else{
+
                     toolbar.setSizeInc(sizes.get(0),true);
                 }
-
-
             }
             else {
 

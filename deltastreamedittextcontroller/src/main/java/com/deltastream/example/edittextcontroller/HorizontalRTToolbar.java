@@ -34,7 +34,11 @@ import android.widget.LinearLayout;
 
 import com.deltastream.example.edittextcontroller.effects.Effect;
 import com.deltastream.example.edittextcontroller.effects.Effects;
+import com.deltastream.example.edittextcontroller.fonts.FontManager;
+import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
+import com.deltastream.example.edittextcontroller.utils.Helper;
 
+import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -91,6 +95,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
     int actionButtonSelectedSrcTint;
     float actionButtonPadding = 0;
     float actionButtonSize = 0;
+    SortedSet<RTTypeface> fonts;
 
 
     // ****************************************** Initialize Methods *******************************************
@@ -156,7 +161,10 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
     protected void inflateAndBindView() {
 
-        View view;
+        fonts = FontManager.getFonts(getContext());
+        Log.e("size of fonts", String.valueOf(fonts.size()));
+
+       View view;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         view = inflater.inflate(R.layout.editor_layout, this, true);
         mBold = view.findViewById(R.id.bold_action);
@@ -449,11 +457,23 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
             int id = v.getId();
             if (id == R.id.bold_action) {
 
-                setBoldChecked(!isBoldChecked);
-                authBackground(mBold, isBoldChecked);
-                mListener.onEffectSelected(Effects.BOLD, isBoldChecked());
+                if(isBoldChecked){
 
-            } else if (id == R.id.italics_action) {
+                    RTTypeface typeface = FontManager.getTypeface("Air Soft W00 Regular");
+                    mListener.onEffectSelected(Effects.TYPEFACE,typeface);
+                    setBoldChecked(isBoldChecked);
+                    authBackground(mBold,!isBoldChecked());
+
+                } else{
+
+                    RTTypeface typeface = FontManager.getTypeface("Air Soft W00 Bold");
+                    mListener.onEffectSelected(Effects.TYPEFACE, typeface);
+                    setBoldChecked(!isBoldChecked);
+                    authBackground(mBold, isBoldChecked());
+                }
+
+
+                } else if (id == R.id.italics_action) {
 
                 setItalicsChecked(!isItalicsChecked);
                 authBackground(mItalicize, isItalicsChecked());
@@ -470,6 +490,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
                 setNumbersChecked(!isNumbersChecked);
                 authBackground(mNumbers, isNumbersChecked());
                 mListener.onEffectSelected(Effects.NUMBER, isNumbersChecked());
+
             }
             else if (id == R.id.bullet_action) {
 
@@ -486,14 +507,14 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
                 if(isSizeIncChecked()){
 
-                    mListener.onEffectSelected(Effects.FONTSIZE,17);
+                    mListener.onEffectSelected(Effects.FONTSIZE,dpToPx(17));
                     setmSizeIncChecked(isSizeIncChecked);
                     authBackground(mSizeInc,!isSizeIncChecked());
 
                 }
                 else {
 
-                    mListener.onEffectSelected(Effects.FONTSIZE, 22);
+                    mListener.onEffectSelected(Effects.FONTSIZE, dpToPx(22));
                     setmSizeIncChecked(!isSizeIncChecked);
                     authBackground(mSizeInc, isSizeIncChecked());
 
@@ -501,12 +522,9 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
             }
 
-
         }
 
     }
-
-
 
     public static int dpToPx(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());

@@ -47,7 +47,7 @@ public enum ParagraphType {
         } else {
             return style instanceof BulletSpan ? ParagraphType.BULLET :
                    style instanceof NumberSpan ? ParagraphType.NUMBERING :
-                   style instanceof IndentationSpan ? ParagraphType.INDENTATION_UL : null;
+                   style instanceof IndentationSpan ? ParagraphType.INDENTATION_OL : null;
         }
     }
 

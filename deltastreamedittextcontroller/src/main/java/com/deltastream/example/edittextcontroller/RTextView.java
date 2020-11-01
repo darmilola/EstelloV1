@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
 import com.deltastream.example.edittextcontroller.api.format.RTText;
+import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
 
 import java.util.regex.Matcher;
@@ -43,27 +44,27 @@ import androidx.core.content.ContextCompat;
 
  * The actual rich text editor (extending android.widget.EditText).
  */
-public class RTextView extends AppCompatTextView {
+public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener {
 
     public RTextView(Context context){
         super(context);
+        init();
 
     }
 
     public RTextView(Context context,AttributeSet attrs){
         super(context,attrs);
-        init(attrs);
+        init();
     }
 
     public RTextView(Context context,AttributeSet attrs,int defStyle){
         super(context,attrs,defStyle);
-        init(attrs);
+        init();
     }
 
-    private void init(AttributeSet attrs){
+    private void init(){
 
-     setMovementMethod(LinkMovementMethod.getInstance());
-
+        setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public Spannable cloneSpannable(String mText) {
@@ -106,7 +107,7 @@ public class RTextView extends AppCompatTextView {
                    @Override
                    public void onClick(@NonNull View widget) {
 
-                       Toast.makeText(getContext(), Integer.toString(j), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(getContext(), "HashTag at Position "+j, Toast.LENGTH_SHORT).show();
                    }
                };
 
@@ -123,7 +124,7 @@ public class RTextView extends AppCompatTextView {
                          @Override
                          public void onClick(@NonNull View widget) {
 
-                             Toast.makeText(getContext(), "Mention " + Integer.toString(l), Toast.LENGTH_SHORT).show();
+                             Toast.makeText(getContext(), "Mention at position "+Integer.toString(l), Toast.LENGTH_SHORT).show();
                          }
                      };
                      spannableString.setSpan(rtTextViewMentionsSpan, mentionMatcher.start(), mentionMatcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -134,9 +135,13 @@ public class RTextView extends AppCompatTextView {
         return spannableString;
     }
 
+    @Override
+    public void onClick(LinkSpan linkSpan) {
+        Toast.makeText(getContext(), linkSpan.getURL(), Toast.LENGTH_SHORT).show();
+    }
 
     public abstract class RTTextViewHashTagsSpan extends ClickableSpan{
-        private boolean mIsPressed;
+
         private int mNormalTextColor;
 
         public RTTextViewHashTagsSpan(int normalTextColor){

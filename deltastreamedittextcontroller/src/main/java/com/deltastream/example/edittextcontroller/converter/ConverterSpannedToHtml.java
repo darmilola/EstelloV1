@@ -35,6 +35,7 @@ import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
+import com.deltastream.example.edittextcontroller.spans.TypefaceSpan;
 import com.deltastream.example.edittextcontroller.spans.UnderlineSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
 import com.deltastream.example.edittextcontroller.utils.Paragraph;
@@ -304,6 +305,12 @@ public class ConverterSpannedToHtml {
            <font face="verdana" style="font-size:25px;background-color:#00ff00;color:#ff0000">This is heading 1</font>
            <font face="DroidSans" style="font-size:50px;background-color:#0000FF;color:#FFFF00">This is heading 2</font>
         */
+        else if (style instanceof TypefaceSpan) {
+            mOut.append("<font face=\"");
+            String fontName = ((TypefaceSpan) style).getValue().getName();
+            mOut.append(StringEscapeUtils.escapeHtml4(fontName));
+            mOut.append("\">");
+        }
          else if (style instanceof AbsoluteSizeSpan) {
             mOut.append("<font style=\"font-size:");
             int size = ((AbsoluteSizeSpan) style).getSize();
@@ -337,6 +344,8 @@ public class ConverterSpannedToHtml {
     private void handleEndTag(CharacterStyle style) {
         if (style instanceof URLSpan) {
             mOut.append("</a>");
+        } else if (style instanceof TypefaceSpan) {
+            mOut.append("</font>");
         } else if (style instanceof ForegroundColorSpan) {
             mOut.append("</font>");
         } else if (style instanceof BackgroundColorSpan) {

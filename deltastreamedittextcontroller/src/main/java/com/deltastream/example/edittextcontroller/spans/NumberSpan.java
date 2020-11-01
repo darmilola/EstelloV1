@@ -51,7 +51,7 @@ public class NumberSpan extends BaseListItemSpan implements LeadingMarginSpan, R
 
     @Override
     public int getLeadingMargin(boolean first) {
-        return mIgnoreSpan ? 0 : Math.max(Math.round(mWidth + 2), mGapWidth);
+        return mIgnoreSpan ? 0 : (int)(Math.floor(Math.max(Math.round(mWidth + 2), mGapWidth)/1.5));
     }
 
     @Override
@@ -64,8 +64,8 @@ public class NumberSpan extends BaseListItemSpan implements LeadingMarginSpan, R
             Paint.Style oldStyle = p.getStyle();
             float oldTextSize = p.getTextSize();
             p.setStyle(Paint.Style.FILL);
-            //float textSize = determineTextSize(spanned, start, end, oldTextSize);
-            p.setTextSize(35);
+            float textSize = determineTextSize(spanned, start, end, oldTextSize);
+            p.setTextSize(textSize);
             mWidth = p.measureText(mNr + ".");
 
             // draw the number

@@ -57,9 +57,8 @@ public class BulletSpan extends BaseListItemSpan implements LeadingMarginSpan, R
 
     @Override
     public int getLeadingMargin(boolean first) {
-        return mIgnoreSpan ? 0 : mGapWidth;
+        return mIgnoreSpan ? 0 : (int)Math.floor(mGapWidth/1.5);
     }
-
     @Override
     public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom,
                                   CharSequence text, int start, int end, boolean first, Layout l) {
@@ -70,8 +69,8 @@ public class BulletSpan extends BaseListItemSpan implements LeadingMarginSpan, R
             p.setStyle(Paint.Style.FILL);
 
             // draw the bullet point
-           // int size = Math.max(Math.round(determineTextSize(spanned, start, end, p.getTextSize()) / 9f), 8);
-            draw(c, p, x, dir, top, bottom, 8);
+            int size = Math.max(Math.round(determineTextSize(spanned, start, end, p.getTextSize()) / 9f), 8);
+            draw(c, p, x, dir, top, bottom, size);
 
             // restore paint
             p.setStyle(oldStyle);
