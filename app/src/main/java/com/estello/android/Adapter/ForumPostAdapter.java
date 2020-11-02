@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arthurivanets.arvi.Config;
@@ -22,6 +23,7 @@ import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.deltastream.example.edittextcontroller.api.format.RTSpanned;
 import com.deltastream.example.edittextcontroller.api.format.RTText;
 import com.deltastream.example.edittextcontroller.converter.ConverterHtmlToSpanned;
+import com.estello.android.Fragments.userProfileBottomSheet;
 import com.estello.android.QandAForum;
 import com.estello.android.ViewModel.ForumPostModel;
 
@@ -49,11 +51,26 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private PostViewHolder postViewHolder;
     private QuestionPostViewHolder questionPostViewHolder;
     private SuggestionsPostViewHolder suggestionsPostViewHolder;
+    MentionClickedListener mentionClickedListener;
+    ProfilePictureClickedListener profilePictureClickedListener;
 
-    public ForumPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList) {
+
+    public interface MentionClickedListener{
+
+        public void onMentionClicked(int position);
+    }
+    public interface ProfilePictureClickedListener{
+
+        public void onProfilePictureClicked(int position);
+    }
+
+    public ForumPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList,MentionClickedListener mentionClickedListener,ProfilePictureClickedListener profilePictureClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
+        this.mentionClickedListener = mentionClickedListener;
+        this.profilePictureClickedListener = profilePictureClickedListener;
+
     }
 
     @NonNull
@@ -323,23 +340,38 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
+    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener {
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
         RTextView textView;
         RichLinkView richLinkView;
+        ImageView profilePicture;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
             recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
             textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
+            textView.setMentionClickedListener(this);
             richLinkView = itemView.findViewById(R.id.richlinkview);
+            profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
             //richLinkView.setVisibility(View.GONE);
+            profilePicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    profilePictureClickedListener.onProfilePictureClicked(getAdapterPosition());
+                }
+            });
 
 
+        }
+
+        @Override
+        public void onMentionClicked(int clickedPosition) {
+
+            mentionClickedListener.onMentionClicked(clickedPosition);
         }
     }
 

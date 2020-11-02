@@ -47,6 +47,7 @@ import com.deltastream.example.edittextcontroller.api.format.RTFormat;
 import com.estello.android.Adapter.HashTagsSelectionAdapter;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
+import com.estello.android.Fragments.userProfileBottomSheet;
 import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -1861,7 +1862,23 @@ public class QandAForum extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result){
 
-            adapter = new ForumPostAdapter(QandAForum.this,forumPostModelArrayList);
+            adapter = new ForumPostAdapter(QandAForum.this, forumPostModelArrayList, new ForumPostAdapter.MentionClickedListener() {
+                @Override
+                public void onMentionClicked(int position) {
+
+                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
+
+                }
+            }, new ForumPostAdapter.ProfilePictureClickedListener() {
+                @Override
+                public void onProfilePictureClicked(int position) {
+
+                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
+
+                }
+            });
             QandAForumPostRecyclerView.setLayoutManager(LinearLayoutManager);
             QandAForumPostRecyclerView.setAdapter(adapter);
 
