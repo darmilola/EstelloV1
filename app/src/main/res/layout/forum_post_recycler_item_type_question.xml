@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:textColor="@color/black"
+            android:textColor="@color/new_dark_text_color"
             android:text="@string/large_text"
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"

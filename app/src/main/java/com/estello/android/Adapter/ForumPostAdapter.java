@@ -114,14 +114,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             postViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             postViewHolder.attachmentsRecyclerView.onResume();
 
-            postViewHolder.richLinkView.setLink("https://stackoverflow.com", new ViewListener() {
+            if(postViewHolder.richLinkView != null)
+            postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
 
                 @Override
                 public void onSuccess(boolean status) {
-
-
-
-
                     try {
                         postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
                     } catch (IndexOutOfBoundsException e) {
@@ -132,6 +129,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
+                    postViewHolder.richLinkView.setVisibility(View.GONE);
                 }
             });
 
@@ -175,7 +173,8 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             questionPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             questionPostViewHolder.attachmentsRecyclerView.onResume();
 
-            questionPostViewHolder.richLinkView.setLink("https://stackoverflow.com", new ViewListener() {
+            if(questionPostViewHolder.richLinkView != null)
+            questionPostViewHolder.richLinkView.setLink("https://www.github.com/darmilola", new ViewListener() {
 
                 @Override
                 public void onSuccess(boolean status) {
@@ -194,11 +193,9 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
+                    questionPostViewHolder.richLinkView.setVisibility(View.GONE);
                 }
             });
-
-
-
 
         }
         if (forumPostList.get(position).getType() == typeIdea) {
@@ -228,6 +225,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             suggestionsPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
 
+            if(suggestionsPostViewHolder.richLinkView != null)
             suggestionsPostViewHolder.richLinkView.setLink("https://www.linkedin.com/posts/louisberyl_thestartupstack-dadjokes-activity-6727661737484652544-5ybg", new ViewListener() {
 
                 @Override
@@ -244,6 +242,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
+                    suggestionsPostViewHolder.richLinkView.setVisibility(View.GONE);
                 }
             });
 
@@ -381,7 +380,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             textView = itemView.findViewById(R.id.forum_post_recycler_item_suggestion_textview);
 
             richLinkView = itemView.findViewById(R.id.richlinkview);
-            richLinkView.setVisibility(View.GONE);
+
 
 
         }

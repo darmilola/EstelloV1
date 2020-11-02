@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ponna on 16-01-2018.
@@ -21,6 +23,7 @@ public class RichPreview {
     MetaData metaData;
     ResponseListener responseListener;
     String url;
+    String title;
 
     public RichPreview(ResponseListener responseListener) {
         this.responseListener = responseListener;
@@ -40,14 +43,13 @@ public class RichPreview {
             Document doc = null;
             try {
                 doc = Jsoup.connect(url)
-                        .timeout(30*1000)
+                        .timeout(120*1000)
                         .get();
 
                 Elements elements = doc.getElementsByTag("meta");
 
                 // getTitle doc.select("meta[property=og:title]")
-                String title = doc.select("meta[property=og:title]").attr("content");
-
+                title = doc.select("meta[property=og:title]").attr("content");
                 if(title == null || title.isEmpty()) {
                     title = doc.title();
                 }
@@ -127,6 +129,7 @@ public class RichPreview {
                         if(str_property.equals("og:site_name")) {
                             metaData.setSitename(element.attr("content").toString());
                         }
+
                     }
                 }
 

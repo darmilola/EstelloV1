@@ -3,6 +3,7 @@ package com.estello.android.ViewModel.RichLinkView;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 
@@ -15,8 +16,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.estello.android.Adapter.ForumPostAttachmentsAdapter;
 import com.estello.android.R;
+import com.estello.android.Utils.BitmapScaler;
+import com.facebook.common.executors.UiThreadImmediateExecutorService;
+import com.facebook.common.references.CloseableReference;
+import com.facebook.datasource.BaseDataSubscriber;
+import com.facebook.datasource.DataSource;
+import com.facebook.datasource.DataSubscriber;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.image.CloseableBitmap;
+import com.facebook.imagepipeline.image.CloseableImage;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by ponna on 16-01-2018.
@@ -85,14 +101,14 @@ public class RichLinkView extends RelativeLayout {
 
         if(meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
             imageView.setVisibility(GONE);
+            smallImage.setVisibility(GONE);
         } else {
+
             imageView.setVisibility(VISIBLE);
-            Picasso.get()
-                    .load(meta.getImageurl())
-                    .into(imageView);
-            Picasso.get()
-                    .load(meta.getImageurl())
-                    .into(smallImage);
+            smallImage.setVisibility(VISIBLE);
+            setDataSubscriber(imageView,getContext(),Uri.parse(meta.getImageurl()),false);
+            setDataSubscriber(smallImage,getContext(),Uri.parse(meta.getImageurl()),true);
+
         }
 
         if(meta.getFavicon().equalsIgnoreCase("") || meta.getFavicon().isEmpty()){
@@ -101,9 +117,7 @@ public class RichLinkView extends RelativeLayout {
         }
         else{
             favicon.setVisibility(VISIBLE);
-            Picasso.get()
-                    .load(meta.getFavicon()).placeholder(R.drawable.greyimage)
-                    .into(favicon);
+           setDataSubscriber(favicon,getContext(),Uri.parse(meta.getFavicon()),true);
         }
 
         if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
@@ -207,6 +221,60 @@ public class RichLinkView extends RelativeLayout {
             span = new URLSpanNoUnderline(span.getURL());
             p_Text.setSpan(span, start, end, 0);
         }
+    }
+
+    public void getBitmap(Context context, Uri uri, DataSubscriber dataSubscriber){
+
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        ImageRequestBuilder builder = ImageRequestBuilder.newBuilderWithSource(uri);
+        ImageRequest request = builder.build();
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(request,context);
+        dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
+    }
+
+    public void setDataSubscriber(ImageView imageView,Context context, Uri uri,boolean noScale){
+
+        DataSubscriber dataSubscriber = new BaseDataSubscriber() {
+            @Override
+            protected void onNewResultImpl(DataSource dataSource) {
+
+                if(!dataSource.isFinished()){
+
+                    return;
+                }
+                CloseableReference<CloseableBitmap> imageReference = (CloseableReference<CloseableBitmap>) dataSource.getResult();
+                if(imageReference != null){
+
+                    final  CloseableReference<CloseableBitmap> closeableReference = imageReference.clone();
+
+                    try{
+                        CloseableBitmap closeableBitmap = closeableReference.get();
+                        Bitmap bitmap = closeableBitmap.getUnderlyingBitmap();
+                        if(bitmap != null && !bitmap.isRecycled()){
+
+                            if(noScale){
+                                imageView.setImageBitmap(bitmap);
+                            }
+                            else {
+
+                                Bitmap bitmap1 = new BitmapScaler().scaleBitmap(bitmap, 0.5f);
+                                imageView.setImageBitmap(bitmap1);
+                            }
+                        }
+                    }finally {
+                        imageReference.close();
+                        closeableReference.close();
+                    }
+                }
+            }
+
+            @Override
+            protected void onFailureImpl(DataSource dataSource) {
+
+                Throwable throwable = dataSource.getFailureCause();
+            }
+        };
+        getBitmap(context,uri,dataSubscriber);
     }
 
 }

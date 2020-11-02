@@ -5,9 +5,10 @@
            <solid android:color="#00000000"/>
         </shape>
     </item>
-    <item android:left="3dp" android:width="2.5dp">
+    <item android:left="3dp" android:width="3dp">
         <shape>
-            <solid android:color="#D4EBFF" />
+            <solid android:color="#90c8c8c8" />
+            <corners android:radius="8dp"/>
         </shape>
     </item>
 </layer-list>

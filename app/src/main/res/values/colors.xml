@@ -8,6 +8,7 @@
     <color name="grey">#60000000</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
+    <color name="new_dark_text_color">#0C0C0C</color>
     <color name="hintcolor">#c8c8c8</color>
     <color name="next_color">#C81B63</color>
     <color name="this_week_color">#FACE6719</color>

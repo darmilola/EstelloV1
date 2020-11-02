@@ -31,34 +31,32 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:strokeWidth="0.2dp"
-                app:strokeColor="@color/grey"
                 app:cardCornerRadius="1dp">
                 <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/link_preview_favicon"
-                    android:contentDescription="Profile Picture Of Post Maker"
-                    android:src="@drawable/woman"/>
+                    android:contentDescription="Profile Picture Of Post Maker"/>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="linkedln.com"
-                android:textSize="12dp"
+                android:textSize="13dp"
                 android:id="@+id/link_preview_sitename"
                 android:layout_marginLeft="7dp"
                 android:fontFamily="@font/airreg"
-                android:textColor="@color/light_text_color"/>
+                android:textColor="@color/dark_text_color"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/link_preview_title"
             android:text="Louis Beryl on Linkedln: #TheStartupStack #dadjokes"
-            android:textSize="15dp"
+            android:textSize="16dp"
+            android:lineSpacingExtra="4dp"
             android:layout_marginLeft="15dp"
             android:fontFamily="@font/airsemi"
             android:layout_marginTop="7dp"
@@ -70,21 +68,19 @@
             android:layout_marginLeft="15dp"
             android:id="@+id/link_preview_desc"
             android:text="#TheStartupStack RocketPlace we're proud to bring you some of the highest #dadjokes around! This one coutesy of Vanhack iiya brotzky"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:lineSpacingExtra="4dp"
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"
-            android:textColor="@color/black"/>
+            android:textColor="#0C0C0C"/>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:strokeColor="@color/grey"
-            app:strokeWidth="0.5dp"
             android:layout_marginLeft="15dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            app:cardElevation="1dp"
+            app:cardElevation="0dp"
             app:cardCornerRadius="5dp">
 
 
@@ -92,8 +88,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/greyimage"
-                android:tint="@color/light_grey"
                 android:id="@+id/link_prev_image"
                 android:adjustViewBounds="true"/>
         </com.google.android.material.card.MaterialCardView>
@@ -108,16 +102,13 @@
         android:gravity="center|top"
         android:orientation="vertical">
 
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:strokeWidth="0.3dp"
-            app:strokeColor="@color/grey"
-            app:cardCornerRadius="3dp">
+            app:cardCornerRadius="5dp">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:scaleType="centerCrop"
                 android:id="@+id/link_image_small"
                 android:src="@drawable/woman"/>
