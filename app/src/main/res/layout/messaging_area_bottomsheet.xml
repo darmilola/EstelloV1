@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="com.estello.android.ViewModel.LockableBottomSheetBehavior"
     app:behavior_hideable="false"
-    tools:showIn="@layout/activity_qand_aforum"
+    tools:showIn="@layout/activity_forum_base"
     android:background="@color/white"
     android:id="@+id/messaging_area_bottomsheet"
     app:behavior_peekHeight="50dp">

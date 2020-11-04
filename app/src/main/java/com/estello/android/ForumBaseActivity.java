@@ -1,17 +1,5 @@
 package com.estello.android;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Slide;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
+
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
@@ -43,23 +32,18 @@ import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.RTApi;
 import com.deltastream.example.edittextcontroller.api.RTProxyImpl;
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
-import com.estello.android.Adapter.HashTagsSelectionAdapter;
-import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
-import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
-import com.estello.android.Fragments.userProfileBottomSheet;
-import com.estello.android.ViewModel.HashTagsSelectionModel;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.rd.utils.DensityUtils;
 import com.estello.android.Adapter.ForumPostAdapter;
+import com.estello.android.Adapter.HashTagsSelectionAdapter;
 import com.estello.android.Adapter.MentionSelectionAdapter;
 import com.estello.android.Adapter.MessagingAreaAttachmentsAdapter;
 import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
-
+import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
+import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
+import com.estello.android.Fragments.userProfileBottomSheet;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.ViewModel.ForumPostModel;
+import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.estello.android.ViewModel.LockableBottomSheetBehavior;
 import com.estello.android.ViewModel.MentionSelectionModel;
 import com.estello.android.ViewModel.MessagingAreaAttachmentModel;
@@ -67,12 +51,28 @@ import com.estello.android.ViewModel.MessagingAreaFileSelectModel;
 import com.estello.android.ViewModel.MessagingAreaPictureSelectModel;
 import com.estello.android.ViewModel.RtEdittextScrollView;
 import com.estello.android.ViewModel.User;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rd.utils.DensityUtils;
+
 import java.util.ArrayList;
 
-public class QandAForum extends ForumBaseActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Slide;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 
+public abstract class ForumBaseActivity extends AppCompatActivity {
 
- /*   boolean isLayoutChangingFromMaxHeightChange = false;
+    boolean isLayoutChangingFromMaxHeightChange = false;
     RtEdittextScrollView rtEditText;
     HorizontalRTToolbar QandAformatToolbar;
     RTManager QandArtManager;
@@ -89,9 +89,9 @@ public class QandAForum extends ForumBaseActivity {
     ImageView QandAremoveToolbarIcon;
     LinearLayout QandArtToolbarLayout;
     LinearLayout QandAattachmentsPicturesLayout;
-    ImageView QandAattchmentsFile;*/
+    ImageView QandAattchmentsFile;
 
-   /* HorizontalRTToolbar bottomSheetformatToolbar;
+    HorizontalRTToolbar bottomSheetformatToolbar;
     LinearLayout bottomSheetformatArea;
     LinearLayout bottomSheetToolbarDisplayLayout;
     LinearLayout bottomSheetAttachmentLayout;
@@ -150,7 +150,7 @@ public class QandAForum extends ForumBaseActivity {
     ImageView messagingAreaPictureSelect2BottomSheet;
     RecyclerView QandAForumPostRecyclerView;
     boolean isSelectionChangedFromBottomsheetStateChange = false;
-    ForumPostAdapter adapter;
+    ForumPostAdapter forumAdapter;
     boolean authBflag = false,authCFlag = false;
     boolean isBottomSheetUpdatedFromB = false;
     MentionSelectionAdapter mentionSelectionAdapter;
@@ -162,24 +162,25 @@ public class QandAForum extends ForumBaseActivity {
     int selectionInStartHashTagging;
     boolean selectionChangeFromMentioning  = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
-    int i  = 0;*/
-    ForumPostAdapter adapter;
-
-
-
+    int i  = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_forum_base);
-
-        new populateTask().execute();
-
+        initializeBaseFeaturesLayout();
+        populateView();
+        initView();
+        setUpAttachmentsView();
+        setUpQandAattachmentsView();
 
     }
 
-  /*  private void initMentions(){
+    private void initializeBaseFeaturesLayout(){
+        setContentView(R.layout.activity_forum_base);
+    }
+
+
+    private void initMentions(){
 
         RecyclerView mentionHashTagSelectionRecyclerView;
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
@@ -200,8 +201,8 @@ public class QandAForum extends ForumBaseActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
 
             }
-        }, QandAForum.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(QandAForum.this,LinearLayoutManager.VERTICAL,false);
+        }, ForumBaseActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ForumBaseActivity.this,LinearLayoutManager.VERTICAL,false);
 
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(mentionSelectionAdapter);
@@ -229,8 +230,8 @@ public class QandAForum extends ForumBaseActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart(),"NewFaceOfTechnology");
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
             }
-        },QandAForum.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(QandAForum.this,LinearLayoutManager.VERTICAL,false);
+        },ForumBaseActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ForumBaseActivity.this,LinearLayoutManager.VERTICAL,false);
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(hashTagsSelectionAdapter);
 
@@ -251,16 +252,16 @@ public class QandAForum extends ForumBaseActivity {
 
             params.gravity = Gravity.TOP;
         }
-         mentionHashtagsRoot.setLayoutParams(params);
-         mentionHashtagsRoot.requestLayout();
+        mentionHashtagsRoot.setLayoutParams(params);
+        mentionHashtagsRoot.requestLayout();
 
-         if(isHashTags){
+        if(isHashTags){
 
-             initHashTags();
-         }
-         else{
-             initMentions();
-         }
+            initHashTags();
+        }
+        else{
+            initMentions();
+        }
 
 
     }
@@ -269,7 +270,7 @@ public class QandAForum extends ForumBaseActivity {
     private void initView(){
 
         initializeAudioRecordView();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QandAForum.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ForumBaseActivity.this);
         mSoftInputHeight = preferences.getInt("softInputHeight",0);
         edittextHeightWithKeyboard = preferences.getInt("edittextSize",0);
         softInputHeight = preferences.getInt("softInputHeight",0);
@@ -292,7 +293,7 @@ public class QandAForum extends ForumBaseActivity {
         rtEditText.setMovementMethod(new ScrollingMovementMethod());
         fullScreenReverseLayout = findViewById(R.id.messaging_fullscreen_reverse_layout);
         initialEdittextHeight = rtEditText.getMaxHeight();
-        rtApi = new RTApi(QandAForum.this, new RTProxyImpl(QandAForum.this));
+        rtApi = new RTApi(ForumBaseActivity.this, new RTProxyImpl(ForumBaseActivity.this));
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
 
         cameraSelect = findViewById(R.id.QandACameraSelect);
@@ -343,65 +344,65 @@ public class QandAForum extends ForumBaseActivity {
 
 
 
-       rtEditText.setMentionHashTagListener(new MentionHashTagListener() {
-           @Override
-           public void onMentioning(CharSequence sequence) {
+        rtEditText.setMentionHashTagListener(new MentionHashTagListener() {
+            @Override
+            public void onMentioning(CharSequence sequence) {
 
 
-           }
+            }
 
-           @Override
-           public void onHashTagging(CharSequence sequence) {
-
-
-           }
-
-           @Override
-           public void onStopMentioning() {
+            @Override
+            public void onHashTagging(CharSequence sequence) {
 
 
-                    selectionChangeFromMentioning = false;
-                    ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
-                    mentionHashtagsRoot.setVisibility(View.GONE);
-                    bottom_sheet.requestLayout();
+            }
 
-           }
-
-           @Override
-           public void onStopHashTags() {
-
-                   selectionChangeFromMentioning = false;
-                  ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
-                   mentionHashtagsRoot.setVisibility(View.GONE);
-                   bottom_sheet.requestLayout();
+            @Override
+            public void onStopMentioning() {
 
 
-           }
+                selectionChangeFromMentioning = false;
+                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                mentionHashtagsRoot.setVisibility(View.GONE);
+                bottom_sheet.requestLayout();
 
-           @Override
-           public void onMentionStarted() {
+            }
 
-               selectionChangeFromMentioning = true;
-               ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
-               bottom_sheet.requestLayout();
-               selectionInStartMentioning = rtEditText.getSelectionStart();
-               showMentionHashTagsPopup(false);
+            @Override
+            public void onStopHashTags() {
 
-
-           }
-
-           @Override
-           public void onHashTagsStarted() {
+                selectionChangeFromMentioning = false;
+                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                mentionHashtagsRoot.setVisibility(View.GONE);
+                bottom_sheet.requestLayout();
 
 
-               selectionChangeFromMentioning = true;
-               ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
-               bottom_sheet.requestLayout();
-               selectionInStartHashTagging = rtEditText.getSelectionStart();
-               showMentionHashTagsPopup(true);
+            }
 
-           }
-       });
+            @Override
+            public void onMentionStarted() {
+
+                selectionChangeFromMentioning = true;
+                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                bottom_sheet.requestLayout();
+                selectionInStartMentioning = rtEditText.getSelectionStart();
+                showMentionHashTagsPopup(false);
+
+
+            }
+
+            @Override
+            public void onHashTagsStarted() {
+
+
+                selectionChangeFromMentioning = true;
+                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                bottom_sheet.requestLayout();
+                selectionInStartHashTagging = rtEditText.getSelectionStart();
+                showMentionHashTagsPopup(true);
+
+            }
+        });
 
 
 
@@ -542,14 +543,14 @@ public class QandAForum extends ForumBaseActivity {
                 if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
 
 
-                 }
-                 else {
-                     isSelectionChangedFromBottomsheetStateChange = true;
-                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+                else {
+                    isSelectionChangedFromBottomsheetStateChange = true;
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-                 }
+                }
 
-                 rtEditText.setOnBottomReachedListener(this);
+                rtEditText.setOnBottomReachedListener(this);
 
 
 
@@ -599,27 +600,27 @@ public class QandAForum extends ForumBaseActivity {
             public void onClick(View view) {
 
 
-                   if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
 
-                       initPictureSelectRecyclerView();
-                  }
-                   else {
+                    initPictureSelectRecyclerView();
+                }
+                else {
 
-                       initPictureSelectRecyclerView();
-                       hideSoftKeyboard(rtEditText);
-                       MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.VISIBLE);
-                       QandAattachmentsRecyclerView.setVisibility(View.GONE);
-                       if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    initPictureSelectRecyclerView();
+                    hideSoftKeyboard(rtEditText);
+                    MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.VISIBLE);
+                    QandAattachmentsRecyclerView.setVisibility(View.GONE);
+                    if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
-                           initExpandedUi();
+                        initExpandedUi();
 
-                       } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
-                           initCollapsedUi();
+                        initCollapsedUi();
 
-                       }
+                    }
 
-                   }
+                }
 
             }
 
@@ -678,27 +679,27 @@ public class QandAForum extends ForumBaseActivity {
 
             }
         });
-         cameraSnap.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
+        cameraSnap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                   saveTextToSharedPref();
- //                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
-  //               QandAattachmentsRecyclerView.setVisibility(View.GONE);
-                 //bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
-                 //((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
-             }
-         });
+                saveTextToSharedPref();
+                //                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
+                //               QandAattachmentsRecyclerView.setVisibility(View.GONE);
+                //bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
+                //((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+            }
+        });
 
-         QandAsendIcon.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
+        QandAsendIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                 QandAattachmentsRecyclerView.setVisibility(View.VISIBLE);
-                 bottomSheetAttachmentRecyclerView.setVisibility(View.GONE);
-                 authBottomSheetPeekHeight();
-             }
-         });
+                QandAattachmentsRecyclerView.setVisibility(View.VISIBLE);
+                bottomSheetAttachmentRecyclerView.setVisibility(View.GONE);
+                authBottomSheetPeekHeight();
+            }
+        });
 
 
 
@@ -769,7 +770,7 @@ public class QandAForum extends ForumBaseActivity {
 
 
                 }
-              else if(isLayoutChangingFromMaxHeightChange){
+                else if(isLayoutChangingFromMaxHeightChange){
 
                     isLayoutChangingFromMaxHeightChange = false;
 
@@ -794,7 +795,7 @@ public class QandAForum extends ForumBaseActivity {
 
                             softInputHeight = QandAForumRoot.getRootView().getHeight() - QandAForumRoot.getHeight();
                             edittextHeightWithKeyboard = QandAForumRoot.getRootView().getHeight() - softInputHeight - 70;
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QandAForum.this);
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ForumBaseActivity.this);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putBoolean("softInputRetrieved", true);
                             editor.putBoolean("edittextRetrieved", true);
@@ -897,7 +898,7 @@ public class QandAForum extends ForumBaseActivity {
                     if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
 
                         bottomSheetAttachmentRecyclerView.setVisibility(View.GONE);
-                         MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
+                        MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
                         if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
 
                             initExpandedUi();
@@ -905,7 +906,7 @@ public class QandAForum extends ForumBaseActivity {
                         }
                         else if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
 
-                               initCollapsedUi();
+                            initCollapsedUi();
                         }
 
                     }
@@ -1012,14 +1013,14 @@ public class QandAForum extends ForumBaseActivity {
     public void onResume() {
 
         super.onResume();
-        if(adapter != null){
+        if(forumAdapter != null){
 
-            adapter.resumePlayBack();
+            forumAdapter.resumePlayBack();
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            getWindow().setNavigationBarColor(ContextCompat.getColor(QandAForum.this,R.color.white));
-            getWindow().setStatusBarColor(ContextCompat.getColor(QandAForum.this,R.color.white));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(ForumBaseActivity.this,R.color.white));
+            getWindow().setStatusBarColor(ContextCompat.getColor(ForumBaseActivity.this,R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -1123,10 +1124,10 @@ public class QandAForum extends ForumBaseActivity {
 
         }
 
-            fullScreenReverseLayout.setVisibility(View.VISIBLE);
-            edittextFullScreen.setVisibility(View.GONE);
-            edittextCameraFileLayout.setVisibility(View.GONE);
-            //((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
+        fullScreenReverseLayout.setVisibility(View.VISIBLE);
+        edittextFullScreen.setVisibility(View.GONE);
+        edittextCameraFileLayout.setVisibility(View.GONE);
+        //((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
 
     }
 
@@ -1162,7 +1163,7 @@ public class QandAForum extends ForumBaseActivity {
 
         }
 
-            else{
+        else{
 
 
 
@@ -1182,29 +1183,29 @@ public class QandAForum extends ForumBaseActivity {
             MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
             MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(false);
 
-                 Log.e("welcome ", "initCollapsedUi: ");
-                 if(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE){
+            Log.e("welcome ", "initCollapsedUi: ");
+            if(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE){
 
-                     rtEditText.setPadding(20, 0, 10, 70);
-                 }
-                 else {
+                rtEditText.setPadding(20, 0, 10, 70);
+            }
+            else {
 
-                     rtEditText.setPadding(20, 0, 10, 90);
-                 }
-
-                 rtEditText.setMaxHeight(hiddenRealInitialEdittextHeight);
-                 //authBottomSheetPeekHeight();
-                 QandAformattingAreaLayout.setVisibility(View.VISIBLE);
-                 edittextCameraFileLayout.setVisibility(View.GONE);
-                 bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
-                 rtEditText.requestLayout();
-                 bottom_sheet.requestLayout();
-
+                rtEditText.setPadding(20, 0, 10, 90);
             }
 
-           ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
+            rtEditText.setMaxHeight(hiddenRealInitialEdittextHeight);
+            //authBottomSheetPeekHeight();
+            QandAformattingAreaLayout.setVisibility(View.VISIBLE);
+            edittextCameraFileLayout.setVisibility(View.GONE);
+            bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
+            rtEditText.requestLayout();
+            bottom_sheet.requestLayout();
 
-            //edittextCameraFileLayout.setVisibility(View.GONE);
+        }
+
+        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
+
+        //edittextCameraFileLayout.setVisibility(View.GONE);
     }
 
 
@@ -1260,7 +1261,7 @@ public class QandAForum extends ForumBaseActivity {
 
     private void initPictureSelectRecyclerView() {
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(QandAForum.this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(ForumBaseActivity.this, 3);
         messagingAreaPictureSelectAdapter = new MessagingAreaPictureSelectAdapter(pictureDisplayModelArrayList, this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(gridLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaPictureSelectAdapter);
@@ -1277,7 +1278,7 @@ public class QandAForum extends ForumBaseActivity {
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList,QandAForum.this);
+        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList,ForumBaseActivity.this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(linearLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaFileSelectAdapter);
 
@@ -1302,18 +1303,18 @@ public class QandAForum extends ForumBaseActivity {
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         super.onPause();
-        if(adapter != null){
+        if(forumAdapter != null){
 
-            adapter.pausePlayBack();
+            forumAdapter.pausePlayBack();
         }
 
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (adapter != null) {
+        if (forumAdapter != null) {
 
-            adapter.destroyPlayer();
+            forumAdapter.destroyPlayer();
         }
     }
 
@@ -1344,8 +1345,8 @@ public class QandAForum extends ForumBaseActivity {
         }
 
         bottomSheetAttachmentRecyclerView = findViewById(R.id.bottom_sheet_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList,QandAForum.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(QandAForum.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList,ForumBaseActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ForumBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
         bottomSheetAttachmentRecyclerView.setLayoutManager(linearLayoutManager);
         bottomSheetAttachmentRecyclerView.setAdapter(AttachmentsAdapter);
 
@@ -1365,8 +1366,8 @@ public class QandAForum extends ForumBaseActivity {
         }
 
         QandAattachmentsRecyclerView = findViewById(R.id.q_and_a_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList,QandAForum.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(QandAForum.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList,ForumBaseActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ForumBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
         QandAattachmentsRecyclerView.setLayoutManager(linearLayoutManager);
         QandAattachmentsRecyclerView.setAdapter(AttachmentsAdapter);
 
@@ -1374,70 +1375,70 @@ public class QandAForum extends ForumBaseActivity {
 
 
 
-   private void authChangingPeekHeight(){
+    private void authChangingPeekHeight(){
 
-       changingPeekHeight = rtEditText.getHeight() + 30;
-       authBflag = true;
-       if(isBottomSheetUpdatedFromB){
+        changingPeekHeight = rtEditText.getHeight() + 30;
+        authBflag = true;
+        if(isBottomSheetUpdatedFromB){
 
-           isBottomSheetUpdatedFromB = false;
-       }
-       else{
+            isBottomSheetUpdatedFromB = false;
+        }
+        else{
 
-           if(bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
+            if(bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
 
-               if (QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE) {
+                if (QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
-                   if (rtEditText.getHeight() < hiddenRealInitialEdittextHeight) {
-                       bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 170);
-                   } else {
-                       bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 170);
-                   }
-               }
-               else if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
-                   Log.e("auth ch 1", "authChangingPeekHeight: ");
-                   //bottomSheetBehavior.setPeekHeight(200 + softInputHeight);
-               }
-               else{
-                   if(rtEditText.getHeight() > hiddenRealInitialEdittextHeight){
+                    if (rtEditText.getHeight() < hiddenRealInitialEdittextHeight) {
+                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 170);
+                    } else {
+                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 170);
+                    }
+                }
+                else if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
+                    Log.e("auth ch 1", "authChangingPeekHeight: ");
+                    //bottomSheetBehavior.setPeekHeight(200 + softInputHeight);
+                }
+                else{
+                    if(rtEditText.getHeight() > hiddenRealInitialEdittextHeight){
 
-                       bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
-                   }
-                   else{
+                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
+                    }
+                    else{
 
-                       bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 70);
+                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 70);
 
-                   }
+                    }
 
-               }
-           }
-       else{
+                }
+            }
+            else{
 
-           Log.e("auth ch 2", "authChangingPeekHeight: ");
+                Log.e("auth ch 2", "authChangingPeekHeight: ");
 
-           bottomSheetBehavior.setPeekHeight(changingPeekHeight);
-       }
+                bottomSheetBehavior.setPeekHeight(changingPeekHeight);
+            }
 
-   }
+        }
 
     }
 
     private void authBottomSheetPeekHeight() {
 
-           authBflag = true;
-           isBottomSheetUpdatedFromB = true;
-           changingPeekHeight = rtEditText.getHeight()+30;
+        authBflag = true;
+        isBottomSheetUpdatedFromB = true;
+        changingPeekHeight = rtEditText.getHeight()+30;
 
-          if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
+        if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
 
             if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
             } else {
 
-                   if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && !(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
+                if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && !(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
-                       Log.e("here 4", "authBottomSheetPeekHeight: ");
-                       bottomSheetBehavior.setPeekHeight(150);
+                    Log.e("here 4", "authBottomSheetPeekHeight: ");
+                    bottomSheetBehavior.setPeekHeight(150);
 
                 } else if (!(rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) && !(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
@@ -1474,14 +1475,14 @@ public class QandAForum extends ForumBaseActivity {
             if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) {
 
                 if (rtEditText.hasFocus()) {
-                     //authBflag = true;
+                    //authBflag = true;
                     if(!(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
                         //focus empty attachments not visible
                         bottomSheetBehavior.setPeekHeight(150);
                         Log.e("here -2", "authBottomSheetPeekHeight: ");
 
-                     }
+                    }
                     else if (QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
                         //focused empty attachment visible
@@ -1503,14 +1504,14 @@ public class QandAForum extends ForumBaseActivity {
 
                 if (!(QandAattachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
-                     //automating height changing at this point
+                    //automating height changing at this point
 
 
                 } else {
 
-                       //has focus, height not max, not empty
-                      Log.e("here -6", "authBottomSheetPeekHeight: ");
-                      bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
+                    //has focus, height not max, not empty
+                    Log.e("here -6", "authBottomSheetPeekHeight: ");
+                    bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
 
                 }
             }
@@ -1518,7 +1519,7 @@ public class QandAForum extends ForumBaseActivity {
 
         }
 
-            //rtEditText.requestLayout();
+        //rtEditText.requestLayout();
     }
 
     public void initBottomSheetRecordView1(){
@@ -1797,116 +1798,23 @@ public class QandAForum extends ForumBaseActivity {
             }
         });
 
-    }*/
-
-
-
-    @SuppressLint("UseSparseArrays")
-    public class populateTask extends AsyncTask{
-
-        ArrayList<ForumPostModel> forumPostModelArrayList;
-        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(QandAForum.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
-
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-
-            User user = new User();
-            ArrayList<User> userArrayList = new ArrayList<>();
-            for(int i = 0; i < 3; i++){
-
-                userArrayList.add(user);
-            }
-            ForumPostAttachmentsModel forumPostAttachmentsModel3 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel4 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(1,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4","https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(0,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(3,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-
-
-            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
-            for(int i = 0; i < 1; i++){
-
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel3);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel4);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel5);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel6);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel7);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel8);
-
-
-            }
-            ForumPostModel postModel = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,0);
-            postModel.setPostGroupDate("October 15 2020");
-            ForumPostModel postModel2 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,1);
-            ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
-            ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
-            forumPostModelArrayList = new ArrayList<>();
-            for(int i = 0; i < 1; i++){
-                forumPostModelArrayList.add(postModel);
-                for(int j = 0; j < 2; j++){
-
-                    forumPostModelArrayList.add(postModel2);
-                    forumPostModelArrayList.add(postModel3);
-                    forumPostModelArrayList.add(postModel4);
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result){
-
-            adapter = new ForumPostAdapter(QandAForum.this, forumPostModelArrayList, new ForumPostAdapter.MentionClickedListener() {
-                @Override
-                public void onMentionClicked(int position) {
-
-                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
-                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
-
-                }
-            }, new ForumPostAdapter.ProfilePictureClickedListener() {
-                @Override
-                public void onProfilePictureClicked(int position) {
-
-                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
-                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
-
-                }
-            }, new RTextView.HashTagClickedListener() {
-                @Override
-                public void onHashTagClicked(int position) {
-
-                    Intent intent = new Intent(QandAForum.this, HashTagsActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-                }
-            });
-            setForumAdapter(adapter);
-            //QandAForumPostRecyclerView.setLayoutManager(LinearLayoutManager);
-            //QandAForumPostRecyclerView.setAdapter(adapter);
-
-
-        }
     }
 
     private void saveTextToSharedPref(){
 
         i = i + 1;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QandAForum.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ForumBaseActivity.this);
         if(i == 1) preferences.edit().putString("1",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 2) preferences.edit().putString("2",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 3) preferences.edit().putString("3",rtEditText.getText(RTFormat.HTML)).apply();
 
     }
 
-    @Override
+
     public void setForumAdapter(ForumPostAdapter adapter){
-        adapter = this.adapter;
-        super.setForumAdapter(adapter);
 
+        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ForumBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
+        QandAForumPostRecyclerView.setLayoutManager(LinearLayoutManager);
+        QandAForumPostRecyclerView.setAdapter(adapter);
     }
-
 }

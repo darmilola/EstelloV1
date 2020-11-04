@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".QandAForum"></activity>
+        <activity android:name=".SwipeDismissBaseActivity"></activity>
+        <activity android:name=".HashTagsActivity" android:theme="@style/slidingActivityTheme">
+
+        </activity>
+        <activity android:name=".QandAForum" />
         <activity android:name=".CourseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,10 +52,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".login" />
         <activity android:name=".Sign_Up" />
-        <activity android:name=".splash_screen">
-        </activity>
+        <activity android:name=".splash_screen" />
         <activity android:name=".Welcome" />
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

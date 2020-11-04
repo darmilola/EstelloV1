@@ -65,15 +65,15 @@ public class course_training_welcome_page extends AppCompatActivity {
 
         course_welcome_syllabus_model model = new course_welcome_syllabus_model(false,"Section 1","Introduction to DeltaStream","This is a very fantastic library from transferwise, its so good thanks to transferwise for giving us this, you are appreciated");
 
-        course_welcome_syllabus_model model2 = new course_welcome_syllabus_model(false,"Section 2","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence adapter its really fantastic from transferwise");
+        course_welcome_syllabus_model model2 = new course_welcome_syllabus_model(false,"Section 2","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence forumAdapter its really fantastic from transferwise");
 
-        course_welcome_syllabus_model model3 = new course_welcome_syllabus_model(true,"Section 3","Database Designs for SQL Servers and MySql ","common mehn am here t talk about the description of the sequence adapter its really fantastic from transferwise");
+        course_welcome_syllabus_model model3 = new course_welcome_syllabus_model(true,"Section 3","Database Designs for SQL Servers and MySql ","common mehn am here t talk about the description of the sequence forumAdapter its really fantastic from transferwise");
 
-        course_welcome_syllabus_model model4 = new course_welcome_syllabus_model(false,"Section 4","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence adapter its really fantastic from transferwise");
+        course_welcome_syllabus_model model4 = new course_welcome_syllabus_model(false,"Section 4","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence forumAdapter its really fantastic from transferwise");
 
-        course_welcome_syllabus_model model5 = new course_welcome_syllabus_model(false,"Section 5","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql ","common mehn am here t talk about the description of the sequence adapter its really fantastic from transferwise");
+        course_welcome_syllabus_model model5 = new course_welcome_syllabus_model(false,"Section 5","Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql Database Designs for SQL Servers and MySql ","common mehn am here t talk about the description of the sequence forumAdapter its really fantastic from transferwise");
 
-        course_welcome_syllabus_model model6 = new course_welcome_syllabus_model(false,"Section 6","Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence adapter its really fantastic from transferwise");
+        course_welcome_syllabus_model model6 = new course_welcome_syllabus_model(false,"Section 6","Database Designs for SQL Servers and MySql","common mehn am here t talk about the description of the sequence forumAdapter its really fantastic from transferwise");
 
         course_welcome_syllabus_modelArrayList.add(model);
         course_welcome_syllabus_modelArrayList.add(model2);

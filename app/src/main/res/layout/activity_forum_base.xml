@@ -10,10 +10,9 @@
     android:background="@color/white"
     tools:context=".QandAForum">
 
-   <include layout="@layout/mention_selection_layout"/>
-   <include  layout="@layout/record_delete_anim_layout_bottomsheet_type1"/>
+    <include layout="@layout/mention_selection_layout"/>
+    <include  layout="@layout/record_delete_anim_layout_bottomsheet_type1"/>
     <include  layout="@layout/record_delete_anim_layout_type_activity"/>
-
     <include  layout="@layout/record_audio_bubble_layout_bottomsheet_type1" />
     <include layout="@layout/record_audio_bubble_type_activity"/>
 

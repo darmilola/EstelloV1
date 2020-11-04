@@ -69,7 +69,7 @@
             android:id="@+id/link_preview_desc"
             android:text="#TheStartupStack RocketPlace we're proud to bring you some of the highest #dadjokes around! This one coutesy of Vanhack iiya brotzky"
             android:textSize="17dp"
-            android:lineSpacingExtra="4dp"
+            android:lineSpacingExtra="6dp"
             android:fontFamily="@font/airreg"
             android:layout_marginTop="5dp"
             android:textColor="#0C0C0C"/>

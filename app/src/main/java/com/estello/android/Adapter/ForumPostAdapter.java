@@ -1,6 +1,7 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -18,12 +19,14 @@ import com.arthurivanets.arvi.widget.PlayableItemsContainer;
 import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
 import com.deltastream.example.edittextcontroller.RTEditText;
 import com.deltastream.example.edittextcontroller.RTextView;
+import com.deltastream.example.edittextcontroller.RTextView.HashTagClickedListener;
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.deltastream.example.edittextcontroller.api.format.RTSpanned;
 import com.deltastream.example.edittextcontroller.api.format.RTText;
 import com.deltastream.example.edittextcontroller.converter.ConverterHtmlToSpanned;
 import com.estello.android.Fragments.userProfileBottomSheet;
+import com.estello.android.HashTagsActivity;
 import com.estello.android.QandAForum;
 import com.estello.android.ViewModel.ForumPostModel;
 
@@ -53,7 +56,12 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private SuggestionsPostViewHolder suggestionsPostViewHolder;
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
+    HashTagClickedListener hashTagClickedListener;
 
+
+    public interface HashTagClickListener{
+        public void onHashTagClicked(int position);
+    }
 
     public interface MentionClickedListener{
 
@@ -64,12 +72,13 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public void onProfilePictureClicked(int position);
     }
 
-    public ForumPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList,MentionClickedListener mentionClickedListener,ProfilePictureClickedListener profilePictureClickedListener) {
+    public ForumPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, HashTagClickedListener hashTagClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
         this.mentionClickedListener = mentionClickedListener;
         this.profilePictureClickedListener = profilePictureClickedListener;
+        this.hashTagClickedListener = hashTagClickedListener;
 
     }
 
@@ -137,8 +146,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onSuccess(boolean status) {
                     try {
-                        postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
-                    } catch (IndexOutOfBoundsException e) {
+                       if(postViewHolder.richLinkView != null) {
+
+                           postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
+                       }
+                       } catch (IndexOutOfBoundsException e) {
                         e.printStackTrace();
                     }
                 }
@@ -146,8 +158,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
-                    postViewHolder.richLinkView.setVisibility(View.GONE);
-                }
+                    if(postViewHolder.richLinkView != null) {
+
+                        postViewHolder.richLinkView.setVisibility(View.GONE);
+                    }
+                    }
             });
 
 
@@ -201,7 +216,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                     try {
-                        questionPostViewHolder.richLinkView.setLinkFromMeta(questionPostViewHolder.richLinkView.getMetaData());
+                        if(questionPostViewHolder.richLinkView != null){
+
+                            questionPostViewHolder.richLinkView.setLinkFromMeta(questionPostViewHolder.richLinkView.getMetaData());
+                        }
+
                     } catch (IndexOutOfBoundsException e) {
                         e.printStackTrace();
                     }
@@ -210,7 +229,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
-                    questionPostViewHolder.richLinkView.setVisibility(View.GONE);
+                    if (questionPostViewHolder.richLinkView != null) {
+
+                        questionPostViewHolder.richLinkView.setVisibility(View.GONE);
+                    }
                 }
             });
 
@@ -250,7 +272,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                     try {
-                        suggestionsPostViewHolder.richLinkView.setLinkFromMeta(suggestionsPostViewHolder.richLinkView.getMetaData());
+                 if(suggestionsPostViewHolder.richLinkView != null) suggestionsPostViewHolder.richLinkView.setLinkFromMeta(suggestionsPostViewHolder.richLinkView.getMetaData());
                     } catch (IndexOutOfBoundsException e) {
                         e.printStackTrace();
                     }
@@ -259,7 +281,10 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onError(Exception e) {
 
-                    suggestionsPostViewHolder.richLinkView.setVisibility(View.GONE);
+                    if (suggestionsPostViewHolder.richLinkView != null) {
+
+                        suggestionsPostViewHolder.richLinkView.setVisibility(View.GONE);
+                    }
                 }
             });
 
@@ -340,7 +365,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener {
+    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, HashTagClickedListener {
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
@@ -354,6 +379,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
             textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
             textView.setMentionClickedListener(this);
+            textView.setHashTagClickedListener(this);
             richLinkView = itemView.findViewById(R.id.richlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
             //richLinkView.setVisibility(View.GONE);
@@ -372,6 +398,12 @@ public class ForumPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public void onMentionClicked(int clickedPosition) {
 
             mentionClickedListener.onMentionClicked(clickedPosition);
+        }
+
+        @Override
+        public void onHashTagClicked(int position) {
+
+            hashTagClickedListener.onHashTagClicked(position);
         }
     }
 
