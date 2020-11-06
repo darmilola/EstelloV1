@@ -27,9 +27,7 @@ allprojects {
         jcenter()
         repositories {
 
-            maven { url 'https://jitpack.io'
-                   credentials { 'jp_qvgsf0spu1job0ft6f75nfnh1e' }
-            }
+            maven { url 'https://jitpack.io' }
             flatDir {
                 dirs 'libs'
             }
