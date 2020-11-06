@@ -59,7 +59,7 @@ public class LinkSpan extends URLSpan implements RTSpan<String> {
     public void updateDrawState(TextPaint ds){
         super.updateDrawState(ds);
         ds.setUnderlineText(false);
-        ds.setColor(Color.parseColor("#465ED3"));
+        ds.setColor(Color.parseColor("#044475"));
     }
 
 }

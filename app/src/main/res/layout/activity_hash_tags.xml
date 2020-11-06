@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:id="@+id/QandAForumRoot"
+    android:id="@+id/channel_base_root"
     android:layerType="hardware">
 
     <include layout="@layout/mention_selection_layout"/>
@@ -83,9 +83,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/QandAForumPostRecyclerView"
+            android:id="@+id/channel_post_recyclerview"
             android:layout_marginBottom="50dp"
-            tools:listitem="@layout/forum_post_recyler_item">
+            tools:listitem="@layout/channel_post_recyler_item">
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
@@ -103,8 +103,8 @@
             android:visibility="gone"
             android:nestedScrollingEnabled="false"
             android:background="@color/white"
-            android:id="@+id/q_and_a_attachments_recyclerview"
-            tools:listitem="@layout/messaging_area_attachment_item_type_image"
+            android:id="@+id/channel_attachments_recyclerview"
+            tools:listitem="@layout/post_creation_area_attachment_item_type_image"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="5"/>
 
@@ -124,7 +124,7 @@
         android:src="@drawable/camera_icon"
         app:backgroundTint="@color/White"
         app:elevation="3dp"
-        android:id="@+id/QandACameraSelect"
+        android:id="@+id/channel_base_camera_select"
         app:fabSize="auto"
         android:visibility="gone"
         app:maxImageSize="30dp"
@@ -140,7 +140,7 @@
         app:backgroundTint="@color/White"
         app:elevation="3dp"
         android:visibility="gone"
-        android:id="@+id/QandACameraSnap"
+        android:id="@+id/channel_base_camera_snap"
         app:fabSize="auto"
         app:maxImageSize="30dp"
         app:tint="#2B0331"/>

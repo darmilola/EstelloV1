@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.deltastream.example.edittextcontroller.RTextView;
-import com.estello.android.Adapter.ForumPostAdapter;
+import com.estello.android.Adapter.ChannelPostAdapter;
 import com.estello.android.Fragments.userProfileBottomSheet;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.ViewModel.ForumPostModel;
@@ -30,7 +28,7 @@ public class HashTagsActivity extends AppCompatActivity {
 
     SlidrConfig config;
     RecyclerView QandAForumPostRecyclerView;
-    ForumPostAdapter adapter;
+    ChannelPostAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +39,7 @@ public class HashTagsActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        QandAForumPostRecyclerView = findViewById(R.id.QandAForumPostRecyclerView);
+        QandAForumPostRecyclerView = findViewById(R.id.channel_post_recyclerview);
         new populateTask().execute();
     }
 
@@ -148,7 +146,7 @@ public class HashTagsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result){
 
-            adapter = new ForumPostAdapter(HashTagsActivity.this, forumPostModelArrayList, new ForumPostAdapter.MentionClickedListener() {
+            adapter = new ChannelPostAdapter(HashTagsActivity.this, forumPostModelArrayList, new ChannelPostAdapter.MentionClickedListener() {
                 @Override
                 public void onMentionClicked(int position) {
 
@@ -156,7 +154,7 @@ public class HashTagsActivity extends AppCompatActivity {
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
                 }
-            }, new ForumPostAdapter.ProfilePictureClickedListener() {
+            }, new ChannelPostAdapter.ProfilePictureClickedListener() {
                 @Override
                 public void onProfilePictureClicked(int position) {
 

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
-        android:id="@+id/QandAFormatAreaLayout"
+        android:id="@+id/channel_base_format_area_layout"
         android:focusableInTouchMode="false"
         android:visibility="gone"
         android:orientation="horizontal">
@@ -30,7 +30,7 @@
                 android:layout_marginRight="55dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                android:id="@+id/QandAFormatToolBarDisplayLayout">
+                android:id="@+id/channel_base_format_toolbar_display_layout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,17 +45,17 @@
                         android:layout_height="18dp"
                         android:layout_alignParentLeft="true"
                         android:layout_marginRight="10dp"
-                        android:id="@+id/QandAFormatToolbarRemove"
+                        android:id="@+id/channel_base_format_toolbar_remove"
                         android:src="@drawable/cancel_action"
                         android:tint="#0854A3" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/QandARtToolbarLayout">
+                        android:id="@+id/channel_base_rt_toobar_layout">
 
 
                         <com.deltastream.example.edittextcontroller.HorizontalRTToolbar
-                            android:id="@+id/QandAFormatToolbar"
+                            android:id="@+id/channel_base_rt_toobar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/transparent_background"
@@ -89,7 +89,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
                 android:gravity="center|right"
-                android:id="@+id/QandAAttachmentLayout"
+                android:id="@+id/channel_base_attachments_layout"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -98,14 +98,14 @@
                     android:gravity="center"
                     android:visibility="visible"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/QandASuggestionSelectLayout"
+                    android:id="@+id/channel_base_suggestion_select_layout"
                     android:background="@drawable/yellow_colored_circle">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:padding="3dp"
-                        android:id="@+id/QandASuggestionSelect"
+                        android:id="@+id/channel_base_suggestion_select"
                         android:tint="#F5C23A"
                         android:src="@drawable/iconfinder_idea"/>
                 </LinearLayout>
@@ -118,14 +118,14 @@
                     android:gravity="center"
                     android:layout_marginRight="5dp"
                     android:visibility="visible"
-                    android:id="@+id/QandAQuestionSelectLayout"
+                    android:id="@+id/channel_base_question_select_layout"
                     android:background="@drawable/colored_circle_outline">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:padding="3dp"
-                        android:id="@+id/QandAQuestionSelect"
+                        android:id="@+id/channel_base_question_select"
                         android:tint="@color/blue"
                         android:src="@drawable/newquestionicon"/>
                 </LinearLayout>
@@ -134,7 +134,7 @@
                     android:layout_width="22dp"
                     android:layout_height="28dp"
                     android:layout_marginRight="25dp"
-                    android:id="@+id/QandADisplayFormatToolbarIcon"
+                    android:id="@+id/channel_base_display_format_toolbar_icon"
                     android:src="@drawable/format_icon"
                     android:visibility="visible"
                     android:tint="@color/dark_text_color" />
@@ -145,14 +145,14 @@
                     android:gravity="center"
                     android:layout_marginRight="3dp"
                     android:visibility="visible"
-                    android:id="@+id/QandAattachmentsPicturesLayout"
+                    android:id="@+id/channel_base_attachments_picture_layout"
                     android:background="@drawable/light_dark_outline_circle">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:paddingBottom="3dp"
-                        android:id="@+id/QandAattachmentsPictures"
+                        android:id="@+id/channel_base_attachments_pictures"
                         android:tint="@color/dark_text_color"
                         android:src="@drawable/camera_icon"/>
                 </LinearLayout>
@@ -164,7 +164,7 @@
                     android:padding="2dp"
                     android:layout_marginRight="1dp"
                     android:src="@drawable/newfileuploadicon"
-                    android:id="@+id/QandAAttachmentFileSelect"
+                    android:id="@+id/channel_base_attachments_file_select"
                     android:tint="@color/dark_text_color"/>
 
                 <include layout="@layout/record_view_type_activity"  android:gravity="center"/>
@@ -181,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:scaleType="fitXY"
-                    android:id="@+id/QandASendIcon"
+                    android:id="@+id/channel_base_send_icon"
                     android:src="@drawable/sendicon"
                     android:tint="#0854A3" />
 

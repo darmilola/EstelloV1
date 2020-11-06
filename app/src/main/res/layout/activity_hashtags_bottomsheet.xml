@@ -175,7 +175,7 @@
         android:nestedScrollingEnabled="false"
         android:background="@color/white"
         android:id="@+id/bottom_sheet_attachments_recyclerview"
-        tools:listitem="@layout/messaging_area_attachment_item_type_image"
+        tools:listitem="@layout/post_creation_area_attachment_item_type_image"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="5"/>
 
