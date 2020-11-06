@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:behavior_hideable="false"
-    tools:showIn="@layout/activity_forum_base"
+    tools:showIn="@layout/activity_channel_base"
     android:background="@color/white"
     android:id="@+id/messaging_area_bottomsheet"
     app:behavior_peekHeight="50dp">

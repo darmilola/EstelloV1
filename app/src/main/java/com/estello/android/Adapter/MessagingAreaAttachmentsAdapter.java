@@ -59,7 +59,7 @@ public class MessagingAreaAttachmentsAdapter extends RecyclerView.Adapter<Recycl
                 return new FilesItemViewHolder(view);
 
             case TYPE_IMAGES:
-                View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.messaging_area_attachment_item_type_image, parent, false);
+                View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_creation_area_attachment_item_type_image, parent, false);
                 return new ImagesItemViewHolder(view2);
         }
 

@@ -46,6 +46,26 @@ import androidx.core.content.ContextCompat;
  */
 public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener {
 
+    private MentionClickedListener mentionClickedListener;
+    private HashTagClickedListener hashTagClickedListener;
+
+    public interface MentionClickedListener{
+        public void onMentionClicked(int clickedPosition);
+    }
+    public interface HashTagClickedListener{
+        public void onHashTagClicked(int position);
+    }
+
+
+    public void setHashTagClickedListener(HashTagClickedListener hashTagClickedListener) {
+
+        this.hashTagClickedListener = hashTagClickedListener;
+    }
+
+    public void setMentionClickedListener(MentionClickedListener mentionClickedListener) {
+        this.mentionClickedListener = mentionClickedListener;
+    }
+
     public RTextView(Context context){
         super(context);
         init();
@@ -84,17 +104,6 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
 
         }
     }
-
-  /*  private SpannableString colorHashTags(String text){
-        SpannableString spannableString = new SpannableString(text);
-        Matcher tagMatcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(text);
-
-        while (tagMatcher.find()){
-
-            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.pinkypinky)), tagMatcher.start(), tagMatcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        return spannableString;
-    }*/
     private SpannableString clickHashTags(CharSequence text){
         SpannableString spannableString = new SpannableString(text);
         Matcher tagMatcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(text);
@@ -103,11 +112,11 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
            while (tagMatcher.find()) {
                int j = i + 1;
                i = j;
-               RTTextViewHashTagsSpan RTTextViewHashTagsSpan = new RTTextViewHashTagsSpan(ContextCompat.getColor(getContext(), R.color.blue)) {
+               RTTextViewHashTagsSpan RTTextViewHashTagsSpan = new RTTextViewHashTagsSpan(ContextCompat.getColor(getContext(), R.color.mention_hashtag_color)) {
                    @Override
                    public void onClick(@NonNull View widget) {
 
-                       Toast.makeText(getContext(), "HashTag at Position "+j, Toast.LENGTH_SHORT).show();
+                       hashTagClickedListener.onHashTagClicked(j);
                    }
                };
 
@@ -116,23 +125,22 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
            }
                Matcher mentionMatcher = Pattern.compile("@([A-Za-z0-9_-\\u00A0]+)").matcher(text);
 
-                 int k = 0;
+                 int k = -1;
                  while (mentionMatcher.find()) {
                      int l = k + 1;
                      k = l;
-                     RTTextViewMentionsSpan rtTextViewMentionsSpan = new RTTextViewMentionsSpan(ContextCompat.getColor(getContext(), R.color.pinkypinky)) {
+                     RTTextViewMentionsSpan rtTextViewMentionsSpan = new RTTextViewMentionsSpan(ContextCompat.getColor(getContext(), R.color.mention_hashtag_color)) {
                          @Override
                          public void onClick(@NonNull View widget) {
 
-                             Toast.makeText(getContext(), "Mention at position "+Integer.toString(l), Toast.LENGTH_SHORT).show();
+                             if(mentionClickedListener != null) mentionClickedListener.onMentionClicked(l);
+                             //Toast.makeText(getContext(), "Mention at position "+Integer.toString(l), Toast.LENGTH_SHORT).show();
                          }
                      };
                      spannableString.setSpan(rtTextViewMentionsSpan, mentionMatcher.start(), mentionMatcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                  }
-
-
-        return spannableString;
+                 return spannableString;
     }
 
     @Override

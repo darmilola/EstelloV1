@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.estello.android.QandAForum;
+import com.estello.android.QandAChannel;
 import com.estello.android.R;
 
 /**
@@ -44,7 +44,7 @@ public class CourseActivityForums extends Fragment {
         qandaCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), QandAForum.class));
+                startActivity(new Intent(getContext(), QandAChannel.class));
             }
         });
     }

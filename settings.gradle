@@ -1,0 +1,3 @@
+include ':app', ':slackwisequestionview', ':deltastreamedittextcontroller', ':EstelloEdittextControllerLib'
+include ':slackwisebuttongroup'
+rootProject.name='estello'
