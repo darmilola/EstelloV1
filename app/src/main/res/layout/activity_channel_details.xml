@@ -139,7 +139,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="Purpose"
-                android:textColor="@color/dark_text_color"
+                android:textColor="@color/black"
                 android:textSize="18dp"/>
 
             <TextView
@@ -151,7 +151,7 @@
                 android:ellipsize="end"
                 android:lineSpacingExtra="6dp"
                 android:text="Tech topics and discussions, the topics can range from science technology, Engineering and Mathematics, so its good to know what is right to know"
-                android:textColor="@color/dark_text_color"
+                android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <TextView
@@ -178,9 +178,9 @@
                 android:text="EDIT"
                 android:textSize="18dp"
                 android:textColor="@color/blue"
-                android:fontFamily="@font/sourcereg"
+                android:fontFamily="@font/airreg"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -215,7 +215,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="15dp"
-                        android:tint="@color/dark_text_color"
+                        android:tint="@color/black"
                         android:src="@drawable/bell_2x"/>
                 </LinearLayout>
 
@@ -268,7 +268,7 @@
                        android:layout_height="0.5dp"
                        android:layout_marginTop="5dp"
                        android:layout_gravity="bottom"
-                       android:background="#60A5A4A4" />
+                       android:background="#60A5A4A4"/>
 
                </LinearLayout>
 
@@ -294,9 +294,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:padding="12dp"
-                        android:src="@drawable/channel_add_people"
-                        android:tint="#555454" />
+                        android:src="@drawable/iconfinder_user_interface_20_2044268"
+                        android:tint="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -344,8 +343,9 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="14dp"
-                        android:src="@drawable/channel_members_list"
-                        android:tint="#555454" />
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/new_members_list"
+                        android:tint="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -393,10 +393,9 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:padding="14dp"
-                        android:layout_marginLeft="4dp"
-                        android:src="@drawable/channel_logout"
-                        android:tint="#555454" />
+                        android:padding="15dp"
+                        android:src="@drawable/exit_1_2x"
+                        android:tint="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -427,14 +426,48 @@
 
 
             </LinearLayout>
-
-
-
-
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:elevation="3dp"
+                app:cardCornerRadius="3dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pinned Items"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/airbold"/>
+
+                      <RelativeLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                          <androidx.recyclerview.widget.RecyclerView
+                              android:layout_width="match_parent"
+                              android:layout_marginTop="10dp"
+                              android:nestedScrollingEnabled="false"
+                              android:id="@+id/channel_details_pinned_items_recyclerview"
+                              android:layout_height="match_parent"
+                              tools:listitem="@layout/channel_details_pinned_recycler_item"/>
+
+                      </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
