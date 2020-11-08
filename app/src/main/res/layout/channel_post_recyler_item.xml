@@ -8,6 +8,7 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:weightSum="5"
+    android:background="@drawable/channel_item_ripple_effect"
     android:baselineAligned="false"
     android:layout_height="wrap_content">
 

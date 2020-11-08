@@ -252,7 +252,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:tint="#157ECF"
-                    android:src="@drawable/languageofinstruction"/>
+                    android:src="@drawable/conversationicon"/>
             </LinearLayout>
 
             <TextView
