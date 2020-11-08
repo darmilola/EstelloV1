@@ -14,7 +14,7 @@ import android.view.WindowManager;
 
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.estello.android.Adapter.ChannelPostAdapter;
-import com.estello.android.Fragments.userProfileBottomSheet;
+import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.User;
@@ -150,7 +150,7 @@ public class HashTagsActivity extends AppCompatActivity {
                 @Override
                 public void onMentionClicked(int position) {
 
-                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                    UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
                 }
@@ -158,7 +158,7 @@ public class HashTagsActivity extends AppCompatActivity {
                 @Override
                 public void onProfilePictureClicked(int position) {
 
-                    userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                    UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
                 }
@@ -168,6 +168,8 @@ public class HashTagsActivity extends AppCompatActivity {
 
 
                 }
+            }, position -> {
+
             });
             QandAForumPostRecyclerView.setLayoutManager(LinearLayoutManager);
             QandAForumPostRecyclerView.setAdapter(adapter);

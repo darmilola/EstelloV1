@@ -44,6 +44,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
     HashTagClickedListener hashTagClickedListener;
+    PostLongClickedListener postLongClickedListener;
 
 
     public interface HashTagClickListener{
@@ -58,14 +59,20 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public void onProfilePictureClicked(int position);
     }
+    public interface PostLongClickedListener{
 
-    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, HashTagClickedListener hashTagClickedListener) {
+        public void onPostLongClicked(int position);
+    }
+
+
+    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, HashTagClickedListener hashTagClickedListener,PostLongClickedListener postLongClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
         this.mentionClickedListener = mentionClickedListener;
         this.profilePictureClickedListener = profilePictureClickedListener;
         this.hashTagClickedListener = hashTagClickedListener;
+        this.postLongClickedListener = postLongClickedListener;
 
     }
 
@@ -352,7 +359,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, HashTagClickedListener {
+    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, HashTagClickedListener,View.OnLongClickListener {
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
@@ -367,9 +374,10 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
             textView.setMentionClickedListener(this);
             textView.setHashTagClickedListener(this);
+            textView.setOnLongClickListener(this);
+            itemView.setOnLongClickListener(this);
             richLinkView = itemView.findViewById(R.id.richlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
-            //richLinkView.setVisibility(View.GONE);
             profilePicture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -391,6 +399,13 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void onHashTagClicked(int position) {
 
             hashTagClickedListener.onHashTagClicked(position);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            postLongClickedListener.onPostLongClicked(getAdapterPosition());
+            return false;
         }
     }
 

@@ -7,8 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.deltastream.example.edittextcontroller.RTextView;
-import com.estello.android.Fragments.userProfileBottomSheet;
+import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.Adapter.ChannelPostAdapter;
 
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
@@ -94,12 +93,12 @@ public class QandAChannel extends ChannelBaseActivity {
 
             adapter = new ChannelPostAdapter(QandAChannel.this, forumPostModelArrayList, position -> {
 
-                userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
             }, position -> {
 
-                userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
             }, position -> {
@@ -108,7 +107,7 @@ public class QandAChannel extends ChannelBaseActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            });
+            }, QandAChannel.this::showPostToolsBottomSheet);
             setChannelPostAdapter(adapter);
         }
     }
@@ -117,7 +116,11 @@ public class QandAChannel extends ChannelBaseActivity {
     public void setChannelPostAdapter(ChannelPostAdapter adapter){
         adapter = this.adapter;
         super.setChannelPostAdapter(adapter);
+    }
 
+    @Override
+    public void showPostToolsBottomSheet(int position){
+        super.showPostToolsBottomSheet(position);
     }
 
 }

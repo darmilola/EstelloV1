@@ -1,7 +1,10 @@
 package com.estello.android;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,9 +12,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -37,6 +42,7 @@ import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
+import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.estello.android.ViewModel.LockableBottomSheetBehavior;
 import com.estello.android.ViewModel.MentionSelectionModel;
@@ -45,12 +51,17 @@ import com.estello.android.ViewModel.MessagingAreaFileSelectModel;
 import com.estello.android.ViewModel.MessagingAreaPictureSelectModel;
 import com.estello.android.ViewModel.RtEdittextScrollView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rd.utils.DensityUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
@@ -259,7 +270,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         isSoftInputRetreived = preferences.getBoolean("softInputRetrieved",false);
         isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved",false);
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
-
         channelInfoIcon = findViewById(R.id.channel_base_info_icon);
         bottom_sheet = findViewById(R.id.messaging_area_bottomsheet);
         bottomsheet_picture_select_layout = findViewById(R.id.messaging_area_picture_select_layout_bottomsheet);
@@ -933,8 +943,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -1807,4 +1815,67 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
         ChannelPostRecyclerView.setAdapter(adapter);
     }
+
+    public void showPostToolsBottomSheet(int position){
+        new PostToolsBottomSheet().show(getSupportFragmentManager(),"postTools");
+    }
+
+
+
+
+    public static class PostToolsBottomSheet extends BottomSheetDialogFragment {
+
+
+        View view;
+        private  BottomSheetBehavior bottomSheetBehavior;
+        FrameLayout bottom_sheet;
+        BottomSheetDialog dialog;
+        public PostToolsBottomSheet postToolsBottomSheet(){
+            return new PostToolsBottomSheet();
+        }
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+        }
+
+        @NotNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            dialog = (BottomSheetDialog)super.onCreateDialog(savedInstanceState);
+
+            dialog.setContentView(R.layout.channel_post_item_tool_bottomsheet);
+            initView();
+            return  dialog;
+
+        }
+
+
+
+        private void initView(){
+
+
+            bottom_sheet = (FrameLayout)dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+            bottomSheetBehavior.setHalfExpandedRatio(0.75f);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                }
+
+
+            });
+
+        }
+
+
+    }
+
+
+
 }

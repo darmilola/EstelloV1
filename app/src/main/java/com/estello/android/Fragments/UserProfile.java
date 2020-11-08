@@ -42,7 +42,7 @@ public class UserProfile extends Fragment {
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+                UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getChildFragmentManager(),"userprofile");
             }
         });

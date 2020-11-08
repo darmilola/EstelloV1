@@ -10,7 +10,7 @@ import com.estello.android.Fragments.DirectMessages;
 import com.estello.android.Fragments.ExploreFragment;
 import com.estello.android.Fragments.MyCourses;
 import com.estello.android.Fragments.UserProfile;
-import com.estello.android.Fragments.userProfileBottomSheet;
+import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
      public void displayUserProfile(){
-         userProfileBottomSheet bottomSheet = new userProfileBottomSheet();
+         UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
          bottomSheet.show(getSupportFragmentManager(),"userbottomsheetprofile");
      }
 
