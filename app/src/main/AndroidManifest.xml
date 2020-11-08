@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".ChannelDetails"></activity>
+        <activity android:name=".ChannelPostDetails"></activity>
+        <activity android:name=".ChannelDetails" />
         <activity android:name=".SwipeDismissBaseActivity" />
         <activity
             android:name=".HashTagsActivity"
-            android:theme="@style/slidingActivityTheme"></activity>
+            android:theme="@style/slidingActivityTheme" />
         <activity android:name=".QandAChannel" />
         <activity android:name=".CourseActivity">
             <intent-filter>

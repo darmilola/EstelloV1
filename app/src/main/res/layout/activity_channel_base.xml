@@ -9,6 +9,7 @@
     android:layerType="hardware"
     android:background="@color/white">
 
+
     <include layout="@layout/mention_selection_layout"/>
     <include  layout="@layout/record_delete_anim_layout_bottomsheet_type1"/>
     <include  layout="@layout/record_delete_anim_layout_type_activity"/>

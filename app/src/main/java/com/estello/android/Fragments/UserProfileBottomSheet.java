@@ -22,15 +22,15 @@ import com.estello.android.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class userProfileBottomSheet extends BottomSheetDialogFragment {
+public class UserProfileBottomSheet extends BottomSheetDialogFragment {
 
 
     View view;
     private  BottomSheetBehavior bottomSheetBehavior;
     FrameLayout bottom_sheet;
     BottomSheetDialog dialog;
-    public userProfileBottomSheet userProfileBottomSheet() {
-        return new userProfileBottomSheet();
+    public UserProfileBottomSheet userProfileBottomSheet() {
+        return new UserProfileBottomSheet();
     }
 
     @Override
