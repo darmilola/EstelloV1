@@ -90,6 +90,7 @@ public class RichLinkView extends RelativeLayout {
         }
 
         linearLayout = (LinearLayout) findViewById(R.id.link_preview_root);
+        linearLayout.setVisibility(View.VISIBLE);
         imageView = (ImageView) findViewById(R.id.link_prev_image);
         textViewTitle = (TextView) findViewById(R.id.link_preview_title);
         textViewDesp = (TextView) findViewById(R.id.link_preview_desc);
@@ -117,7 +118,7 @@ public class RichLinkView extends RelativeLayout {
         }
         else{
             favicon.setVisibility(VISIBLE);
-           setDataSubscriber(favicon,getContext(),Uri.parse(meta.getFavicon()),true);
+            setDataSubscriber(favicon,getContext(),Uri.parse(meta.getFavicon()),true);
         }
 
         if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
@@ -196,11 +197,11 @@ public class RichLinkView extends RelativeLayout {
             public void onData(MetaData metaData) {
                 meta = metaData;
 
-                if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
+                if(!meta.getTitle().isEmpty() || !meta.getTitle().equals("")) {
                     viewListener.onSuccess(true);
                 }
 
-                initView();
+                //initView();
             }
 
             @Override

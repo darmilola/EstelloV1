@@ -154,7 +154,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     if(postViewHolder.richLinkView != null) {
 
-                        postViewHolder.richLinkView.setVisibility(View.GONE);
+                        //postViewHolder.richLinkView.setVisibility(View.GONE);
                     }
                     }
             });
@@ -225,7 +225,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     if (questionPostViewHolder.richLinkView != null) {
 
-                        questionPostViewHolder.richLinkView.setVisibility(View.GONE);
+                        //questionPostViewHolder.richLinkView.setVisibility(View.GONE);
                     }
                 }
             });
@@ -277,7 +277,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     if (suggestionsPostViewHolder.richLinkView != null) {
 
-                        suggestionsPostViewHolder.richLinkView.setVisibility(View.GONE);
+                        //suggestionsPostViewHolder.richLinkView.setVisibility(View.GONE);
                     }
                 }
             });
