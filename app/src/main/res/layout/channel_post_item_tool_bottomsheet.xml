@@ -266,7 +266,7 @@
                         android:layout_height="24dp"
                         android:padding="2dp"
                         android:src="@drawable/iconfinder_interface_12_4634389"
-                        android:tint="#6F6F6F"  />
+                        android:tint="#6F6F6F"/>
                 </LinearLayout>
 
                 <TextView

@@ -90,12 +90,12 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         else if(viewType == typeQuestion){
 
-            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_question, parent, false);
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_question, parent, false);
             return new QuestionPostViewHolder(view2);
         }
         else if(viewType == typeIdea){
 
-            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_suggestion, parent, false);
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_suggestion, parent, false);
             return new SuggestionsPostViewHolder(view2);
         }
         return null;
@@ -387,6 +387,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
 
 
+
         }
 
         @Override
@@ -400,6 +401,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             hashTagClickedListener.onHashTagClicked(position);
         }
+
 
         @Override
         public boolean onLongClick(View v) {

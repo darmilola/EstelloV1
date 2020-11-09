@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".ChannelPostDetails"></activity>
+        <activity android:name=".ChannelPostDetailsTypeNeutral"></activity>
         <activity android:name=".ChannelDetails" />
         <activity android:name=".SwipeDismissBaseActivity" />
         <activity
