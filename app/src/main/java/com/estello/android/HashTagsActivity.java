@@ -162,10 +162,9 @@ public class HashTagsActivity extends AppCompatActivity {
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
                 }
-            }, new RTextView.HashTagClickedListener() {
+            }, new ChannelPostAdapter.hashTagClickedListener() {
                 @Override
                 public void onHashTagClicked(int position) {
-
 
                 }
             }, position -> {

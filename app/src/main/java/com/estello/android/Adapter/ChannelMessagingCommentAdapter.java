@@ -1,23 +1,29 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.arthurivanets.arvi.Config;
+import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
+import com.arthurivanets.arvi.widget.PlayableItemsContainer;
 import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
 import com.deltastream.example.edittextcontroller.RTextView;
+import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.estello.android.R;
-import com.estello.android.ViewModel.CoursesModel;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
+import com.estello.android.ViewModel.RichLinkView.ViewListener;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -26,15 +32,16 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
     Context context;
     private static int typeDate = 0;
     private static int typePost = 1;
+    private PostViewHolder postViewHolder;
 
 
-    ChannelPostAdapter.MentionClickedListener mentionClickedListener;
-    ChannelPostAdapter.ProfilePictureClickedListener profilePictureClickedListener;
-    RTextView.HashTagClickedListener hashTagClickedListener;
-    ChannelPostAdapter.PostLongClickedListener postLongClickedListener;
+   MentionClickedListener mentionClickedListener;
+   ProfilePictureClickedListener profilePictureClickedListener;
+   hashTagClickListener hashTagClickedListener;
+   PostLongClickedListener postLongClickedListener;
 
 
-    public interface HashTagClickListener{
+    public interface hashTagClickListener{
         public void onHashTagClicked(int position);
     }
 
@@ -52,7 +59,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
     }
 
 
-    public ChannelMessagingCommentAdapter(ArrayList<ForumPostModel> forumPostModelArrayList, Context context, ChannelPostAdapter.MentionClickedListener mentionClickedListener, ChannelPostAdapter.ProfilePictureClickedListener profilePictureClickedListener, RTextView.HashTagClickedListener hashTagClickedListener, ChannelPostAdapter.PostLongClickedListener postLongClickedListener) {
+    public ChannelMessagingCommentAdapter(ArrayList<ForumPostModel> forumPostModelArrayList, Context context, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, hashTagClickListener hashTagClickedListener, PostLongClickedListener postLongClickedListener) {
 
         this.context = context;
         this.forumPostModelArrayList = forumPostModelArrayList;
@@ -65,18 +72,96 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_message_comment_recycler_item, parent, false);
+        if (viewType == typeDate) {
+
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_date_item, parent, false);
+            return new DateViewHolder(view2);
+
+        } else if (viewType == typePost) {
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_message_comment_recycler_item, parent, false);
+            return new PostViewHolder(view2);
+        }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+
+
+        if (forumPostModelArrayList.get(position).getType() == typePost) {
+
+            postViewHolder = (PostViewHolder) holder;
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String text =  preferences.getString("2","");
+            RTHtml rtHtml = new RTHtml(text);
+            postViewHolder.textView.setText(rtHtml);
+
+            LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+            postViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
+            postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
+            Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config);
+            postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+            postViewHolder.attachmentsRecyclerView.onResume();
+
+            if(postViewHolder.richLinkView != null)
+                postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
+
+                    @Override
+                    public void onSuccess(boolean status) {
+                        try {
+                            if(postViewHolder.richLinkView != null) {
+
+                                postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                        if(postViewHolder.richLinkView != null) {
+
+                            //postViewHolder.richLinkView.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+
+
+
+        } else if (forumPostModelArrayList.get(position).getType() == typeDate) {
+
+            DateViewHolder dateViewHolder = (DateViewHolder) holder;
+            dateViewHolder.forumPostDate.setText(forumPostModelArrayList.get(position).getPostGroupDate());
+        }
+
+
     }
 
     @Override
     public int getItemCount() {
         return forumPostModelArrayList.size();
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if (forumPostModelArrayList.get(position).getType() == typeDate) {
+
+            return typeDate;
+        } else if (forumPostModelArrayList.get(position).getType() == typePost) {
+
+            return typePost;
+        }
+        return typePost;
     }
 
 
@@ -97,7 +182,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
 
     public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener {
 
-        RecyclerView recentCommentsRecyclerView;
+
         PlayableItemsRecyclerView attachmentsRecyclerView;
         RTextView textView;
         RichLinkView richLinkView;
@@ -106,13 +191,12 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             attachmentsRecyclerView = itemView.findViewById(R.id.forum_post_attachments_recyclerview);
-            recentCommentsRecyclerView = itemView.findViewById(R.id.forum_post_recent_comments_recylerview);
             textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
             textView.setMentionClickedListener(this);
             textView.setHashTagClickedListener(this);
             textView.setOnLongClickListener(this);
             itemView.setOnLongClickListener(this);
-            richLinkView = itemView.findViewById(R.id.richlinkview);
+            richLinkView = itemView.findViewById(R.id.Commentsrichlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
             profilePicture.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -98,65 +98,65 @@ public class RichLinkView extends RelativeLayout {
         favicon = findViewById(R.id.link_preview_favicon);
         smallImage = findViewById(R.id.link_image_small);
 
+        if(meta != null) {
+
+            if (meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
+                imageView.setVisibility(GONE);
+                smallImage.setVisibility(GONE);
+            } else {
+
+                imageView.setVisibility(VISIBLE);
+                smallImage.setVisibility(VISIBLE);
+                setDataSubscriber(imageView, getContext(), Uri.parse(meta.getImageurl()), false);
+                setDataSubscriber(smallImage, getContext(), Uri.parse(meta.getImageurl()), true);
+
+            }
+
+            if (meta.getFavicon().equalsIgnoreCase("") || meta.getFavicon().isEmpty()) {
+
+                favicon.setVisibility(GONE);
+            } else {
+                favicon.setVisibility(VISIBLE);
+                setDataSubscriber(favicon, getContext(), Uri.parse(meta.getFavicon()), true);
+            }
+
+            if (meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
+                textViewTitle.setVisibility(GONE);
+            } else {
+                textViewTitle.setVisibility(VISIBLE);
+                textViewTitle.setText(meta.getTitle());
+            }
+
+            if (meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
+                textViewDesp.setVisibility(GONE);
+            } else {
+                textViewDesp.setVisibility(VISIBLE);
+                textViewDesp.setText(meta.getDescription());
+            }
+            if (meta.getSitename().isEmpty() || meta.getSitename().equals("")) {
+                textViewSiteName.setVisibility(GONE);
+            } else {
+                textViewSiteName.setVisibility(VISIBLE);
+                textViewSiteName.setText(meta.getSitename());
+            }
 
 
-        if(meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
-            imageView.setVisibility(GONE);
-            smallImage.setVisibility(GONE);
-        } else {
-
-            imageView.setVisibility(VISIBLE);
-            smallImage.setVisibility(VISIBLE);
-            setDataSubscriber(imageView,getContext(),Uri.parse(meta.getImageurl()),false);
-            setDataSubscriber(smallImage,getContext(),Uri.parse(meta.getImageurl()),true);
-
-        }
-
-        if(meta.getFavicon().equalsIgnoreCase("") || meta.getFavicon().isEmpty()){
-
-            favicon.setVisibility(GONE);
-        }
-        else{
-            favicon.setVisibility(VISIBLE);
-            setDataSubscriber(favicon,getContext(),Uri.parse(meta.getFavicon()),true);
-        }
-
-        if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
-            textViewTitle.setVisibility(GONE);
-        } else {
-            textViewTitle.setVisibility(VISIBLE);
-            textViewTitle.setText(meta.getTitle());
-        }
-
-        if(meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
-            textViewDesp.setVisibility(GONE);
-        } else {
-            textViewDesp.setVisibility(VISIBLE);
-            textViewDesp.setText(meta.getDescription());
-        }
-        if(meta.getSitename().isEmpty() || meta.getSitename().equals("")){
-            textViewSiteName.setVisibility(GONE);
-        }
-        else{
-            textViewSiteName.setVisibility(VISIBLE);
-            textViewSiteName.setText(meta.getSitename());
-        }
-
-
-        linearLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isDefaultClick) {
-                    richLinkClicked();
-                } else {
-                    if(richLinkListener != null) {
-                        richLinkListener.onClicked(view, meta);
-                    } else {
+            linearLayout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isDefaultClick) {
                         richLinkClicked();
+                    } else {
+                        if (richLinkListener != null) {
+                            richLinkListener.onClicked(view, meta);
+                        } else {
+                            richLinkClicked();
+                        }
                     }
                 }
-            }
-        });
+            });
+
+        }
 
     }
 

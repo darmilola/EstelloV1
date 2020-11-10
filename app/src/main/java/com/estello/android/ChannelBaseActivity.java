@@ -1,7 +1,6 @@
 package com.estello.android;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,11 +11,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -42,7 +39,6 @@ import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
-import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.estello.android.ViewModel.LockableBottomSheetBehavior;
 import com.estello.android.ViewModel.MentionSelectionModel;
@@ -164,7 +160,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         populateView();
         initView();
         setUpAttachmentsView();
-        setUpQandAattachmentsView();
+        setUpActivityattachmentsView();
 
     }
 
@@ -1351,7 +1347,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
 
-    private void setUpQandAattachmentsView(){
+    private void setUpActivityattachmentsView(){
 
         bottomSheetAttachmentList = new ArrayList<>();
         MessagingAreaAttachmentModel attachmentModel = new MessagingAreaAttachmentModel(0);

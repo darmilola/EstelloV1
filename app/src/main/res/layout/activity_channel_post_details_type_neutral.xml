@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#158A8888"
+    android:id="@+id/channel_message_details_root"
     tools:context=".ChannelPostDetailsTypeNeutral">
 
 
@@ -25,6 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         app:contentInsetEnd="0dp"
+        android:background="@color/white"
+        android:id="@+id/channel_message_details_toolbar"
         app:contentInsetStart="0dp">
 
         <LinearLayout
@@ -38,7 +41,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/sourcereg"
                         android:gravity="center|left"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="10dp"
                         android:text="Details"
                         android:textColor="@color/black"
                         android:textSize="21dp" />
@@ -82,7 +85,7 @@
       <LinearLayout
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="0.7"
+            android:layout_weight="1"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
@@ -105,7 +108,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4.3"
+            android:layout_weight="4"
             android:layout_marginLeft="15dp"
             android:orientation="vertical">
 
@@ -170,11 +173,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:focusableInTouchMode="true"
         android:fontFamily="@font/airreg"
         android:lineSpacingExtra="6dp"
         android:text="@string/large_text"
         android:textColor="#0C0C0C"
-        android:textSize="17dp" />
+        android:textSize="17dp"/>
 
 
     <com.estello.android.ViewModel.RichLinkView.RichLinkView
@@ -189,7 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="2"
-            android:id="@+id/forum_post_attachments_recyclerview"
+            android:id="@+id/channel_details_message_attachments_recyclerview"
             tools:listitem="@layout/forum_post_item_attachments_type_video"/>
     </RelativeLayout>
 
@@ -288,9 +292,9 @@
              android:layout_alignParentRight="true">
 
              <ImageView
-                 android:layout_width="50dp"
-                 android:layout_height="40dp"
-                 android:padding="7dp"
+                 android:layout_width="45dp"
+                 android:layout_height="35dp"
+                 android:padding="8dp"
                  android:rotation="90"
                  android:layout_alignParentLeft="true"
                  android:tint="@color/dark_text_color"
@@ -300,8 +304,9 @@
                  android:layout_width="27dp"
                  android:layout_height="30dp"
                  android:layout_alignParentRight="true"
-                 android:layout_marginTop="5dp"
+                 android:layout_marginTop="3dp"
                  android:rotation="90"
+                 android:id="@+id/channel_details_more_icon"
                  android:src="@drawable/iconfinder_interface_67_4634443"
                  android:tint="#525151" />
 
@@ -313,12 +318,18 @@
            android:layout_gravity="bottom"
            android:background="#60A5A4A4"/>
 
-                <androidx.recyclerview.widget.RecyclerView
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                  <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
+                    android:id="@+id/channel_post_details_comments_recyclerview"
                     tools:listitem="@layout/channel_message_comment_recycler_item"
                     android:nestedScrollingEnabled="false"/>
+                </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
