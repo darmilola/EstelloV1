@@ -1,5 +1,19 @@
 package com.estello.android;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Slide;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +21,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,14 +40,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-
+import com.arthurivanets.arvi.Config;
+import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
+import com.arthurivanets.arvi.widget.PlayableItemsContainer;
+import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
+import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.RTApi;
 import com.deltastream.example.edittextcontroller.api.RTProxyImpl;
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
+import com.deltastream.example.edittextcontroller.api.format.RTHtml;
+import com.estello.android.Adapter.ChannelMessagingCommentAdapter;
 import com.estello.android.Adapter.ChannelPostAdapter;
+import com.estello.android.Adapter.ForumPostAttachmentsAdapter;
+import com.estello.android.Adapter.ForumPostRecentCommentAdapter;
 import com.estello.android.Adapter.HashTagsSelectionAdapter;
 import com.estello.android.Adapter.MentionSelectionAdapter;
 import com.estello.android.Adapter.MessagingAreaAttachmentsAdapter;
@@ -39,13 +63,19 @@ import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
+import com.estello.android.Fragments.UserProfileBottomSheet;
+import com.estello.android.ViewModel.ForumPostAttachmentsModel;
+import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.estello.android.ViewModel.LockableBottomSheetBehavior;
 import com.estello.android.ViewModel.MentionSelectionModel;
 import com.estello.android.ViewModel.MessagingAreaAttachmentModel;
 import com.estello.android.ViewModel.MessagingAreaFileSelectModel;
 import com.estello.android.ViewModel.MessagingAreaPictureSelectModel;
+import com.estello.android.ViewModel.RichLinkView.RichLinkView;
+import com.estello.android.ViewModel.RichLinkView.ViewListener;
 import com.estello.android.ViewModel.RtEdittextScrollView;
+import com.estello.android.ViewModel.User;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -56,39 +86,24 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Slide;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-
-public abstract class ChannelBaseActivity extends AppCompatActivity {
+public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
 
     boolean isLayoutChangingFromMaxHeightChange = false;
     RtEdittextScrollView rtEditText;
-    HorizontalRTToolbar ChannelFormatToolbar;
-    RTManager ChannelArtManager;
+    HorizontalRTToolbar ChannelMessageDetailsFormatToolbar;
+    RTManager ChannelPostDetailsArtManager;
     LinearLayout edittextFullScreen;
     LinearLayout edittextCameraFileLayout;
-    LinearLayout ChannelQuestionSelectLayout;
-    LinearLayout ChannelSuggetsionSelectLayout;
-    LinearLayout ChannelToolbarDisplayLayout;
-    LinearLayout ChannelAttachmentsLayout;
-    LinearLayout ChannelFormattingAreaLayout;
+    LinearLayout ChannelPostDetailsToolbarDisplayLayout;
+    LinearLayout ChannelMessageDetailsAttachmentsLayout;
+    LinearLayout ChannelMessageDetailsFormattingAreaLayout;
     LinearLayout fullScreenReverseLayout;
-    ImageView ChannelDisplayFormattingToolIcon;
-    ImageView ChannelSendIcon;
-    ImageView ChannelRemoveToolbarIcon;
-    LinearLayout ChannelrtToolbarLayout;
-    LinearLayout ChannelAttachmentsPicturesLayout;
-    ImageView ChannelAttchmentsFile;
+    ImageView ChannelMessageDetailsDisplayFormattingToolIcon;
+    ImageView ChannelMessageDetailsCommentSendIcon;
+    ImageView ChannelMessageDetailsRemoveToolbarIcon;
+    LinearLayout ChannelMessageDetailsrtToolbarLayout;
+    LinearLayout ChannelMessageDetailsAttachmentsPicturesLayout;
+    ImageView ChannelMessageDetailsAttchmentsFile;
 
     HorizontalRTToolbar bottomSheetformatToolbar;
     LinearLayout bottomSheetToolbarDisplayLayout;
@@ -111,13 +126,16 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     MessagingAreaPictureSelectAdapter messagingAreaPictureSelectAdapter;
     RecyclerView MessagingAreaAttachmentsSelectRecyclerView;
     NestedScrollView MessagingAreaAttachmentsSelectNestedScroll;
-    CoordinatorLayout ChannelRoot;
+    CoordinatorLayout ChannelMessageDetailsRoot;
     int softInputHeight = 0;
     boolean isSoftInputShown = false;
     FloatingActionButton cameraSnap,cameraSelect;
-    ImageView messagingAreaPictureSelect1Bottomsheet, messagingAreaPictureSelect2Channel,cameraSelectPictureIcon2BottomSheet;
+    ImageView messagingAreaPictureSelect1Bottomsheet, messagingAreaPictureSelect2Channel;
     int mSoftInputHeight;
+    ImageView moreIcon;
+    Toolbar toolbar;
     boolean isPictureGalleryShown = false;
+
 
     RTApi rtApi;
     RecyclerView bottomSheetAttachmentRecyclerView, ChannelAttachmentsRecyclerView;
@@ -136,7 +154,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     FrameLayout audiorecordViewTypeActivityRoot;
     LinearLayout recordBubbleLayoutRootActivity;
     ImageView messagingAreaPictureSelect2BottomSheet;
-    RecyclerView ChannelPostRecyclerView;
     boolean isSelectionChangedFromBottomsheetStateChange = false;
     ChannelPostAdapter forumAdapter;
     boolean authBflag = false;
@@ -150,22 +167,24 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     int selectionInStartHashTagging;
     boolean selectionChangeFromMentioning  = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
-    ImageView channelInfoIcon;
+    ChannelMessagingCommentAdapter commentAdapter;
+    RecyclerView commentsRecyclerview;
     int i  = 0;
+
+    RichLinkView richLinkView;
+    RTextView rTextView;
+    PlayableItemsRecyclerView playableItemsRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeBaseFeaturesLayout();
-        populateView();
+        setContentView(R.layout.activity_channel_post_details_type_neutral);
         initView();
         setUpAttachmentsView();
-        setUpActivityattachmentsView();
-
-    }
-
-    private void initializeBaseFeaturesLayout(){
-        setContentView(R.layout.activity_channel_base);
+        setUpActivityAttachmentsView();
+        new populateTask().execute();
+        initRtTextView();
     }
 
 
@@ -190,8 +209,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
 
             }
-        }, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this,LinearLayoutManager.VERTICAL,false);
+        }, ChannelPostDetailsTypeNeutral.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this,LinearLayoutManager.VERTICAL,false);
 
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(mentionSelectionAdapter);
@@ -219,8 +238,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart(),"NewFaceOfTechnology");
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
             }
-        }, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this,LinearLayoutManager.VERTICAL,false);
+        }, ChannelPostDetailsTypeNeutral.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this,LinearLayoutManager.VERTICAL,false);
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(hashTagsSelectionAdapter);
 
@@ -234,7 +253,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         mentionHashtagsRoot.setVisibility(View.VISIBLE);
         CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,DensityUtils.dpToPx(280));
         if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
-            //DensityUtils.dpToPx(60);
+
             params.gravity = Gravity.BOTTOM;
         }
         else{
@@ -252,24 +271,21 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             initMentions();
         }
 
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void initView(){
+    private void initView() {
 
         initializeAudioRecordView();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
-        mSoftInputHeight = preferences.getInt("softInputHeight",0);
-        edittextHeightWithKeyboard = preferences.getInt("edittextSize",0);
-        softInputHeight = preferences.getInt("softInputHeight",0);
-        isSoftInputRetreived = preferences.getBoolean("softInputRetrieved",false);
-        isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved",false);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+        mSoftInputHeight = preferences.getInt("softInputHeight", 0);
+        edittextHeightWithKeyboard = preferences.getInt("edittextSize", 0);
+        softInputHeight = preferences.getInt("softInputHeight", 0);
+        isSoftInputRetreived = preferences.getBoolean("softInputRetrieved", false);
+        isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved", false);
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
-        channelInfoIcon = findViewById(R.id.channel_base_info_icon);
         bottom_sheet = findViewById(R.id.messaging_area_bottomsheet);
         bottomsheet_picture_select_layout = findViewById(R.id.messaging_area_picture_select_layout_bottomsheet);
-        ChannelPostRecyclerView = findViewById(R.id.channel_post_recyclerview);
         bottomSheetFileSelect1 = findViewById(R.id.messaging_area_bottomsheet_file_select1);
         bottomSheetFileSelect2 = findViewById(R.id.messaging_area_bottomsheet_file_select2);
 
@@ -277,14 +293,16 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         bottomSheetInnerLayout = findViewById(R.id.bottomsheet_inner_layout);
         bottomSheetSendIcon = findViewById(R.id.BottomSheetSendIcon);
 
+        moreIcon = findViewById(R.id.channel_details_more_icon);
         rtEditText = findViewById(R.id.bottom_sheet_edittext);
         rtEditText.getParent().requestDisallowInterceptTouchEvent(true);
         rtEditText.setMovementMethod(new ScrollingMovementMethod());
         fullScreenReverseLayout = findViewById(R.id.messaging_fullscreen_reverse_layout);
         initialEdittextHeight = rtEditText.getMaxHeight();
-        rtApi = new RTApi(ChannelBaseActivity.this, new RTProxyImpl(ChannelBaseActivity.this));
+        rtApi = new RTApi(ChannelPostDetailsTypeNeutral.this, new RTProxyImpl(ChannelPostDetailsTypeNeutral.this));
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
 
+        commentsRecyclerview = findViewById(R.id.channel_post_details_comments_recyclerview);
         cameraSelect = findViewById(R.id.channel_base_camera_select);
         cameraSnap = findViewById(R.id.channel_base_camera_snap);
         messagingAreaPictureSelect1Bottomsheet = findViewById(R.id.messaging_area_picture_select_bottomsheet);
@@ -295,30 +313,25 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         MessagingAreaAttachmentsSelectNestedScroll = findViewById(R.id.messaging_area_pictures_layout_nested_scroll);
         MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
         messagingAreaPictureSelect2BottomSheet = findViewById(R.id.messaging_area_picture_select2_bottomsheet);
-        ChannelRoot = findViewById(R.id.channel_base_root);
-        //bottom_sheet = findViewById(R.id.post_creation_area_bottomsheet);
-
-        ChannelQuestionSelectLayout = findViewById(R.id.channel_base_question_select_layout);
-        ChannelSuggetsionSelectLayout = findViewById(R.id.channel_base_suggestion_select_layout);
-        ChannelAttachmentsPicturesLayout = findViewById(R.id.channel_base_attachments_picture_layout);
-        ChannelAttchmentsFile = findViewById(R.id.channel_base_attachments_file_select);
+        ChannelMessageDetailsRoot = findViewById(R.id.channel_message_details_root);
+        ChannelMessageDetailsAttachmentsPicturesLayout = findViewById(R.id.channel_base_attachments_picture_layout);
+        ChannelMessageDetailsAttchmentsFile = findViewById(R.id.channel_base_attachments_file_select);
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
-        ChannelrtToolbarLayout = findViewById(R.id.channel_base_rt_toobar_layout);
-        ChannelFormatToolbar = findViewById(R.id.channel_base_rt_toobar);
-        ChannelFormatToolbar.setVisibility(View.VISIBLE);
+        ChannelMessageDetailsrtToolbarLayout = findViewById(R.id.channel_base_rt_toobar_layout);
+        ChannelMessageDetailsFormatToolbar = findViewById(R.id.channel_base_rt_toobar);
+        ChannelMessageDetailsFormatToolbar.setVisibility(View.VISIBLE);
         edittextFullScreen = findViewById(R.id.QandAEdittextFullScreen);
         edittextCameraFileLayout = findViewById(R.id.QandAEdittextCameraFileIconsLayout);
-        //QandAformatArea = findViewById(R.id.channel_base_format_area_layout);
-        ChannelSendIcon = findViewById(R.id.channel_base_send_icon);
-        ChannelToolbarDisplayLayout = findViewById(R.id.channel_base_format_toolbar_display_layout);
-        ChannelAttachmentsLayout = findViewById(R.id.channel_base_attachments_layout);
-        ChannelDisplayFormattingToolIcon = findViewById(R.id.channel_base_display_format_toolbar_icon);
-        ChannelFormattingAreaLayout = findViewById(R.id.channel_base_format_area_layout);
-        ChannelRemoveToolbarIcon = findViewById(R.id.channel_base_format_toolbar_remove);
-        ChannelArtManager = new RTManager(rtApi);
-        ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
-        ChannelArtManager.registerEditor(rtEditText,true);
-        rtEditText.setRichTextEditing(true,true);
+        ChannelMessageDetailsCommentSendIcon = findViewById(R.id.channel_base_send_icon);
+        ChannelPostDetailsToolbarDisplayLayout = findViewById(R.id.channel_base_format_toolbar_display_layout);
+        ChannelMessageDetailsAttachmentsLayout = findViewById(R.id.channel_base_attachments_layout);
+        ChannelMessageDetailsDisplayFormattingToolIcon = findViewById(R.id.channel_base_display_format_toolbar_icon);
+        ChannelMessageDetailsFormattingAreaLayout = findViewById(R.id.channel_base_format_area_layout);
+        ChannelMessageDetailsRemoveToolbarIcon = findViewById(R.id.channel_base_format_toolbar_remove);
+        ChannelPostDetailsArtManager = new RTManager(rtApi);
+        ChannelPostDetailsArtManager.registerToolbar(ChannelMessageDetailsrtToolbarLayout, ChannelMessageDetailsFormatToolbar);
+        ChannelPostDetailsArtManager.registerEditor(rtEditText, true);
+        rtEditText.setRichTextEditing(true, true);
         bottomSheetFormattingAreaLayout = findViewById(R.id.FormatAreaLayout);
         bottomSheetDisplayFormattingToolIcon = findViewById(R.id.DisplayFormatToolbarIcon);
         bottomSheetToolbarDisplayLayout = findViewById(R.id.FormatToolBarDisplayLayout);
@@ -326,11 +339,20 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         bottomSheetformatToolbar = findViewById(R.id.FormatToolbar);
         bottomSheetRtManager = new RTManager(rtApi);
         mentionHashtagsRoot = findViewById(R.id.mention_hashtags_selection_layout_root);
-        ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+        richLinkView = findViewById(R.id.richlinkview);
+        playableItemsRecyclerView = findViewById(R.id.channel_details_message_attachments_recyclerview);
+        rTextView = findViewById(R.id.forum_post_recycler_item_textview);
 
 
+        toolbar = findViewById(R.id.channel_message_details_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 
 
+        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
 
 
         rtEditText.setMentionHashTagListener(new MentionHashTagListener() {
@@ -351,7 +373,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
                 selectionChangeFromMentioning = false;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
 
@@ -361,7 +383,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onStopHashTags() {
 
                 selectionChangeFromMentioning = false;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
 
@@ -372,7 +394,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onMentionStarted() {
 
                 selectionChangeFromMentioning = true;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
                 selectionInStartMentioning = rtEditText.getSelectionStart();
                 showMentionHashTagsPopup(false);
@@ -385,21 +407,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
                 selectionChangeFromMentioning = true;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
                 selectionInStartHashTagging = rtEditText.getSelectionStart();
                 showMentionHashTagsPopup(true);
 
-            }
-        });
-
-
-
-
-        channelInfoIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ChannelBaseActivity.this,ChannelDetails.class));
             }
         });
 
@@ -467,7 +479,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         });
 
-        ChannelAttchmentsFile.setOnClickListener(new View.OnClickListener() {
+        ChannelMessageDetailsAttchmentsFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -687,7 +699,14 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             }
         });
 
-        ChannelSendIcon.setOnClickListener(new View.OnClickListener() {
+        moreIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPostToolsBottomSheet(1);
+            }
+        });
+
+        ChannelMessageDetailsCommentSendIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -754,13 +773,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
 
-        ChannelRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        ChannelMessageDetailsRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
                 Log.e("layout changing", "onGlobalLayout: ");
-                ChannelRoot.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int approxSoftInputHeight = ChannelRoot.getRootView().getHeight() - ChannelRoot.getHeight();
+                ChannelMessageDetailsRoot.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int approxSoftInputHeight = ChannelMessageDetailsRoot.getRootView().getHeight() - ChannelMessageDetailsRoot.getHeight();
 
                 if(!authBflag){
 
@@ -789,9 +808,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
 
-                            softInputHeight = ChannelRoot.getRootView().getHeight() - ChannelRoot.getHeight();
-                            edittextHeightWithKeyboard = ChannelRoot.getRootView().getHeight() - softInputHeight - 70;
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
+                            softInputHeight = ChannelMessageDetailsRoot.getRootView().getHeight() - ChannelMessageDetailsRoot.getHeight();
+                            edittextHeightWithKeyboard = ChannelMessageDetailsRoot.getRootView().getHeight() - softInputHeight - 70;
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putBoolean("softInputRetrieved", true);
                             editor.putBoolean("edittextRetrieved", true);
@@ -835,7 +854,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                     }
                 }
 
-                ChannelRoot.getViewTreeObserver().addOnGlobalLayoutListener(this);
+                ChannelMessageDetailsRoot.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
             }
 
@@ -979,7 +998,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             }
         });
 
-        ChannelDisplayFormattingToolIcon.setOnClickListener(new View.OnClickListener() {
+        ChannelMessageDetailsDisplayFormattingToolIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -989,16 +1008,18 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             }
         });
 
-        ChannelRemoveToolbarIcon.setOnClickListener(new View.OnClickListener() {
+        ChannelMessageDetailsRemoveToolbarIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ChannelToolbarDisplayLayout.setVisibility(View.GONE);
-                ChannelAttachmentsLayout.setVisibility(View.VISIBLE);
-                ChannelFormattingAreaLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                ChannelPostDetailsToolbarDisplayLayout.setVisibility(View.GONE);
+                ChannelMessageDetailsAttachmentsLayout.setVisibility(View.VISIBLE);
+                ChannelMessageDetailsFormattingAreaLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
             }
         });
+
+
 
     }
 
@@ -1013,8 +1034,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this,R.color.white));
-            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelBaseActivity.this,R.color.white));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.white));
+            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -1041,7 +1062,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             rtEditText.requestLayout();
             cameraSelect.setVisibility(View.VISIBLE);
             cameraSnap.setVisibility(View.VISIBLE);
-            ChannelFormattingAreaLayout.setVisibility(View.GONE);
+            ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.GONE);
             edittextCameraFileLayout.setVisibility(View.GONE);
             bottomSheetBehavior.setPeekHeight(softInputHeight);
             bottomSheetFormattingAreaLayout.setVisibility(View.VISIBLE);
@@ -1078,7 +1099,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
                 rtEditText.setPadding(20, 50, 3, 70);
             }
-            ChannelFormattingAreaLayout.setVisibility(View.VISIBLE);
+            ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.VISIBLE);
             edittextCameraFileLayout.setVisibility(View.GONE);
             bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
             rtEditText.requestLayout();
@@ -1104,10 +1125,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             else {
                 if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
 
-                    rtEditText.setMaxHeight(ChannelRoot.getRootView().getHeight() - 300);
+                    rtEditText.setMaxHeight(ChannelMessageDetailsRoot.getRootView().getHeight() - 300);
                 }
                 else{
-                    rtEditText.setMaxHeight(ChannelRoot.getRootView().getHeight() - 200);
+                    rtEditText.setMaxHeight(ChannelMessageDetailsRoot.getRootView().getHeight() - 200);
                 }
 
                 rtEditText.requestLayout();
@@ -1144,7 +1165,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(true);
             isPictureGalleryShown = true;
             rtEditText.setPadding(20, 0, 10, 0);
-            ChannelFormattingAreaLayout.setVisibility(View.GONE);
+            ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.GONE);
             edittextCameraFileLayout.setVisibility(View.GONE);
             bottomSheetFormattingAreaLayout.setVisibility(View.VISIBLE);
             bottomSheetBehavior.setPeekHeight(softInputHeight);
@@ -1189,7 +1210,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
             rtEditText.setMaxHeight(hiddenRealInitialEdittextHeight);
             //authBottomSheetPeekHeight();
-            ChannelFormattingAreaLayout.setVisibility(View.VISIBLE);
+            ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.VISIBLE);
             edittextCameraFileLayout.setVisibility(View.GONE);
             bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
             rtEditText.requestLayout();
@@ -1227,12 +1248,12 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         rtEditText.requestFocus();
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(250);
-        transition.addTarget(ChannelToolbarDisplayLayout);
-        transition.addTarget(ChannelFormattingAreaLayout);
-        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout,transition);
-        ChannelAttachmentsLayout.setVisibility(View.GONE);
-        ChannelToolbarDisplayLayout.setVisibility(View.VISIBLE);
-        ChannelFormattingAreaLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
+        transition.addTarget(ChannelPostDetailsToolbarDisplayLayout);
+        transition.addTarget(ChannelMessageDetailsFormattingAreaLayout);
+        TransitionManager.beginDelayedTransition(ChannelMessageDetailsFormattingAreaLayout,transition);
+        ChannelMessageDetailsAttachmentsLayout.setVisibility(View.GONE);
+        ChannelPostDetailsToolbarDisplayLayout.setVisibility(View.VISIBLE);
+        ChannelMessageDetailsFormattingAreaLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
 
     }
 
@@ -1242,20 +1263,28 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         rtEditText.requestFocus();
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(250);
-        transition.addTarget(ChannelToolbarDisplayLayout);
-        transition.addTarget(ChannelFormattingAreaLayout);
-        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout,transition);
+        transition.addTarget(ChannelPostDetailsToolbarDisplayLayout);
+        transition.addTarget(ChannelMessageDetailsFormattingAreaLayout);
+        TransitionManager.beginDelayedTransition(ChannelMessageDetailsFormattingAreaLayout,transition);
         bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
-        ChannelAttachmentsLayout.setVisibility(View.GONE);
-        ChannelToolbarDisplayLayout.setVisibility(View.VISIBLE);
-        ChannelFormattingAreaLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
+        ChannelMessageDetailsAttachmentsLayout.setVisibility(View.GONE);
+        ChannelPostDetailsToolbarDisplayLayout.setVisibility(View.VISIBLE);
+        ChannelMessageDetailsFormattingAreaLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
 
     }
 
 
     private void initPictureSelectRecyclerView() {
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(ChannelBaseActivity.this, 3);
+        MessagingAreaPictureSelectModel messagingAreaPictureSelectModel = new MessagingAreaPictureSelectModel();
+        pictureDisplayModelArrayList = new ArrayList<>();
+
+        for(int i = 0; i < 27; i++){
+
+            pictureDisplayModelArrayList.add(messagingAreaPictureSelectModel);
+        }
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(ChannelPostDetailsTypeNeutral.this, 3);
         messagingAreaPictureSelectAdapter = new MessagingAreaPictureSelectAdapter(pictureDisplayModelArrayList, this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(gridLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaPictureSelectAdapter);
@@ -1272,7 +1301,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList, ChannelBaseActivity.this);
+        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList, ChannelPostDetailsTypeNeutral.this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(linearLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaFileSelectAdapter);
 
@@ -1339,15 +1368,15 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
 
         bottomSheetAttachmentRecyclerView = findViewById(R.id.bottom_sheet_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetailsTypeNeutral.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.HORIZONTAL,false);
         bottomSheetAttachmentRecyclerView.setLayoutManager(linearLayoutManager);
         bottomSheetAttachmentRecyclerView.setAdapter(AttachmentsAdapter);
 
     }
 
 
-    private void setUpActivityattachmentsView(){
+    private void setUpActivityAttachmentsView(){
 
         bottomSheetAttachmentList = new ArrayList<>();
         MessagingAreaAttachmentModel attachmentModel = new MessagingAreaAttachmentModel(0);
@@ -1360,8 +1389,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
 
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetailsTypeNeutral.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.HORIZONTAL,false);
         ChannelAttachmentsRecyclerView.setLayoutManager(linearLayoutManager);
         ChannelAttachmentsRecyclerView.setAdapter(AttachmentsAdapter);
 
@@ -1513,7 +1542,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         }
 
-        //rtEditText.requestLayout();
     }
 
     public void initBottomSheetRecordView1(){
@@ -1531,12 +1559,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     public void initActivityRecordView(){
 
-        ChannelDisplayFormattingToolIcon.setVisibility(View.GONE);
-        ChannelAttchmentsFile.setVisibility(View.GONE);
-        ChannelAttachmentsPicturesLayout.setVisibility(View.GONE);
-        ChannelQuestionSelectLayout.setVisibility(View.GONE);
-        ChannelSuggetsionSelectLayout.setVisibility(View.GONE);
-
+        ChannelMessageDetailsDisplayFormattingToolIcon.setVisibility(View.GONE);
+        ChannelMessageDetailsAttchmentsFile.setVisibility(View.GONE);
+        ChannelMessageDetailsAttachmentsPicturesLayout.setVisibility(View.GONE);
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
         lp1.leftMargin = 30;
         lp1.rightMargin = 10;
@@ -1549,12 +1574,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     public void resetActivityFormatView(){
 
 
-        ChannelDisplayFormattingToolIcon.setVisibility(View.VISIBLE);
-        ChannelAttchmentsFile.setVisibility(View.VISIBLE);
-        ChannelAttachmentsPicturesLayout.setVisibility(View.VISIBLE);
-        ChannelQuestionSelectLayout.setVisibility(View.VISIBLE);
-        ChannelSuggetsionSelectLayout.setVisibility(View.VISIBLE);
-
+        ChannelMessageDetailsDisplayFormattingToolIcon.setVisibility(View.VISIBLE);
+        ChannelMessageDetailsAttchmentsFile.setVisibility(View.VISIBLE);
+        ChannelMessageDetailsAttachmentsPicturesLayout.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(65,65);
         audiorecordViewTypeActivityRoot.setLayoutParams(lp1);
         audiorecordViewTypeActivityRoot.requestLayout();
@@ -1760,6 +1782,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             }
         });
 
+
+
         audioRecordViewBottomSheetType1.setRecordingListener(new AudioRecordViewBottomSheetType1.RecordingListener() {
             @Override
             public void onRecordingStarted() {
@@ -1797,20 +1821,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     private void saveTextToSharedPref(){
 
         i = i + 1;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
         if(i == 1) preferences.edit().putString("1",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 2) preferences.edit().putString("2",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 3) preferences.edit().putString("3",rtEditText.getText(RTFormat.HTML)).apply();
 
     }
 
-
-    public void setChannelPostAdapter(ChannelPostAdapter adapter){
-
-        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
-        ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
-        ChannelPostRecyclerView.setAdapter(adapter);
-    }
 
     public void showPostToolsBottomSheet(int position){
         new PostToolsBottomSheet().show(getSupportFragmentManager(),"postTools");
@@ -1826,8 +1843,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         private  BottomSheetBehavior bottomSheetBehavior;
         FrameLayout bottom_sheet;
         BottomSheetDialog dialog;
-        public PostToolsBottomSheet postToolsBottomSheet(){
-            return new PostToolsBottomSheet();
+        public ChannelBaseActivity.PostToolsBottomSheet postToolsBottomSheet(){
+            return new ChannelBaseActivity.PostToolsBottomSheet();
         }
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState){
@@ -1868,10 +1885,142 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             });
 
         }
+    }
 
+    private void initRtTextView(){
+
+
+        ForumPostAttachmentsModel forumPostAttachmentsModel3 = new ForumPostAttachmentsModel(2, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+
+        ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+
+            forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel3);
+
+        }
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+        String text =  preferences.getString("2","");
+        RTHtml rtHtml = new RTHtml(text);
+        rTextView.setText(rtHtml);
+
+         LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.VERTICAL, false);
+        //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
+        playableItemsRecyclerView.setLayoutManager(LinearLayoutManager2);
+        playableItemsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
+        playableItemsRecyclerView.setAutoplayEnabled(false);
+        playableItemsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
+        Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetailsTypeNeutral.this)).build();
+        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetailsTypeNeutral.this,forumPostAttachmentsModelArrayList, config);
+        playableItemsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+        playableItemsRecyclerView.onResume();
+
+        if(richLinkView != null)
+            richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
+
+                @Override
+                public void onSuccess(boolean status) {
+                    try {
+                        if(richLinkView != null) {
+
+                            richLinkView.setLinkFromMeta(richLinkView.getMetaData());
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                    if(richLinkView != null) {
+
+                        //postViewHolder.richLinkView.setVisibility(View.GONE);
+                    }
+                }
+            });
 
     }
 
+    @SuppressLint("UseSparseArrays")
+    public class populateTask extends AsyncTask {
 
+        ArrayList<ForumPostModel> forumPostModelArrayList;
+        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false);
+
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+
+            User user = new User();
+            ArrayList<User> userArrayList = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+
+                userArrayList.add(user);
+            }
+
+
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
+            for (int i = 0; i < 1; i++) {
+
+            }
+            ForumPostModel postModel = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 0);
+            postModel.setPostGroupDate("October 15 2020");
+            ForumPostModel postModel2 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
+            ForumPostModel postModel3 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
+            ForumPostModel postModel4 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
+            forumPostModelArrayList = new ArrayList<>();
+            for (int i = 0; i < 1; i++) {
+                forumPostModelArrayList.add(postModel);
+                for (int j = 0; j < 2; j++) {
+
+                    forumPostModelArrayList.add(postModel2);
+                    forumPostModelArrayList.add(postModel3);
+                    forumPostModelArrayList.add(postModel4);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+
+            commentAdapter = new ChannelMessagingCommentAdapter(forumPostModelArrayList, ChannelPostDetailsTypeNeutral.this, new ChannelMessagingCommentAdapter.MentionClickedListener() {
+                @Override
+                public void onMentionClicked(int position) {
+
+                    UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
+                }
+            }, new ChannelMessagingCommentAdapter.ProfilePictureClickedListener() {
+                @Override
+                public void onProfilePictureClicked(int position) {
+
+                    UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "userprofile");
+                }
+            }, new ChannelMessagingCommentAdapter.hashTagClickListener() {
+                @Override
+                public void onHashTagClicked(int position) {
+
+                    Intent intent = new Intent(ChannelPostDetailsTypeNeutral.this, HashTagsActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            }, new ChannelMessagingCommentAdapter.PostLongClickedListener() {
+                @Override
+                public void onPostLongClicked(int position) {
+                    showPostToolsBottomSheet(position);
+                }
+            });
+
+            commentsRecyclerview.setLayoutManager(LinearLayoutManager);
+            commentsRecyclerview.setAdapter(commentAdapter);
+
+        }
+
+
+    }
 
 }

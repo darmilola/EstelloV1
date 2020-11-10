@@ -120,7 +120,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="5"/>
 
-        <include layout="@layout/text_formatting_toolbar_layout_qanda"/>
+        <include layout="@layout/text_formatting_toolbar_layout_type_activity"/>
 
 
     </LinearLayout>

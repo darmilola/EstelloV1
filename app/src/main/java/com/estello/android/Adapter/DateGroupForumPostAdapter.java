@@ -32,7 +32,7 @@ public class DateGroupForumPostAdapter extends RecyclerView.Adapter<DateGroupFor
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_date_item, parent, false);
+        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_date_item, parent, false);
         return new viewHolder(view2);
     }
 

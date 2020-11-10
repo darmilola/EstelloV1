@@ -1,6 +1,7 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -14,8 +15,8 @@ import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
 import com.arthurivanets.arvi.widget.PlayableItemsContainer;
 import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
 import com.deltastream.example.edittextcontroller.RTextView;
-import com.deltastream.example.edittextcontroller.RTextView.HashTagClickedListener;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
+import com.estello.android.ChannelPostDetailsTypeNeutral;
 import com.estello.android.ViewModel.ForumPostModel;
 
 import com.estello.android.R;
@@ -43,11 +44,11 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private SuggestionsPostViewHolder suggestionsPostViewHolder;
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
-    HashTagClickedListener hashTagClickedListener;
+    hashTagClickedListener hashTagClickedListener;
     PostLongClickedListener postLongClickedListener;
 
 
-    public interface HashTagClickListener{
+    public interface hashTagClickedListener {
         public void onHashTagClicked(int position);
     }
 
@@ -65,7 +66,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, HashTagClickedListener hashTagClickedListener,PostLongClickedListener postLongClickedListener) {
+    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, ChannelPostAdapter.hashTagClickedListener hashTagClickedListener, PostLongClickedListener postLongClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
@@ -82,7 +83,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (viewType == typeDate) {
 
-            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_date_item, parent, false);
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_date_item, parent, false);
             return new DateViewHolder(view2);
         } else if (viewType == typePost) {
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recyler_item, parent, false);
@@ -90,12 +91,12 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         else if(viewType == typeQuestion){
 
-            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_question, parent, false);
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_question, parent, false);
             return new QuestionPostViewHolder(view2);
         }
         else if(viewType == typeIdea){
 
-            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_post_recycler_item_type_suggestion, parent, false);
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_suggestion, parent, false);
             return new SuggestionsPostViewHolder(view2);
         }
         return null;
@@ -359,7 +360,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, HashTagClickedListener,View.OnLongClickListener {
+    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener,View.OnClickListener {
 
         RecyclerView recentCommentsRecyclerView;
         PlayableItemsRecyclerView attachmentsRecyclerView;
@@ -375,6 +376,8 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             textView.setMentionClickedListener(this);
             textView.setHashTagClickedListener(this);
             textView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
+            textView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             richLinkView = itemView.findViewById(R.id.richlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
@@ -385,6 +388,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     profilePictureClickedListener.onProfilePictureClicked(getAdapterPosition());
                 }
             });
+
 
 
         }
@@ -401,11 +405,18 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             hashTagClickedListener.onHashTagClicked(position);
         }
 
+
         @Override
         public boolean onLongClick(View v) {
 
             postLongClickedListener.onPostLongClicked(getAdapterPosition());
-            return false;
+            return true;
+        }
+
+        @Override
+        public void onClick(View v) {
+            context.startActivity(new Intent(context, ChannelPostDetailsTypeNeutral.class));
+
         }
     }
 
