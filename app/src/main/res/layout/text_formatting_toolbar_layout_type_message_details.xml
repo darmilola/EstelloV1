@@ -104,7 +104,7 @@
                     android:id="@+id/channel_base_display_format_toolbar_icon"
                     android:src="@drawable/format_icon"
                     android:visibility="visible"
-                    android:tint="@color/dark_text_color" />
+                    android:tint="#4E4E4E" />
 
                 <LinearLayout
                     android:layout_width="30dp"
@@ -120,7 +120,7 @@
                         android:layout_height="25dp"
                         android:paddingBottom="3dp"
                         android:id="@+id/channel_base_attachments_pictures"
-                        android:tint="@color/dark_text_color"
+                        android:tint="#4E4E4E"
                         android:src="@drawable/camera_icon"/>
                 </LinearLayout>
 
@@ -132,7 +132,7 @@
                     android:layout_marginRight="1dp"
                     android:src="@drawable/newfileuploadicon"
                     android:id="@+id/channel_base_attachments_file_select"
-                    android:tint="@color/dark_text_color"/>
+                    android:tint="#4E4E4E"/>
 
                 <include layout="@layout/record_view_type_activity"  android:gravity="center"/>
 

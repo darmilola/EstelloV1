@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="com.estello.android.ViewModel.LockableBottomSheetBehavior"
     app:behavior_hideable="false"
-    tools:showIn="@layout/activity_channel_post_details_type_neutral"
+    tools:showIn="@layout/activity_channel_post_details"
     android:background="@color/white"
     android:id="@+id/messaging_area_bottomsheet"
     app:behavior_peekHeight="50dp">
@@ -93,7 +93,7 @@
                     ctr:mentionColor="@color/pinkypinky"
                     android:fontFamily="@font/airreg"
                     android:background="@drawable/transparent_background"
-                    android:textColorHint="@color/light_text_color"
+                    android:textColorHint="#4E4E4E"
                     android:textColor="@color/black"
                     android:hint="Add a reply"/>
             </ScrollView>
@@ -105,7 +105,7 @@
                 android:gravity="center|top"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
-                android:id="@+id/QandAEdittextFullScreen"
+                android:id="@+id/BottomSheetEdittextFullScreen"
                 android:layout_height="match_parent">
 
                 <ImageView
@@ -125,7 +125,7 @@
                 android:gravity="right|center"
                 android:layout_marginRight="10dp"
                 android:visibility="visible"
-                android:id="@+id/QandAEdittextCameraFileIconsLayout"
+                android:id="@+id/ChannelEdittextCameraFileIconsLayout"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:background="@color/transparent">
@@ -145,7 +145,7 @@
                         android:layout_height="25dp"
                         android:paddingBottom="3dp"
                         android:id="@+id/messaging_area_picture_select_bottomsheet"
-                        android:tint="@color/dark_text_color"
+                        android:tint="#4E4E4E"
                         android:src="@drawable/camera_icon"/>
                 </LinearLayout>
 
@@ -158,8 +158,8 @@
                     android:layout_marginRight="2dp"
                     android:padding="2dp"
                     android:src="@drawable/newfileuploadicon"
-                    android:tint="@color/dark_text_color" />
-                <include layout="@layout/record_view_bottomsheet_type1"/>
+                    android:tint="#4E4E4E"/>
+                <include layout="@layout/record_view_bottomsheet_type1"  android:gravity="center"/>
             </LinearLayout>
 
         </LinearLayout>

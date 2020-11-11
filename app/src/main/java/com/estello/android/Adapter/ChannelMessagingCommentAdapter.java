@@ -32,7 +32,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
     Context context;
     private static int typeDate = 0;
     private static int typePost = 1;
-    private PostViewHolder postViewHolder;
+
 
 
    MentionClickedListener mentionClickedListener;
@@ -78,6 +78,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             return new DateViewHolder(view2);
 
         } else if (viewType == typePost) {
+
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_message_comment_recycler_item, parent, false);
             return new PostViewHolder(view2);
         }
@@ -91,7 +92,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
 
         if (forumPostModelArrayList.get(position).getType() == typePost) {
 
-            postViewHolder = (PostViewHolder) holder;
+             PostViewHolder postViewHolder = (PostViewHolder) holder;
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String text =  preferences.getString("2","");
@@ -108,8 +109,17 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             postViewHolder.attachmentsRecyclerView.onResume();
 
+            String link = "";
             if(postViewHolder.richLinkView != null)
-                postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
+
+                if(position == 1){
+                     link = "https://www.github.com/darmilola";
+                }
+            else{
+                     link  = "https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65";
+
+                }
+                postViewHolder.richLinkView.setLink(link, new ViewListener() {
 
                     @Override
                     public void onSuccess(boolean status) {
@@ -132,6 +142,8 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
                         }
                     }
                 });
+
+
 
 
 

@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".ChannelPostDetailsTypeNeutral"></activity>
-        <activity android:name=".ChannelDetails" />
-        <activity android:name=".SwipeDismissBaseActivity" />
+        <activity android:name=".ChannelPostDetails"  android:theme="@style/slidingActivityTheme"></activity>
+        <activity android:name=".ChannelDetails"/>
+        <activity android:name=".SwipeDismissBaseActivity"/>
         <activity
             android:name=".HashTagsActivity"
             android:theme="@style/slidingActivityTheme" />

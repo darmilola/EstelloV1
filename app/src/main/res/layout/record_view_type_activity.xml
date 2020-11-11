@@ -99,6 +99,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:tint="#4E4E4E"
             android:src="@drawable/new_mic_icon"/>
 
     </LinearLayout>

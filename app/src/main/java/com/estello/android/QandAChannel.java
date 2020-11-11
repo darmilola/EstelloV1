@@ -107,7 +107,13 @@ public class QandAChannel extends ChannelBaseActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            }, QandAChannel.this::showPostToolsBottomSheet);
+            }, QandAChannel.this::showPostToolsBottomSheet, new ChannelPostAdapter.ItemClickedListener() {
+                @Override
+                public void onItemClicked() {
+                    startActivity(new Intent(QandAChannel.this, ChannelPostDetails.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
             setChannelPostAdapter(adapter);
         }
     }

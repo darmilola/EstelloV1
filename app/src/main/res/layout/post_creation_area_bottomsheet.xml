@@ -11,7 +11,7 @@
     tools:showIn="@layout/activity_channel_base"
     android:background="@color/white"
     android:id="@+id/messaging_area_bottomsheet"
-    app:behavior_peekHeight="50dp">
+    app:behavior_peekHeight="44dp">
 
 
     <LinearLayout
@@ -93,9 +93,9 @@
                         ctr:mentionColor="@color/pinkypinky"
                         android:fontFamily="@font/airreg"
                         android:background="@drawable/transparent_background"
-                        android:textColorHint="@color/dark_text_color"
+                        android:textColorHint="#4E4E4E"
                         android:textColor="@color/black"
-                        android:hint="Ping QandA"/>
+                        android:hint="Message QandA"/>
                </ScrollView>
 
 
@@ -105,7 +105,7 @@
                 android:gravity="center|top"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
-                android:id="@+id/QandAEdittextFullScreen"
+                android:id="@+id/BottomSheetEdittextFullScreen"
                 android:layout_height="match_parent">
 
                 <ImageView
@@ -125,7 +125,7 @@
                 android:gravity="right|center"
                 android:layout_marginRight="10dp"
                 android:visibility="visible"
-                android:id="@+id/QandAEdittextCameraFileIconsLayout"
+                android:id="@+id/ChannelEdittextCameraFileIconsLayout"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:background="@color/transparent">
@@ -145,25 +145,12 @@
                         android:layout_height="25dp"
                         android:paddingBottom="3dp"
                         android:id="@+id/messaging_area_picture_select_bottomsheet"
-                        android:tint="@color/dark_text_color"
+                        android:tint="#4E4E4E"
                         android:src="@drawable/camera_icon"/>
                 </LinearLayout>
 
 
-          <!--      <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/bottomsheet_record_icon_layout1"
-                    android:background="@drawable/light_dark_outline_circle">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:tint="@color/dark_text_color"
-                        android:src="@drawable/new_mic_icon"/>
-                </LinearLayout>
--->
+
                 <ImageView
                     android:id="@+id/messaging_area_bottomsheet_file_select1"
                     android:layout_width="30dp"
@@ -171,8 +158,8 @@
                     android:layout_marginRight="2dp"
                     android:padding="2dp"
                     android:src="@drawable/newfileuploadicon"
-                    android:tint="@color/dark_text_color" />
-                <include layout="@layout/record_view_bottomsheet_type1"/>
+                    android:tint="#4E4E4E"/>
+                <include layout="@layout/record_view_bottomsheet_type1" android:gravity="center"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -55,7 +55,6 @@ import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.estello.android.Adapter.ChannelMessagingCommentAdapter;
 import com.estello.android.Adapter.ChannelPostAdapter;
 import com.estello.android.Adapter.ForumPostAttachmentsAdapter;
-import com.estello.android.Adapter.ForumPostRecentCommentAdapter;
 import com.estello.android.Adapter.HashTagsSelectionAdapter;
 import com.estello.android.Adapter.MentionSelectionAdapter;
 import com.estello.android.Adapter.MessagingAreaAttachmentsAdapter;
@@ -80,13 +79,16 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrListener;
 import com.rd.utils.DensityUtils;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
+public class ChannelPostDetails extends AppCompatActivity {
 
     boolean isLayoutChangingFromMaxHeightChange = false;
     RtEdittextScrollView rtEditText;
@@ -104,6 +106,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
     LinearLayout ChannelMessageDetailsrtToolbarLayout;
     LinearLayout ChannelMessageDetailsAttachmentsPicturesLayout;
     ImageView ChannelMessageDetailsAttchmentsFile;
+    NestedScrollView channelMessageDetailsNestedScroll;
 
     HorizontalRTToolbar bottomSheetformatToolbar;
     LinearLayout bottomSheetToolbarDisplayLayout;
@@ -174,12 +177,14 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
     RichLinkView richLinkView;
     RTextView rTextView;
     PlayableItemsRecyclerView playableItemsRecyclerView;
-
+    SlidrConfig config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel_post_details_type_neutral);
+        setContentView(R.layout.activity_channel_post_details);
+        initSlidr();
+        Slidr.attach(this, config);
         initView();
         setUpAttachmentsView();
         setUpActivityAttachmentsView();
@@ -209,8 +214,8 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
 
             }
-        }, ChannelPostDetailsTypeNeutral.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this,LinearLayoutManager.VERTICAL,false);
+        }, ChannelPostDetails.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this,LinearLayoutManager.VERTICAL,false);
 
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(mentionSelectionAdapter);
@@ -238,8 +243,8 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
                 rtEditText.getText().insert(rtEditText.getSelectionStart(),"NewFaceOfTechnology");
                 rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
             }
-        }, ChannelPostDetailsTypeNeutral.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this,LinearLayoutManager.VERTICAL,false);
+        }, ChannelPostDetails.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this,LinearLayoutManager.VERTICAL,false);
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(hashTagsSelectionAdapter);
 
@@ -273,11 +278,42 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
 
     }
 
+
+    private void initSlidr(){
+        config = new SlidrConfig.Builder()
+                .primaryColor(ContextCompat.getColor(this,R.color.full_transparency))
+                .secondaryColor(ContextCompat.getColor(this,R.color.full_transparency))
+                .scrimColor(ContextCompat.getColor(this,R.color.black))
+                .listener(new SlidrListener() {
+                    @Override
+                    public void onSlideStateChanged(int state) {
+
+                    }
+
+                    @Override
+                    public void onSlideChange(float percent) {
+
+                    }
+
+                    @Override
+                    public void onSlideOpened() {
+
+                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.transparent));
+                    }
+
+                    @Override
+                    public boolean onSlideClosed() {
+
+                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.white));
+                        return false;
+                    }
+                }).build();
+    }
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
 
         initializeAudioRecordView();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
         mSoftInputHeight = preferences.getInt("softInputHeight", 0);
         edittextHeightWithKeyboard = preferences.getInt("edittextSize", 0);
         softInputHeight = preferences.getInt("softInputHeight", 0);
@@ -299,7 +335,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         rtEditText.setMovementMethod(new ScrollingMovementMethod());
         fullScreenReverseLayout = findViewById(R.id.messaging_fullscreen_reverse_layout);
         initialEdittextHeight = rtEditText.getMaxHeight();
-        rtApi = new RTApi(ChannelPostDetailsTypeNeutral.this, new RTProxyImpl(ChannelPostDetailsTypeNeutral.this));
+        rtApi = new RTApi(ChannelPostDetails.this, new RTProxyImpl(ChannelPostDetails.this));
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
 
         commentsRecyclerview = findViewById(R.id.channel_post_details_comments_recyclerview);
@@ -316,18 +352,20 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         ChannelMessageDetailsRoot = findViewById(R.id.channel_message_details_root);
         ChannelMessageDetailsAttachmentsPicturesLayout = findViewById(R.id.channel_base_attachments_picture_layout);
         ChannelMessageDetailsAttchmentsFile = findViewById(R.id.channel_base_attachments_file_select);
+        channelMessageDetailsNestedScroll  = findViewById(R.id.channel_detail_nested_scroll);
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
         ChannelMessageDetailsrtToolbarLayout = findViewById(R.id.channel_base_rt_toobar_layout);
         ChannelMessageDetailsFormatToolbar = findViewById(R.id.channel_base_rt_toobar);
         ChannelMessageDetailsFormatToolbar.setVisibility(View.VISIBLE);
-        edittextFullScreen = findViewById(R.id.QandAEdittextFullScreen);
-        edittextCameraFileLayout = findViewById(R.id.QandAEdittextCameraFileIconsLayout);
+        edittextFullScreen = findViewById(R.id.BottomSheetEdittextFullScreen);
+        edittextCameraFileLayout = findViewById(R.id.ChannelEdittextCameraFileIconsLayout);
         ChannelMessageDetailsCommentSendIcon = findViewById(R.id.channel_base_send_icon);
         ChannelPostDetailsToolbarDisplayLayout = findViewById(R.id.channel_base_format_toolbar_display_layout);
         ChannelMessageDetailsAttachmentsLayout = findViewById(R.id.channel_base_attachments_layout);
         ChannelMessageDetailsDisplayFormattingToolIcon = findViewById(R.id.channel_base_display_format_toolbar_icon);
         ChannelMessageDetailsFormattingAreaLayout = findViewById(R.id.channel_base_format_area_layout);
         ChannelMessageDetailsRemoveToolbarIcon = findViewById(R.id.channel_base_format_toolbar_remove);
+
         ChannelPostDetailsArtManager = new RTManager(rtApi);
         ChannelPostDetailsArtManager.registerToolbar(ChannelMessageDetailsrtToolbarLayout, ChannelMessageDetailsFormatToolbar);
         ChannelPostDetailsArtManager.registerEditor(rtEditText, true);
@@ -341,7 +379,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         mentionHashtagsRoot = findViewById(R.id.mention_hashtags_selection_layout_root);
         richLinkView = findViewById(R.id.richlinkview);
         playableItemsRecyclerView = findViewById(R.id.channel_details_message_attachments_recyclerview);
-        rTextView = findViewById(R.id.forum_post_recycler_item_textview);
+        rTextView = findViewById(R.id.channel_post_details_textview);
 
 
         toolbar = findViewById(R.id.channel_message_details_toolbar);
@@ -349,10 +387,30 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(ChannelPostDetails.this,R.color.black), PorterDuff.Mode.SRC_ATOP);
 
 
         ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
+
+
+        rTextView.setHashTagClickedListener(new RTextView.HashTagClickedListener() {
+            @Override
+            public void onHashTagClicked(int position) {
+
+                Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+        rTextView.setMentionClickedListener(new RTextView.MentionClickedListener() {
+            @Override
+            public void onMentionClicked(int clickedPosition) {
+
+                UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
+                bottomSheet.show(getSupportFragmentManager(), "userprofile");
+            }
+        });
+
 
 
         rtEditText.setMentionHashTagListener(new MentionHashTagListener() {
@@ -810,7 +868,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
 
                             softInputHeight = ChannelMessageDetailsRoot.getRootView().getHeight() - ChannelMessageDetailsRoot.getHeight();
                             edittextHeightWithKeyboard = ChannelMessageDetailsRoot.getRootView().getHeight() - softInputHeight - 70;
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putBoolean("softInputRetrieved", true);
                             editor.putBoolean("edittextRetrieved", true);
@@ -1030,12 +1088,12 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         super.onResume();
         if(forumAdapter != null){
 
-            forumAdapter.resumePlayBack();
+            //forumAdapter.resumePlayBack();
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.white));
-            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelPostDetailsTypeNeutral.this,R.color.white));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.transparent));
+            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelPostDetails.this,R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -1157,8 +1215,6 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         edittextFullScreen.setVisibility(View.VISIBLE);
         edittextCameraFileLayout.setVisibility(View.GONE);
         isLayoutChangingFromMaxHeightChange = true;
-        ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
-
         if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
 
             MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
@@ -1173,52 +1229,61 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
             cameraSnap.setVisibility(View.VISIBLE);
             rtEditText.setMaxHeight(50);
             rtEditText.clearFocus();
+            ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
             //rtEditText.requestLayout();
 
 
         }
 
-        else{
+        else {
 
 
+            if (rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown) {
+
+                resetBottomSheet();
+            } else {
 
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            lp.bottomMargin = 50;
-            lp.weight = 4.3f;
-            lp.width = 0;
-            rtScrollView.setLayoutParams(lp);
-            rtScrollView.requestLayout();
-            rtEditText.requestLayout();
+                lp.bottomMargin = 50;
+                lp.weight = 4.3f;
+                lp.width = 0;
+                rtScrollView.setLayoutParams(lp);
+                rtScrollView.requestLayout();
+                rtEditText.requestLayout();
 
-            isPictureGalleryShown = false;
-            cameraSelect.setVisibility(View.GONE);
-            cameraSnap.setVisibility(View.GONE);
-            MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
-            MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(false);
+                isPictureGalleryShown = false;
+                cameraSelect.setVisibility(View.GONE);
+                cameraSnap.setVisibility(View.GONE);
+                MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
+                MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(false);
 
-            Log.e("welcome ", "initCollapsedUi: ");
-            if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+                Log.e("welcome ", "initCollapsedUi: ");
+                if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
-                rtEditText.setPadding(20, 0, 10, 70);
+                    rtEditText.setPadding(20, 0, 10, 70);
+                } else {
+
+                    rtEditText.setPadding(20, 0, 10, 90);
+                }
+
+                rtEditText.setMaxHeight(hiddenRealInitialEdittextHeight);
+                //authBottomSheetPeekHeight();
+                ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.VISIBLE);
+                edittextCameraFileLayout.setVisibility(View.GONE);
+                bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
+                rtEditText.requestLayout();
+                bottom_sheet.requestLayout();
+
+
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
             }
-            else {
 
-                rtEditText.setPadding(20, 0, 10, 90);
-            }
-
-            rtEditText.setMaxHeight(hiddenRealInitialEdittextHeight);
-            //authBottomSheetPeekHeight();
-            ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.VISIBLE);
-            edittextCameraFileLayout.setVisibility(View.GONE);
-            bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
-            rtEditText.requestLayout();
-            bottom_sheet.requestLayout();
 
         }
 
-        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
+
 
         //edittextCameraFileLayout.setVisibility(View.GONE);
     }
@@ -1284,7 +1349,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
             pictureDisplayModelArrayList.add(messagingAreaPictureSelectModel);
         }
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(ChannelPostDetailsTypeNeutral.this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(ChannelPostDetails.this, 3);
         messagingAreaPictureSelectAdapter = new MessagingAreaPictureSelectAdapter(pictureDisplayModelArrayList, this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(gridLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaPictureSelectAdapter);
@@ -1301,7 +1366,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList, ChannelPostDetailsTypeNeutral.this);
+        MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList, ChannelPostDetails.this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(linearLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaFileSelectAdapter);
 
@@ -1328,7 +1393,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         super.onPause();
         if(forumAdapter != null){
 
-            forumAdapter.pausePlayBack();
+            //forumAdapter.pausePlayBack();
         }
 
     }
@@ -1337,7 +1402,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         super.onDestroy();
         if (forumAdapter != null) {
 
-            forumAdapter.destroyPlayer();
+            //forumAdapter.destroyPlayer();
         }
     }
 
@@ -1368,8 +1433,8 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         }
 
         bottomSheetAttachmentRecyclerView = findViewById(R.id.bottom_sheet_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetailsTypeNeutral.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetails.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this, LinearLayoutManager.HORIZONTAL,false);
         bottomSheetAttachmentRecyclerView.setLayoutManager(linearLayoutManager);
         bottomSheetAttachmentRecyclerView.setAdapter(AttachmentsAdapter);
 
@@ -1389,8 +1454,8 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         }
 
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
-        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetailsTypeNeutral.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.HORIZONTAL,false);
+        AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelPostDetails.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this, LinearLayoutManager.HORIZONTAL,false);
         ChannelAttachmentsRecyclerView.setLayoutManager(linearLayoutManager);
         ChannelAttachmentsRecyclerView.setAdapter(AttachmentsAdapter);
 
@@ -1443,6 +1508,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
             }
 
         }
+        authNestedScrollViewHeightWithBottomSheetHeight(changingPeekHeight);
 
     }
 
@@ -1821,7 +1887,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
     private void saveTextToSharedPref(){
 
         i = i + 1;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
         if(i == 1) preferences.edit().putString("1",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 2) preferences.edit().putString("2",rtEditText.getText(RTFormat.HTML)).apply();
         if(i == 3) preferences.edit().putString("3",rtEditText.getText(RTFormat.HTML)).apply();
@@ -1900,19 +1966,19 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         }
 
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetailsTypeNeutral.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
         String text =  preferences.getString("2","");
         RTHtml rtHtml = new RTHtml(text);
         rTextView.setText(rtHtml);
 
-         LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, LinearLayoutManager.VERTICAL, false);
+         LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(ChannelPostDetails.this, LinearLayoutManager.VERTICAL, false);
         //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
         playableItemsRecyclerView.setLayoutManager(LinearLayoutManager2);
         playableItemsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
         playableItemsRecyclerView.setAutoplayEnabled(false);
         playableItemsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
-        Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetailsTypeNeutral.this)).build();
-        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetailsTypeNeutral.this,forumPostAttachmentsModelArrayList, config);
+        Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetails.this)).build();
+        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetails.this,forumPostAttachmentsModelArrayList, config);
         playableItemsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
         playableItemsRecyclerView.onResume();
 
@@ -1947,7 +2013,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
     public class populateTask extends AsyncTask {
 
         ArrayList<ForumPostModel> forumPostModelArrayList;
-        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelPostDetailsTypeNeutral.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false);
 
 
         @Override
@@ -1967,15 +2033,13 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
             }
             ForumPostModel postModel = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 0);
             postModel.setPostGroupDate("October 15 2020");
-            ForumPostModel postModel2 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
             ForumPostModel postModel3 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
             ForumPostModel postModel4 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
             forumPostModelArrayList = new ArrayList<>();
             for (int i = 0; i < 1; i++) {
                 forumPostModelArrayList.add(postModel);
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 1; j++) {
 
-                    forumPostModelArrayList.add(postModel2);
                     forumPostModelArrayList.add(postModel3);
                     forumPostModelArrayList.add(postModel4);
                 }
@@ -1986,7 +2050,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result) {
 
-            commentAdapter = new ChannelMessagingCommentAdapter(forumPostModelArrayList, ChannelPostDetailsTypeNeutral.this, new ChannelMessagingCommentAdapter.MentionClickedListener() {
+            commentAdapter = new ChannelMessagingCommentAdapter(forumPostModelArrayList, ChannelPostDetails.this, new ChannelMessagingCommentAdapter.MentionClickedListener() {
                 @Override
                 public void onMentionClicked(int position) {
 
@@ -2004,7 +2068,7 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
                 @Override
                 public void onHashTagClicked(int position) {
 
-                    Intent intent = new Intent(ChannelPostDetailsTypeNeutral.this, HashTagsActivity.class);
+                    Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
@@ -2020,6 +2084,33 @@ public class ChannelPostDetailsTypeNeutral extends AppCompatActivity {
 
         }
 
+
+    }
+
+    private void resetBottomSheet(){
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.bottomMargin = 50;
+        lp.weight = 4.3f;
+        lp.width = 0;
+        rtScrollView.setLayoutParams(lp);
+        rtScrollView.requestLayout();
+        rtEditText.requestLayout();
+        rtEditText.clearFocus();
+        bottomSheetToolbarDisplayLayout.setVisibility(View.GONE);
+        edittextCameraFileLayout.setVisibility(View.VISIBLE);
+        edittextFullScreen.setVisibility(View.GONE);
+        ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.GONE);
+        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
+
+    }
+
+    private void authNestedScrollViewHeightWithBottomSheetHeight(int heightChange){
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.bottomMargin = heightChange;
+        channelMessageDetailsNestedScroll.setLayoutParams(lp);
+        channelMessageDetailsNestedScroll.requestLayout();
 
     }
 
