@@ -80,7 +80,7 @@ public class HashTagsActivity extends AppCompatActivity {
         super.onResume();
         if(adapter != null){
 
-            adapter.resumePlayBack();
+            //adapter.resumePlayBack();
 
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -169,6 +169,11 @@ public class HashTagsActivity extends AppCompatActivity {
                 }
             }, position -> {
 
+            }, new ChannelPostAdapter.ItemClickedListener() {
+                @Override
+                public void onItemClicked() {
+
+                }
             });
             QandAForumPostRecyclerView.setLayoutManager(LinearLayoutManager);
             QandAForumPostRecyclerView.setAdapter(adapter);

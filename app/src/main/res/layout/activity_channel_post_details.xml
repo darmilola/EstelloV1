@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="#158A8888"
     android:id="@+id/channel_message_details_root"
-    tools:context=".ChannelPostDetailsTypeNeutral">
+    tools:context=".ChannelPostDetails">
 
 
     <include layout="@layout/mention_selection_layout"/>
@@ -44,13 +44,15 @@
                         android:layout_marginLeft="10dp"
                         android:text="Details"
                         android:textColor="@color/black"
-                        android:textSize="21dp" />
+                        android:textSize="21dp"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="44dp"
+            android:id="@+id/channel_detail_nested_scroll">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,13 +171,14 @@
 
 
     <com.deltastream.example.edittextcontroller.RTextView
-        android:id="@+id/forum_post_recycler_item_textview"
+        android:id="@+id/channel_post_details_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:focusableInTouchMode="true"
         android:fontFamily="@font/airreg"
         android:lineSpacingExtra="6dp"
+        android:textColorHighlight="#10464ed3"
         android:text="@string/large_text"
         android:textColor="#0C0C0C"
         android:textSize="17dp"/>
@@ -276,7 +279,7 @@
             android:layout_height="match_parent"
             android:maxWidth="200dp"
             android:ellipsize="end"
-            android:text="7 replies"
+            android:text="Start a Thread"
             android:gravity="center"
             android:textColor="@color/dark_text_color"
             android:fontFamily="@font/airreg"
@@ -316,6 +319,7 @@
            android:layout_width="match_parent"
            android:layout_height="0.5dp"
            android:layout_gravity="bottom"
+           android:layout_marginBottom="15dp"
            android:background="#60A5A4A4"/>
 
                 <RelativeLayout
@@ -325,7 +329,6 @@
                   <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
                     android:id="@+id/channel_post_details_comments_recyclerview"
                     tools:listitem="@layout/channel_message_comment_recycler_item"
                     android:nestedScrollingEnabled="false"/>

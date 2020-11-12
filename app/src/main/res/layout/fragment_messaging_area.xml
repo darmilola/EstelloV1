@@ -94,7 +94,7 @@
                 android:gravity="center|top"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
-                android:id="@+id/QandAEdittextFullScreen"
+                android:id="@+id/BottomSheetEdittextFullScreen"
                 android:layout_height="match_parent">
 
                 <ImageView
@@ -114,7 +114,7 @@
                 android:gravity="right|center"
                 android:layout_marginRight="10dp"
                 android:visibility="visible"
-                android:id="@+id/QandAEdittextCameraFileIconsLayout"
+                android:id="@+id/ChannelEdittextCameraFileIconsLayout"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:background="@color/transparent">

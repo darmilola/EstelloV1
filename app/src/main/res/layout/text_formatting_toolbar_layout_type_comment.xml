@@ -91,50 +91,10 @@
                 android:gravity="center"
                 android:id="@+id/AttachmentLayout"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/channel_base_suggestion_select_layout"
-                    android:background="@drawable/light_dark_outline_circle">
-
-                    <ImageView
-                        android:id="@+id/channel_base_suggestion_select"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:padding="3dp"
-                        android:src="@drawable/iconfinder_idea"
-                        android:tint="#414040"/>
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:visibility="visible"
-                    android:id="@+id/channel_base_question_select_layout"
-                    android:background="@drawable/light_dark_outline_circle">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:padding="3dp"
-                        android:id="@+id/channel_base_question_select"
-                        android:tint="#4E4E4E"
-                        android:src="@drawable/newquestionicon"/>
-                </LinearLayout>
-
-
-
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="28dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginRight="7dp"
                     android:id="@+id/DisplayFormatToolbarIcon"
                     android:src="@drawable/format_icon"
                     android:tint="#4E4E4E" />
