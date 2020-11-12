@@ -299,8 +299,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelRoot = findViewById(R.id.channel_base_root);
         //bottom_sheet = findViewById(R.id.post_creation_area_bottomsheet);
 
-        ChannelQuestionSelectLayout = findViewById(R.id.channel_base_question_select_layout);
-        ChannelSuggetsionSelectLayout = findViewById(R.id.channel_base_suggestion_select_layout);
+        ChannelQuestionSelectLayout = findViewById(R.id.channel_base_question_select_layout_type_activity);
+        ChannelSuggetsionSelectLayout = findViewById(R.id.channel_base_suggestion_select_layout_type_activity);
         ChannelAttachmentsPicturesLayout = findViewById(R.id.channel_base_attachments_picture_layout);
         ChannelAttchmentsFile = findViewById(R.id.channel_base_attachments_file_select);
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
@@ -316,10 +316,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelDisplayFormattingToolIcon = findViewById(R.id.channel_base_display_format_toolbar_icon);
         ChannelFormattingAreaLayout = findViewById(R.id.channel_base_format_area_layout);
         ChannelRemoveToolbarIcon = findViewById(R.id.channel_base_format_toolbar_remove);
-        ChannelArtManager = new RTManager(rtApi);
-        ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
-        ChannelArtManager.registerEditor(rtEditText,true);
-        rtEditText.setRichTextEditing(true,true);
+
         bottomSheetFormattingAreaLayout = findViewById(R.id.FormatAreaLayout);
         bottomSheetDisplayFormattingToolIcon = findViewById(R.id.DisplayFormatToolbarIcon);
         bottomSheetToolbarDisplayLayout = findViewById(R.id.FormatToolBarDisplayLayout);
@@ -923,13 +920,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 }
                 else {
 
-
-                    if(isBottomSheetReset){
-
-                        isBottomSheetReset = false;
-                    }
-                    else {
-
                         hideSoftKeyboard(rtEditText);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.bottomMargin = 0;
@@ -940,7 +930,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                         rtEditText.requestLayout();
                     }
                 }
-            }
+
         });
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -1010,6 +1000,12 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     public void onResume() {
 
         super.onResume();
+
+        ChannelArtManager = new RTManager(rtApi);
+        ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
+        ChannelArtManager.registerEditor(rtEditText,true);
+        rtEditText.setRichTextEditing(true,true);
+
         if(forumAdapter != null){
 
             //forumAdapter.resumePlayBack();
@@ -1164,7 +1160,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         else{
 
 
-            if(rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown){
+            if(rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)){
 
                 resetBottomSheet();
             }
@@ -1317,6 +1313,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (ChannelArtManager != null) {
+            ChannelArtManager.onDestroy(true);
+        }
+
         if (forumAdapter != null) {
 
            // forumAdapter.destroyPlayer();
@@ -1838,7 +1839,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.bottomMargin = 50;
+        lp.bottomMargin = DensityUtils.dpToPx(10);
         lp.weight = 4.3f;
         lp.width = 0;
         rtScrollView.setLayoutParams(lp);
@@ -1849,22 +1850,15 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         edittextCameraFileLayout.setVisibility(View.VISIBLE);
         edittextFullScreen.setVisibility(View.GONE);
         ChannelFormattingAreaLayout.setVisibility(View.GONE);
-        bottomSheetBehavior.setPeekHeight(DensityUtils.dpToPx(50));
+        bottomSheetBehavior.setPeekHeight(DensityUtils.dpToPx(44));
         ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
 
     }
 
     private void authNestedScrollViewHeightWithBottomSheetHeight(int heightChange){
 
-        ///channelBaseNestedScrollView.setPadding(0,0,0,heightChange);
+
         ChannelPostRecyclerView.setPadding(0,0,0,heightChange);
-
-
-    /*  isLayoutChangingFromMaxHeightChange = true;
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.bottomMargin = heightChange;
-        channelBaseNestedScrollView.setLayoutParams(lp);
-        channelBaseNestedScrollView.requestLayout();*/
 
     }
 
@@ -1920,5 +1914,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 }

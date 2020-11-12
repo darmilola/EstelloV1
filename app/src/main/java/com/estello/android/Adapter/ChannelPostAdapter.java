@@ -373,6 +373,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         RTextView textView;
         RichLinkView richLinkView;
         ImageView profilePicture;
+        boolean isMentionClicked = false;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -399,7 +400,11 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View v) {
 
-                    itemClickedListener.onItemClicked();
+                    if (isMentionClicked) {
+                        isMentionClicked = false;
+                    } else {
+                        itemClickedListener.onItemClicked();
+                    }
                 }
             });
 
@@ -408,8 +413,9 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onMentionClicked(int clickedPosition) {
-
+            isMentionClicked = true;
             mentionClickedListener.onMentionClicked(clickedPosition);
+
         }
 
         @Override

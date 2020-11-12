@@ -304,6 +304,9 @@ public class ChannelPostDetails extends AppCompatActivity {
                     @Override
                     public boolean onSlideClosed() {
 
+                        if (ChannelPostDetailsArtManager != null) {
+                            ChannelPostDetailsArtManager.onDestroy(true);
+                        }
                         //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.white));
                         return false;
                     }
@@ -330,7 +333,7 @@ public class ChannelPostDetails extends AppCompatActivity {
         bottomSheetSendIcon = findViewById(R.id.BottomSheetSendIcon);
 
         moreIcon = findViewById(R.id.channel_details_more_icon);
-        rtEditText = findViewById(R.id.bottom_sheet_edittext);
+        rtEditText = findViewById(R.id.message_details_bottom_sheet_edittext);
         rtEditText.getParent().requestDisallowInterceptTouchEvent(true);
         rtEditText.setMovementMethod(new ScrollingMovementMethod());
         fullScreenReverseLayout = findViewById(R.id.messaging_fullscreen_reverse_layout);
@@ -802,7 +805,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
                 bottomSheetInnerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                if(!authBflag){
+                if(authBflag){
 
                     authBottomSheetPeekHeight();
                 }
@@ -839,18 +842,14 @@ public class ChannelPostDetails extends AppCompatActivity {
                 ChannelMessageDetailsRoot.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 int approxSoftInputHeight = ChannelMessageDetailsRoot.getRootView().getHeight() - ChannelMessageDetailsRoot.getHeight();
 
-                if(!authBflag){
-
-
-                }
-                else if(isLayoutChangingFromMaxHeightChange){
+                 if(isLayoutChangingFromMaxHeightChange){
 
                     isLayoutChangingFromMaxHeightChange = false;
 
-                }
-                else {
+                 }
+                 else {
 
-                    if (approxSoftInputHeight > 150) {
+                    if (approxSoftInputHeight > DensityUtils.dpToPx(250)){
 
 
                         isSoftInputShown = true;
@@ -1004,16 +1003,19 @@ public class ChannelPostDetails extends AppCompatActivity {
                 else {
 
 
-                    hideSoftKeyboard(rtEditText);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                    lp.bottomMargin = 0;
-                    lp.weight = 4.3f;
-                    lp.width = 0;
-                    rtScrollView.setLayoutParams(lp);
-                    rtEditText.setPadding(20,0,10,0);
-                    rtEditText.requestLayout();
 
-                }
+
+
+                        hideSoftKeyboard(rtEditText);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        lp.bottomMargin = 0;
+                        lp.weight = 4.3f;
+                        lp.width = 0;
+                        rtScrollView.setLayoutParams(lp);
+                        rtEditText.setPadding(20, 0, 10, 0);
+                        rtEditText.requestLayout();
+
+                    }
             }
         });
 
@@ -1238,7 +1240,7 @@ public class ChannelPostDetails extends AppCompatActivity {
         else {
 
 
-            if (rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown) {
+            if (rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown &&!(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
                 resetBottomSheet();
             } else {
@@ -1382,7 +1384,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
         else {
             super.onBackPressed();
-
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 
@@ -1400,6 +1402,10 @@ public class ChannelPostDetails extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (ChannelPostDetailsArtManager != null) {
+            ChannelPostDetailsArtManager.onDestroy(true);
+        }
         if (forumAdapter != null) {
 
             //forumAdapter.destroyPlayer();
@@ -1465,8 +1471,8 @@ public class ChannelPostDetails extends AppCompatActivity {
 
     private void authChangingPeekHeight(){
 
-        changingPeekHeight = rtEditText.getHeight() + 30;
-        authBflag = true;
+        changingPeekHeight = rtEditText.getHeight() + 50;
+        authBflag = false;
         if(isBottomSheetUpdatedFromB){
 
             isBottomSheetUpdatedFromB = false;
@@ -1516,7 +1522,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
         authBflag = true;
         isBottomSheetUpdatedFromB = true;
-        changingPeekHeight = rtEditText.getHeight()+30;
+        changingPeekHeight = rtEditText.getHeight()+50;
 
         if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
 
@@ -2090,7 +2096,7 @@ public class ChannelPostDetails extends AppCompatActivity {
     private void resetBottomSheet(){
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.bottomMargin = 50;
+        lp.bottomMargin = DensityUtils.dpToPx(10);
         lp.weight = 4.3f;
         lp.width = 0;
         rtScrollView.setLayoutParams(lp);
@@ -2101,16 +2107,13 @@ public class ChannelPostDetails extends AppCompatActivity {
         edittextCameraFileLayout.setVisibility(View.VISIBLE);
         edittextFullScreen.setVisibility(View.GONE);
         ChannelMessageDetailsFormattingAreaLayout.setVisibility(View.GONE);
+        bottomSheetBehavior.setPeekHeight(DensityUtils.dpToPx(44));
         ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
-
     }
 
     private void authNestedScrollViewHeightWithBottomSheetHeight(int heightChange){
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.bottomMargin = heightChange;
-        channelMessageDetailsNestedScroll.setLayoutParams(lp);
-        channelMessageDetailsNestedScroll.requestLayout();
+        commentsRecyclerview.setPadding(0,0,0,heightChange);
 
     }
 

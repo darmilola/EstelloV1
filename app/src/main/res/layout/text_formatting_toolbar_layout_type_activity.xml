@@ -98,16 +98,16 @@
                     android:gravity="center"
                     android:visibility="visible"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/channel_base_suggestion_select_layout"
+                    android:id="@+id/channel_base_suggestion_select_layout_type_activity"
                     android:background="@drawable/light_dark_outline_circle">
 
                     <ImageView
+                        android:id="@+id/channel_base_suggestion_select"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:padding="3dp"
-                        android:id="@+id/channel_base_suggestion_select"
-                        android:tint="#4E4E4E"
-                        android:src="@drawable/iconfinder_idea"/>
+                        android:src="@drawable/iconfinder_idea"
+                        android:tint="#414040"/>
                 </LinearLayout>
 
 
@@ -118,7 +118,7 @@
                     android:gravity="center"
                     android:layout_marginRight="5dp"
                     android:visibility="visible"
-                    android:id="@+id/channel_base_question_select_layout"
+                    android:id="@+id/channel_base_question_select_layout_type_activity"
                     android:background="@drawable/light_dark_outline_circle">
 
                     <ImageView

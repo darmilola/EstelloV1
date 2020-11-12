@@ -11,7 +11,7 @@
     tools:showIn="@layout/activity_channel_post_details"
     android:background="@color/white"
     android:id="@+id/messaging_area_bottomsheet"
-    app:behavior_peekHeight="50dp">
+    app:behavior_peekHeight="44dp">
 
 
     <LinearLayout
@@ -84,7 +84,7 @@
                     android:scrollbarSize="3dp"
                     android:layout_marginTop="3dp"
                     android:textColorHighlight="#10464ed3"
-                    android:id="@+id/bottom_sheet_edittext"
+                    android:id="@+id/message_details_bottom_sheet_edittext"
                     android:textSize="17dp"
                     android:lineSpacingExtra="4dp"
                     android:inputType="textMultiLine"
@@ -180,7 +180,7 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="5"/>
 
-    <include layout="@layout/text_formatting_toolbar_layout"/>
+    <include layout="@layout/text_formatting_toolbar_layout_type_comment"/>
     <include layout="@layout/messaging_area_select_attachment_display_layout"/>
 
 </LinearLayout>
