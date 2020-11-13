@@ -1,5 +1,7 @@
 package com.estello.android.Adapter;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -267,17 +269,16 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         LinearLayout progressToolLayout;
         SeekBar videoProgress;
         TextView duration;
-        LinearLayout fullScreen;
-        ImageView playPauseIcon;
+        LinearLayout fullScreen,playPauseLayout;
         LottieAnimationView loader;
         SimpleDraweeView thumbnail;
-        LinearLayout playVideoLayout;
         Config config;
         private PlayerView player;
         String url = "";
         LinearLayout controller;
         PlaybackState playbackState;
         AlphaAnimation alphaAnim2;
+        LottieAnimationView playPauseView;
         boolean isCancelled = false;
         boolean isPaused = false;
 
@@ -287,7 +288,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             this.config = config;
             player = itemView.findViewById(R.id.player_view);
             mPlayerView.setPlayer(player.getPlayer());
-            playVideoLayout = itemView.findViewById(R.id.video_attachments_play_pause_circle_layout);
+            playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
+            playPauseLayout = itemView.findViewById(R.id.attachment_play_pause_layout);
             loader = itemView.findViewById(R.id.attachment_video_loader_view);
             thumbnail = itemView.findViewById(R.id.attachment_video_thumbnail);
             touchArea = itemView.findViewById(R.id.forum_post_item_attachments_video_frame);
@@ -296,12 +298,40 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             progressToolLayout = itemView.findViewById(R.id.video_attachments_progress_layout);
             duration = itemView.findViewById(R.id.video_attachments_playing_duration);
             fullScreen = itemView.findViewById(R.id.video_attachments_fullscreen_layout);
-            playPauseIcon = itemView.findViewById(R.id.video_attachments_play_pause_icon);
             controller = itemView.findViewById(R.id.video_attachments_controller);
+            playPauseView.setMinAndMaxFrame(0,45);
             setOnGestureListeners();
 
+            playPauseView.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
 
-            playVideoLayout.setOnClickListener(new View.OnClickListener() {
+                }
+            });
+            playPauseView.addAnimatorListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                  playPauseView.pauseAnimation();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+
+                }
+            });
+
+            playPauseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (isPlaying()) {
@@ -310,6 +340,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                             alphaAnim2.cancel();
                         }
                         isPaused = true;
+
                         pause();
                     }
                     else {
@@ -343,7 +374,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                         transparentOverlay.setVisibility(View.VISIBLE);
                         progressToolLayout.setVisibility(View.VISIBLE);
-                        playVideoLayout.setVisibility(View.VISIBLE);
+                        playPauseView.setVisibility(View.VISIBLE);
+                        playPauseLayout.setVisibility(View.VISIBLE);
                         scheduleVideoProgessToolDisappearnce();
 
                     }
@@ -419,8 +451,11 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 transparentOverlay.setVisibility(View.VISIBLE);
                 if(isPaused){
 
+                    playPauseView.setMaxFrame(89);
+                    playPauseView.resumeAnimation();
                     thumbnail.setVisibility(View.GONE);
-                    playVideoLayout.setVisibility(View.VISIBLE);
+                    playPauseView.setVisibility(View.VISIBLE);
+                    playPauseLayout.setVisibility(View.VISIBLE);
                     progressToolLayout.setVisibility(View.VISIBLE);
                     isPaused = false;
                     scheduleVideoProgessToolDisappearnce();
@@ -431,7 +466,9 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                     progressToolLayout.setVisibility(View.GONE);
                     thumbnail.setVisibility(View.VISIBLE);
                     loader.setVisibility(View.VISIBLE);
-                    playVideoLayout.setVisibility(View.GONE);
+                    playPauseView.setVisibility(View.GONE);
+                    playPauseLayout.setVisibility(View.GONE);
+                    //playVideoLayout.setVisibility(View.GONE);
                 }
 
             }
@@ -452,7 +489,9 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 thumbnail.setVisibility(View.GONE);
                 transparentOverlay.setVisibility(View.GONE);
                 progressToolLayout.setVisibility(View.GONE);
-                playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_pause_white_36dp));
+                playPauseView.setMaxFrame(89);
+                playPauseView.resumeAnimation();
+                //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_pause_white_36dp));
 
         }
 
@@ -461,14 +500,18 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             transparentOverlay.setVisibility(View.VISIBLE);
             progressToolLayout.setVisibility(View.VISIBLE);
-            playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
 
         }
 
 
         private void onStoppedState() {
 
-            playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
             thumbnail.setVisibility(View.VISIBLE);
             transparentOverlay.setVisibility(View.VISIBLE);
             progressToolLayout.setVisibility(View.GONE);
@@ -479,7 +522,9 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         private void onErrorState() {
 
 
-            playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
             loader.setVisibility(View.GONE);
             transparentOverlay.setVisibility(View.VISIBLE);
             progressToolLayout.setVisibility(View.GONE);
@@ -534,12 +579,15 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                     if(isCancelled){
                         transparentOverlay.setVisibility(View.VISIBLE);
-                        playVideoLayout.setVisibility(View.VISIBLE);
+                        playPauseView.setVisibility(View.VISIBLE);
+                        playPauseLayout.setVisibility(View.VISIBLE);
+                        //playVideoLayout.setVisibility(View.VISIBLE);
                         isCancelled = false;
                     }
                     else {
+                        playPauseView.setVisibility(View.VISIBLE);
                         transparentOverlay.setVisibility(View.GONE);
-                        playVideoLayout.setVisibility(View.GONE);
+                       // playVideoLayout.setVisibility(View.GONE);
                     }
                 }
                 @Override

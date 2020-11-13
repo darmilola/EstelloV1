@@ -97,8 +97,6 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
         if(rtText.getFormat()instanceof RTFormat.Html){
 
                 RTText rtSpanned = rtText.convertTo(RTFormat.SPANNED);
-                //SpannableString spannableString = new SpannableString(rtSpanned.getText().toString());
-                //Spannable text = cloneSpannable(rtSpanned)
                 SpannableString clickedHashedText = clickHashTags(rtSpanned.getText());
                 super.setText(clickedHashedText,BufferType.SPANNABLE);
 
@@ -112,7 +110,7 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
            while (tagMatcher.find()) {
                int j = i + 1;
                i = j;
-               RTTextViewHashTagsSpan RTTextViewHashTagsSpan = new RTTextViewHashTagsSpan(ContextCompat.getColor(getContext(), R.color.mention_hashtag_color)) {
+               RTTextViewHashTagsSpan RTTextViewHashTagsSpan = new RTTextViewHashTagsSpan(ContextCompat.getColor(getContext(), R.color.blue)) {
                    @Override
                    public void onClick(@NonNull View widget) {
 
@@ -129,7 +127,7 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
                  while (mentionMatcher.find()) {
                      int l = k + 1;
                      k = l;
-                     RTTextViewMentionsSpan rtTextViewMentionsSpan = new RTTextViewMentionsSpan(ContextCompat.getColor(getContext(), R.color.mention_hashtag_color)) {
+                     RTTextViewMentionsSpan rtTextViewMentionsSpan = new RTTextViewMentionsSpan(ContextCompat.getColor(getContext(), R.color.blue)) {
                          @Override
                          public void onClick(@NonNull View widget) {
 

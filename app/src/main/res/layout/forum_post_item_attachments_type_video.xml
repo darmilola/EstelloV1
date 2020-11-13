@@ -28,7 +28,7 @@
           android:layout_height="match_parent"
           android:elevation="3dp"
           android:visibility="gone"
-          app:lottie_rawRes="@raw/circleloader"
+          app:lottie_rawRes="@raw/loadinground"
           app:lottie_autoPlay="true"
           app:lottie_loop="true"/>
 
@@ -118,22 +118,22 @@
             android:gravity="center">
 
           <LinearLayout
-              android:layout_width="85dp"
-              android:layout_height="85dp"
-              android:gravity="center"
-              android:layout_marginTop="5dp"
-              android:foregroundTint="@color/blue"
-              android:id="@+id/video_attachments_play_pause_circle_layout"
-              android:background="@drawable/white_outline_circle">
+              android:id="@+id/attachment_play_pause_layout"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:background="@drawable/white_outline_circle"
+              android:gravity="center">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/video_attachments_play_pause_icon"
-                android:src="@drawable/ic_play_arrow_white_36dp"
-                android:tint="#70FFFFFF"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/attachment_video_play_pause_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:elevation="3dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/playpause"
+                app:tint="#D0FFFFFF" />
           </LinearLayout>
-
         </LinearLayout>
       </RelativeLayout>
       </LinearLayout>
