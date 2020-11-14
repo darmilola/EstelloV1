@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.os.Handler;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -46,10 +47,14 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import com.estello.android.R;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -267,7 +272,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         RelativeLayout transparentOverlay;
         FrameLayout touchArea;
         LinearLayout progressToolLayout;
-        SeekBar videoProgress;
+        IndicatorSeekBar videoProgress;
         TextView duration;
         LinearLayout fullScreen,playPauseLayout;
         LottieAnimationView loader;
@@ -279,6 +284,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         PlaybackState playbackState;
         AlphaAnimation alphaAnim2;
         LottieAnimationView playPauseView;
+        private Handler mHandler = new Handler();
         boolean isCancelled = false;
         boolean isPaused = false;
 
@@ -301,13 +307,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             controller = itemView.findViewById(R.id.video_attachments_controller);
             playPauseView.setMinAndMaxFrame(0,45);
             setOnGestureListeners();
-
-            playPauseView.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-
-                }
-            });
             playPauseView.addAnimatorListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -473,7 +472,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             }
 
-            private void onBufferingState() {
+      private void onBufferingState() {
 
             loader.setVisibility(View.VISIBLE);
             thumbnail.setVisibility(View.GONE);
@@ -493,6 +492,82 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 playPauseView.resumeAnimation();
                 //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_pause_white_36dp));
 
+
+
+
+            videoProgress.setMax(getDuration());
+            ((Activity)context).runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(player != null){
+                        int mCurrentPosition = (int) (getPlaybackPosition());
+                        videoProgress.setProgress(mCurrentPosition);
+                        int secs = ((int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition()) % 60) > 0 ?((int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition()) % 60):(int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition());
+                        int minutes = ((int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition()) % 60) > 0 ? ((int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition()) % 60):(int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition());
+                        int hours = (int)TimeUnit.MILLISECONDS.toHours(getPlaybackPosition());
+
+
+                        if(hours <= 0) {
+                            if(secs == 60)secs = 0;
+                            if(minutes == 60)minutes = 0;
+
+                            if (minutes < 10 && secs < 10) {
+                                duration.setText("0" + minutes + ":" + "0" + secs);
+                            } else if (minutes < 10 && secs > 10) {
+                                duration.setText("0" + minutes + ":" + secs);
+                            } else if (minutes > 10 && secs < 10) {
+                                duration.setText("0" + minutes + ":" + secs);
+                            } else {
+                                duration.setText(minutes + ":" + secs);
+                            }
+                        }
+                        else{
+
+                            if(secs == 60)secs = 0;
+                            if(minutes == 60)minutes = 0;
+
+                            if (minutes < 10 && secs < 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + "0" + secs);
+                            } else if (minutes < 10 && secs > 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + secs);
+                            } else if (minutes > 10 && secs < 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + secs);
+                            } else {
+                                duration.setText(hours+":"+minutes + ":" + secs);
+                            }
+                        }
+
+                    }
+                    mHandler.postDelayed(this, 1000);
+                }
+            });
+
+            videoProgress.setOnSeekChangeListener(new OnSeekChangeListener() {
+                @Override
+                public void onSeeking(SeekParams seekParams) {
+
+                    if (player != null && seekParams.fromUser) {
+
+                        if(alphaAnim2 != null){
+                            isCancelled = true;
+                            alphaAnim2.cancel();
+                        }
+                        seekTo(seekParams.progress);
+                        videoProgress.setProgress(seekParams.progress);
+                    }
+                }
+                @Override
+                public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
+                }
+            });
         }
 
 
@@ -502,7 +577,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             progressToolLayout.setVisibility(View.VISIBLE);
             playPauseView.setMinAndMaxFrame(0,45);
             playPauseView.resumeAnimation();
-            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
+
 
         }
 
@@ -511,7 +586,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             playPauseView.setMinAndMaxFrame(0,45);
             playPauseView.resumeAnimation();
-            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
+            playPauseView.setVisibility(View.VISIBLE);
             thumbnail.setVisibility(View.VISIBLE);
             transparentOverlay.setVisibility(View.VISIBLE);
             progressToolLayout.setVisibility(View.GONE);
@@ -526,6 +601,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             playPauseView.resumeAnimation();
             //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
             loader.setVisibility(View.GONE);
+            playPauseView.setVisibility(View.VISIBLE);
             transparentOverlay.setVisibility(View.VISIBLE);
             progressToolLayout.setVisibility(View.GONE);
             thumbnail.setVisibility(View.VISIBLE);

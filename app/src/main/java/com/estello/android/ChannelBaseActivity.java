@@ -26,6 +26,7 @@ import android.widget.ScrollView;
 
 
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
+import com.deltastream.example.edittextcontroller.LinkFragment;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
 import com.deltastream.example.edittextcontroller.api.RTApi;
@@ -68,6 +69,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+import de.greenrobot.event.EventBus;
 
 public abstract class ChannelBaseActivity extends AppCompatActivity {
 
@@ -114,8 +116,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     CoordinatorLayout ChannelRoot;
     int softInputHeight = 0;
     boolean isSoftInputShown = false;
-    FloatingActionButton cameraSnap,cameraSelect;
-    ImageView messagingAreaPictureSelect1Bottomsheet, messagingAreaPictureSelect2Channel,cameraSelectPictureIcon2BottomSheet;
+    FloatingActionButton cameraSnap, cameraSelect;
+    ImageView messagingAreaPictureSelect1Bottomsheet, messagingAreaPictureSelect2Channel, cameraSelectPictureIcon2BottomSheet;
     int mSoftInputHeight;
     boolean isPictureGalleryShown = false;
 
@@ -131,7 +133,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     boolean isBottomSheetReset = false;
     LinearLayout bottomsheet_picture_select_layout;
     FrameLayout bottomSheetRecordView1Root;
-    FrameLayout deleteAnimLayoutTypeActivity,deleteAnimLayoutTypeBottomsheet;
+    FrameLayout deleteAnimLayoutTypeActivity, deleteAnimLayoutTypeBottomsheet;
     LinearLayout recordBubbleLayoutRootBottomSheetType1;
     FrameLayout audiorecordViewTypeActivityRoot;
     LinearLayout recordBubbleLayoutRootActivity;
@@ -139,7 +141,8 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     RecyclerView ChannelPostRecyclerView;
     boolean isSelectionChangedFromBottomsheetStateChange = false;
     ChannelPostAdapter forumAdapter;
-    boolean authBflag = false; boolean authCflag = false;
+    boolean authBflag = false;
+    boolean authCflag = false;
     boolean isBottomSheetUpdatedFromB = false;
     MentionSelectionAdapter mentionSelectionAdapter;
     HashTagsSelectionAdapter hashTagsSelectionAdapter;
@@ -148,11 +151,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     LinearLayout mentionHashtagsRoot;
     int selectionInStartMentioning;
     int selectionInStartHashTagging;
-    boolean selectionChangeFromMentioning  = false;
+    boolean selectionChangeFromMentioning = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
     ImageView channelInfoIcon;
     NestedScrollView channelBaseNestedScrollView;
-    int i  = 0;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,18 +168,18 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     }
 
-    private void initializeBaseFeaturesLayout(){
+    private void initializeBaseFeaturesLayout() {
         setContentView(R.layout.activity_channel_base);
     }
 
 
-    private void initMentions(){
+    private void initMentions() {
 
         RecyclerView mentionHashTagSelectionRecyclerView;
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
         mentionSelectionModelArrayList = new ArrayList<>();
         MentionSelectionModel mentionSelectionModel = new MentionSelectionModel();
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
 
             mentionSelectionModelArrayList.add(mentionSelectionModel);
         }
@@ -184,15 +187,16 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onMentionItemClick() {
 
-                if(selectionInStartMentioning > rtEditText.getSelectionStart()) selectionInStartMentioning = rtEditText.getSelectionStart();
+                if (selectionInStartMentioning > rtEditText.getSelectionStart())
+                    selectionInStartMentioning = rtEditText.getSelectionStart();
                 selectionChangeFromMentioning = true;
-                rtEditText.getText().replace(selectionInStartMentioning,rtEditText.getSelectionStart(),"");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(),"Damilola"+"\u00A0"+"Akinterinwa");
-                rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
+                rtEditText.getText().replace(selectionInStartMentioning, rtEditText.getSelectionStart(), "");
+                rtEditText.getText().insert(rtEditText.getSelectionStart(), "Damilola" + "\u00A0" + "Akinterinwa");
+                rtEditText.getText().insert(rtEditText.getSelectionStart(), " ");
 
             }
         }, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.VERTICAL, false);
 
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(mentionSelectionAdapter);
@@ -200,12 +204,12 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
 
-    private void initHashTags(){
+    private void initHashTags() {
 
 
         hashTagsSelectionModelArrayList = new ArrayList<>();
         HashTagsSelectionModel hashTagsSelectionModel = new HashTagsSelectionModel();
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
 
             hashTagsSelectionModelArrayList.add(hashTagsSelectionModel);
         }
@@ -214,42 +218,40 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onHashTagItemClick() {
 
-                if(selectionInStartHashTagging > rtEditText.getSelectionStart()) selectionInStartHashTagging = rtEditText.getSelectionStart();
+                if (selectionInStartHashTagging > rtEditText.getSelectionStart())
+                    selectionInStartHashTagging = rtEditText.getSelectionStart();
                 selectionChangeFromMentioning = true;
-                rtEditText.getText().replace(selectionInStartHashTagging,rtEditText.getSelectionStart(),"");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(),"NewFaceOfTechnology");
-                rtEditText.getText().insert(rtEditText.getSelectionStart()," ");
+                rtEditText.getText().replace(selectionInStartHashTagging, rtEditText.getSelectionStart(), "");
+                rtEditText.getText().insert(rtEditText.getSelectionStart(), "NewFaceOfTechnology");
+                rtEditText.getText().insert(rtEditText.getSelectionStart(), " ");
             }
         }, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.VERTICAL, false);
         mentionHashTagSelectionRecyclerView.setLayoutManager(linearLayoutManager);
         mentionHashTagSelectionRecyclerView.setAdapter(hashTagsSelectionAdapter);
 
     }
 
 
-
     public void showMentionHashTagsPopup(boolean isHashTags) {
 
 
         mentionHashtagsRoot.setVisibility(View.VISIBLE);
-        CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,DensityUtils.dpToPx(280));
-        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+        CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT, DensityUtils.dpToPx(280));
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             //DensityUtils.dpToPx(60);
             params.gravity = Gravity.BOTTOM;
-        }
-        else{
+        } else {
 
             params.gravity = Gravity.TOP;
         }
         mentionHashtagsRoot.setLayoutParams(params);
         mentionHashtagsRoot.requestLayout();
 
-        if(isHashTags){
+        if (isHashTags) {
 
             initHashTags();
-        }
-        else{
+        } else {
             initMentions();
         }
 
@@ -257,15 +259,15 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void initView(){
+    private void initView() {
 
         initializeAudioRecordView();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
-        mSoftInputHeight = preferences.getInt("softInputHeight",0);
-        edittextHeightWithKeyboard = preferences.getInt("edittextSize",0);
-        softInputHeight = preferences.getInt("softInputHeight",0);
-        isSoftInputRetreived = preferences.getBoolean("softInputRetrieved",false);
-        isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved",false);
+        mSoftInputHeight = preferences.getInt("softInputHeight", 0);
+        edittextHeightWithKeyboard = preferences.getInt("edittextSize", 0);
+        softInputHeight = preferences.getInt("softInputHeight", 0);
+        isSoftInputRetreived = preferences.getBoolean("softInputRetrieved", false);
+        isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved", false);
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
         channelInfoIcon = findViewById(R.id.channel_base_info_icon);
         bottom_sheet = findViewById(R.id.messaging_area_bottomsheet);
@@ -324,9 +326,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         bottomSheetformatToolbar = findViewById(R.id.FormatToolbar);
         bottomSheetRtManager = new RTManager(rtApi);
         mentionHashtagsRoot = findViewById(R.id.mention_hashtags_selection_layout_root);
-        ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
-
-
+        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
 
 
 
@@ -349,7 +349,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
                 selectionChangeFromMentioning = false;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
 
@@ -359,7 +359,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onStopHashTags() {
 
                 selectionChangeFromMentioning = false;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
 
@@ -370,7 +370,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onMentionStarted() {
 
                 selectionChangeFromMentioning = true;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
                 selectionInStartMentioning = rtEditText.getSelectionStart();
                 showMentionHashTagsPopup(false);
@@ -383,7 +383,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
                 selectionChangeFromMentioning = true;
-                ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(true);
+                ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
                 selectionInStartHashTagging = rtEditText.getSelectionStart();
                 showMentionHashTagsPopup(true);
@@ -392,12 +392,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         });
 
 
-
-
         channelInfoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChannelBaseActivity.this,ChannelDetails.class));
+                startActivity(new Intent(ChannelBaseActivity.this, ChannelDetails.class));
             }
         });
 
@@ -406,11 +404,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                     initFileSelectRecyclerView();
-                }
-                else {
+                } else {
 
                     initFileSelectRecyclerView();
                     hideSoftKeyboard(rtEditText);
@@ -438,11 +435,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                     initFileSelectRecyclerView();
-                }
-                else {
+                } else {
 
                     initFileSelectRecyclerView();
                     hideSoftKeyboard(rtEditText);
@@ -469,11 +465,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                     initFileSelectRecyclerView();
-                }
-                else {
+                } else {
 
                     initFileSelectRecyclerView();
                     hideSoftKeyboard(rtEditText);
@@ -496,18 +491,15 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         });
 
 
-
-
         rtEditText.setOnTopReachedListener(new RtEdittextScrollView.OnTopReachedListener() {
             @Override
             public void onTopReached() {
 
                 rtEditText.removeOnTopReachedListener();
-                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
                     rtEditText.setClickable(true);
-                }
-                else {
+                } else {
 
                     if (!rtEditText.canScrollVertically(-1) && rtEditText.isClickable()) {
 
@@ -526,7 +518,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         });
 
 
-
         rtEditText.setOnBottomReachedListener(new RtEdittextScrollView.OnBottomReachedListener() {
 
             @Override
@@ -534,11 +525,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
                 rtEditText.setClickable(true);
                 rtEditText.removeOnBottomReachedListener();
-                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
 
-                }
-                else {
+                } else {
                     isSelectionChangedFromBottomsheetStateChange = true;
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
@@ -547,22 +537,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 rtEditText.setOnBottomReachedListener(this);
 
 
-
             }
         });
-
-
-
-
-
-
-
 
 
         bottomSheetDisplayFormattingToolIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
 
                 animateFormattingToolbarFromBottomSheetToActivity();
@@ -571,18 +552,16 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
                 bottomSheetAttachmentRecyclerView.setVisibility(View.GONE);
 
-                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
                     isFocusFromPictureNestedScroll = true;
                     initExpandedUi();
 
-                }
-                else if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     isFocusFromPictureNestedScroll = true;
                     initCollapsedUi();
 
                 }
-
 
 
             }
@@ -594,11 +573,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                     initPictureSelectRecyclerView();
-                }
-                else {
+                } else {
 
                     initPictureSelectRecyclerView();
                     hideSoftKeyboard(rtEditText);
@@ -649,11 +627,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                     initPictureSelectRecyclerView();
-                }
-                else {
+                } else {
 
                     initPictureSelectRecyclerView();
                     hideSoftKeyboard(rtEditText);
@@ -677,11 +654,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                saveTextToSharedPref();
-                //                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
-                //               ChannelAttachmentsRecyclerView.setVisibility(View.GONE);
-                //bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
-                //((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                //saveTextToSharedPref();
+                                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
+                               ChannelAttachmentsRecyclerView.setVisibility(View.GONE);
+                               bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
+                              ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
             }
         });
 
@@ -694,10 +671,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 authBottomSheetPeekHeight();
             }
         });
-
-
-
-
 
 
         edittextFullScreen.setOnClickListener(new View.OnClickListener() {
@@ -716,19 +689,17 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         });
 
 
-
-        bottomSheetInnerLayout.getViewTreeObserver().addOnGlobalLayoutListener( new ViewTreeObserver.OnGlobalLayoutListener() {
+        bottomSheetInnerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
                 bottomSheetInnerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                if(authBflag){
+                if (authBflag) {
 
 
                     authBottomSheetPeekHeight();
-                }
-                else{
+                } else {
 
                     authChangingPeekHeight();
                 }
@@ -742,16 +713,12 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         });
 
 
-
-
-
         rtEditText.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
             }
         });
-
 
 
         ChannelRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -763,29 +730,24 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 int approxSoftInputHeight = ChannelRoot.getRootView().getHeight() - ChannelRoot.getHeight();
 
 
-
-
-                 if(isLayoutChangingFromMaxHeightChange){
+                if (isLayoutChangingFromMaxHeightChange) {
 
                     isLayoutChangingFromMaxHeightChange = false;
 
-                }
-                else {
+                } else {
 
                     if (approxSoftInputHeight > DensityUtils.dpToPx(250)) {
 
 
                         isSoftInputShown = true;
 
-                        if(isSoftInputRetreived){
+                        if (isSoftInputRetreived) {
 
 
                         }
-                        if(isEdittextWithKeyboardShownSizeRetreived){
+                        if (isEdittextWithKeyboardShownSizeRetreived) {
 
-                        }
-                        else {
-
+                        } else {
 
 
                             softInputHeight = ChannelRoot.getRootView().getHeight() - ChannelRoot.getHeight();
@@ -800,10 +762,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
                         }
 
-                        if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                        if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
-                        }
-                        else {
+                        } else {
                             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
                                 isSelectionChangedFromBottomsheetStateChange = true;
@@ -818,10 +779,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
                         isSoftInputShown = false;
                         mentionHashtagsRoot.setVisibility(View.GONE);
-                        if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                        if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
-                        }
-                        else {
+                        } else {
                             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
                                 isSelectionChangedFromBottomsheetStateChange = true;
@@ -849,26 +809,22 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
                 if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
-                }
-                else if(selectionChangeFromMentioning);//selectionChangeFromMentioning = false;
+                } else if (selectionChangeFromMentioning) ;//selectionChangeFromMentioning = false;
                 else {
 
 
                     if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
-                        if(isSelectionChangedFromBottomsheetStateChange){
+                        if (isSelectionChangedFromBottomsheetStateChange) {
 
                             initExpandedUi();
                             isSelectionChangedFromBottomsheetStateChange = false;
                         }
 
 
+                    } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
-
-                    }
-                    else if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
-
-                        if(isSelectionChangedFromBottomsheetStateChange){
+                        if (isSelectionChangedFromBottomsheetStateChange) {
 
                             initCollapsedUi();
                             isSelectionChangedFromBottomsheetStateChange = false;
@@ -885,51 +841,46 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
 
-                if(hasFocus){
+                if (hasFocus) {
 
 
                     ShowSoftKeyboard(rtEditText);
-                    if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+                    if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
                         bottomSheetAttachmentRecyclerView.setVisibility(View.GONE);
                         MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
-                        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
                             initExpandedUi();
 
-                        }
-                        else if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                        } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
                             initCollapsedUi();
                         }
 
-                    }
-
-                    else{
+                    } else {
 
 
-                        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
                             initExpandedUi();
-                        }
-                        else if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                        } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
                             initCollapsedUi();
                         }
                     }
-                }
-                else {
+                } else {
 
-                        hideSoftKeyboard(rtEditText);
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.bottomMargin = 0;
-                        lp.weight = 4.3f;
-                        lp.width = 0;
-                        rtScrollView.setLayoutParams(lp);
-                        rtEditText.setPadding(20, 0, 10, 0);
-                        rtEditText.requestLayout();
-                    }
+                    hideSoftKeyboard(rtEditText);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lp.bottomMargin = 0;
+                    lp.weight = 4.3f;
+                    lp.width = 0;
+                    rtScrollView.setLayoutParams(lp);
+                    rtEditText.setPadding(20, 0, 10, 0);
+                    rtEditText.requestLayout();
                 }
+            }
 
         });
 
@@ -939,28 +890,22 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
 
-                if(newState == BottomSheetBehavior.STATE_COLLAPSED){
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
 
 
                     rtEditText.setClickable(true);
                     initCollapsedUi();
-                }
-                else if(newState == BottomSheetBehavior.STATE_EXPANDED){
+                } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
 
 
                     rtEditText.setClickable(true);
                     initExpandedUi();
-                }
-
-                else if(newState == BottomSheetBehavior.STATE_DRAGGING){
+                } else if (newState == BottomSheetBehavior.STATE_DRAGGING) {
 
                     rtEditText.setIsTopReachedFromDragging(true);
                     rtEditText.setClickable(false);
 
                 }
-
-
-
 
 
             }
@@ -1000,22 +945,21 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     public void onResume() {
 
         super.onResume();
-
         ChannelArtManager = new RTManager(rtApi);
         ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
-        ChannelArtManager.registerEditor(rtEditText,true);
-        rtEditText.setRichTextEditing(true,true);
+        ChannelArtManager.registerEditor(rtEditText, true);
+        rtEditText.setRichTextEditing(true, true);
 
-        if(forumAdapter != null){
+        if (forumAdapter != null) {
 
             //forumAdapter.resumePlayBack();
         }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this,R.color.white));
-            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelBaseActivity.this,R.color.white));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));
+            getWindow().setStatusBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         }
@@ -1023,15 +967,63 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     }
 
-    private void initExpandedUi(){
+    @Override
+    public void onBackPressed() {
 
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            super.onBackPressed();
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+
+        super.onPause();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        ChannelArtManager.unregisterEditor(rtEditText);
+        ChannelArtManager.unregisterToolbar(ChannelFormatToolbar);
+
+
+        if (forumAdapter != null) {
+
+            //forumAdapter.pausePlayBack();
+        }
+    }
+
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (ChannelArtManager != null) {
+            ChannelArtManager.onDestroy(true);
+        }
+        if (forumAdapter != null) {
+
+            // forumAdapter.destroyPlayer();
+        }
+    }
+
+    private void initExpandedUi() {
 
 
         Log.e("iniTing", "initExpandedUi: ");
         mentionHashtagsRoot.setVisibility(View.GONE);
         rtEditText.setFocusClearedFromTouch(false);
         isLayoutChangingFromMaxHeightChange = true;
-        if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+        if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
             isPictureGalleryShown = true;
             rtEditText.setFocusClearedFromTouch(false);
@@ -1047,14 +1039,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             rtEditText.clearFocus();
 
 
-        }
-        else {
+        } else {
 
             MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
             MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(false);
             ChannelAttachmentsRecyclerView.setNestedScrollingEnabled(false);
             bottomSheetAttachmentRecyclerView.setNestedScrollingEnabled(false);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.bottomMargin = 10;
             lp.weight = 4.3f;
             lp.width = 0;
@@ -1068,12 +1059,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             MessagingAreaAttachmentsSelectNestedScroll.setVisibility(View.GONE);
             cameraSelect.setVisibility(View.GONE);
             cameraSnap.setVisibility(View.GONE);
-            ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+            ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
             Log.e("setting here", "initExpandedUi: ");
-            if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+            if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
                 rtEditText.setPadding(20, 20, 3, 180);
-            }
-            else {
+            } else {
 
                 rtEditText.setPadding(20, 50, 3, 70);
             }
@@ -1086,11 +1076,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
             if (isSoftInputShown) {
 
-                if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+                if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
                     rtEditText.setMaxHeight(edittextHeightWithKeyboard - 70);
-                }
-                else {
+                } else {
                     rtEditText.setMaxHeight(edittextHeightWithKeyboard);
                 }
                 rtEditText.requestLayout();
@@ -1099,13 +1088,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 Log.e("setting here soft", "initExpandedUi: ");
 
 
-            }
-            else {
-                if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+            } else {
+                if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
                     rtEditText.setMaxHeight(ChannelRoot.getRootView().getHeight() - 300);
-                }
-                else{
+                } else {
                     rtEditText.setMaxHeight(ChannelRoot.getRootView().getHeight() - 200);
                 }
 
@@ -1124,7 +1111,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     }
 
-    private void initCollapsedUi(){
+    private void initCollapsedUi() {
 
 
         Log.e("select initing", "initCollapsedUi: ");
@@ -1135,9 +1122,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         edittextFullScreen.setVisibility(View.VISIBLE);
         edittextCameraFileLayout.setVisibility(View.GONE);
         isLayoutChangingFromMaxHeightChange = true;
-        ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+        ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
 
-        if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE){
+        if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
 
             MessagingAreaAttachmentsSelectRecyclerView.setNestedScrollingEnabled(false);
             MessagingAreaAttachmentsSelectNestedScroll.setNestedScrollingEnabled(true);
@@ -1155,16 +1142,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             //rtEditText.requestLayout();
 
 
-        }
-
-        else{
+        } else {
 
 
-            if(rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)){
+            if (rtEditText.getText(RTFormat.PLAIN_TEXT).isEmpty() && !isSoftInputShown && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
 
                 resetBottomSheet();
-            }
-            else {
+            } else {
 
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -1205,38 +1189,38 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
 
 
-
         //edittextCameraFileLayout.setVisibility(View.GONE);
     }
 
 
-    private void hideSoftKeyboard(View view){
+    private void hideSoftKeyboard(View view) {
 
         isSoftInputShown = false;
         isLayoutChangingFromMaxHeightChange = false;
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(rtEditText.getWindowToken(),0);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(rtEditText.getWindowToken(), 0);
 
     }
-    private void ShowSoftKeyboard(View view){
+
+    private void ShowSoftKeyboard(View view) {
 
 
         isSoftInputShown = true;
         isLayoutChangingFromMaxHeightChange = false;
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
     }
 
 
-    private void animateFormattingToolbarDisplay(){
+    private void animateFormattingToolbarDisplay() {
 
         rtEditText.requestFocus();
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(250);
         transition.addTarget(ChannelToolbarDisplayLayout);
         transition.addTarget(ChannelFormattingAreaLayout);
-        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout,transition);
+        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout, transition);
         ChannelAttachmentsLayout.setVisibility(View.GONE);
         ChannelToolbarDisplayLayout.setVisibility(View.VISIBLE);
         ChannelFormattingAreaLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
@@ -1244,14 +1228,14 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
 
-    private void animateFormattingToolbarFromBottomSheetToActivity(){
+    private void animateFormattingToolbarFromBottomSheetToActivity() {
 
         rtEditText.requestFocus();
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(250);
         transition.addTarget(ChannelToolbarDisplayLayout);
         transition.addTarget(ChannelFormattingAreaLayout);
-        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout,transition);
+        TransitionManager.beginDelayedTransition(ChannelFormattingAreaLayout, transition);
         bottomSheetFormattingAreaLayout.setVisibility(View.GONE);
         ChannelAttachmentsLayout.setVisibility(View.GONE);
         ChannelToolbarDisplayLayout.setVisibility(View.VISIBLE);
@@ -1273,78 +1257,39 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         MessagingAreaFileSelectModel model = new MessagingAreaFileSelectModel();
         messagingAreaFileSelectModelArrayList = new ArrayList<>();
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
 
             messagingAreaFileSelectModelArrayList.add(model);
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         MessagingAreaFileSelectAdapter messagingAreaFileSelectAdapter = new MessagingAreaFileSelectAdapter(messagingAreaFileSelectModelArrayList, ChannelBaseActivity.this);
         MessagingAreaAttachmentsSelectRecyclerView.setLayoutManager(linearLayoutManager);
         MessagingAreaAttachmentsSelectRecyclerView.setAdapter(messagingAreaFileSelectAdapter);
 
     }
 
-    @Override
-    public void onBackPressed() {
 
-        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
-
-        else {
-            super.onBackPressed();
-
-        }
-    }
-
-    @Override
-    public void onPause(){
-
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        super.onPause();
-        if(forumAdapter != null){
-
-            //forumAdapter.pausePlayBack();
-        }
-
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (ChannelArtManager != null) {
-            ChannelArtManager.onDestroy(true);
-        }
-
-        if (forumAdapter != null) {
-
-           // forumAdapter.destroyPlayer();
-        }
-    }
-
-    private void populateView(){
+    private void populateView() {
 
         MessagingAreaPictureSelectModel messagingAreaPictureSelectModel = new MessagingAreaPictureSelectModel();
         pictureDisplayModelArrayList = new ArrayList<>();
 
-        for(int i = 0; i < 27; i++){
+        for (int i = 0; i < 27; i++) {
 
             pictureDisplayModelArrayList.add(messagingAreaPictureSelectModel);
         }
     }
 
 
-
-
-    private void setUpAttachmentsView(){
+    private void setUpAttachmentsView() {
 
         bottomSheetAttachmentList = new ArrayList<>();
         MessagingAreaAttachmentModel attachmentModel = new MessagingAreaAttachmentModel(0);
         MessagingAreaAttachmentModel attachmentModel1 = new MessagingAreaAttachmentModel(1);
 
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
 
             bottomSheetAttachmentList.add(attachmentModel);
             bottomSheetAttachmentList.add(attachmentModel1);
@@ -1352,20 +1297,20 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         bottomSheetAttachmentRecyclerView = findViewById(R.id.bottom_sheet_attachments_recyclerview);
         AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL, false);
         bottomSheetAttachmentRecyclerView.setLayoutManager(linearLayoutManager);
         bottomSheetAttachmentRecyclerView.setAdapter(AttachmentsAdapter);
 
     }
 
 
-    private void setUpActivityattachmentsView(){
+    private void setUpActivityattachmentsView() {
 
         bottomSheetAttachmentList = new ArrayList<>();
         MessagingAreaAttachmentModel attachmentModel = new MessagingAreaAttachmentModel(0);
         MessagingAreaAttachmentModel attachmentModel1 = new MessagingAreaAttachmentModel(1);
 
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
 
             bottomSheetAttachmentList.add(attachmentModel);
             bottomSheetAttachmentList.add(attachmentModel1);
@@ -1373,60 +1318,56 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
         AttachmentsAdapter = new MessagingAreaAttachmentsAdapter(bottomSheetAttachmentList, ChannelBaseActivity.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.HORIZONTAL, false);
         ChannelAttachmentsRecyclerView.setLayoutManager(linearLayoutManager);
         ChannelAttachmentsRecyclerView.setAdapter(AttachmentsAdapter);
 
     }
 
 
-
-    private void authChangingPeekHeight(){
+    private void authChangingPeekHeight() {
 
         changingPeekHeight = rtEditText.getHeight() + 50;
         authBflag = false;
 
-        if(isBottomSheetUpdatedFromB){
+        if (isBottomSheetUpdatedFromB) {
 
             isBottomSheetUpdatedFromB = false;
-        }
-        else{
+        } else {
 
-            if(bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
+            if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
 
                 if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
                     if (rtEditText.getHeight() < hiddenRealInitialEdittextHeight) {
 
-                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 170);
+                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 190);
+                    } else {
+                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 190);
                     }
-                    else {
-                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 170);
-                    }
-                }
-                else if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
+                } else if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
                     Log.e("auth ch 1", "authChangingPeekHeight: ");
                     //bottomSheetBehavior.setPeekHeight(200 + softInputHeight);
-                }
-                else{
-                    if(rtEditText.getHeight() > hiddenRealInitialEdittextHeight){
+                } else {
+                    if (rtEditText.getHeight() > hiddenRealInitialEdittextHeight) {
 
                         bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
-                    }
-                    else{
+                    } else {
 
                         bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 70);
 
                     }
 
                 }
-            }
-            else{
+            } else {
 
                 Log.e("auth ch 2", "authChangingPeekHeight: ");
-
-                bottomSheetBehavior.setPeekHeight(changingPeekHeight);
-
+                if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+                    bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
+                }
+                else {
+                    bottomSheetBehavior.setPeekHeight(changingPeekHeight);
+                }
             }
             authNestedScrollViewHeightWithBottomSheetHeight(changingPeekHeight);
         }
@@ -1434,106 +1375,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     private void authBottomSheetPeekHeight() {
 
-        authBflag = true;
-        //authCflag = false;
+        authBflag = false;
         isBottomSheetUpdatedFromB = true;
-        changingPeekHeight = rtEditText.getHeight()+50;
-
-        if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
-
-            if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
-
-            } else {
-
-                if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 4", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(150);
-
-                } else if (!(rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 3", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
-
-                } else if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 2", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(310);
-                } else if (!(rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) && (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-
-                    if (changingPeekHeight > hiddenRealInitialEdittextHeight + 100) {
-
-                        //currently in expanded state
-                        Log.e("here 1", "authBottomSheetPeekHeight: ");
-                    } else {
-
-                        //in collapsed
-                        Log.e("here 0", "authBottomSheetPeekHeight: ");
-                        bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
-
-                    }
-
-
-
-                }
-            }
-
-        } else {
-
-
-            if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) {
-
-                if (rtEditText.hasFocus()) {
-                    //authBflag = true;
-                    if(!(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                        //focus empty attachments not visible
-                        bottomSheetBehavior.setPeekHeight(150);
-                        Log.e("here -2", "authBottomSheetPeekHeight: ");
-
-                    }
-                    else if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
-
-                        //focused empty attachment visible
-                        bottomSheetBehavior.setPeekHeight(310);
-                        Log.e("here -3", "authBottomSheetPeekHeight: ");
-
-                    }
-
-                } else {
-
-
-                    if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
-
-                    }
-                    else {
-                        //no focus, empty
-                        bottomSheetBehavior.setPeekHeight(100);
-                        Log.e("here -4", "authBottomSheetPeekHeight: ");
-                    }
-
-                }
-            } else {
-
-                if (!(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    //automating height changing at this point
-
-
-                } else {
-
-                    //has focus, height not max, not empty
-                    Log.e("here -6", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
-
-                }
-            }
-
-
-        }
-
-        //rtEditText.requestLayout();
+        changingPeekHeight = rtEditText.getHeight() + 50;
+        bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
     }
 
     public void initBottomSheetRecordView1(){
