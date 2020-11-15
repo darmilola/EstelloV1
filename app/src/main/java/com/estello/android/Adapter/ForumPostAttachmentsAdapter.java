@@ -1,14 +1,27 @@
 package com.estello.android.Adapter;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.os.Handler;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.arthurivanets.arvi.Config;
@@ -16,6 +29,7 @@ import com.arthurivanets.arvi.widget.PlayableItemViewHolder;
 import com.arthurivanets.arvi.widget.PlaybackState;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.Utils.BitmapScaler;
+import com.estello.android.ViewModel.OnSwipeTouchListener;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.BaseDataSubscriber;
@@ -32,14 +46,22 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import com.estello.android.R;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.HandlerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -51,6 +73,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeVideo = 2;
     private static int typeAudio = 3;
     Config config;
+
     long playBackPosition = 0;
     public List<VideosViewHolder> videosViewHolderList = new ArrayList<>();
     boolean isPlayAfterPaused = false;
@@ -105,6 +128,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }*/
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
@@ -117,49 +141,14 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             else if (holder.getItemViewType() == typeVideo) {
 
 
-                videosViewHolderList.add((VideosViewHolder) holder);
                 ((VideosViewHolder) holder).setUrl(attachmentsList.get(position).getAttachmentsVideoUrl());
-
-                //Glide.with(context).load(Uri.parse(attachmentsList.get(position).getAttachmentVideoThumbnailUrl())).into(((VideosViewHolder)holder).thumbnail);
+                ((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
 
                 ImageRequest request = ImageRequest.fromUri(attachmentsList.get(position).getAttachmentVideoThumbnailUrl());
                 DraweeController controller = Fresco.newDraweeControllerBuilder()
                         .setImageRequest(request)
                         .setOldController(((VideosViewHolder)holder).thumbnail.getController()).build();
                 ((VideosViewHolder)holder).thumbnail.setController(controller);
-
-                ((VideosViewHolder) holder).playVideoLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                        //playBackPosition = 0;
-                        //((VideosViewHolder)holder).getPlaybackInfo().setPlaybackPosition(playBackPosition);
-                        if(((VideosViewHolder)holder).playbackState == PlaybackState.PAUSED){
-
-                            isPlayAfterPaused = true;
-                        }
-
-                        ((VideosViewHolder) holder).start();
-
-                    }
-
-
-                });
-
-
-                ((VideosViewHolder) holder).videoFrameLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                        playBackPosition = ((VideosViewHolder) holder).getPlaybackInfo().getPlaybackPosition();
-                        if (((VideosViewHolder) holder).isPlaying()) {
-
-                            ((VideosViewHolder) holder).pause();
-                        }
-                    }
-                });
 
             }
         }
@@ -280,28 +269,132 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     }
     public class  VideosViewHolder extends PlayableItemViewHolder {
 
+        RelativeLayout transparentOverlay;
+        FrameLayout touchArea;
+        LinearLayout progressToolLayout;
+        IndicatorSeekBar videoProgress;
+        TextView duration;
+        LinearLayout fullScreen,playPauseLayout;
         LottieAnimationView loader;
         SimpleDraweeView thumbnail;
-        LinearLayout playVideoLayout;
         Config config;
-        private SimpleExoPlayer player;
-        FrameLayout videoFrameLayout;
+        private PlayerView player;
         String url = "";
+        LinearLayout controller;
         PlaybackState playbackState;
+        AlphaAnimation alphaAnim2;
+        LottieAnimationView playPauseView;
+        private Handler mHandler = new Handler();
+        boolean isCancelled = false;
+        boolean isPaused = false;
 
         public VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
+
             super(parentViewGroup, itemView);
             this.config = config;
-            playVideoLayout = itemView.findViewById(R.id.attachment_video_play_circle_layout);
+            player = itemView.findViewById(R.id.player_view);
+            mPlayerView.setPlayer(player.getPlayer());
+            playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
+            playPauseLayout = itemView.findViewById(R.id.attachment_play_pause_layout);
             loader = itemView.findViewById(R.id.attachment_video_loader_view);
             thumbnail = itemView.findViewById(R.id.attachment_video_thumbnail);
-            videoFrameLayout = itemView.findViewById(R.id.forum_post_item_attachments_video_frame);
+            touchArea = itemView.findViewById(R.id.forum_post_item_attachments_video_frame);
+            transparentOverlay = itemView.findViewById(R.id.video_attachments_transparent_overlay);
+            videoProgress = itemView.findViewById(R.id.video_attachments_progressbar);
+            progressToolLayout = itemView.findViewById(R.id.video_attachments_progress_layout);
+            duration = itemView.findViewById(R.id.video_attachments_playing_duration);
+            fullScreen = itemView.findViewById(R.id.video_attachments_fullscreen_layout);
+            controller = itemView.findViewById(R.id.video_attachments_controller);
+            playPauseView.setMinAndMaxFrame(0,45);
+            setOnGestureListeners();
+            playPauseView.addAnimatorListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                  playPauseView.pauseAnimation();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
 
+                }
+            });
+
+            playPauseView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isPlaying()) {
+                        if(alphaAnim2 != null){
+                            isCancelled = true;
+                            alphaAnim2.cancel();
+                        }
+                        isPaused = true;
+
+                        pause();
+                    }
+                    else {
+                        start();
+                    }
+                }
+            });
+
+        }
+        @SuppressLint("ClickableViewAccessibility")
+        private void setOnGestureListeners() {
+            player.setOnTouchListener(new OnSwipeTouchListener(context){
+                @Override
+                public void onSwipeRight() {
+                    super.onSwipeRight();
+                    Log.e("right", "onSwipeRight: ");
+
+                }
+
+                @Override
+                public void onSwipeLeft() {
+                    super.onSwipeLeft();
+                    Log.e("left", "onSwipeLeft: ");
+
+                }
+
+                @Override
+                public void onClick() {
+                    super.onClick();
+                    if(isPlaying()){
+
+                        transparentOverlay.setVisibility(View.VISIBLE);
+                        progressToolLayout.setVisibility(View.VISIBLE);
+                        playPauseView.setVisibility(View.VISIBLE);
+                        playPauseLayout.setVisibility(View.VISIBLE);
+                        scheduleVideoProgessToolDisappearnce();
+
+                    }
 
 
+                }
+                @Override
+                public void onDoubleClick() {
+                    super.onDoubleClick();
+                    if (isPlaying()) {
+                        if(alphaAnim2 != null){
+                            isCancelled = true;
+                            alphaAnim2.cancel();
+                        }
+                        isPaused = true;
+                        pause();
+                    }
 
-
+                }
+            });
         }
 
         @Override
@@ -353,63 +446,239 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         private void onStartedState() {
 
-
-                //onAttach(player);
                 loader.setVisibility(View.VISIBLE);
-                playVideoLayout.setVisibility(View.GONE);
-                //thumbnail.setVisibility(View.VISIBLE);
-                if(isPlayAfterPaused){
+                transparentOverlay.setVisibility(View.VISIBLE);
+                if(isPaused){
 
+                    playPauseView.setMaxFrame(89);
+                    playPauseView.resumeAnimation();
                     thumbnail.setVisibility(View.GONE);
-                    isPlayAfterPaused = false;
+                    playPauseView.setVisibility(View.VISIBLE);
+                    playPauseLayout.setVisibility(View.VISIBLE);
+                    progressToolLayout.setVisibility(View.VISIBLE);
+                    isPaused = false;
+                    scheduleVideoProgessToolDisappearnce();
+
                 }
                 else{
+
+                    progressToolLayout.setVisibility(View.GONE);
                     thumbnail.setVisibility(View.VISIBLE);
+                    loader.setVisibility(View.VISIBLE);
+                    playPauseView.setVisibility(View.GONE);
+                    playPauseLayout.setVisibility(View.GONE);
+                    //playVideoLayout.setVisibility(View.GONE);
                 }
 
             }
 
-
-        private void onBufferingState() {
+      private void onBufferingState() {
 
             loader.setVisibility(View.VISIBLE);
-            playVideoLayout.setVisibility(View.GONE);
             thumbnail.setVisibility(View.GONE);
+            transparentOverlay.setVisibility(View.VISIBLE);
+            progressToolLayout.setVisibility(View.VISIBLE);
+
         }
 
 
         private void onReadyState() {
 
                 loader.setVisibility(View.GONE);
-                playVideoLayout.setVisibility(View.GONE);
                 thumbnail.setVisibility(View.GONE);
+                transparentOverlay.setVisibility(View.GONE);
+                progressToolLayout.setVisibility(View.GONE);
+                playPauseView.setMaxFrame(89);
+                playPauseView.resumeAnimation();
+                //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_pause_white_36dp));
 
+
+
+
+            videoProgress.setMax(getDuration());
+            ((Activity)context).runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(player != null){
+                        int mCurrentPosition = (int) (getPlaybackPosition());
+                        videoProgress.setProgress(mCurrentPosition);
+                        int secs = ((int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition()) % 60) > 0 ?((int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition()) % 60):(int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition());
+                        int minutes = ((int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition()) % 60) > 0 ? ((int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition()) % 60):(int) TimeUnit.MILLISECONDS.toMinutes(getPlaybackPosition());
+                        int hours = (int)TimeUnit.MILLISECONDS.toHours(getPlaybackPosition());
+
+
+                        if(hours <= 0) {
+                            if(secs == 60)secs = 0;
+                            if(minutes == 60)minutes = 0;
+
+                            if (minutes < 10 && secs < 10) {
+                                duration.setText("0" + minutes + ":" + "0" + secs);
+                            } else if (minutes < 10 && secs > 10) {
+                                duration.setText("0" + minutes + ":" + secs);
+                            } else if (minutes > 10 && secs < 10) {
+                                duration.setText("0" + minutes + ":" + secs);
+                            } else {
+                                duration.setText(minutes + ":" + secs);
+                            }
+                        }
+                        else{
+
+                            if(secs == 60)secs = 0;
+                            if(minutes == 60)minutes = 0;
+
+                            if (minutes < 10 && secs < 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + "0" + secs);
+                            } else if (minutes < 10 && secs > 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + secs);
+                            } else if (minutes > 10 && secs < 10) {
+                                duration.setText(hours+":"+"0" + minutes + ":" + secs);
+                            } else {
+                                duration.setText(hours+":"+minutes + ":" + secs);
+                            }
+                        }
+
+                    }
+                    mHandler.postDelayed(this, 1000);
+                }
+            });
+
+            videoProgress.setOnSeekChangeListener(new OnSeekChangeListener() {
+                @Override
+                public void onSeeking(SeekParams seekParams) {
+
+                    if (player != null && seekParams.fromUser) {
+
+                        if(alphaAnim2 != null){
+                            isCancelled = true;
+                            alphaAnim2.cancel();
+                        }
+                        seekTo(seekParams.progress);
+                        videoProgress.setProgress(seekParams.progress);
+                    }
+                }
+                @Override
+                public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
+                }
+            });
         }
 
 
         private void onPausedState() {
-            playVideoLayout.setVisibility(View.VISIBLE);
+
+            transparentOverlay.setVisibility(View.VISIBLE);
+            progressToolLayout.setVisibility(View.VISIBLE);
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+
+
         }
 
 
         private void onStoppedState() {
 
-            playVideoLayout.setVisibility(View.VISIBLE);
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+            playPauseView.setVisibility(View.VISIBLE);
             thumbnail.setVisibility(View.VISIBLE);
+            transparentOverlay.setVisibility(View.VISIBLE);
+            progressToolLayout.setVisibility(View.GONE);
 
         }
 
 
         private void onErrorState() {
 
-            playVideoLayout.setVisibility(View.VISIBLE);
+
+            playPauseView.setMinAndMaxFrame(0,45);
+            playPauseView.resumeAnimation();
+            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_play_arrow_white_36dp));
             loader.setVisibility(View.GONE);
+            playPauseView.setVisibility(View.VISIBLE);
+            transparentOverlay.setVisibility(View.VISIBLE);
+            progressToolLayout.setVisibility(View.GONE);
+            thumbnail.setVisibility(View.VISIBLE);
 
         }
 
+        private void animateVideoPlayerToolDisplay() {
+
+            Log.e("here", "animateVideoPlayerToolDisplay: ");
+            //touchArea.setVisibility(View.GONE);
+            AlphaAnimation alphaAnim = new AlphaAnimation(0.0f, 1.0f);
+            alphaAnim.setDuration(400);
+            alphaAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+                public void onAnimationEnd(Animation animation) {
+
+                    transparentOverlay.setVisibility(View.VISIBLE);
+                    progressToolLayout.setVisibility(View.VISIBLE);
+
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            transparentOverlay.setAnimation(alphaAnim);
+
+
+        }
+
+    public void scheduleVideoProgessToolDisappearnce(){
+
+
+
+            alphaAnim2 = new AlphaAnimation(1.0f, 0.0f);
+            alphaAnim2.setStartOffset(4000);
+            alphaAnim2.setDuration(400);
+            alphaAnim2.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                public void onAnimationEnd(Animation animation) {
+
+
+                    if(isCancelled){
+                        transparentOverlay.setVisibility(View.VISIBLE);
+                        playPauseView.setVisibility(View.VISIBLE);
+                        playPauseLayout.setVisibility(View.VISIBLE);
+                        //playVideoLayout.setVisibility(View.VISIBLE);
+                        isCancelled = false;
+                    }
+                    else {
+                        playPauseView.setVisibility(View.VISIBLE);
+                        transparentOverlay.setVisibility(View.GONE);
+                       // playVideoLayout.setVisibility(View.GONE);
+                    }
+                }
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            transparentOverlay.setAnimation(alphaAnim2);
+
+        }
+
+        }
     }
 
 
-    }
+
 
 

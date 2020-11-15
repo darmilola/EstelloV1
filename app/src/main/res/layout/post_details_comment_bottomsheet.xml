@@ -10,7 +10,7 @@
     app:behavior_hideable="false"
     tools:showIn="@layout/activity_channel_post_details"
     android:background="@color/white"
-    android:id="@+id/messaging_area_bottomsheet"
+    android:id="@+id/post_details_messaging_area_bottomsheet"
     app:behavior_peekHeight="44dp">
 
 
@@ -71,7 +71,7 @@
                 android:layout_weight="4.3"
                 android:scrollbars="none"
                 android:visibility="visible"
-                android:id="@+id/rtEdittextScrollview"
+                android:id="@+id/Message_Details_rtEdittextScrollview"
                 android:layout_height="wrap_content">
 
                 <com.estello.android.ViewModel.RtEdittextScrollView

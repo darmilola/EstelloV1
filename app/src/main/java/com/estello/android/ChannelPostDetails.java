@@ -138,8 +138,6 @@ public class ChannelPostDetails extends AppCompatActivity {
     ImageView moreIcon;
     Toolbar toolbar;
     boolean isPictureGalleryShown = false;
-
-
     RTApi rtApi;
     RecyclerView bottomSheetAttachmentRecyclerView, ChannelAttachmentsRecyclerView;
     int edittextHeightWithKeyboard = 0;
@@ -304,9 +302,8 @@ public class ChannelPostDetails extends AppCompatActivity {
                     @Override
                     public boolean onSlideClosed() {
 
-                        if (ChannelPostDetailsArtManager != null) {
-                            ChannelPostDetailsArtManager.onDestroy(true);
-                        }
+                        Log.e("closed", "onPause:");
+
                         //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.white));
                         return false;
                     }
@@ -323,12 +320,12 @@ public class ChannelPostDetails extends AppCompatActivity {
         isSoftInputRetreived = preferences.getBoolean("softInputRetrieved", false);
         isEdittextWithKeyboardShownSizeRetreived = preferences.getBoolean("edittextRetrieved", false);
         mentionHashTagSelectionRecyclerView = findViewById(R.id.mention_hashtags_selection_recyclerview);
-        bottom_sheet = findViewById(R.id.messaging_area_bottomsheet);
+        bottom_sheet = findViewById(R.id.post_details_messaging_area_bottomsheet);
         bottomsheet_picture_select_layout = findViewById(R.id.messaging_area_picture_select_layout_bottomsheet);
         bottomSheetFileSelect1 = findViewById(R.id.messaging_area_bottomsheet_file_select1);
         bottomSheetFileSelect2 = findViewById(R.id.messaging_area_bottomsheet_file_select2);
 
-        rtScrollView = findViewById(R.id.rtEdittextScrollview);
+        rtScrollView = findViewById(R.id.Message_Details_rtEdittextScrollview);
         bottomSheetInnerLayout = findViewById(R.id.bottomsheet_inner_layout);
         bottomSheetSendIcon = findViewById(R.id.BottomSheetSendIcon);
 
@@ -357,8 +354,8 @@ public class ChannelPostDetails extends AppCompatActivity {
         ChannelMessageDetailsAttchmentsFile = findViewById(R.id.channel_base_attachments_file_select);
         channelMessageDetailsNestedScroll  = findViewById(R.id.channel_detail_nested_scroll);
         ChannelAttachmentsRecyclerView = findViewById(R.id.channel_attachments_recyclerview);
-        ChannelMessageDetailsrtToolbarLayout = findViewById(R.id.channel_base_rt_toobar_layout);
-        ChannelMessageDetailsFormatToolbar = findViewById(R.id.channel_base_rt_toobar);
+        ChannelMessageDetailsrtToolbarLayout = findViewById(R.id.message_details_rt_toobar_layout);
+        ChannelMessageDetailsFormatToolbar = findViewById(R.id.message_details_rt_toobar);
         ChannelMessageDetailsFormatToolbar.setVisibility(View.VISIBLE);
         edittextFullScreen = findViewById(R.id.BottomSheetEdittextFullScreen);
         edittextCameraFileLayout = findViewById(R.id.ChannelEdittextCameraFileIconsLayout);
@@ -368,7 +365,6 @@ public class ChannelPostDetails extends AppCompatActivity {
         ChannelMessageDetailsDisplayFormattingToolIcon = findViewById(R.id.channel_base_display_format_toolbar_icon);
         ChannelMessageDetailsFormattingAreaLayout = findViewById(R.id.channel_base_format_area_layout);
         ChannelMessageDetailsRemoveToolbarIcon = findViewById(R.id.channel_base_format_toolbar_remove);
-
         ChannelPostDetailsArtManager = new RTManager(rtApi);
         ChannelPostDetailsArtManager.registerToolbar(ChannelMessageDetailsrtToolbarLayout, ChannelMessageDetailsFormatToolbar);
         ChannelPostDetailsArtManager.registerEditor(rtEditText, true);
@@ -378,7 +374,6 @@ public class ChannelPostDetails extends AppCompatActivity {
         bottomSheetToolbarDisplayLayout = findViewById(R.id.FormatToolBarDisplayLayout);
         bottomSheetRemoveToolbarIcon = findViewById(R.id.FormatToolbarRemove);
         bottomSheetformatToolbar = findViewById(R.id.FormatToolbar);
-        bottomSheetRtManager = new RTManager(rtApi);
         mentionHashtagsRoot = findViewById(R.id.mention_hashtags_selection_layout_root);
         richLinkView = findViewById(R.id.richlinkview);
         playableItemsRecyclerView = findViewById(R.id.channel_details_message_attachments_recyclerview);
@@ -1105,6 +1100,52 @@ public class ChannelPostDetails extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+
+        else {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+    }
+
+    @Override
+    public void onPause(){
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        super.onPause();
+        Log.e("paused", "onPause: ");
+        if(forumAdapter != null){
+
+            //forumAdapter.pausePlayBack();
+        }
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("destroyed", "onDestroy: ");
+
+       /*   if (ChannelPostDetailsArtManager != null) {
+              ChannelPostDetailsArtManager.onDestroy(true);
+        }*/
+        if (forumAdapter != null) {
+
+            //forumAdapter.destroyPlayer();
+        }
+
+    }
+    @Override public void onStop(){
+        super.onStop();
+        Log.e("stopped", "onStop: ");
+    }
+
+
     private void initExpandedUi(){
 
 
@@ -1301,7 +1342,6 @@ public class ChannelPostDetails extends AppCompatActivity {
     }
     private void ShowSoftKeyboard(View view){
 
-
         isSoftInputShown = true;
         isLayoutChangingFromMaxHeightChange = false;
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1374,43 +1414,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
 
-        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
-
-        else {
-            super.onBackPressed();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        }
-    }
-
-    @Override
-    public void onPause(){
-
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        super.onPause();
-        if(forumAdapter != null){
-
-            //forumAdapter.pausePlayBack();
-        }
-
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (ChannelPostDetailsArtManager != null) {
-            ChannelPostDetailsArtManager.onDestroy(true);
-        }
-        if (forumAdapter != null) {
-
-            //forumAdapter.destroyPlayer();
-        }
-    }
 
     private void populateView(){
 
@@ -1469,152 +1473,63 @@ public class ChannelPostDetails extends AppCompatActivity {
 
 
 
-    private void authChangingPeekHeight(){
+    private void authChangingPeekHeight() {
 
         changingPeekHeight = rtEditText.getHeight() + 50;
         authBflag = false;
-        if(isBottomSheetUpdatedFromB){
+
+        if (isBottomSheetUpdatedFromB) {
 
             isBottomSheetUpdatedFromB = false;
-        }
-        else{
+
+        } else {
 
             if(bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
 
                 if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
 
                     if (rtEditText.getHeight() < hiddenRealInitialEdittextHeight) {
-                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 170);
+
+                        bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 190);
                     } else {
-                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 170);
+                        bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight + 190);
                     }
-                }
-                else if(MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
+                } else if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
                     Log.e("auth ch 1", "authChangingPeekHeight: ");
                     //bottomSheetBehavior.setPeekHeight(200 + softInputHeight);
-                }
-                else{
-                    if(rtEditText.getHeight() > hiddenRealInitialEdittextHeight){
+                } else {
+                    if (rtEditText.getHeight() > hiddenRealInitialEdittextHeight) {
 
                         bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
-                    }
-                    else{
+                    } else {
 
                         bottomSheetBehavior.setPeekHeight(rtEditText.getHeight() + 70);
 
                     }
 
                 }
-            }
-            else{
+            } else {
 
                 Log.e("auth ch 2", "authChangingPeekHeight: ");
-
-                bottomSheetBehavior.setPeekHeight(changingPeekHeight);
+                if(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE){
+                    bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
+                }
+                else {
+                    bottomSheetBehavior.setPeekHeight(changingPeekHeight);
+                }
             }
-
+            authNestedScrollViewHeightWithBottomSheetHeight(changingPeekHeight);
         }
-        authNestedScrollViewHeightWithBottomSheetHeight(changingPeekHeight);
-
     }
 
     private void authBottomSheetPeekHeight() {
 
-        authBflag = true;
+        authBflag = false;
         isBottomSheetUpdatedFromB = true;
-        changingPeekHeight = rtEditText.getHeight()+50;
-
-        if (bottomSheetBehavior.getPeekHeight() >= hiddenRealInitialEdittextHeight) {
-
-            if (MessagingAreaAttachmentsSelectNestedScroll.getVisibility() == View.VISIBLE) {
-
-            } else {
-
-                if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 4", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(150);
-
-                } else if (!(rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) && !(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 3", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(hiddenRealInitialEdittextHeight);
-
-                } else if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("") && (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    Log.e("here 2", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(310);
-                } else if (!(rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) && (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-
-                    if (changingPeekHeight > hiddenRealInitialEdittextHeight + 100) {
-
-                        //currently in expanded state
-                        Log.e("here 1", "authBottomSheetPeekHeight: ");
-                    } else {
-
-                        //in collapsed
-                        Log.e("here 0", "authBottomSheetPeekHeight: ");
-                        bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
-
-                    }
-
-
-
-                }
-            }
-
-        } else {
-
-
-            if (rtEditText.getText(RTFormat.PLAIN_TEXT).equalsIgnoreCase("")) {
-
-                if (rtEditText.hasFocus()) {
-                    //authBflag = true;
-                    if(!(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                        //focus empty attachments not visible
-                        bottomSheetBehavior.setPeekHeight(150);
-                        Log.e("here -2", "authBottomSheetPeekHeight: ");
-
-                    }
-                    else if (ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE) {
-
-                        //focused empty attachment visible
-                        bottomSheetBehavior.setPeekHeight(310);
-                        Log.e("here -3", "authBottomSheetPeekHeight: ");
-
-                    }
-
-                } else {
-
-
-                    //no focus, empty
-                    bottomSheetBehavior.setPeekHeight(100);
-                    Log.e("here -4", "authBottomSheetPeekHeight: ");
-
-
-                }
-            } else {
-
-                if (!(ChannelAttachmentsRecyclerView.getVisibility() == View.VISIBLE)) {
-
-                    //automating height changing at this point
-
-
-                } else {
-
-                    //has focus, height not max, not empty
-                    Log.e("here -6", "authBottomSheetPeekHeight: ");
-                    bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
-
-                }
-            }
-
-
-        }
-
+        changingPeekHeight = rtEditText.getHeight() + 50;
+        bottomSheetBehavior.setPeekHeight(changingPeekHeight + 150);
     }
+
 
     public void initBottomSheetRecordView1(){
 
@@ -2014,6 +1929,11 @@ public class ChannelPostDetails extends AppCompatActivity {
             });
 
     }
+
+
+
+
+
 
     @SuppressLint("UseSparseArrays")
     public class populateTask extends AsyncTask {

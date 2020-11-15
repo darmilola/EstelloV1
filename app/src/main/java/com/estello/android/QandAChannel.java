@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.Adapter.ChannelPostAdapter;
@@ -32,6 +33,22 @@ public class QandAChannel extends ChannelBaseActivity {
         new populateTask().execute();
 
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("destroyed", "onDestroy: ");
+    }
+
+    @Override public void onStop(){
+        super.onStop();
+        Log.e("stopped", "onStop: ");
+    }
+
+    @Override public void onPause(){
+        super.onPause();
+        Log.e("paused", "onPause: ");
     }
 
     @SuppressLint("UseSparseArrays")

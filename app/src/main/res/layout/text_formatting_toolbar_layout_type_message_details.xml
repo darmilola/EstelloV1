@@ -51,11 +51,11 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/channel_base_rt_toobar_layout">
+                        android:id="@+id/message_details_rt_toobar_layout">
 
 
                         <com.deltastream.example.edittextcontroller.HorizontalRTToolbar
-                            android:id="@+id/channel_base_rt_toobar"
+                            android:id="@+id/message_details_rt_toobar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/transparent_background"
