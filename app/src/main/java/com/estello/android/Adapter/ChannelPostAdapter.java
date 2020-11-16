@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,12 @@ import com.estello.android.R;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
 import com.estello.android.ViewModel.RichLinkView.ViewListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -39,9 +43,10 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int typePost = 1;
     private static int typeQuestion = 2;
     private static int typeIdea = 3;
-    //private PostViewHolder postViewHolder;
-    //private QuestionPostViewHolder questionPostViewHolder;
-    //private SuggestionsPostViewHolder suggestionsPostViewHolder;
+    private static int typeInfo = 4;
+    private PostViewHolder postViewHolder;
+    private QuestionPostViewHolder questionPostViewHolder;
+    private SuggestionsPostViewHolder suggestionsPostViewHolder;
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
     hashTagClickedListener hashTagClickedListener;
@@ -105,17 +110,77 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_suggestion, parent, false);
             return new SuggestionsPostViewHolder(view2);
         }
+        else if(viewType == typeInfo){
+
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_item_channel_info, parent, false);
+            return new InfoViewHolder(view2);
+        }
         return null;
 
+    }
+
+
+      @Override
+    public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewAttachedToWindow(viewHolder);
+        if(viewHolder instanceof PostViewHolder){
+
+           postViewHolder =  ((PostViewHolder)viewHolder);
+        }
+        else if(viewHolder instanceof QuestionPostViewHolder){
+
+            questionPostViewHolder = ((QuestionPostViewHolder)viewHolder);
+        }
+        else if(viewHolder instanceof SuggestionsPostViewHolder){
+
+            suggestionsPostViewHolder = ((SuggestionsPostViewHolder)viewHolder);
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewDetachedFromWindow(viewHolder);
+
+        if(viewHolder instanceof PostViewHolder){
+          postViewHolder = null;
+        }
+        if(viewHolder instanceof QuestionPostViewHolder){
+            questionPostViewHolder = null;
+        }
+        if(viewHolder instanceof SuggestionsPostViewHolder){
+            suggestionsPostViewHolder = null;
+        }
 
     }
 
 
     @Override
+    public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewRecycled(viewHolder);
+        Log.e("detached", "onViewDetachedToWindow: ");
+        if(viewHolder instanceof PostViewHolder){
+            postViewHolder.attachmentsRecyclerView.onPause();
+        }
+        if(viewHolder instanceof QuestionPostViewHolder){
+            questionPostViewHolder.attachmentsRecyclerView.onPause();
+        }
+        if(viewHolder instanceof SuggestionsPostViewHolder){
+            suggestionsPostViewHolder.attachmentsRecyclerView.onPause();
+        }
+    }
+
+
+
+
+
+
+    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        Log.e("binding", "onBindViewHolder: ");
 
         if (forumPostList.get(position).getType() == typePost) {
+
 
            PostViewHolder postViewHolder = (PostViewHolder) holder;
 
@@ -290,11 +355,15 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
 
 
-
-
         }
 
 
+
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -320,37 +389,43 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             return  typeIdea;
         }
+        else if(forumPostList.get(position).getType() == typeInfo){
+
+            return  typeInfo;
+        }
         return typePost;
     }
 
-   /* public void pausePlayBack(){
+    public void pausePlayBack(){
 
         if(questionPostViewHolder != null){
-            questionPostViewHolder.attachmentsRecyclerView.pausePlayback();
+            questionPostViewHolder.attachmentsRecyclerView.onPause();
         }
         if(postViewHolder != null){
 
-            postViewHolder.attachmentsRecyclerView.pausePlayback();
+            postViewHolder.attachmentsRecyclerView.onPause();
         }
         if(suggestionsPostViewHolder != null){
-            suggestionsPostViewHolder.attachmentsRecyclerView.pausePlayback();
+            suggestionsPostViewHolder.attachmentsRecyclerView.onPause();
         }
     }
+
     public void resumePlayBack(){
 
         if(questionPostViewHolder != null){
 
-            questionPostViewHolder.attachmentsRecyclerView.onResume();
+            //questionPostViewHolder.attachmentsRecyclerView.onResume();
         }
         if(postViewHolder != null){
 
-            postViewHolder.attachmentsRecyclerView.onResume();
+            //postViewHolder.attachmentsRecyclerView.onResume();
         }
         if(suggestionsPostViewHolder != null){
 
-            suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
+            //suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
         }
     }
+
     public void destroyPlayer(){
 
         if(questionPostViewHolder != null){
@@ -364,7 +439,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(suggestionsPostViewHolder != null){
             suggestionsPostViewHolder.attachmentsRecyclerView.onDestroy();
         }
-    }*/
+    }
 
     public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener,View.OnClickListener {
 
@@ -493,8 +568,17 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             super(itemView);
             forumPostDate = itemView.findViewById(R.id.forum_post_date);
+        }
+    }
+    public class InfoViewHolder extends RecyclerView.ViewHolder {
 
 
+       // TextView forumPostDate;
+
+        public InfoViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+            //forumPostDate = itemView.findViewById(R.id.forum_post_date);
         }
     }
 }

@@ -73,33 +73,25 @@ public class QandAChannel extends ChannelBaseActivity {
             ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4","https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
             ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(0,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
             ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(3,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-
-
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
             for(int i = 0; i < 1; i++){
 
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel3);
                 forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel4);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel5);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel6);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel7);
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel8);
-
 
             }
+            ForumPostModel postModel0 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,4);
             ForumPostModel postModel = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,0);
             postModel.setPostGroupDate("October 15 2020");
             ForumPostModel postModel2 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,1);
-            ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
-            ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
+            //ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
+            //ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
             forumPostModelArrayList = new ArrayList<>();
+            forumPostModelArrayList.add(postModel0);
             for(int i = 0; i < 1; i++){
                 forumPostModelArrayList.add(postModel);
-                for(int j = 0; j < 2; j++){
+                for(int j = 0; j < 5; j++){
 
                     forumPostModelArrayList.add(postModel2);
-                    forumPostModelArrayList.add(postModel3);
-                    forumPostModelArrayList.add(postModel4);
                 }
             }
             return null;

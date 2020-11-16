@@ -203,20 +203,19 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
      *                deleted.
      */
     public void onDestroy(boolean isSaved) {
-        EventBus.getDefault().unregister(this);
-
+     /*   EventBus.getDefault().unregister(this);
         for (RTEditText editor : mEditors.values()) {
             editor.unregister();
             editor.onDestroy(isSaved);
         }
-        mEditors.clear();
+        mEditors.clear();*/
 
         for (RTToolbar toolbar : mToolbars.values()) {
             toolbar.removeToolbarListener();
         }
         mToolbars.clear();
 
-        mRTApi = null;
+        //mRTApi = null;
     }
 
     // ****************************************** Public Methods *******************************************
@@ -323,7 +322,10 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         }
 
         for (RTToolbar toolbar : mToolbars.values()) {
-            setToolbarVisibility(toolbar, showToolbars);
+
+            final ViewGroup toolbarContainer = toolbar.getToolbarContainer();
+            toolbarContainer.setVisibility(View.VISIBLE);
+            //setToolbarVisibility(toolbar, showToolbars);
         }
     }
 
@@ -340,7 +342,7 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         if ((visibility == View.GONE && visible) || (visibility == View.VISIBLE && !visible)) {
 
             AlphaAnimation fadeAnimation = visible ? new AlphaAnimation(0.0f, 1.0f) : new AlphaAnimation(1.0f, 0.0f);
-            fadeAnimation.setDuration(400);
+            fadeAnimation.setDuration(200);
             fadeAnimation.setAnimationListener(new AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -353,7 +355,7 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     synchronized (toolbarContainer) {
-                        toolbarContainer.setVisibility(mToolbarIsVisible ? View.VISIBLE : View.GONE);
+                        toolbarContainer.setVisibility(mToolbarIsVisible ? View.VISIBLE : View.VISIBLE);
                     }
                 }
             });
@@ -495,6 +497,18 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
             }
             mCancelPendingFocusLoss = false;
             mIsPendingFocusLoss = false;
+        }
+    }
+
+    @Override
+    public void onRestoredInstanceState(RTEditText editor) {
+        /*
+         * We need to process pending sticky MediaEvents once the editors are registered with the
+         * RTManager and are fully restored.
+         */
+        LinkFragment.LinkEvent event = EventBus.getDefault().getStickyEvent(LinkFragment.LinkEvent.class);
+        if (event != null) {
+            onEventMainThread(event);
         }
     }
 

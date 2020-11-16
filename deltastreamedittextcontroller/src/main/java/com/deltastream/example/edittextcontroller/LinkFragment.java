@@ -39,6 +39,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
+import java.util.Random;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -93,6 +94,18 @@ public class LinkFragment extends DialogFragment {
             mFragmentTag = fragment.getTag();
             mLink = link;
             mWasCancelled = wasCancelled;
+        }
+
+        protected String generateFragmentTag(){
+            String SALTCHARS = "ABCDEFGHIJLMNOPQRSTUVWXYZ123456890";
+            StringBuilder salt = new StringBuilder();
+            Random random = new Random();
+            while (salt.length() < 18){
+                int index = (int)(random.nextFloat() * SALTCHARS.length());
+                salt.append(SALTCHARS.charAt(index));
+            }
+            String saltr = salt.toString();
+            return  saltr;
         }
 
         public String getFragmentTag() {
@@ -171,6 +184,7 @@ public class LinkFragment extends DialogFragment {
                 @Override
                 public void onClick(View view) {
                     EventBus.getDefault().post(new LinkEvent(LinkFragment.this, null, false));
+                    try { dialog.dismiss(); } catch (Exception ignore) {}
 
                 }
             });
@@ -189,6 +203,7 @@ public class LinkFragment extends DialogFragment {
             public void onClick(View view) {
 
                 EventBus.getDefault().post(new LinkEvent(LinkFragment.this, new Link(null, url), true));
+                try { dialog.dismiss(); } catch (Exception ignore) {}
             }
         });
 

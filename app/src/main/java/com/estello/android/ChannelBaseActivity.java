@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,7 +27,6 @@ import android.widget.ScrollView;
 
 
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
-import com.deltastream.example.edittextcontroller.LinkFragment;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
 import com.deltastream.example.edittextcontroller.api.RTApi;
@@ -69,7 +69,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
-import de.greenrobot.event.EventBus;
+
 
 public abstract class ChannelBaseActivity extends AppCompatActivity {
 
@@ -154,7 +154,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     boolean selectionChangeFromMentioning = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
     ImageView channelInfoIcon;
-    NestedScrollView channelBaseNestedScrollView;
+    //NestedScrollView channelBaseNestedScrollView;
     int i = 0;
 
     @Override
@@ -275,7 +275,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelPostRecyclerView = findViewById(R.id.channel_post_recyclerview);
         bottomSheetFileSelect1 = findViewById(R.id.messaging_area_bottomsheet_file_select1);
         bottomSheetFileSelect2 = findViewById(R.id.messaging_area_bottomsheet_file_select2);
-        channelBaseNestedScrollView = findViewById(R.id.channel_base_nested_scroll);
+        //channelBaseNestedScrollView = findViewById(R.id.channel_base_nested_scroll);
         rtScrollView = findViewById(R.id.rtEdittextScrollview);
         bottomSheetInnerLayout = findViewById(R.id.bottomsheet_inner_layout);
         bottomSheetSendIcon = findViewById(R.id.BottomSheetSendIcon);
@@ -362,7 +362,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
-
 
             }
 
@@ -990,17 +989,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         if (forumAdapter != null) {
 
-            //forumAdapter.pausePlayBack();
+            forumAdapter.pausePlayBack();
         }
     }
 
-
-    @Override
-    public void onStop(){
-        super.onStop();
-
-
-    }
 
 
     @Override
@@ -1012,7 +1004,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         }
         if (forumAdapter != null) {
 
-            // forumAdapter.destroyPlayer();
+             forumAdapter.destroyPlayer();
         }
     }
 
@@ -1673,7 +1665,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
         ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
+        adapter.setHasStableIds(true);
         ChannelPostRecyclerView.setAdapter(adapter);
+
     }
 
     public void showPostToolsBottomSheet(int position){
@@ -1756,10 +1750,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             });
 
         }
-
-
     }
-
 
 
 
