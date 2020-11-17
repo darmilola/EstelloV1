@@ -40,10 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
-import com.arthurivanets.arvi.widget.PlayableItemsContainer;
-import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
@@ -60,6 +57,10 @@ import com.estello.android.Adapter.MentionSelectionAdapter;
 import com.estello.android.Adapter.MessagingAreaAttachmentsAdapter;
 import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsContainer;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
 import com.estello.android.Fragments.UserProfileBottomSheet;

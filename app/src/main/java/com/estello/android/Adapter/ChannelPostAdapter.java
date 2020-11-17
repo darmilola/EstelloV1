@@ -1,7 +1,6 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
-import com.arthurivanets.arvi.widget.PlayableItemsContainer;
-import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
-import com.estello.android.ChannelPostDetails;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsContainer;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
 import com.estello.android.ViewModel.ForumPostModel;
 
 import com.estello.android.R;
@@ -29,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -44,9 +42,9 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int typeQuestion = 2;
     private static int typeIdea = 3;
     private static int typeInfo = 4;
-    private PostViewHolder postViewHolder;
-    private QuestionPostViewHolder questionPostViewHolder;
-    private SuggestionsPostViewHolder suggestionsPostViewHolder;
+    private PostViewHolder mPostViewHolder;
+    private QuestionPostViewHolder mQuestionPostViewHolder;
+    private SuggestionsPostViewHolder mSuggestionsPostViewHolder;
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
     hashTagClickedListener hashTagClickedListener;
@@ -123,32 +121,32 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       @Override
     public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
         super.onViewAttachedToWindow(viewHolder);
-        if(viewHolder instanceof PostViewHolder){
+          if(viewHolder instanceof PostViewHolder){
 
-           postViewHolder =  ((PostViewHolder)viewHolder);
-        }
-        else if(viewHolder instanceof QuestionPostViewHolder){
 
-            questionPostViewHolder = ((QuestionPostViewHolder)viewHolder);
-        }
-        else if(viewHolder instanceof SuggestionsPostViewHolder){
+          }
 
-            suggestionsPostViewHolder = ((SuggestionsPostViewHolder)viewHolder);
-        }
-    }
+          if(viewHolder instanceof QuestionPostViewHolder){
+              //((QuestionPostViewHolder)viewHolder).attachmentsRecyclerView.startPlayback();
+          }
+          if(viewHolder instanceof SuggestionsPostViewHolder){
+              //((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.startPlayback();
+          }
+              Log.e("attached", "onViewAttachedToWindow: "+viewHolder.getAdapterPosition());
+
+      }
 
     @Override
     public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
         super.onViewDetachedFromWindow(viewHolder);
-
         if(viewHolder instanceof PostViewHolder){
-          postViewHolder = null;
+            //((PostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
         }
         if(viewHolder instanceof QuestionPostViewHolder){
-            questionPostViewHolder = null;
+            //((QuestionPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
         }
         if(viewHolder instanceof SuggestionsPostViewHolder){
-            suggestionsPostViewHolder = null;
+            //((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
         }
 
     }
@@ -157,22 +155,18 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder) {
         super.onViewRecycled(viewHolder);
+        Log.e("are you reycling", "onViewRecycled: ");
         Log.e("detached", "onViewDetachedToWindow: ");
         if(viewHolder instanceof PostViewHolder){
-            postViewHolder.attachmentsRecyclerView.onPause();
+            //((PostViewHolder)viewHolder).attachmentsRecyclerView.onDestroy();
         }
         if(viewHolder instanceof QuestionPostViewHolder){
-            questionPostViewHolder.attachmentsRecyclerView.onPause();
+            //((QuestionPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
         }
         if(viewHolder instanceof SuggestionsPostViewHolder){
-            suggestionsPostViewHolder.attachmentsRecyclerView.onPause();
+            //((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
         }
     }
-
-
-
-
-
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -182,13 +176,14 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (forumPostList.get(position).getType() == typePost) {
 
 
-           PostViewHolder postViewHolder = (PostViewHolder) holder;
-
+            mPostViewHolder = ((PostViewHolder)holder);
+            PostViewHolder postViewHolder = (PostViewHolder) holder;
+            postViewHolder.setIsRecyclable(false);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String text =  preferences.getString("2","");
             RTHtml rtHtml = new RTHtml(text);
             postViewHolder.textView.setText(rtHtml);
-
+            postViewHolder.textView.setVisibility(View.GONE);
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
@@ -196,7 +191,6 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
             postViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
             postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
-            postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
 
             Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
@@ -226,7 +220,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     if(postViewHolder.richLinkView != null) {
 
-                        //postViewHolder.richLinkView.setVisibility(View.GONE);
+                        //mpostViewHolder.richLinkView.setVisibility(View.GONE);
                     }
                     }
             });
@@ -248,19 +242,20 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             QuestionPostViewHolder questionPostViewHolder = (QuestionPostViewHolder) holder;
 
+
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
             String text =  preferences.getString("2","");
             RTHtml rtHtml = new RTHtml(text);
             questionPostViewHolder.textView.setText(rtHtml);
-
+            questionPostViewHolder.textView.setVisibility(View.GONE);
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
             questionPostViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
             questionPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
             questionPostViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            questionPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            questionPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(true);
             questionPostViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
 
@@ -311,15 +306,14 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             String text = preferences.getString("2", "");
             RTHtml rtHtml = new RTHtml(text);
             suggestionsPostViewHolder.textView.setText(rtHtml);
-
-
+            suggestionsPostViewHolder.textView.setVisibility(View.GONE);
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
             suggestionsPostViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
             suggestionsPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
             suggestionsPostViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(true);
             suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
 
@@ -361,10 +355,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+
 
     @Override
     public int getItemCount() {
@@ -398,46 +389,48 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void pausePlayBack(){
 
-        if(questionPostViewHolder != null){
-            questionPostViewHolder.attachmentsRecyclerView.onPause();
+        if(mQuestionPostViewHolder != null){
+            mQuestionPostViewHolder.attachmentsRecyclerView.onPause();
         }
-        if(postViewHolder != null){
+        if(mPostViewHolder != null){
 
-            postViewHolder.attachmentsRecyclerView.onPause();
+            mPostViewHolder.attachmentsRecyclerView.onPause();
+
         }
-        if(suggestionsPostViewHolder != null){
-            suggestionsPostViewHolder.attachmentsRecyclerView.onPause();
+        if(mSuggestionsPostViewHolder != null){
+            mSuggestionsPostViewHolder.attachmentsRecyclerView.onPause();
         }
     }
 
     public void resumePlayBack(){
 
-        if(questionPostViewHolder != null){
+        if(mQuestionPostViewHolder != null){
 
-            //questionPostViewHolder.attachmentsRecyclerView.onResume();
+            mQuestionPostViewHolder.attachmentsRecyclerView.onResume();
         }
-        if(postViewHolder != null){
+        if(mPostViewHolder != null){
 
-            //postViewHolder.attachmentsRecyclerView.onResume();
+         //   mPostViewHolder.attachmentsRecyclerView.onResume();
         }
-        if(suggestionsPostViewHolder != null){
+        if(mSuggestionsPostViewHolder != null){
 
-            //suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
+            mSuggestionsPostViewHolder.attachmentsRecyclerView.onResume();
         }
     }
 
     public void destroyPlayer(){
 
-        if(questionPostViewHolder != null){
+        if(mQuestionPostViewHolder != null){
 
-            questionPostViewHolder.attachmentsRecyclerView.onDestroy();
+            mQuestionPostViewHolder.attachmentsRecyclerView.onDestroy();
         }
-        if(postViewHolder != null){
+        if(mPostViewHolder != null){
 
-            postViewHolder.attachmentsRecyclerView.onDestroy();
+            mPostViewHolder.attachmentsRecyclerView.onDestroy();
         }
-        if(suggestionsPostViewHolder != null){
-            suggestionsPostViewHolder.attachmentsRecyclerView.onDestroy();
+        if(mSuggestionsPostViewHolder != null){
+
+            mSuggestionsPostViewHolder.attachmentsRecyclerView.onDestroy();
         }
     }
 
@@ -499,7 +492,6 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             hashTagClickedListener.onHashTagClicked(position);
         }
 
-
         @Override
         public boolean onLongClick(View v) {
 
@@ -510,6 +502,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View v) {
 
+            attachmentsRecyclerView.pausePlayback();
             itemClickedListener.onItemClicked();
 
 

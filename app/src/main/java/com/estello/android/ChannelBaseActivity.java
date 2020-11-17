@@ -951,7 +951,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         if (forumAdapter != null) {
 
-            //forumAdapter.resumePlayBack();
+            forumAdapter.resumePlayBack();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -1663,9 +1663,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     public void setChannelPostAdapter(ChannelPostAdapter adapter){
 
+        forumAdapter = adapter;
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
         ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
-        adapter.setHasStableIds(true);
         ChannelPostRecyclerView.setAdapter(adapter);
 
     }

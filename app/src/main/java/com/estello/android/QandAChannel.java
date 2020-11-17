@@ -67,31 +67,52 @@ public class QandAChannel extends ChannelBaseActivity {
 
                 userArrayList.add(user);
             }
+
+            ForumPostAttachmentsModel forumPostAttachmentsModel1 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel2 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ForumPostAttachmentsModel forumPostAttachmentsModel3 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ForumPostAttachmentsModel forumPostAttachmentsModel4 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(1,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4","https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(0,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(3,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+            ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel9 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel10 = new ForumPostAttachmentsModel(1,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+
+
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList2 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList3 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList4 = new ArrayList<>();
             for(int i = 0; i < 1; i++){
 
                 forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel4);
+                forumPostAttachmentsModelArrayList2.add(forumPostAttachmentsModel5);
+                forumPostAttachmentsModelArrayList3.add(forumPostAttachmentsModel6);
+                forumPostAttachmentsModelArrayList4.add(forumPostAttachmentsModel7);
+
 
             }
             ForumPostModel postModel0 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,4);
             ForumPostModel postModel = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,0);
             postModel.setPostGroupDate("October 15 2020");
             ForumPostModel postModel2 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,1);
+            ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList2,1);
+            ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList3,1);
+            ForumPostModel postModel5 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList4,1);
             //ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
             //ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
             forumPostModelArrayList = new ArrayList<>();
             forumPostModelArrayList.add(postModel0);
             for(int i = 0; i < 1; i++){
                 forumPostModelArrayList.add(postModel);
-                for(int j = 0; j < 5; j++){
+                for(int j = 0; j < 1; j++){
 
                     forumPostModelArrayList.add(postModel2);
+                    forumPostModelArrayList.add(postModel3);
+                    forumPostModelArrayList.add(postModel4);
+                    forumPostModelArrayList.add(postModel5);
+
                 }
             }
             return null;

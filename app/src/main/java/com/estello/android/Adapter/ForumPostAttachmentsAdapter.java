@@ -21,9 +21,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.widget.PlayableItemViewHolder;
-import com.arthurivanets.arvi.widget.PlaybackState;
+
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.widget.PlayableItemViewHolder;
+import com.estello.android.Arvi.widget.PlaybackState;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.Utils.BitmapScaler;
 import com.estello.android.ViewModel.OnSwipeTouchListener;
@@ -103,13 +104,13 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         return  null;
     }
 
-  /*  @Override
+    /*@Override
     public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
         super.onViewDetachedFromWindow(viewHolder);
-        if(((VideosViewHolder)viewHolder).isPlaying()){
+        if(viewHolder instanceof VideosViewHolder && ((VideosViewHolder)viewHolder).isPlaying() && ((VideosViewHolder)viewHolder).isReady){
             ((VideosViewHolder)viewHolder).isPaused = true;
             ((VideosViewHolder)viewHolder).pause();
-            //((VideosViewHolder)viewHolder).release();
+
         }
         Log.e("recy", "recy");
     }*/
@@ -140,7 +141,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                 ((VideosViewHolder) holder).setUrl(attachmentsList.get(position).getAttachmentsVideoUrl());
                 ((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
-
                 ImageRequest request = ImageRequest.fromUri(attachmentsList.get(position).getAttachmentVideoThumbnailUrl());
                 DraweeController controller = Fresco.newDraweeControllerBuilder()
                         .setImageRequest(request)
@@ -289,6 +289,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             super(parentViewGroup, itemView);
             this.config = config;
+            //setIsRecyclable(false);
             player = itemView.findViewById(R.id.player_view);
             mPlayerView.setPlayer(player.getPlayer());
             playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
@@ -334,8 +335,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
-                        isPaused = true;
-                        pause();
+                         isPaused = true;
+                         pause();
                     }
                     else {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
@@ -348,7 +349,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             });
 
         }
-        @SuppressLint("ClickableViewAccessibility")
+
+            @SuppressLint("ClickableViewAccessibility")
         private void setOnGestureListeners() {
             player.setOnTouchListener(new OnSwipeTouchListener(context){
                 @Override
@@ -453,7 +455,9 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 loader.setVisibility(View.VISIBLE);
                 transparentOverlay.setVisibility(View.VISIBLE);
                 isStarted = true;
+                isNewPlayer = false;
                 if(isPaused){
+
 
                     playPauseView.setMaxFrame(89);
                     playPauseView.resumeAnimation();
@@ -595,6 +599,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             playPauseView.setVisibility(View.VISIBLE);
             playPauseLayout.setVisibility(View.VISIBLE);
             loader.setVisibility(View.GONE);
+            thumbnail.setVisibility(View.GONE);
+            isPaused = true;
             playPauseView.setMinAndMaxFrame(0,45);
             playPauseView.resumeAnimation();
 

@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
-import com.arthurivanets.arvi.widget.PlayableItemsContainer;
-import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsContainer;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
 import com.estello.android.R;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;

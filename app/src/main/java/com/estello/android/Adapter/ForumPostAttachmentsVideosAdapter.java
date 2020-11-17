@@ -4,9 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.player.Player;
-import com.arthurivanets.arvi.widget.PlayableItemViewHolder;
+
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.player.Player;
+import com.estello.android.Arvi.widget.PlayableItemViewHolder;
 import com.estello.android.R;
 
 import org.jetbrains.annotations.NotNull;
