@@ -17,6 +17,8 @@
 package com.estello.android.Arvi.util.cache;
 
 
+import android.util.Log;
+
 import com.estello.android.Arvi.model.PlaybackInfo;
 
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public final class PlaybackInfoCache implements Cache<String, PlaybackInfo> {
     private static volatile PlaybackInfoCache sInstance;
 
     private final Cache<String, PlaybackInfo> mCache;
-    private static HashMap<String,PlaybackInfoCache> playbackInfoCacheHashMap = new HashMap<>();
+    private static HashMap<String,PlaybackInfoCache> playbackInfoCacheMap = new HashMap<>();
 
 
 
@@ -40,22 +42,25 @@ public final class PlaybackInfoCache implements Cache<String, PlaybackInfo> {
      * @return the instance of the {@link PlaybackInfoCache}
      */
     public static PlaybackInfoCache getInstance(boolean isNewPlayer,String id) {
+        Log.e(String.valueOf(isNewPlayer), " getInstance: ");
      if(isNewPlayer){
-         sInstance = new PlaybackInfoCache();
-         playbackInfoCacheHashMap.put(id,sInstance);
-         return sInstance;
+         synchronized (PlaybackInfoCache.class) {
+             sInstance = new PlaybackInfoCache();
+             playbackInfoCacheMap.put(id, sInstance);
+             return sInstance;
+         }
      }
      else {
          if (sInstance == null) {
              synchronized (PlaybackInfoCache.class) {
                  if (sInstance == null) {
                      sInstance = new PlaybackInfoCache();
-                     playbackInfoCacheHashMap.put(id,sInstance);
+                     playbackInfoCacheMap.put(id,sInstance);
                      return sInstance;
                  }
              }
          }
-         return playbackInfoCacheHashMap.get(id);
+         return playbackInfoCacheMap.get(id);
      }
 
     }

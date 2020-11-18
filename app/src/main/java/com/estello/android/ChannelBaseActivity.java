@@ -56,6 +56,7 @@ import com.rd.utils.DensityUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -154,8 +155,23 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     boolean selectionChangeFromMentioning = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
     ImageView channelInfoIcon;
+    ActivityPausedListener activityPausedListener;
+    ActivityResumedListener activityResumedListener;
+    ActivityDestroyedListener activityDestroyedListener;
     //NestedScrollView channelBaseNestedScrollView;
     int i = 0;
+
+
+    public interface ActivityPausedListener{
+
+        public void onActivityPaused();
+    }
+    public interface ActivityResumedListener{
+        public void onActivityResumed();
+    }
+    public interface ActivityDestroyedListener{
+        public void onActivityDestroyed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +187,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     private void initializeBaseFeaturesLayout() {
         setContentView(R.layout.activity_channel_base);
     }
+
+    public void setActivityPausedListener(ActivityPausedListener activityPausedListener){
+        this.activityPausedListener = activityPausedListener;
+    }
+    public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener){
+        this.activityDestroyedListener = activityDestroyedListener;
+     }
 
 
     private void initMentions() {
@@ -261,6 +284,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
 
+        SharedPreferences vpreferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
+        SharedPreferences.Editor editor = vpreferences.edit();
+        editor.putStringSet("videoPlayerCacheSet",new HashSet<>()).apply();
+        editor.apply();
         initializeAudioRecordView();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
         mSoftInputHeight = preferences.getInt("softInputHeight", 0);
@@ -951,7 +978,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
         if (forumAdapter != null) {
 
-            forumAdapter.resumePlayBack();
+          //  forumAdapter.resumePlayBack();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -981,16 +1008,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     @Override
     public void onPause() {
 
+        activityPausedListener.onActivityPaused();
         super.onPause();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         ChannelArtManager.unregisterEditor(rtEditText);
         ChannelArtManager.unregisterToolbar(ChannelFormatToolbar);
-
-
-        if (forumAdapter != null) {
-
-            forumAdapter.pausePlayBack();
-        }
     }
 
 
@@ -999,13 +1021,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
+        activityDestroyedListener.onActivityDestroyed();
         if (ChannelArtManager != null) {
             ChannelArtManager.onDestroy(true);
         }
-        if (forumAdapter != null) {
 
-             forumAdapter.destroyPlayer();
-        }
     }
 
     private void initExpandedUi() {

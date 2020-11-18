@@ -50,6 +50,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
@@ -64,13 +65,15 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeImage = 1;
     private static int typeVideo = 2;
     private static int typeAudio = 3;
+    int positionInAdapter;
     Config config;
 
-    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config){
+    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config,int positionInAdapter){
 
         this.context = context;
         this.attachmentsList = attachmentsList;
         this.config = config;
+        this.positionInAdapter = positionInAdapter;
     }
 
 
@@ -103,29 +106,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
         return  null;
     }
-
-    /*@Override
-    public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
-        super.onViewDetachedFromWindow(viewHolder);
-        if(viewHolder instanceof VideosViewHolder && ((VideosViewHolder)viewHolder).isPlaying() && ((VideosViewHolder)viewHolder).isReady){
-            ((VideosViewHolder)viewHolder).isPaused = true;
-            ((VideosViewHolder)viewHolder).pause();
-
-        }
-        Log.e("recy", "recy");
-    }*/
-
-    @Override
-    public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder) {
-        super.onViewRecycled(viewHolder);
-     /*   if(((VideosViewHolder)viewHolder).isPlaying()){
-            ((VideosViewHolder)viewHolder).isPaused = true;
-            ((VideosViewHolder)viewHolder).pause();
-            //((VideosViewHolder)viewHolder).release();
-        }
-        Log.e("recy", "recy");*/
-    }
-
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -140,7 +120,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
 
                 ((VideosViewHolder) holder).setUrl(attachmentsList.get(position).getAttachmentsVideoUrl());
-                ((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
+               // ((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
                 ImageRequest request = ImageRequest.fromUri(attachmentsList.get(position).getAttachmentVideoThumbnailUrl());
                 DraweeController controller = Fresco.newDraweeControllerBuilder()
                         .setImageRequest(request)
@@ -273,25 +253,26 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         LottieAnimationView loader;
         SimpleDraweeView thumbnail;
         Config config;
-        private PlayerView player;
         String url = "";
+        PlayerView player;
         LinearLayout controller;
         PlaybackState playbackState;
         AlphaAnimation alphaAnim2;
         LottieAnimationView playPauseView;
+        String playbackCacheID = "";
         private Handler mHandler = new Handler();
         boolean isCancelled = false;
         boolean isPaused = false;
         boolean isReady = false;
         boolean isStarted = false;
+        boolean isLooping = false;
+        private VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
 
-        public VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
-
-            super(parentViewGroup, itemView);
+            super(parentViewGroup, itemView,positionInAdapter);
             this.config = config;
-            //setIsRecyclable(false);
+            setIsRecyclable(false);
             player = itemView.findViewById(R.id.player_view);
-            mPlayerView.setPlayer(player.getPlayer());
+            //mPlayerView.setPlayer(player.getPlayer());
             playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
             playPauseLayout = itemView.findViewById(R.id.attachment_play_pause_layout);
             loader = itemView.findViewById(R.id.attachment_video_loader_view);
@@ -327,23 +308,32 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 }
             });
 
+
             playPauseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isPlaying() && isTrulyPlayable() && isReady) {
+
+
+                    if (isNewPlayer) {
+                        playbackCacheID = generatePlaybackCacheID();
+                    }
+                    setPositionInAdapter(positionInAdapter);
+                    setPlayBackCacheID(playbackCacheID);
+
+                    if (isReady && isPlaying() && isTrulyPlayable()) {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
                          isPaused = true;
-                         pause();
+                         pause(positionInAdapter,false);
                     }
                     else {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
-                        start();
+                        start(positionInAdapter);
                     }
                 }
             });
@@ -352,7 +342,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             @SuppressLint("ClickableViewAccessibility")
         private void setOnGestureListeners() {
-            player.setOnTouchListener(new OnSwipeTouchListener(context){
+            mPlayerView.setOnTouchListener(new OnSwipeTouchListener(context){
                 @Override
                 public void onSwipeRight() {
                     super.onSwipeRight();
@@ -395,7 +385,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                             alphaAnim2.cancel();
                         }
                         isPaused = true;
-                        pause();
+                        pause(positionInAdapter,false);
                     }
 
                 }
@@ -404,7 +394,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         @Override
         protected float getTriggerOffset() {
-            return 0.1f;
+            return 0.999f;
         }
 
 
@@ -433,6 +423,22 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             return config;
         }
 
+        @Override
+        public long getDuration() {
+            //setPlayBackCacheID(this.playbackCacheID);
+           return super.getDuration();
+        }
+        String generatePlaybackCacheID(){
+            String SALTCHARS = "ABCDEFGHIJLMNOPQRSTUVWXYZ123456890";
+            StringBuilder salt = new StringBuilder();
+            Random random = new Random();
+            while (salt.length() < 18){
+                int index = (int)(random.nextFloat() * SALTCHARS.length());
+                salt.append(SALTCHARS.charAt(index));
+            }
+            String saltr = salt.toString();
+            return  saltr;
+        }
 
         @Override
         public  void onStateChanged(@NonNull PlaybackState playbackState){
@@ -451,11 +457,12 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         private void onStartedState() {
 
-            Log.e("started", "onStartedState: ");
+
+                Log.e("started", "onStartedState: ");
                 loader.setVisibility(View.VISIBLE);
                 transparentOverlay.setVisibility(View.VISIBLE);
                 isStarted = true;
-                isNewPlayer = false;
+                isLooping = true;
                 if(isPaused){
 
 
@@ -493,12 +500,14 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         private void onReadyState() {
 
+
             if(isStarted && !isPaused){
                 isStarted = false;
                 scheduleVideoProgressToolDisappearance();
             }
             Log.e("ready", "onReadyState: ");
             isReady = true;
+            setInReadyState(isReady);
             loader.setVisibility(View.GONE);
             thumbnail.setVisibility(View.GONE);
             transparentOverlay.setVisibility(View.GONE);
@@ -513,7 +522,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 @Override
                 public void run() {
 
-                    if (player != null) {
+                    if (mPlayerView != null) {
                         int mCurrentPosition = (int) (getPlaybackPosition());
                         videoProgress.setProgress(mCurrentPosition);
                         int formattedSecPostion = (int) TimeUnit.MILLISECONDS.toSeconds(getPlaybackPosition()) % 60;
@@ -560,7 +569,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                    if (player != null && fromUser) {
+                    if (mPlayerView != null && fromUser) {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
                             alphaAnim2.cancel();
@@ -601,6 +610,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             loader.setVisibility(View.GONE);
             thumbnail.setVisibility(View.GONE);
             isPaused = true;
+            isLooping = false;
             playPauseView.setMinAndMaxFrame(0,45);
             playPauseView.resumeAnimation();
 
@@ -612,6 +622,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             Log.e("stopped", "onStoppedState: ");
             isReady = false;
+            setInReadyState(isReady);
+            isLooping = false;
             if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                 isCancelled = true;
                 alphaAnim2.cancel();
@@ -632,6 +644,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             Log.e("started", "onErrorState: ");
             isReady = false;
+            setInReadyState(isReady);
+            isLooping = false;
             if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                 isCancelled = true;
                 alphaAnim2.cancel();

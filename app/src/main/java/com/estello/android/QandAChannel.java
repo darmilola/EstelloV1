@@ -35,7 +35,7 @@ public class QandAChannel extends ChannelBaseActivity {
 
     }
 
-    @Override
+   /* @Override
     public void onDestroy() {
         super.onDestroy();
         Log.e("destroyed", "onDestroy: ");
@@ -44,12 +44,12 @@ public class QandAChannel extends ChannelBaseActivity {
     @Override public void onStop(){
         super.onStop();
         Log.e("stopped", "onStop: ");
-    }
+    }*/
 
-    @Override public void onPause(){
+  /*  @Override public void onPause(){
         super.onPause();
         Log.e("paused", "onPause: ");
-    }
+    }*/
 
     @SuppressLint("UseSparseArrays")
     public class populateTask extends AsyncTask{
@@ -70,13 +70,13 @@ public class QandAChannel extends ChannelBaseActivity {
 
             ForumPostAttachmentsModel forumPostAttachmentsModel1 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ForumPostAttachmentsModel forumPostAttachmentsModel2 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel3 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel4 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
-            ForumPostAttachmentsModel forumPostAttachmentsModel9 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel3 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel4 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel5 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel6 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel7 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel8 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+            ForumPostAttachmentsModel forumPostAttachmentsModel9 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ForumPostAttachmentsModel forumPostAttachmentsModel10 = new ForumPostAttachmentsModel(1,"https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
 
 
@@ -84,12 +84,22 @@ public class QandAChannel extends ChannelBaseActivity {
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList2 = new ArrayList<>();
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList3 = new ArrayList<>();
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList4 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList5 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList6 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList7 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList8 = new ArrayList<>();
+            ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList9 = new ArrayList<>();
             for(int i = 0; i < 1; i++){
 
-                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel4);
-                forumPostAttachmentsModelArrayList2.add(forumPostAttachmentsModel5);
-                forumPostAttachmentsModelArrayList3.add(forumPostAttachmentsModel6);
-                forumPostAttachmentsModelArrayList4.add(forumPostAttachmentsModel7);
+                forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel1);
+                forumPostAttachmentsModelArrayList2.add(forumPostAttachmentsModel2);
+                forumPostAttachmentsModelArrayList3.add(forumPostAttachmentsModel3);
+                forumPostAttachmentsModelArrayList4.add(forumPostAttachmentsModel4);
+                forumPostAttachmentsModelArrayList5.add(forumPostAttachmentsModel5);
+                forumPostAttachmentsModelArrayList6.add(forumPostAttachmentsModel6);
+                forumPostAttachmentsModelArrayList7.add(forumPostAttachmentsModel7);
+                forumPostAttachmentsModelArrayList8.add(forumPostAttachmentsModel8);
+                forumPostAttachmentsModelArrayList9.add(forumPostAttachmentsModel9);
 
 
             }
@@ -100,7 +110,11 @@ public class QandAChannel extends ChannelBaseActivity {
             ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList2,1);
             ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList3,1);
             ForumPostModel postModel5 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList4,1);
-            //ForumPostModel postModel3 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,2);
+            ForumPostModel postModel6 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList5,1);
+            ForumPostModel postModel7 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList6,1);
+            ForumPostModel postModel8 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList7,1);
+            ForumPostModel postModel9 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList8,1);
+            ForumPostModel postModel10 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList9,1);
             //ForumPostModel postModel4 = new ForumPostModel(userArrayList,forumPostAttachmentsModelArrayList,3);
             forumPostModelArrayList = new ArrayList<>();
             forumPostModelArrayList.add(postModel0);
@@ -112,6 +126,11 @@ public class QandAChannel extends ChannelBaseActivity {
                     forumPostModelArrayList.add(postModel3);
                     forumPostModelArrayList.add(postModel4);
                     forumPostModelArrayList.add(postModel5);
+                    forumPostModelArrayList.add(postModel6);
+                    forumPostModelArrayList.add(postModel7);
+                    forumPostModelArrayList.add(postModel8);
+                    forumPostModelArrayList.add(postModel9);
+                    forumPostModelArrayList.add(postModel10);
 
                 }
             }

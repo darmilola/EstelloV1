@@ -18,6 +18,7 @@ package com.estello.android.Arvi;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.util.Pair;
 
 
@@ -64,11 +65,15 @@ public final class PlayerProviderImpl implements PlayerProvider {
         Preconditions.nonNull(context);
 
         if(sInstance == null) {
+            Log.e("sInstance null ", "  getInstance: ");
             synchronized(PlayerProviderImpl.class) {
                 if(sInstance == null) {
                     sInstance = new PlayerProviderImpl(context.getApplicationContext());
                 }
             }
+        }
+        else{
+            Log.e("sInstance  not null ", "  getInstance: ");
         }
 
         return sInstance;
@@ -257,6 +262,10 @@ public final class PlayerProviderImpl implements PlayerProvider {
             creator = ArviPlugins.getPlayerCreatorFactory().create(this, config);
 
             mConfigCreatorMap.put(config, creator);
+            Log.e("creator is null", "getOrInitCreator: ");
+        }
+        else{
+            Log.e("creator is already av", "getOrInitCreator: ");
         }
 
         return creator;

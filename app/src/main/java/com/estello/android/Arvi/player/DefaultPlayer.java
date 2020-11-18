@@ -17,6 +17,7 @@
 package com.estello.android.Arvi.player;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import com.estello.android.Arvi.player.util.DefaultVolumeController;
@@ -41,10 +42,7 @@ import androidx.annotation.Nullable;
 import static com.estello.android.Arvi.util.misc.Preconditions.checkNonNull;
 
 
-/**
- * A default implementation of the {@link com.arthurivanets.arvi.player.Player} which has the most essential player-related
- * handling functionality implemented for you.
- */
+
 public class DefaultPlayer implements Player {
 
 
@@ -388,10 +386,10 @@ public class DefaultPlayer implements Player {
         final int playbackState = getPlaybackState();
 
         return (
-            isInitialized()
-            && this.exoPlayer.getPlayWhenReady()
-            && (playbackState != PlaybackState.IDLE)
-            && ((playbackState != PlaybackState.ENDED) || isLooping())
+                isInitialized()
+                        && this.exoPlayer.getPlayWhenReady()
+                        && (playbackState != PlaybackState.IDLE)
+                        && ((playbackState != PlaybackState.ENDED) || isLooping())
         );
     }
 

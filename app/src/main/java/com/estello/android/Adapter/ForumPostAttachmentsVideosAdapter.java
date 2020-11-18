@@ -54,7 +54,7 @@ public class ForumPostAttachmentsVideosAdapter extends RecyclerView.Adapter<Foru
         private Player player;
 
         public VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
-            super(parentViewGroup, itemView);
+            super(parentViewGroup, itemView,0);
             this.config = config;
         }
 

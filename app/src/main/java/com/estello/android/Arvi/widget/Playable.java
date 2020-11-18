@@ -33,7 +33,7 @@ public interface Playable extends PlayabilityStateChangeObserver {
     /**
      * Starts the playback.
      */
-    void start();
+    void start(int positionInAdapter);
 
     /**
      * Restarts the playback.
@@ -43,7 +43,7 @@ public interface Playable extends PlayabilityStateChangeObserver {
     /**
      * Pauses the playback.
      */
-    void pause();
+    void pause(int positionInAdapter,boolean fromActivity);
 
     /**
      * Stops the playback.
@@ -103,34 +103,15 @@ public interface Playable extends PlayabilityStateChangeObserver {
     @NonNull
     String getUrl();
 
-    /**
-     * Retrieves this {@link Playable}'s tag.
-     * (Tags are used to help to differentiate the {@link com.arthurivanets.arvi.player.Player}s within the Player Pool,
-     * as well as their corresponding {@link PlaybackInfo}s. See {@link #getKey()})
-     *
-     * @return the tag
-     */
+
     @NonNull
     String getTag();
 
-    /**
-     * Composes the key out the url {@link #getUrl()}  and tag {@link #getTag()} to be used
-     * for the internal management of the {@link com.arthurivanets.arvi.player.Player} instances.
-     * (override the {@link #getTag()} in cases when you need to prevent the sharing of the {@link com.arthurivanets.arvi.player.Player}
-     * instances and corresponding {@link PlaybackInfo}s between the {@link Playable}s with the same media urls.)
-     *
-     * @return the composed key
-     */
+
     @NonNull
     String getKey();
 
-    /**
-     * The {@link com.arthurivanets.arvi.player.Player} configuration.
-     * (Normally, you want to have a single instance of the {@link Config} for the whole application
-     * [one per specific config]; do not generate new {@link Config}s within this method.)
-     *
-     * @return the config
-     */
+
     @NonNull
     Config getConfig();
 
@@ -141,12 +122,7 @@ public interface Playable extends PlayabilityStateChangeObserver {
      */
     boolean isPlaying();
 
-    /**
-     * Determines whether the current item can manage the {@link com.arthurivanets.arvi.player.Player}'s
-     * playback via the available apis.
-     *
-     * @return if this item can manage the playback
-     */
+
     boolean isTrulyPlayable();
 
     /**

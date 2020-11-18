@@ -53,47 +53,24 @@ public interface PlayableItemsContainer {
     }
 
 
-    /**
-     * Starts the playback of the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     * (The exact amount of the items playback of which is to be started
-     * depends on the {@link AutoplayMode})
-     */
+
     void startPlayback();
 
-    /**
-     * Stops the playback of the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     */
+
     void stopPlayback();
 
-    /**
-     * Pauses the playback of the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     */
-    void pausePlayback();
 
-    /**
-     * Resumes the paused playbacks of the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     * (to be used in the corresponding lifecycle method of the {@link android.app.Activity}/{@link androidx.fragment.app.Fragment}, etc.)
-     */
+    void pausePlayback(boolean fromActivity);
+
+
     void onResume();
 
-    /**
-     * Pauses the playbacks of the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     * (to be used in the corresponding lifecycle method of the {@link android.app.Activity}/{@link androidx.fragment.app.Fragment}, etc.)
-     */
-    void onPause();
 
-    /**
-     * Releases the active players associated with the visible {@link com.arthurivanets.arvi.widget.Playable} items.
-     * (to be used in the corresponding lifecycle method of the {@link android.app.Activity}/{@link androidx.fragment.app.Fragment}, etc.)
-     */
+    void onPause(boolean fromActivity);
+
+
     void onDestroy();
 
-    /**
-     * Sets the {@link AutoplayMode}, which is going to define how the {@link com.arthurivanets.arvi.widget.Playable}
-     * items will be played.
-     *
-     * @param autoplayMode the autoplay mode
-     */
     void setAutoplayMode(@NonNull AutoplayMode autoplayMode);
 
     /**
