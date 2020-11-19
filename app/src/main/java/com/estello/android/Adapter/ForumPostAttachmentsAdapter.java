@@ -65,15 +65,13 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeImage = 1;
     private static int typeVideo = 2;
     private static int typeAudio = 3;
-    int positionInAdapter;
     Config config;
 
-    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config,int positionInAdapter){
-
+    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config){
         this.context = context;
         this.attachmentsList = attachmentsList;
         this.config = config;
-        this.positionInAdapter = positionInAdapter;
+
     }
 
 
@@ -117,10 +115,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
             }
             else if (holder.getItemViewType() == typeVideo) {
-
-
                 ((VideosViewHolder) holder).setUrl(attachmentsList.get(position).getAttachmentsVideoUrl());
-               // ((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
+                //((VideosViewHolder)holder).videoProgress.setMax((int) ((VideosViewHolder)holder).getDuration());
                 ImageRequest request = ImageRequest.fromUri(attachmentsList.get(position).getAttachmentVideoThumbnailUrl());
                 DraweeController controller = Fresco.newDraweeControllerBuilder()
                         .setImageRequest(request)
@@ -268,9 +264,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         boolean isLooping = false;
         private VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
 
-            super(parentViewGroup, itemView,positionInAdapter);
+            super(parentViewGroup, itemView);
             this.config = config;
-            setIsRecyclable(false);
             player = itemView.findViewById(R.id.player_view);
             //mPlayerView.setPlayer(player.getPlayer());
             playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
@@ -304,7 +299,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 @Override
                 public void onAnimationRepeat(Animator animation) {
 
-
                 }
             });
 
@@ -312,12 +306,9 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             playPauseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     if (isNewPlayer) {
                         playbackCacheID = generatePlaybackCacheID();
                     }
-                    setPositionInAdapter(positionInAdapter);
                     setPlayBackCacheID(playbackCacheID);
 
                     if (isReady && isPlaying() && isTrulyPlayable()) {
@@ -326,14 +317,16 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                             alphaAnim2.cancel();
                         }
                          isPaused = true;
-                         pause(positionInAdapter,false);
+                         setPausedByUser(true);
+                         pause();
                     }
                     else {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
-                        start(positionInAdapter);
+                        setPausedByUser(false);
+                        start();
                     }
                 }
             });
@@ -360,7 +353,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 @Override
                 public void onClick() {
                     super.onClick();
-                    if(isPlaying() && isTrulyPlayable() && isReady){
+                    if(isReady && isPlaying() && isTrulyPlayable()){
 
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
@@ -379,13 +372,14 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                 @Override
                 public void onDoubleClick() {
                     super.onDoubleClick();
-                    if (isPlaying() && isTrulyPlayable() && isReady) {
+                    if (isReady && isPlaying() && isTrulyPlayable()) {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
                         isPaused = true;
-                        pause(positionInAdapter,false);
+                        setPausedByUser(true);
+                        pause();
                     }
 
                 }
@@ -414,7 +408,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         @NonNull
         @Override
         public String getUrl() {
-            return url; //attachmentsList.get(getAdapterPosition()).;
+            return url;
         }
 
         @NotNull
@@ -425,7 +419,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         @Override
         public long getDuration() {
-            //setPlayBackCacheID(this.playbackCacheID);
            return super.getDuration();
         }
         String generatePlaybackCacheID(){
@@ -468,10 +461,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                     playPauseView.setMaxFrame(89);
                     playPauseView.resumeAnimation();
-                    //thumbnail.setVisibility(View.GONE);
-                    //playPauseView.setVisibility(View.VISIBLE);
-                    //playPauseLayout.setVisibility(View.VISIBLE);
-                    //progressToolLayout.setVisibility(View.VISIBLE);
                     isPaused = false;
 
 
@@ -483,7 +472,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                     loader.setVisibility(View.VISIBLE);
                     playPauseView.setVisibility(View.GONE);
                     playPauseLayout.setVisibility(View.GONE);
-                    //playVideoLayout.setVisibility(View.GONE);
+
                 }
 
             }
@@ -514,7 +503,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             progressToolLayout.setVisibility(View.GONE);
             playPauseView.setMaxFrame(89);
             playPauseView.resumeAnimation();
-            //playPauseIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_pause_white_36dp));
 
             videoProgress.setMax((int) getDuration());
             ((Activity) context).runOnUiThread(new Runnable() {
@@ -620,6 +608,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         private void onStoppedState() {
 
+            setPausedByUser(false);
             Log.e("stopped", "onStoppedState: ");
             isReady = false;
             setInReadyState(isReady);
@@ -642,6 +631,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         private void onErrorState() {
 
+            setPausedByUser(false);
             Log.e("started", "onErrorState: ");
             isReady = false;
             setInReadyState(isReady);

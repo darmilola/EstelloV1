@@ -194,6 +194,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener){
         this.activityDestroyedListener = activityDestroyedListener;
      }
+     public void setActivityResumedListener(ActivityResumedListener activityResumedListener){
+        this.activityResumedListener = activityResumedListener;
+     }
 
 
     private void initMentions() {
@@ -975,11 +978,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
         ChannelArtManager.registerEditor(rtEditText, true);
         rtEditText.setRichTextEditing(true, true);
-
-        if (forumAdapter != null) {
-
-          //  forumAdapter.resumePlayBack();
-        }
+        if(activityResumedListener != null)activityResumedListener.onActivityResumed();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));

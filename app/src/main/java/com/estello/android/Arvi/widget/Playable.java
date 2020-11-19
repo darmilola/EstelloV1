@@ -33,7 +33,7 @@ public interface Playable extends PlayabilityStateChangeObserver {
     /**
      * Starts the playback.
      */
-    void start(int positionInAdapter);
+    void start();
 
     /**
      * Restarts the playback.
@@ -43,7 +43,7 @@ public interface Playable extends PlayabilityStateChangeObserver {
     /**
      * Pauses the playback.
      */
-    void pause(int positionInAdapter,boolean fromActivity);
+    void pause();
 
     /**
      * Stops the playback.

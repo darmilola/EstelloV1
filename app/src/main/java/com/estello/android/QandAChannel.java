@@ -34,23 +34,6 @@ public class QandAChannel extends ChannelBaseActivity {
 
 
     }
-
-   /* @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e("destroyed", "onDestroy: ");
-    }
-
-    @Override public void onStop(){
-        super.onStop();
-        Log.e("stopped", "onStop: ");
-    }*/
-
-  /*  @Override public void onPause(){
-        super.onPause();
-        Log.e("paused", "onPause: ");
-    }*/
-
     @SuppressLint("UseSparseArrays")
     public class populateTask extends AsyncTask{
 

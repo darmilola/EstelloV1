@@ -106,7 +106,7 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
             postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config,position);
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config);
             postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             postViewHolder.attachmentsRecyclerView.onResume();
 

@@ -60,13 +60,13 @@ public interface PlayableItemsContainer {
     void stopPlayback();
 
 
-    void pausePlayback(boolean fromActivity);
+    void pausePlayback();
 
 
     void onResume();
 
 
-    void onPause(boolean fromActivity);
+    void onPause();
 
 
     void onDestroy();

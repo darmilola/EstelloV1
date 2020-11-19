@@ -42,11 +42,7 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.PlayerView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
@@ -70,20 +66,17 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
     private Player mPlayer = null;
     private boolean isInReadyState = false;
     private int positionInAdapter;
-    private HashMap<Integer,String> playerInPlayingMotion = new HashMap<>();
-    Set<String> playCacheStringSet = new HashSet<String>();
+    private boolean isPausedByUser = true;
 
 
 
 
-    public PlayableItemViewHolder(ViewGroup parentViewGroup, View itemView,int positionInAdapter) {
+
+    public PlayableItemViewHolder(ViewGroup parentViewGroup, View itemView) {
         super(itemView);
         mParentViewGroup = parentViewGroup;
         mPlayerView = itemView.findViewById(R.id.player_view);
         isNewPlayer = true;
-        this.positionInAdapter = positionInAdapter;
-        Log.e(String.valueOf(getAdapterPosition()), "   PlayableItemViewHolder: ");
-
     }
 
 
@@ -91,11 +84,11 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
 
 
     @Override
-    public final void start(int positionInAdapter) {
+    public final void start() {
         if(!isTrulyPlayable()) {
             return;
         }
-        if(startPlayer(positionInAdapter)) {
+        if(startPlayer()) {
                 onStateChanged((getPlaybackState() == Player.PlaybackState.READY) ? PlaybackState.READY : PlaybackState.STARTED);
             }
 
@@ -103,15 +96,19 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
     }
 
 
+    public void setPausedByUser(boolean pausedByUser) {
+        isPausedByUser = pausedByUser;
+    }
 
-
+    public boolean isPausedByUser() {
+        return isPausedByUser;
+    }
 
     @Override
     public final void restart() {
         if(!isTrulyPlayable()) {
             return;
         }
-
         restartPlayer();
         onStateChanged(PlaybackState.RESTARTED);
     }
@@ -120,14 +117,11 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
 
 
     @Override
-    public final void pause(int positionInAdapter,boolean fromActivity) {
+    public final void pause() {
         if(!isTrulyPlayable()) {
-            Log.e("not truly playable", "pauseItemPlayback: ");
             return;
         }
-
-        Log.e("playable", "pauseItemPlayback: ");
-        pausePlayer(positionInAdapter,fromActivity);
+        pausePlayer();
         onStateChanged(PlaybackState.PAUSED);
     }
 
@@ -139,7 +133,6 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
         if(!isTrulyPlayable()) {
             return;
         }
-
         stopPlayer();
         onStateChanged(PlaybackState.STOPPED);
     }
@@ -152,7 +145,6 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
         if(!isTrulyPlayable()) {
             return;
         }
-
         releasePlayer();
         onStateChanged(PlaybackState.STOPPED);
     }
@@ -160,10 +152,10 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
 
 
 
-    private boolean startPlayer(int positionInAdapter) {
+    private boolean startPlayer() {
 
         // creating/updating the PlaybackInfo for this particular Playable
-        playerInPlayingMotion.put(positionInAdapter,getPlayBackCacheID());
+
         final Player player = getOrInitPlayer();
         final PlaybackInfo playbackInfo = getPlaybackInfo();
         final VolumeInfo volumeInfo = playbackInfo.getVolumeInfo();
@@ -188,8 +180,6 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
             player.play();
         }
         isNewPlayer = false;
-
-
         return shouldPlay;
     }
 
@@ -223,21 +213,15 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
 
 
 
-    private void pausePlayer(int positionInAdapter,boolean fromActivity) {
-
-            playBackCacheID = playerInPlayingMotion.get(positionInAdapter);
-            final Player player = getPlayer();
+    private void pausePlayer() {
+        final Player player = getPlayer();
             final PlaybackInfo playbackInfo = getPlaybackInfo();
 
             if (player != null) {
-                Log.e("i should be pausing", "pauseItemPlayback: ");
                 player.pause();
                 player.removeEventListener(this);
-
                 playbackInfo.setPlaybackPosition(player.getPlaybackPosition());
                 setPlaybackInfo(playbackInfo);
-            } else {
-                Log.e("player is null", "pauseItemPlayback: ");
             }
         }
 
@@ -313,49 +297,11 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
         if(isNewPlayer){
 
             isNewPlayer = false;
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-            SharedPreferences.Editor editor = preferences.edit();
-            Set<String> videoPlayerCacheSet = preferences.getStringSet("videoPlayerCacheSet",new HashSet<String>());
-            videoPlayerCacheSet.add(getPlayBackCacheID());
-            editor.putStringSet("videoPlayerCacheSet",videoPlayerCacheSet).apply();
+
         }
          player = getPlayer();
         return ((player != null) ? player.getDuration() : 0);
     }
-
-    private void pauseAllPlayerInMotion(){
-
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-        Set<String> videoPlayerCacheSet = preferences.getStringSet("videoPlayerCacheSet",new HashSet<String>());
-
-        Log.e(String.valueOf(videoPlayerCacheSet.size()), "  pauseAllPlayerInMotion: ");
-
-        for(String cacheID: videoPlayerCacheSet) {
-            if (!cacheID.equalsIgnoreCase("")) {
-
-                setPlayBackCacheID(cacheID);
-                Log.e(playBackCacheID, "pauseAllPlayerInMotion: ");
-                playBackCacheID = cacheID;
-                final Player player = getPlayer();
-                final PlaybackInfo playbackInfo = getPlaybackInfo();
-
-                if (player != null) {
-                    Log.e("i should be pausing", "pauseItemPlayback: ");
-                    player.pause();
-                    player.removeEventListener(this);
-
-                    playbackInfo.setPlaybackPosition(player.getPlaybackPosition());
-                    setPlaybackInfo(playbackInfo);
-                } else {
-                    Log.e("player is null", "pauseItemPlayback: ");
-                }
-            }
-        }
-    }
-
-
-
 
     @Override
     public final View getPlayerView() {
@@ -374,7 +320,7 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
 
 
     private Player getPlayer() {
-        Log.e(getKey(), "  getPlayer: ");
+
         return PlayerProviderImpl.getInstance(itemView.getContext()).getPlayer(getConfig(), getPlayBackCacheID());
     }
 
@@ -457,7 +403,7 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
     @Override
     public final String getKey() {
 
-        return  getPlayBackCacheID();//(getUrl() + getTag());
+        return  getPlayBackCacheID();
     }
 
 
@@ -563,11 +509,10 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
     @Override
     public final boolean isPlaying() {
          player = getPlayer();
-         if(player == null) Log.e("is null", "  isPlaying: ");
+         if(player == null);
          if(player != null){
             mPlayer = player;
-            Log.e("is not  null", "  isPlaying: ");
-        }
+         }
         return ((mPlayer != null) && mPlayer.isPlaying());
     }
 

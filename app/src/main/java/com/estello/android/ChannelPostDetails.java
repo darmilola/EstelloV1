@@ -1900,7 +1900,7 @@ public class ChannelPostDetails extends AppCompatActivity {
         playableItemsRecyclerView.setAutoplayEnabled(false);
         playableItemsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
         Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetails.this)).build();
-        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetails.this,forumPostAttachmentsModelArrayList, config,0);
+        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetails.this,forumPostAttachmentsModelArrayList, config);
         playableItemsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
         playableItemsRecyclerView.onResume();
 
