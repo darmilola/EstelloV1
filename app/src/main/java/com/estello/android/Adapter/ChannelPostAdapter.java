@@ -1,29 +1,37 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
-import com.arthurivanets.arvi.widget.PlayableItemsContainer;
-import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
-import com.estello.android.ChannelPostDetails;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsContainer;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
+import com.estello.android.ChannelBaseActivity;
 import com.estello.android.ViewModel.ForumPostModel;
 
 import com.estello.android.R;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
 import com.estello.android.ViewModel.RichLinkView.ViewListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,14 +47,20 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int typePost = 1;
     private static int typeQuestion = 2;
     private static int typeIdea = 3;
-    //private PostViewHolder postViewHolder;
-    //private QuestionPostViewHolder questionPostViewHolder;
-    //private SuggestionsPostViewHolder suggestionsPostViewHolder;
+    private static int typeInfo = 4;
+    private PostViewHolder mPostViewHolder;
+    private QuestionPostViewHolder mQuestionPostViewHolder;
+    private SuggestionsPostViewHolder mSuggestionsPostViewHolder;
     MentionClickedListener mentionClickedListener;
     ProfilePictureClickedListener profilePictureClickedListener;
     hashTagClickedListener hashTagClickedListener;
     PostLongClickedListener postLongClickedListener;
     ItemClickedListener itemClickedListener;
+    List<PostViewHolder> postViewHolderList = new ArrayList<>();
+    //List<PostViewHolder> attachedViewHolderList = new ArrayList<>();
+    Queue<PostViewHolder> postViewHolderQueue = new LinkedList<>();
+    HashMap<Integer,PostViewHolder> postViewHolderHashMap = new HashMap<>();
+
 
 
     public interface hashTagClickedListener {
@@ -71,7 +85,8 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, ChannelPostAdapter.hashTagClickedListener hashTagClickedListener, PostLongClickedListener postLongClickedListener,ItemClickedListener itemClickedListener) {
+
+    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, ChannelPostAdapter.hashTagClickedListener hashTagClickedListener, PostLongClickedListener postLongClickedListener, ItemClickedListener itemClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
@@ -81,7 +96,10 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.postLongClickedListener = postLongClickedListener;
         this.itemClickedListener = itemClickedListener;
 
+
     }
+
+
 
     @NonNull
     @Override
@@ -105,42 +123,109 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_recycler_item_type_suggestion, parent, false);
             return new SuggestionsPostViewHolder(view2);
         }
-        return null;
+        else if(viewType == typeInfo){
 
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_item_channel_info, parent, false);
+            return new InfoViewHolder(view2);
+        }
+        return null;
 
     }
 
 
+      @Override
+    public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewAttachedToWindow(viewHolder);
+          if(viewHolder instanceof PostViewHolder){
+
+              if(!postViewHolderQueue.contains(viewHolder)){
+                  LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                  PostViewHolder postViewHolder = (PostViewHolder) viewHolder;
+                  Log.e("new player  "+viewHolder.getAdapterPosition(), "onViewAttachedToWindow: ");
+                  postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+                  postViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
+                  postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+                  Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+                  ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                      @Override
+                      public void onNewPlayerStarted() {
+                          for (PostViewHolder postViewHolder1:postViewHolderQueue) {
+                              if(!postViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != postViewHolder1){
+                                  postViewHolder1.attachmentsRecyclerView.stopPlayback();
+                              }
+                          }
+                      }
+                  });
+
+                  postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityPausedListener(ChannelPostAdapter.this::pausePlayBackFromActivityOnPause);
+                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelPostAdapter.this::destroyPlayBackFromActivity);
+                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityResumedListener(ChannelPostAdapter.this::resumePlayBackFromActivity);
+                  postViewHolderQueue.add((PostViewHolder) viewHolder);
+              }
+              else{
+                  //resumePlayBackFromActivity();
+                  //((PostViewHolder) viewHolder).attachmentsRecyclerView.onResume();
+              }
+
+
+          }
+          if(viewHolder instanceof QuestionPostViewHolder){
+              //((QuestionPostViewHolder)viewHolder).attachmentsRecyclerView.startPlayback();
+          }
+          if(viewHolder instanceof SuggestionsPostViewHolder){
+              //((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.startPlayback();
+          }
+              Log.e("attached", "onViewAttachedToWindow: "+viewHolder.getAdapterPosition());
+
+      }
+
+      @Override
+      public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder){
+        if(viewHolder instanceof PostViewHolder){
+              Log.e("am recycled yeah o", "onViewRecycled: ");
+              Log.e("new gone completely " + viewHolder.getAdapterPosition(), "onViewDetachedFromWindow: ");
+              boolean isRemoved = postViewHolderQueue.remove(viewHolder);
+              ((PostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
+               viewHolder = null;
+        }
+      }
+
+        @Override
+        public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewDetachedFromWindow(viewHolder);
+        if(viewHolder instanceof PostViewHolder){
+                     Log.e("new destroyed  " + viewHolder.getAdapterPosition(), "onViewDetachedFromWindow: ");
+                     PostViewHolder  postViewHolder = postViewHolderQueue.peek();
+                     if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.stopPlayback();
+
+        }
+
+        if(viewHolder instanceof QuestionPostViewHolder){
+
+        }
+        if(viewHolder instanceof SuggestionsPostViewHolder){
+
+        }
+
+    }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        Log.e("binding", "onBindViewHolder: ");
 
         if (forumPostList.get(position).getType() == typePost) {
-
-           PostViewHolder postViewHolder = (PostViewHolder) holder;
-
+            PostViewHolder postViewHolder = (PostViewHolder) holder;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String text =  preferences.getString("2","");
             RTHtml rtHtml = new RTHtml(text);
             postViewHolder.textView.setText(rtHtml);
-
-            LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-            LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-            //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
-            postViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
-            postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
-            postViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
-            postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
+            postViewHolder.textView.setVisibility(View.GONE);
+            LinearLayoutManager recentCommentLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+            postViewHolder.recentCommentsRecyclerView.setLayoutManager(recentCommentLinearLayoutManager);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
-
-            Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config);
-
-            postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             postViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
-            postViewHolder.attachmentsRecyclerView.onResume();
-
             if(postViewHolder.richLinkView != null)
             postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
 
@@ -161,8 +246,9 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     if(postViewHolder.richLinkView != null) {
 
-                        //postViewHolder.richLinkView.setVisibility(View.GONE);
+
                     }
+
                     }
             });
 
@@ -183,24 +269,30 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             QuestionPostViewHolder questionPostViewHolder = (QuestionPostViewHolder) holder;
 
+
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
             String text =  preferences.getString("2","");
             RTHtml rtHtml = new RTHtml(text);
             questionPostViewHolder.textView.setText(rtHtml);
-
+            questionPostViewHolder.textView.setVisibility(View.GONE);
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
             questionPostViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
             questionPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
             questionPostViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            questionPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            questionPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(true);
             questionPostViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
 
             Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config);
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                @Override
+                public void onNewPlayerStarted() {
+
+                }
+            });
 
             questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             questionPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
@@ -246,20 +338,24 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             String text = preferences.getString("2", "");
             RTHtml rtHtml = new RTHtml(text);
             suggestionsPostViewHolder.textView.setText(rtHtml);
-
-
+            suggestionsPostViewHolder.textView.setVisibility(View.GONE);
             LinearLayoutManager uroraLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
             suggestionsPostViewHolder.recentCommentsRecyclerView.setLayoutManager(uroraLinearLayoutManager);
             suggestionsPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
             suggestionsPostViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
+            suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayEnabled(true);
             suggestionsPostViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
 
             Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config);
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(position).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                @Override
+                public void onNewPlayerStarted() {
+
+                }
+            });
 
             suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             suggestionsPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
@@ -290,12 +386,13 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
 
 
-
-
         }
 
 
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -320,51 +417,35 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             return  typeIdea;
         }
+        else if(forumPostList.get(position).getType() == typeInfo){
+
+            return  typeInfo;
+        }
         return typePost;
     }
 
-   /* public void pausePlayBack(){
-
-        if(questionPostViewHolder != null){
-            questionPostViewHolder.attachmentsRecyclerView.pausePlayback();
-        }
-        if(postViewHolder != null){
-
-            postViewHolder.attachmentsRecyclerView.pausePlayback();
-        }
-        if(suggestionsPostViewHolder != null){
-            suggestionsPostViewHolder.attachmentsRecyclerView.pausePlayback();
+    private void resumePlayBackFromActivity(){
+        PostViewHolder viewHolderCache = null;
+        for (PostViewHolder videoCache: postViewHolderQueue) {
+            viewHolderCache = videoCache;
+            //videoCache.attachmentsRecyclerView.onResume();
+            if (viewHolderCache != null && viewHolderCache.attachmentsRecyclerView.isPlayBackPlaying())
+                viewHolderCache.attachmentsRecyclerView.onResume();
         }
     }
-    public void resumePlayBack(){
 
-        if(questionPostViewHolder != null){
-
-            questionPostViewHolder.attachmentsRecyclerView.onResume();
-        }
-        if(postViewHolder != null){
-
-            postViewHolder.attachmentsRecyclerView.onResume();
-        }
-        if(suggestionsPostViewHolder != null){
-
-            suggestionsPostViewHolder.attachmentsRecyclerView.onResume();
+    private void pausePlayBackFromActivityOnPause(){
+        for (PostViewHolder videoCache: postViewHolderQueue){
+            videoCache.attachmentsRecyclerView.onPause(true);
         }
     }
-    public void destroyPlayer(){
-
-        if(questionPostViewHolder != null){
-
-            questionPostViewHolder.attachmentsRecyclerView.onDestroy();
+    private void destroyPlayBackFromActivity(){
+        for (PostViewHolder videoCache: postViewHolderQueue) {
+            videoCache.attachmentsRecyclerView.onDestroy();
         }
-        if(postViewHolder != null){
+    }
 
-            postViewHolder.attachmentsRecyclerView.onDestroy();
-        }
-        if(suggestionsPostViewHolder != null){
-            suggestionsPostViewHolder.attachmentsRecyclerView.onDestroy();
-        }
-    }*/
+
 
     public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener,View.OnClickListener {
 
@@ -424,7 +505,6 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             hashTagClickedListener.onHashTagClicked(position);
         }
 
-
         @Override
         public boolean onLongClick(View v) {
 
@@ -435,6 +515,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View v) {
 
+            pausePlayBackFromActivityOnPause();
             itemClickedListener.onItemClicked();
 
 
@@ -493,8 +574,17 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             super(itemView);
             forumPostDate = itemView.findViewById(R.id.forum_post_date);
+        }
+    }
+    public class InfoViewHolder extends RecyclerView.ViewHolder {
 
 
+       // TextView forumPostDate;
+
+        public InfoViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+            //forumPostDate = itemView.findViewById(R.id.forum_post_date);
         }
     }
 }

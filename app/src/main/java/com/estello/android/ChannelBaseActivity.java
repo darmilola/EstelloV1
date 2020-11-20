@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,7 +27,6 @@ import android.widget.ScrollView;
 
 
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
-import com.deltastream.example.edittextcontroller.LinkFragment;
 import com.deltastream.example.edittextcontroller.MentionHashTagListener;
 import com.deltastream.example.edittextcontroller.RTManager;
 import com.deltastream.example.edittextcontroller.api.RTApi;
@@ -56,6 +56,7 @@ import com.rd.utils.DensityUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,7 +70,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
-import de.greenrobot.event.EventBus;
+
 
 public abstract class ChannelBaseActivity extends AppCompatActivity {
 
@@ -154,8 +155,23 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     boolean selectionChangeFromMentioning = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
     ImageView channelInfoIcon;
-    NestedScrollView channelBaseNestedScrollView;
+    ActivityPausedListener activityPausedListener;
+    ActivityResumedListener activityResumedListener;
+    ActivityDestroyedListener activityDestroyedListener;
+    //NestedScrollView channelBaseNestedScrollView;
     int i = 0;
+
+
+    public interface ActivityPausedListener{
+
+        public void onActivityPaused();
+    }
+    public interface ActivityResumedListener{
+        public void onActivityResumed();
+    }
+    public interface ActivityDestroyedListener{
+        public void onActivityDestroyed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +187,16 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     private void initializeBaseFeaturesLayout() {
         setContentView(R.layout.activity_channel_base);
     }
+
+    public void setActivityPausedListener(ActivityPausedListener activityPausedListener){
+        this.activityPausedListener = activityPausedListener;
+    }
+    public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener){
+        this.activityDestroyedListener = activityDestroyedListener;
+     }
+     public void setActivityResumedListener(ActivityResumedListener activityResumedListener){
+        this.activityResumedListener = activityResumedListener;
+     }
 
 
     private void initMentions() {
@@ -261,6 +287,10 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
 
+        SharedPreferences vpreferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
+        SharedPreferences.Editor editor = vpreferences.edit();
+        editor.putStringSet("videoPlayerCacheSet",new HashSet<>()).apply();
+        editor.apply();
         initializeAudioRecordView();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
         mSoftInputHeight = preferences.getInt("softInputHeight", 0);
@@ -275,7 +305,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelPostRecyclerView = findViewById(R.id.channel_post_recyclerview);
         bottomSheetFileSelect1 = findViewById(R.id.messaging_area_bottomsheet_file_select1);
         bottomSheetFileSelect2 = findViewById(R.id.messaging_area_bottomsheet_file_select2);
-        channelBaseNestedScrollView = findViewById(R.id.channel_base_nested_scroll);
+        //channelBaseNestedScrollView = findViewById(R.id.channel_base_nested_scroll);
         rtScrollView = findViewById(R.id.rtEdittextScrollview);
         bottomSheetInnerLayout = findViewById(R.id.bottomsheet_inner_layout);
         bottomSheetSendIcon = findViewById(R.id.BottomSheetSendIcon);
@@ -362,7 +392,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(false);
                 mentionHashtagsRoot.setVisibility(View.GONE);
                 bottom_sheet.requestLayout();
-
 
             }
 
@@ -949,11 +978,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         ChannelArtManager.registerToolbar(ChannelrtToolbarLayout, ChannelFormatToolbar);
         ChannelArtManager.registerEditor(rtEditText, true);
         rtEditText.setRichTextEditing(true, true);
-
-        if (forumAdapter != null) {
-
-            //forumAdapter.resumePlayBack();
-        }
+        if(activityResumedListener != null)activityResumedListener.onActivityResumed();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));
@@ -982,38 +1007,24 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     @Override
     public void onPause() {
 
+        activityPausedListener.onActivityPaused();
         super.onPause();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         ChannelArtManager.unregisterEditor(rtEditText);
         ChannelArtManager.unregisterToolbar(ChannelFormatToolbar);
-
-
-        if (forumAdapter != null) {
-
-            //forumAdapter.pausePlayBack();
-        }
     }
 
-
-    @Override
-    public void onStop(){
-        super.onStop();
-
-
-    }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
+        activityDestroyedListener.onActivityDestroyed();
         if (ChannelArtManager != null) {
             ChannelArtManager.onDestroy(true);
         }
-        if (forumAdapter != null) {
 
-            // forumAdapter.destroyPlayer();
-        }
     }
 
     private void initExpandedUi() {
@@ -1671,9 +1682,12 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
     public void setChannelPostAdapter(ChannelPostAdapter adapter){
 
+        forumAdapter = adapter;
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
         ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
+        ChannelPostRecyclerView.getRecycledViewPool().setMaxRecycledViews(1,1);
         ChannelPostRecyclerView.setAdapter(adapter);
+
     }
 
     public void showPostToolsBottomSheet(int position){
@@ -1756,10 +1770,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             });
 
         }
-
-
     }
-
 
 
 

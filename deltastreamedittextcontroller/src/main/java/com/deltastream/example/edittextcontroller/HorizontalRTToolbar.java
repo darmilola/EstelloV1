@@ -293,6 +293,7 @@ public class HorizontalRTToolbar extends LinearLayout implements RTToolbar, View
 
     @Override
     public void removeToolbarListener() {
+
         mListener = null;
     }
 

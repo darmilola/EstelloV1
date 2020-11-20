@@ -3,7 +3,9 @@ package com.estello.android.ViewModel;
 import android.app.Application;
 import android.content.Context;
 
-import com.arthurivanets.arvi.PlayerProviderImpl;
+
+import com.estello.android.Arvi.PlayerProviderImpl;
+import com.estello.android.Arvi.player.Player;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.estello.android.R;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -43,8 +45,10 @@ public class MyApplication extends Application {
     public void onTrimMemory(int level){
         super.onTrimMemory(level);
 
-        if(level >= TRIM_MEMORY_BACKGROUND){
-            PlayerProviderImpl.getInstance(this).release();
+        if(level >= TRIM_MEMORY_COMPLETE){
+           //PlayerProviderImpl.getInstance(this).release();
+          //  Player player =  PlayerProviderImpl.getInstance(this).getPlayer(PlayerProviderImpl.DEFAULT_CONFIG, getKey());
+           // player.pause();
         }
     }
 
@@ -52,4 +56,6 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
+
+
 }

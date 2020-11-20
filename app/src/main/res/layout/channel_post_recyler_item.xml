@@ -105,7 +105,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-             <com.arthurivanets.arvi.widget.PlayableItemsRecyclerView
+             <com.estello.android.Arvi.widget.PlayableItemsRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="2"

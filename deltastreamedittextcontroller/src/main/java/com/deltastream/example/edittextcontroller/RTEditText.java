@@ -599,6 +599,8 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.mention_hashtag_color)),start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     }
+
+
     @Override
     /* SpanWatcher */
     public void onSpanAdded(Spannable text, Object what, int start, int end) {

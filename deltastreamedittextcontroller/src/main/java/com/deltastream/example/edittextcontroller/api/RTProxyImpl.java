@@ -23,6 +23,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.util.AndroidRuntimeException;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.lang.ref.SoftReference;
@@ -82,8 +83,16 @@ public class RTProxyImpl implements RTProxy {
             DialogFragment oldFragment = (DialogFragment) fragmentMgr
                     .findFragmentByTag(fragmentTag);
             if (oldFragment == null) {
+
+                Log.e("old is null", "openDialogFragment: ");
                 fragment.show(ft, fragmentTag);
             }
+            else{
+                Log.e("old id not null", "openDialogFragment: ");
+            }
+        }
+        else{
+            Log.e("activity is null", "openDialogFragment: ");
         }
     }
 
@@ -94,7 +103,10 @@ public class RTProxyImpl implements RTProxy {
         if (activity != null) {
             FragmentManager fragmentMgr = activity.getFragmentManager();
             Fragment fragment = fragmentMgr.findFragmentByTag(fragmentTag);
-            fragmentMgr.beginTransaction().remove(fragment).commit();
+            if (fragment != null) {
+
+                fragmentMgr.beginTransaction().remove(fragment).commit();
+            }
         }
     }
 

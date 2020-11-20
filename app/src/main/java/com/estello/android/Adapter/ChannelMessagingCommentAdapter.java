@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arthurivanets.arvi.Config;
-import com.arthurivanets.arvi.util.misc.ExoPlayerUtils;
-import com.arthurivanets.arvi.widget.PlayableItemsContainer;
-import com.arthurivanets.arvi.widget.PlayableItemsRecyclerView;
+
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsContainer;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
 import com.estello.android.R;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
@@ -105,7 +106,12 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
             postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
             Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config);
+            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                @Override
+                public void onNewPlayerStarted() {
+
+                }
+            });
             postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
             postViewHolder.attachmentsRecyclerView.onResume();
 

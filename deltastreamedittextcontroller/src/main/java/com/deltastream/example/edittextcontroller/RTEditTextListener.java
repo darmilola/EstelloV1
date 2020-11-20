@@ -33,6 +33,7 @@ public interface RTEditTextListener {
      * MediaEvents.
      */
 
+    void onRestoredInstanceState(RTEditText editor);
 
     /**
      * If this EditText changes focus the listener will be informed through this method.
