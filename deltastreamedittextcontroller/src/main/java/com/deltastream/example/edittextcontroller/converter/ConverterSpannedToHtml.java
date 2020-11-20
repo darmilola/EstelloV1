@@ -35,6 +35,7 @@ import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.spans.TypefaceSpan;
 import com.deltastream.example.edittextcontroller.spans.UnderlineSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
@@ -338,12 +339,20 @@ public class ConverterSpannedToHtml {
             mOut.append(((URLSpan) style).getURL());
             mOut.append("\">");
         }
+        else if (style instanceof ReferenceSpan) {
+            mOut.append("<xa href=\"");
+            mOut.append(((ReferenceSpan) style).getValue());
+            mOut.append("\">");
+        }
         return true;
     }
 
     private void handleEndTag(CharacterStyle style) {
-        if (style instanceof URLSpan) {
+        if (style instanceof LinkSpan) {
             mOut.append("</a>");
+        }
+        if (style instanceof ReferenceSpan) {
+            mOut.append("</xa>");
         } else if (style instanceof TypefaceSpan) {
             mOut.append("</font>");
         } else if (style instanceof ForegroundColorSpan) {

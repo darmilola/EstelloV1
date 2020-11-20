@@ -1825,15 +1825,14 @@ public class ChannelPostDetails extends AppCompatActivity {
 
 
 
-    public static class PostToolsBottomSheet extends BottomSheetDialogFragment {
-
+    public  class PostToolsBottomSheet extends BottomSheetDialogFragment {
 
         View view;
         private  BottomSheetBehavior bottomSheetBehavior;
         FrameLayout bottom_sheet;
         BottomSheetDialog dialog;
-        public ChannelBaseActivity.PostToolsBottomSheet postToolsBottomSheet(){
-            return new ChannelBaseActivity.PostToolsBottomSheet();
+        public PostToolsBottomSheet postToolsBottomSheet(){
+            return new PostToolsBottomSheet();
         }
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState){

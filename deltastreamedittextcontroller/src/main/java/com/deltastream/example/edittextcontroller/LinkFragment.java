@@ -185,7 +185,6 @@ public class LinkFragment extends DialogFragment {
                 public void onClick(View view) {
                     EventBus.getDefault().post(new LinkEvent(LinkFragment.this, null, false));
                     try { dialog.dismiss(); } catch (Exception ignore) {}
-
                 }
             });
         }

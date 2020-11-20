@@ -1,4 +1,4 @@
-package com.estello.android.ViewModel;
+package com.deltastream.example.edittextcontroller.spans;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,22 +13,29 @@ public class ForumPostModel {
     private String forumPostSenderId;
     private String forumPostSenderPhotoUrl;
     private int type;
+    private String postId;
     private String postDate;
     private String postGroupDate;
-    private String postId;
     private String refText;
 
-    public ForumPostModel(ArrayList<User> recentReplyingUsersList, ArrayList<ForumPostAttachmentsModel> postAttachmentList,int type){
+    public ForumPostModel(ArrayList<User> recentReplyingUsersList, ArrayList<ForumPostAttachmentsModel> postAttachmentList, int type){
 
         this.postAttachmentList = postAttachmentList;
         this.recentReplyingUsersList = recentReplyingUsersList;
         this.type = type;
     }
 
-    public ForumPostModel() {
-
+    public ArrayList<ForumPostAttachmentsModel> getPostAttachmentList() {
+        return postAttachmentList;
     }
 
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public void setRefText(String refText) {
+        this.refText = refText;
+    }
 
     public String getPostId() {
         return postId;
@@ -42,26 +49,14 @@ public class ForumPostModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject.toString();
+      return jsonObject.toString();
     }
     public String getRefText() {
         return refText;
     }
 
-    public ArrayList<ForumPostAttachmentsModel> getPostAttachmentList() {
-        return postAttachmentList;
-    }
-
     public int getType() {
         return type;
-    }
-
-    public void setRefText(String refText) {
-        this.refText = refText;
-    }
-
-    public void setPostId(String postId) {
-        this.postId = postId;
     }
 
     public void setType(int type) {

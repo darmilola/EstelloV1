@@ -40,6 +40,7 @@ import com.estello.android.Adapter.MessagingAreaFileSelectAdapter;
 import com.estello.android.Adapter.MessagingAreaPictureSelectAdapter;
 import com.estello.android.AudioRecordView.AudioRecordViewBottomSheetType1;
 import com.estello.android.AudioRecordView.AudioRecordViewTypeActivity;
+import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.HashTagsSelectionModel;
 import com.estello.android.ViewModel.LockableBottomSheetBehavior;
 import com.estello.android.ViewModel.MentionSelectionModel;
@@ -122,7 +123,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     int mSoftInputHeight;
     boolean isPictureGalleryShown = false;
 
-    RTApi rtApi;
+    static RTApi rtApi;
     RecyclerView bottomSheetAttachmentRecyclerView, ChannelAttachmentsRecyclerView;
     int edittextHeightWithKeyboard = 0;
 
@@ -1721,12 +1722,13 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
 
-    public static class PostToolsBottomSheet extends BottomSheetDialogFragment {
+    public  static class PostToolsBottomSheet extends BottomSheetDialogFragment {
 
         View view;
         private  BottomSheetBehavior bottomSheetBehavior;
         FrameLayout bottom_sheet;
         BottomSheetDialog dialog;
+        LinearLayout copyTextLayout;
         public PostToolsBottomSheet postToolsBottomSheet(){
             return new PostToolsBottomSheet();
         }
@@ -1752,10 +1754,20 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
 
 
             bottom_sheet = (FrameLayout)dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            copyTextLayout = dialog.findViewById(R.id.channel_base_post_item_tool_copy_text_layout);
             bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
             bottomSheetBehavior.setHalfExpandedRatio(0.75f);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
+           copyTextLayout.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   ForumPostModel forumPostModel = new ForumPostModel();
+                   forumPostModel.setPostId("This is the post id for this post");
+                   forumPostModel.setRefText("Alan Pozo Rosadio post from 1997");
+                   rtApi.addPostReference(forumPostModel.getReferencedPostObjectJson());
+               }
+           });
 
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override

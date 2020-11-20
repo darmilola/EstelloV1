@@ -284,6 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
+                android:id="@+id/channel_base_post_item_tool_copy_text_layout"
                 android:layout_marginRight="15dp"
                 android:weightSum="4">
 

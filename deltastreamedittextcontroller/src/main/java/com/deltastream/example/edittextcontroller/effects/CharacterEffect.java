@@ -101,4 +101,5 @@ abstract class CharacterEffect<V, C extends RTSpan<V>> extends Effect<V, C> {
      */
     abstract protected RTSpan<V> newSpan(V value);
 
+
 }

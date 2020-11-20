@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
 import com.deltastream.example.edittextcontroller.api.format.RTText;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 
 
 import java.util.regex.Matcher;
@@ -44,10 +45,15 @@ import androidx.core.content.ContextCompat;
 
  * The actual rich text editor (extending android.widget.EditText).
  */
-public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener {
+public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener, ReferenceSpan.ReferenceSpanListener {
 
     private MentionClickedListener mentionClickedListener;
     private HashTagClickedListener hashTagClickedListener;
+
+    @Override
+    public void onClick(ReferenceSpan referenceSpan) {
+        Toast.makeText(getContext(), referenceSpan.getURL(), Toast.LENGTH_SHORT).show();
+    }
 
     public interface MentionClickedListener{
         public void onMentionClicked(int clickedPosition);

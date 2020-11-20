@@ -54,6 +54,7 @@ import com.deltastream.example.edittextcontroller.effects.SuperscriptEffect;
 import com.deltastream.example.edittextcontroller.effects.TypefaceEffect;
 import com.deltastream.example.edittextcontroller.effects.UnderlineEffect;
 import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
+import com.deltastream.example.edittextcontroller.spans.ForumPostModel;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 import com.deltastream.example.edittextcontroller.spans.RTSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
@@ -63,6 +64,8 @@ import com.deltastream.example.edittextcontroller.utils.Selection;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -506,6 +509,10 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
          * We need to process pending sticky MediaEvents once the editors are registered with the
          * RTManager and are fully restored.
          */
+        RTApi.ReferenceEvent referenceEvent = EventBus.getDefault().getStickyEvent(RTApi.ReferenceEvent.class);
+        if(referenceEvent != null){
+            onEventMainThread(referenceEvent);
+        }
         LinkFragment.LinkEvent event = EventBus.getDefault().getStickyEvent(LinkFragment.LinkEvent.class);
         if (event != null) {
             onEventMainThread(event);
@@ -656,9 +663,7 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
                     Editable str = editor.getText();
                     str.replace(selection.start(), selection.end(), linkText);
                     editor.setSelection(selection.start(), selection.start() + linkText.length());
-
                     url = link.getUrl();
-
                 }
                 editor.applyEffect(Effects.LINK, url);    // if url == null -> remove the link
 
@@ -666,6 +671,33 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
 
         }
     }
+
+             //add new post reference
+            @Subscribe(threadMode = ThreadMode.MAIN)
+            public void onEventMainThread(RTApi.ReferenceEvent event) {
+
+                JSONObject jsonObject;
+                String postId = "";
+                String postRefText = "";
+                RTEditText editor = getActiveEditor();
+                String postJson = event.getPostJson();
+                try {
+                    jsonObject = new JSONObject(postJson);
+                    postId = jsonObject.getString("id");
+                    postRefText = jsonObject.getString("refText");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (editor != null) {
+                    Editable str = editor.getText();
+                    Selection selection = mLinkSelection != null && mLinkSelection.end() <= editor.length() ? mLinkSelection : new Selection(editor);
+                    str.replace(selection.start(), selection.end(),postRefText);
+                    editor.setSelection(selection.start(), selection.start() + postRefText.length());
+                }
+                if(editor != null)editor.applyEffect(Effects.POSTREF, postJson);
+            }
+
+
 
     @Override
     /* @inheritDoc */
