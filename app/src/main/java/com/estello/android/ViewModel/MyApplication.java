@@ -46,7 +46,7 @@ public class MyApplication extends Application {
         super.onTrimMemory(level);
 
         if(level >= TRIM_MEMORY_COMPLETE){
-        //    PlayerProviderImpl.getInstance(this).release();
+           //PlayerProviderImpl.getInstance(this).release();
           //  Player player =  PlayerProviderImpl.getInstance(this).getPlayer(PlayerProviderImpl.DEFAULT_CONFIG, getKey());
            // player.pause();
         }

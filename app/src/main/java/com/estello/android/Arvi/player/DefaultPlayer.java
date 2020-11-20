@@ -167,7 +167,6 @@ public class DefaultPlayer implements Player {
     @Override
     public final void pause() {
         checkPlayerState();
-
         this.exoPlayer.setPlayWhenReady(false);
     }
 

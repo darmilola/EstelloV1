@@ -1685,6 +1685,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         forumAdapter = adapter;
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,false);
         ChannelPostRecyclerView.setLayoutManager(LinearLayoutManager);
+        ChannelPostRecyclerView.getRecycledViewPool().setMaxRecycledViews(1,1);
         ChannelPostRecyclerView.setAdapter(adapter);
 
     }

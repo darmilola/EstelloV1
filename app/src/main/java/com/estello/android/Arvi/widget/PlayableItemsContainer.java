@@ -66,7 +66,7 @@ public interface PlayableItemsContainer {
     void onResume();
 
 
-    void onPause();
+    void onPause(boolean fromActivityStateChange);
 
 
     void onDestroy();

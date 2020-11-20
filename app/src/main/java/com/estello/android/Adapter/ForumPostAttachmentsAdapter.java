@@ -66,11 +66,22 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeVideo = 2;
     private static int typeAudio = 3;
     Config config;
+    NewPlayerStarted newPlayerStarted;
 
-    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config){
+
+
+
+
+
+
+    public interface NewPlayerStarted{
+        public void onNewPlayerStarted();
+    }
+    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config,NewPlayerStarted newPlayerStarted){
         this.context = context;
         this.attachmentsList = attachmentsList;
         this.config = config;
+        this.newPlayerStarted = newPlayerStarted;
 
     }
 
@@ -325,7 +336,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
                             isCancelled = true;
                             alphaAnim2.cancel();
                         }
-                        setPausedByUser(false);
                         start();
                     }
                 }
@@ -400,6 +410,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         public boolean isLooping(){
             return  true;
         }
+
+
         /**
          * Retrieves the media Url associated with this item.
          *
@@ -436,7 +448,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         @Override
         public  void onStateChanged(@NonNull PlaybackState playbackState){
               super.onStateChanged(playbackState);
-
               this.playbackState = playbackState;
               if(playbackState == PlaybackState.BUFFERING) onBufferingState();
               if(playbackState == PlaybackState.ERROR) onErrorState();
@@ -449,15 +460,14 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
 
         private void onStartedState() {
-
-
                 Log.e("started", "onStartedState: ");
                 loader.setVisibility(View.VISIBLE);
                 transparentOverlay.setVisibility(View.VISIBLE);
                 isStarted = true;
+                isReady = false;
+                setInReadyState(false);
                 isLooping = true;
                 if(isPaused){
-
 
                     playPauseView.setMaxFrame(89);
                     playPauseView.resumeAnimation();
@@ -466,6 +476,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                 }
                 else{
+
 
                     progressToolLayout.setVisibility(View.GONE);
                     thumbnail.setVisibility(View.VISIBLE);
@@ -479,6 +490,8 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
       private void onBufferingState() {
           Log.e("buffering", "onBufferingState: ");
+            isReady = true;
+            newPlayerStarted.onNewPlayerStarted();
             loader.setVisibility(View.VISIBLE);
             thumbnail.setVisibility(View.GONE);
             transparentOverlay.setVisibility(View.VISIBLE);
@@ -488,8 +501,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
 
 
         private void onReadyState() {
-
-
             if(isStarted && !isPaused){
                 isStarted = false;
                 scheduleVideoProgressToolDisappearance();
