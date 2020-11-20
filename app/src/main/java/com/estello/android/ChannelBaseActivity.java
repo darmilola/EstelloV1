@@ -143,7 +143,6 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     boolean isSelectionChangedFromBottomsheetStateChange = false;
     ChannelPostAdapter forumAdapter;
     boolean authBflag = false;
-    boolean authCflag = false;
     boolean isBottomSheetUpdatedFromB = false;
     MentionSelectionAdapter mentionSelectionAdapter;
     HashTagsSelectionAdapter hashTagsSelectionAdapter;
@@ -683,11 +682,11 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //saveTextToSharedPref();
-                                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
+                saveTextToSharedPref();
+                /*                bottomSheetAttachmentRecyclerView.setVisibility(View.VISIBLE);
                                ChannelAttachmentsRecyclerView.setVisibility(View.GONE);
                                bottomSheetBehavior.setPeekHeight(mSoftInputHeight + 120);
-                              ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);
+                              ((LockableBottomSheetBehavior)bottomSheetBehavior).setLocked(false);*/
             }
         });
 

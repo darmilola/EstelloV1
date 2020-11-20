@@ -9,17 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.estello.android.Arvi.Config;
 import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
-import com.estello.android.Arvi.widget.PlayableItemsContainer;
 import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
-import com.estello.android.ChannelBaseActivity;
-import com.estello.android.ViewModel.ForumPostModel;
-
+import com.estello.android.HashTagsActivity;
 import com.estello.android.R;
+import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
 import com.estello.android.ViewModel.RichLinkView.ViewListener;
 
@@ -29,14 +26,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-
-public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Context context;
     private ArrayList<ForumPostModel> forumPostList;
     private static int typeDate = 0;
@@ -78,7 +72,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
 
-    public ChannelPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener, ChannelPostAdapter.hashTagClickedListener hashTagClickedListener, PostLongClickedListener postLongClickedListener, ItemClickedListener itemClickedListener) {
+    public HashTagPostAdapter(Context context, ArrayList<ForumPostModel> forumPostList, MentionClickedListener mentionClickedListener, ProfilePictureClickedListener profilePictureClickedListener,hashTagClickedListener hashTagClickedListener, PostLongClickedListener postLongClickedListener, ItemClickedListener itemClickedListener) {
 
         this.context = context;
         this.forumPostList = forumPostList;
@@ -93,7 +87,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == typeDate) {
             View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_post_date_item, parent, false);
             return new DateViewHolder(view2);
@@ -118,127 +112,127 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-      @Override
+    @Override
     public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
         super.onViewAttachedToWindow(viewHolder);
 
-          if(viewHolder instanceof PostViewHolder){
-              if(!postViewHolderQueue.contains(viewHolder)){
-                  LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-                  PostViewHolder postViewHolder = (PostViewHolder) viewHolder;
-                  postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
-                  Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-                  ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
-                      @Override
-                      public void onNewPlayerStarted() {
-                          for (PostViewHolder postViewHolder1:postViewHolderQueue) {
-                              if(!postViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != postViewHolder1){
-                                  postViewHolder1.attachmentsRecyclerView.stopPlayback();
-                              }
-                          }
-                      }
-                  });
-
-                  postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
-                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityPausedListener(ChannelPostAdapter.this::pausePlayBackFromActivityOnPause);
-                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelPostAdapter.this::destroyPlayBackFromActivity);
-                  ((ChannelBaseActivity)postViewHolder.itemView.getContext()).setActivityResumedListener(ChannelPostAdapter.this::resumePlayBackFromActivity);
-                   postViewHolderQueue.add((PostViewHolder) viewHolder);
-              }
-
-
-          }
-
-
-          if(viewHolder instanceof QuestionPostViewHolder){
-
-              if(!questionPostViewHolderQueue.contains(viewHolder)){
-                  LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-                  QuestionPostViewHolder questionPostViewHolder = (QuestionPostViewHolder) viewHolder;
-                  questionPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
-                  Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-                  ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
-                      @Override
-                      public void onNewPlayerStarted() {
-                          for (QuestionPostViewHolder questionPostViewHolder1:questionPostViewHolderQueue) {
-                              if(!questionPostViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != questionPostViewHolder1){
-                                  questionPostViewHolder1.attachmentsRecyclerView.stopPlayback();
-                              }
-                          }
-                      }
-                  });
-
-                  questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
-                  ((ChannelBaseActivity)questionPostViewHolder.itemView.getContext()).setActivityPausedListener(ChannelPostAdapter.this::pausePlayBackFromActivityOnPause);
-                  ((ChannelBaseActivity)questionPostViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelPostAdapter.this::destroyPlayBackFromActivity);
-                  ((ChannelBaseActivity)questionPostViewHolder.itemView.getContext()).setActivityResumedListener(ChannelPostAdapter.this::resumePlayBackFromActivity);
-                   questionPostViewHolderQueue.add((QuestionPostViewHolder) viewHolder);
-              }
-
-          }
-          if(viewHolder instanceof SuggestionsPostViewHolder){
-
-              if(!suggestionsPostViewHolderQueue.contains(viewHolder)){
-                  LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-                  SuggestionsPostViewHolder suggestionsPostViewHolder = (SuggestionsPostViewHolder) viewHolder;
-                  suggestionsPostViewHolder .attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
-                  Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-                  ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
-                      @Override
-                      public void onNewPlayerStarted() {
-                          for (SuggestionsPostViewHolder suggestionsPostViewHolder1:suggestionsPostViewHolderQueue) {
-                              if(!suggestionsPostViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != suggestionsPostViewHolder1){
-                                  suggestionsPostViewHolder1.attachmentsRecyclerView.stopPlayback();
-                              }
-                          }
-                      }
-                  });
-
-                  suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
-                  ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityPausedListener(ChannelPostAdapter.this::pausePlayBackFromActivityOnPause);
-                  ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelPostAdapter.this::destroyPlayBackFromActivity);
-                  ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityResumedListener(ChannelPostAdapter.this::resumePlayBackFromActivity);
-                  suggestionsPostViewHolderQueue.add((SuggestionsPostViewHolder) viewHolder);
-              }
-          }
-
-
-      }
-
-      @Override
-      public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder){
         if(viewHolder instanceof PostViewHolder){
-               boolean isRemoved = postViewHolderQueue.remove(viewHolder);
-              ((PostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
+            if(!postViewHolderQueue.contains(viewHolder)){
+                LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                PostViewHolder postViewHolder = (PostViewHolder) viewHolder;
+                postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+                Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+                ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                    @Override
+                    public void onNewPlayerStarted() {
+                        for (PostViewHolder postViewHolder1:postViewHolderQueue) {
+                            if(!postViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != postViewHolder1){
+                                postViewHolder1.attachmentsRecyclerView.stopPlayback();
+                            }
+                        }
+                    }
+                });
+
+                postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                ((HashTagsActivity)postViewHolder.itemView.getContext()).setActivityPausedListener(HashTagPostAdapter.this::pausePlayBackFromActivityOnPause);
+                ((HashTagsActivity)postViewHolder.itemView.getContext()).setActivityDestroyedListener(HashTagPostAdapter.this::destroyPlayBackFromActivity);
+                ((HashTagsActivity)postViewHolder.itemView.getContext()).setActivityResumedListener(HashTagPostAdapter.this::resumePlayBackFromActivity);
+                 postViewHolderQueue.add((PostViewHolder) viewHolder);
+            }
+
+
         }
-          if(viewHolder instanceof QuestionPostViewHolder){
-              boolean isRemoved = questionPostViewHolderQueue.remove(viewHolder);
-              ((QuestionPostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
-
-          }
-          if(viewHolder instanceof SuggestionsPostViewHolder){
-              boolean isRemoved = postViewHolderQueue.remove(viewHolder);
-              ((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
-
-          }
 
 
-      }
+        if(viewHolder instanceof QuestionPostViewHolder){
 
-        @Override
-        public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
-        super.onViewDetachedFromWindow(viewHolder);
-         if(viewHolder instanceof PostViewHolder){
-               PostViewHolder  postViewHolder = postViewHolderQueue.peek();
-               if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.stopPlayback();
-         }
-         if(viewHolder instanceof QuestionPostViewHolder){
-             QuestionPostViewHolder  questionPostViewHolder = questionPostViewHolderQueue.peek();
-             if(questionPostViewHolder != null)questionPostViewHolder.attachmentsRecyclerView.stopPlayback();
+            if(!questionPostViewHolderQueue.contains(viewHolder)){
+                LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                QuestionPostViewHolder questionPostViewHolder = (QuestionPostViewHolder) viewHolder;
+                questionPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+                Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+                ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                    @Override
+                    public void onNewPlayerStarted() {
+                        for (QuestionPostViewHolder questionPostViewHolder1:questionPostViewHolderQueue) {
+                            if(!questionPostViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != questionPostViewHolder1){
+                                questionPostViewHolder1.attachmentsRecyclerView.stopPlayback();
+                            }
+                        }
+                    }
+                });
+
+                questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                ((HashTagsActivity)questionPostViewHolder.itemView.getContext()).setActivityPausedListener(HashTagPostAdapter.this::pausePlayBackFromActivityOnPause);
+                ((HashTagsActivity)questionPostViewHolder.itemView.getContext()).setActivityDestroyedListener(HashTagPostAdapter.this::destroyPlayBackFromActivity);
+                ((HashTagsActivity)questionPostViewHolder.itemView.getContext()).setActivityResumedListener(HashTagPostAdapter.this::resumePlayBackFromActivity);
+                questionPostViewHolderQueue.add((QuestionPostViewHolder) viewHolder);
+            }
+
         }
         if(viewHolder instanceof SuggestionsPostViewHolder){
-             SuggestionsPostViewHolder  suggestionsPostViewHolder = suggestionsPostViewHolderQueue.peek();
-             if(suggestionsPostViewHolder != null)suggestionsPostViewHolder.attachmentsRecyclerView.stopPlayback();
+
+            if(!suggestionsPostViewHolderQueue.contains(viewHolder)){
+                LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                SuggestionsPostViewHolder suggestionsPostViewHolder = (SuggestionsPostViewHolder) viewHolder;
+                suggestionsPostViewHolder .attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+                Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+                ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                    @Override
+                    public void onNewPlayerStarted() {
+                        for (SuggestionsPostViewHolder suggestionsPostViewHolder1:suggestionsPostViewHolderQueue) {
+                            if(!suggestionsPostViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != suggestionsPostViewHolder1){
+                                suggestionsPostViewHolder1.attachmentsRecyclerView.stopPlayback();
+                            }
+                        }
+                    }
+                });
+
+                suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                ((HashTagsActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityPausedListener(HashTagPostAdapter.this::pausePlayBackFromActivityOnPause);
+                ((HashTagsActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityDestroyedListener(HashTagPostAdapter.this::destroyPlayBackFromActivity);
+                ((HashTagsActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityResumedListener(HashTagPostAdapter.this::resumePlayBackFromActivity);
+                suggestionsPostViewHolderQueue.add((SuggestionsPostViewHolder) viewHolder);
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder){
+        if(viewHolder instanceof PostViewHolder){
+            boolean isRemoved = postViewHolderQueue.remove(viewHolder);
+            ((PostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
+        }
+        if(viewHolder instanceof QuestionPostViewHolder){
+            boolean isRemoved = questionPostViewHolderQueue.remove(viewHolder);
+            ((QuestionPostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
+
+        }
+        if(viewHolder instanceof SuggestionsPostViewHolder){
+            boolean isRemoved = postViewHolderQueue.remove(viewHolder);
+            ((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
+
+        }
+
+
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewDetachedFromWindow(viewHolder);
+        if(viewHolder instanceof PostViewHolder){
+           PostViewHolder postViewHolder = postViewHolderQueue.peek();
+            if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.stopPlayback();
+        }
+        if(viewHolder instanceof QuestionPostViewHolder){
+            QuestionPostViewHolder questionPostViewHolder = questionPostViewHolderQueue.peek();
+            if(questionPostViewHolder != null)questionPostViewHolder.attachmentsRecyclerView.stopPlayback();
+        }
+        if(viewHolder instanceof SuggestionsPostViewHolder){
+            SuggestionsPostViewHolder suggestionsPostViewHolder = suggestionsPostViewHolderQueue.peek();
+            if(suggestionsPostViewHolder != null)suggestionsPostViewHolder.attachmentsRecyclerView.stopPlayback();
         }
 
     }
@@ -258,30 +252,30 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
             postViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             if(postViewHolder.richLinkView != null)
-            postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
+                postViewHolder.richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
 
-                @Override
-                public void onSuccess(boolean status) {
-                    try {
-                       if(postViewHolder.richLinkView != null) {
+                    @Override
+                    public void onSuccess(boolean status) {
+                        try {
+                            if(postViewHolder.richLinkView != null) {
 
-                           postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
-                       }
-                       } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onError(Exception e) {
-
-                    if(postViewHolder.richLinkView != null) {
-
-
+                                postViewHolder.richLinkView.setLinkFromMeta(postViewHolder.richLinkView.getMetaData());
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
                     }
 
+                    @Override
+                    public void onError(Exception e) {
+
+                        if(postViewHolder.richLinkView != null) {
+
+
+                        }
+
                     }
-            });
+                });
 
 
 
@@ -310,30 +304,30 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             questionPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
 
             if(questionPostViewHolder.richLinkView != null)
-            questionPostViewHolder.richLinkView.setLink("https://www.github.com/darmilola", new ViewListener() {
+                questionPostViewHolder.richLinkView.setLink("https://www.github.com/darmilola", new ViewListener() {
 
-                @Override
-                public void onSuccess(boolean status) {
-                    try {
-                        if(questionPostViewHolder.richLinkView != null){
+                    @Override
+                    public void onSuccess(boolean status) {
+                        try {
+                            if(questionPostViewHolder.richLinkView != null){
 
-                            questionPostViewHolder.richLinkView.setLinkFromMeta(questionPostViewHolder.richLinkView.getMetaData());
+                                questionPostViewHolder.richLinkView.setLinkFromMeta(questionPostViewHolder.richLinkView.getMetaData());
+                            }
+
+                        } catch (IndexOutOfBoundsException e) {
+                            e.printStackTrace();
                         }
-
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
                     }
-                }
 
-                @Override
-                public void onError(Exception e) {
+                    @Override
+                    public void onError(Exception e) {
 
-                    if (questionPostViewHolder.richLinkView != null) {
+                        if (questionPostViewHolder.richLinkView != null) {
 
-                        //questionPostViewHolder.richLinkView.setVisibility(View.GONE);
+                            //questionPostViewHolder.richLinkView.setVisibility(View.GONE);
+                        }
                     }
-                }
-            });
+                });
 
         }
         if (forumPostList.get(position).getType() == typeSuggestion) {
@@ -349,27 +343,27 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ForumPostRecentCommentAdapter forumPostRecentCommentAdapter = new ForumPostRecentCommentAdapter(context, forumPostList.get(position).getRecentReplyingUsersList());
             suggestionsPostViewHolder.recentCommentsRecyclerView.setAdapter(forumPostRecentCommentAdapter);
             if(suggestionsPostViewHolder.richLinkView != null)
-            suggestionsPostViewHolder.richLinkView.setLink("https://www.linkedin.com/posts/louisberyl_thestartupstack-dadjokes-activity-6727661737484652544-5ybg", new ViewListener() {
+                suggestionsPostViewHolder.richLinkView.setLink("https://www.linkedin.com/posts/louisberyl_thestartupstack-dadjokes-activity-6727661737484652544-5ybg", new ViewListener() {
 
-                @Override
-                public void onSuccess(boolean status) {
+                    @Override
+                    public void onSuccess(boolean status) {
 
 
-                    try {
-                 if(suggestionsPostViewHolder.richLinkView != null) suggestionsPostViewHolder.richLinkView.setLinkFromMeta(suggestionsPostViewHolder.richLinkView.getMetaData());
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
+                        try {
+                            if(suggestionsPostViewHolder.richLinkView != null) suggestionsPostViewHolder.richLinkView.setLinkFromMeta(suggestionsPostViewHolder.richLinkView.getMetaData());
+                        } catch (IndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-                @Override
-                public void onError(Exception e) {
+                    @Override
+                    public void onError(Exception e) {
 
-                    if (suggestionsPostViewHolder.richLinkView != null) {
+                        if (suggestionsPostViewHolder.richLinkView != null) {
 
+                        }
                     }
-                }
-            });
+                });
 
 
         }
@@ -445,13 +439,13 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     private void destroyPlayBackFromActivity(){
         for (PostViewHolder videoCache: postViewHolderQueue) {
-            videoCache.attachmentsRecyclerView.onDestroy(true);
+            videoCache.attachmentsRecyclerView.onDestroy(false);
         }
         for (QuestionPostViewHolder videoCache: questionPostViewHolderQueue) {
-            videoCache.attachmentsRecyclerView.onDestroy(true);
+            videoCache.attachmentsRecyclerView.onDestroy(false);
         }
         for (SuggestionsPostViewHolder videoCache: suggestionsPostViewHolderQueue) {
-            videoCache.attachmentsRecyclerView.onDestroy(true);
+            videoCache.attachmentsRecyclerView.onDestroy(false);
         }
     }
 
@@ -496,7 +490,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         isMentionClicked = false;
                     }
                     else if(isHashTagClicked){
-                         isHashTagClicked = false;
+                        isHashTagClicked = false;
                     }else {
                         itemClickedListener.onItemClicked();
                     }
@@ -712,5 +706,3 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 }
-
-

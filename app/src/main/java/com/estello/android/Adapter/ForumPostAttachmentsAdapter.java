@@ -66,7 +66,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeVideo = 2;
     private static int typeAudio = 3;
     Config config;
-    NewPlayerStarted newPlayerStarted;
+    private NewPlayerStarted newPlayerStarted;
 
 
 
@@ -278,7 +278,6 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             super(parentViewGroup, itemView);
             this.config = config;
             player = itemView.findViewById(R.id.player_view);
-            //mPlayerView.setPlayer(player.getPlayer());
             playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
             playPauseLayout = itemView.findViewById(R.id.attachment_play_pause_layout);
             loader = itemView.findViewById(R.id.attachment_video_loader_view);
@@ -344,7 +343,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
 
             @SuppressLint("ClickableViewAccessibility")
-        private void setOnGestureListeners() {
+            private void setOnGestureListeners() {
             mPlayerView.setOnTouchListener(new OnSwipeTouchListener(context){
                 @Override
                 public void onSwipeRight() {

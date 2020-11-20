@@ -21,7 +21,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-
 import com.estello.android.Arvi.PlayerProviderImpl;
 import com.estello.android.Arvi.util.misc.Preconditions;
 
@@ -141,7 +140,6 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
     protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopItemPlayback();
-        //pauseItemPlayback();
     }
 
 
@@ -152,48 +150,41 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
         super.onChildAttachedToWindow(child);
 
         final ViewHolder viewHolder = getChildViewHolder(child);
-        ((PlayableItemViewHolder)viewHolder).setPlayBackStartedPlaying(new PlayableItemViewHolder.PlayBackStarted() {
-            @Override
-            public void onPlayBackPlaying() {
-               setPlayBackPlaying(true);
-            }
-        });
-        ((PlayableItemViewHolder)viewHolder).setOnReadyState(new PlayableItemViewHolder.OnReadyState() {
-            @Override
-            public void isOnReadyState() {
-              //setOnReadyState(true);
-            }
-        });
-        ((PlayableItemViewHolder)viewHolder).setOnPlayBackPause(new PlayableItemViewHolder.onPlayBackPause() {
-            @Override
-            public void isOnPaused() {
+        if(viewHolder instanceof PlayableItemViewHolder) {
 
-                   if(!isFromActivityStateChange)setPlayBackPlaying(false);
+            ((PlayableItemViewHolder) viewHolder).setPlayBackStartedPlaying(new PlayableItemViewHolder.PlayBackStarted() {
+                @Override
+                public void onPlayBackPlaying() {
+                    setPlayBackPlaying(true);
+                }
+            });
+            ((PlayableItemViewHolder) viewHolder).setOnReadyState(new PlayableItemViewHolder.OnReadyState() {
+                @Override
+                public void isOnReadyState() {
 
-            }
-        });
-        ((PlayableItemViewHolder)viewHolder).setOnPlayBackStopped(new PlayableItemViewHolder.onPlayBackStopped() {
-            @Override
-            public void isOnStopped() {
-                setPlayBackPlaying(false);
-            }
-        });
+                }
+            });
+            ((PlayableItemViewHolder) viewHolder).setOnPlayBackPause(new PlayableItemViewHolder.onPlayBackPause() {
+                @Override
+                public void isOnPaused() {
+
+                    if (!isFromActivityStateChange) setPlayBackPlaying(false);
+
+                }
+            });
+            ((PlayableItemViewHolder) viewHolder).setOnPlayBackStopped(new PlayableItemViewHolder.onPlayBackStopped() {
+                @Override
+                public void isOnStopped() {
+                    setPlayBackPlaying(false);
+                }
+            });
+
+        }
     }
 
     @Override
     public final void onChildDetachedFromWindow(View child) {
         super.onChildDetachedFromWindow(child);
-
-       /* Log.e("child detached  ", "onChildDetachedFromWindow: ");
-        final ViewHolder viewHolder = getChildViewHolder(child);
-
-        if(!(viewHolder instanceof Playable)) {
-            return;
-        }
-         final Playable playable = (Playable) viewHolder;
-         PlayerProviderImpl.getInstance(getContext()).unregister(playable.getConfig(), playable.getKey());
-         playable.pause();*/
-
     }
 
 
@@ -201,7 +192,6 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
 
     @Override
     public final void onResume() {
-
         startPlayback();
     }
 
@@ -211,36 +201,32 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
     @Override
     public final void onPause(boolean fromActivityStateChange) {
         isFromActivityStateChange = fromActivityStateChange;
-
-          if(!isFromActivityStateChange)setOnReadyState(false);
-
-            pausePlayback();
+        if(!isFromActivityStateChange)setOnReadyState(false);
+          pausePlayback();
     }
 
 
 
 
     @Override
-    public final void onDestroy() {
-        setOnReadyState(false);
-        setPlayBackPlaying(false);
-        releaseAllItems();
-        //PlayerProviderImpl.getInstance(getContext()).release();
-    }
-
-
-
-
-    private void onRecyclerViewViewRecycled(ViewHolder holder) {
-     /*   if(!(holder instanceof Playable)) {
-            return;
+    public final void onDestroy(boolean isFromActivityStateChange) {
+        if(isFromActivityStateChange){
+            setOnReadyState(false);
+            setPlayBackPlaying(false);
+            releaseAllItems();
+            PlayerProviderImpl.getInstance(getContext()).release();
         }
-        final Playable playable = (Playable) holder;
-        if(playable.wantsToPlay()) {
-            return;
-        }*/
-       // ((PlayableItemViewHolder)holder).release();
+        else{
+            setOnReadyState(false);
+            setPlayBackPlaying(false);
+            releaseAllItems();
+        }
     }
+
+
+
+
+    private void onRecyclerViewViewRecycled(ViewHolder holder) { }
 
 
 

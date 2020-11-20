@@ -69,7 +69,7 @@ public interface PlayableItemsContainer {
     void onPause(boolean fromActivityStateChange);
 
 
-    void onDestroy();
+    void onDestroy(boolean fromActivityStateChange);
 
     void setAutoplayMode(@NonNull AutoplayMode autoplayMode);
 

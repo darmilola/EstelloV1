@@ -9,7 +9,6 @@
     android:id="@+id/channel_base_root"
     android:layerType="hardware">
 
-    <include layout="@layout/mention_selection_layout"/>
 
 
     <LinearLayout

@@ -145,7 +145,7 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
             return;
         }
         pausePlayer();
-        if (isPausedByUser() == true) {
+        if (isPausedByUser()) {
             onStateChanged(PlaybackState.PAUSED);
         }
     }
