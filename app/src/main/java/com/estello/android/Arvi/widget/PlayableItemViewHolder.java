@@ -261,11 +261,9 @@ public abstract class PlayableItemViewHolder extends RecyclerView.ViewHolder imp
         final Player player = getPlayer();
 
         if(player != null) {
-            if(getInReadyState()){
                 player.pause();
                 onPlayBackPause.isOnPaused();
-            }
-            player.detach(mPlayerView);
+                player.detach(mPlayerView);
             player.stop(true);
             onPlayBackStopped.isOnStopped();
             player.setAttachmentStateDelegate(null);

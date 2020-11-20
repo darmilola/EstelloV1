@@ -186,7 +186,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
               Log.e("am recycled yeah o", "onViewRecycled: ");
               Log.e("new gone completely " + viewHolder.getAdapterPosition(), "onViewDetachedFromWindow: ");
               boolean isRemoved = postViewHolderQueue.remove(viewHolder);
-              ((PostViewHolder) viewHolder).attachmentsRecyclerView.onDestroy();
+              ((PostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
                viewHolder = null;
         }
       }
@@ -196,8 +196,8 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         super.onViewDetachedFromWindow(viewHolder);
         if(viewHolder instanceof PostViewHolder){
                      Log.e("new destroyed  " + viewHolder.getAdapterPosition(), "onViewDetachedFromWindow: ");
-                     //PostViewHolder  postViewHolder = postViewHolderQueue.peek();
-                     //if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.onDestroy();
+                     PostViewHolder  postViewHolder = postViewHolderQueue.peek();
+                     if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.stopPlayback();
 
         }
 

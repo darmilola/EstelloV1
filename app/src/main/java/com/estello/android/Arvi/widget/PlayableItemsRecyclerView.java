@@ -114,7 +114,7 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
     @Override
     public final void stopPlayback() {
         stopItemPlayback();
-        releaseAllItems();
+        //releaseAllItems();
     }
 
 
@@ -140,7 +140,8 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
     @Override
     protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        pauseItemPlayback();
+        stopItemPlayback();
+        //pauseItemPlayback();
     }
 
 
