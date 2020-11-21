@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.deltastream.example.edittextcontroller.api.RTApi;
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
+import com.deltastream.example.edittextcontroller.converter.tagsoup.util.StringEscapeUtils;
 import com.deltastream.example.edittextcontroller.effects.AbsoluteSizeEffect;
 import com.deltastream.example.edittextcontroller.effects.AlignmentEffect;
 import com.deltastream.example.edittextcontroller.effects.BoldEffect;
@@ -55,8 +56,11 @@ import com.deltastream.example.edittextcontroller.effects.TypefaceEffect;
 import com.deltastream.example.edittextcontroller.effects.UnderlineEffect;
 import com.deltastream.example.edittextcontroller.fonts.RTTypeface;
 import com.deltastream.example.edittextcontroller.spans.ForumPostModel;
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
 import com.deltastream.example.edittextcontroller.spans.RTSpan;
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
 import com.deltastream.example.edittextcontroller.utils.Selection;
 
@@ -138,6 +142,9 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
      * (inserting, editing, removing links).
      */
     private Selection mLinkSelection;
+    private Selection mMentionSelection;
+    private Selection mHashtagSelection;
+    private Selection mRefSeelection;
 
     /*
      * We need these to delay hiding the toolbar after a focus loss of an editor
@@ -178,25 +185,11 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         mEditors = new ConcurrentHashMap<Integer, RTEditText>();
         mToolbars = new ConcurrentHashMap<Integer, RTToolbar>();
         mOPManager = new RTOperationManager();
-
         EventBus.getDefault().register(this);
         //EventBus.getDefault().register(this);
     }
 
-    /**
-     * Called to retrieve per-instance state before being killed so that the
-     * state can be restored in the constructor.
-     *
-     * @param outState Bundle in which to place your saved state.
-     */
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("mToolbarVisibility", mToolbarVisibility.name());
-        outState.putBoolean("mToolbarIsVisible", mToolbarIsVisible);
-        outState.putInt("mActiveEditor", mActiveEditor);
-        if (mLinkSelection != null) {
-            outState.putSerializable("mLinkSelection", mLinkSelection);
-        }
-    }
+
 
     /**
      * Perform any final cleanup before the component is destroyed.
@@ -517,6 +510,14 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         if (event != null) {
             onEventMainThread(event);
         }
+        RTApi.MentionEvent mentionEvent = EventBus.getDefault().getStickyEvent(RTApi.MentionEvent.class);
+        if(mentionEvent != null){
+            onEventMainThread(mentionEvent);
+        }
+        RTApi.HashTagEvent hashTagEvent = EventBus.getDefault().getStickyEvent(RTApi.HashTagEvent.class);
+        if(hashTagEvent != null){
+            onEventMainThread(hashTagEvent);
+        }
     }
 
     @Override
@@ -616,7 +617,7 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
         RTOperationManager.TextChangeOperation op = new RTOperationManager.TextChangeOperation(before, after,
                 selStartBefore, selEndBefore,
                 selStartAfter, selEndAfter);
-        mOPManager.executed(editor, op);
+            mOPManager.executed(editor, op);
     }
 
 
@@ -632,6 +633,47 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
             mLinkSelection = editor.getSelection();
         }
         return linkText;
+    }
+    private String getRefText(RTEditText editor, RTSpan<String> span) {
+        Spannable text = editor.getText();
+        final int spanStart = text.getSpanStart(span);
+        final int spanEnd = text.getSpanEnd(span);
+        String refText = null;
+        if (spanStart >= 0 && spanEnd >= 0 && spanEnd <= text.length()) {
+            refText = text.subSequence(spanStart, spanEnd).toString();
+            mRefSeelection = new Selection(spanStart, spanEnd);
+        } else {
+            mRefSeelection = editor.getSelection();
+        }
+        return refText;
+    }
+
+    private String getMentionText(RTEditText editor, RTSpan<String> span) {
+        Spannable text = editor.getText();
+        final int spanStart = text.getSpanStart(span);
+        final int spanEnd = text.getSpanEnd(span);
+        String mentionText = null;
+        if (spanStart >= 0 && spanEnd >= 0 && spanEnd <= text.length()) {
+            mentionText = text.subSequence(spanStart, spanEnd).toString();
+            mMentionSelection = new Selection(spanStart, spanEnd);
+        } else {
+            mMentionSelection = editor.getSelection();
+        }
+        return mentionText;
+    }
+
+    private String getHashtagText(RTEditText editor, RTSpan<String> span) {
+        Spannable text = editor.getText();
+        final int spanStart = text.getSpanStart(span);
+        final int spanEnd = text.getSpanEnd(span);
+        String hashtagText = null;
+        if (spanStart >= 0 && spanEnd >= 0 && spanEnd <= text.length()) {
+            hashtagText = text.subSequence(spanStart, spanEnd).toString();
+            mHashtagSelection = new Selection(spanStart, spanEnd);
+        } else {
+            mHashtagSelection = editor.getSelection();
+        }
+        return hashtagText;
     }
 
 
@@ -690,12 +732,69 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
                 }
                 if (editor != null) {
                     Editable str = editor.getText();
-                    Selection selection = mLinkSelection != null && mLinkSelection.end() <= editor.length() ? mLinkSelection : new Selection(editor);
+                    Selection selection = mRefSeelection != null && mRefSeelection.end() <= editor.length() ? mRefSeelection : new Selection(editor);
                     str.replace(selection.start(), selection.end(),postRefText);
                     editor.setSelection(selection.start(), selection.start() + postRefText.length());
                 }
                 if(editor != null)editor.applyEffect(Effects.POSTREF, postJson);
-            }
+                if(editor != null && editor.getText() != null)editor.getText().insert(editor.getSelectionEnd(), " ");
+    }
+
+
+
+    //add new MENTION
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(RTApi.MentionEvent event) {
+
+        JSONObject jsonObject = null;
+        String displayName = "";
+        RTEditText editor = getActiveEditor();
+        String mentionJson = event.getMentionJson();
+        try {
+            jsonObject = new JSONObject(mentionJson);
+            displayName = jsonObject.getString("displayName");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (editor != null) {
+            Editable str = editor.getText();
+            Selection selection = mMentionSelection != null && mMentionSelection.end() <= editor.length() ? mMentionSelection : new Selection(editor);
+            str.replace(selection.start(), selection.end(),displayName);
+            editor.setSelection(selection.start(), selection.start() + displayName.length());
+        }
+        if(editor != null)editor.applyEffect(Effects.MENTION, StringEscapeUtils.escapeHtml4(mentionJson));
+        if(editor != null && editor.getText() != null)editor.getText().insert(editor.getSelectionEnd(), " ");
+    }
+
+
+
+
+    //add new HASHTAG
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(RTApi.HashTagEvent event) {
+
+        JSONObject jsonObject;
+        String hashtagID = "";
+        String hashtagText = "";
+        RTEditText editor = getActiveEditor();
+        String hashtagJson = event.getHashTagJson();
+        try {
+            jsonObject = new JSONObject(hashtagJson);
+            hashtagID = jsonObject.getString("id");
+            hashtagText = jsonObject.getString("hashtagText");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (editor != null) {
+            Editable str = editor.getText();
+            Selection selection = mHashtagSelection != null && mHashtagSelection.end() <= editor.length() ? mHashtagSelection : new Selection(editor);
+            str.replace(selection.start(), selection.end(),hashtagText);
+            editor.setSelection(selection.start(), selection.start() + hashtagText.length());
+        }
+        if(editor != null)editor.applyEffect(Effects.HASHTAG, hashtagJson);
+        if(editor != null && editor.getText() != null)editor.getText().insert(editor.getSelectionEnd(), " ");
+    }
+
 
 
 
@@ -706,6 +805,23 @@ public class RTManager implements RTEditTextListener,RTToolbarListener{
             String linkText = getLinkText(editor, span);
             mRTApi.openDialogFragment(ID_01_LINK_FRAGMENT, LinkFragment.newInstance(linkText, span.getURL()));
         }
+    }
+
+    @Override
+    public void onClick(RTEditText editor, ReferenceSpan span) {
+        getRefText(editor,span);
+    }
+
+    @Override
+    public void onClick(RTEditText editor, MentionSpan span) {
+
+        getMentionText(editor,span);
+    }
+
+    @Override
+    public void onClick(RTEditText editor, HashTagSpan span) {
+
+        getHashtagText(editor,span);
     }
 
     @Override

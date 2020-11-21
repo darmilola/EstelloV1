@@ -107,12 +107,12 @@ public class QandAChannel extends ChannelBaseActivity {
                 UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
-            }, position -> {
+            }, (int mentionJson) -> {
 
                 UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
 
-            }, position -> {
+            }, (String hashtagText) -> {
 
                 Intent intent = new Intent(QandAChannel.this, HashTagsActivity.class);
                 startActivity(intent);

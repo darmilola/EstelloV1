@@ -55,6 +55,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rd.utils.DensityUtils;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -213,12 +215,20 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onMentionItemClick() {
 
-                if (selectionInStartMentioning > rtEditText.getSelectionStart())
-                    selectionInStartMentioning = rtEditText.getSelectionStart();
+                if (selectionInStartMentioning > rtEditText.getSelectionStart()-1) selectionInStartMentioning = rtEditText.getSelectionStart()-1;
                 selectionChangeFromMentioning = true;
                 rtEditText.getText().replace(selectionInStartMentioning, rtEditText.getSelectionStart(), "");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(), "Damilola" + "\u00A0" + "Akinterinwa");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(), " ");
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("displayName","@Malia");
+                    jsonObject.put("country","USA");
+                    jsonObject.put("surname","Obama");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                rtApi.addPostMention(jsonObject.toString());
+                //rtEditText.getText().insert(rtEditText.getSelectionStart(), "Damilola" + "\u00A0" + "Akinterinwa");
+
 
             }
         }, ChannelBaseActivity.this);
@@ -244,12 +254,20 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             @Override
             public void onHashTagItemClick() {
 
-                if (selectionInStartHashTagging > rtEditText.getSelectionStart())
-                    selectionInStartHashTagging = rtEditText.getSelectionStart();
+                if (selectionInStartHashTagging > rtEditText.getSelectionStart()-1)
+                    selectionInStartHashTagging = rtEditText.getSelectionStart()-1;
                 selectionChangeFromMentioning = true;
                 rtEditText.getText().replace(selectionInStartHashTagging, rtEditText.getSelectionStart(), "");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(), "NewFaceOfTechnology");
-                rtEditText.getText().insert(rtEditText.getSelectionStart(), " ");
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("id","scvshw7q67gahdgv316db");
+                    jsonObject.put("hashtagText","#TrumpIsGone");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                rtApi.addPostHashtag(jsonObject.toString());
+                //rtEditText.getText().insert(rtEditText.getSelectionStart(), "NewFaceOfTechnology");
+                //rtEditText.getText().insert(rtEditText.getSelectionStart(), " ");
             }
         }, ChannelBaseActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChannelBaseActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -401,7 +419,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 selectionChangeFromMentioning = true;
                 ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
-                selectionInStartMentioning = rtEditText.getSelectionStart();
+                selectionInStartMentioning = rtEditText.getSelectionStart()-1;
                 showMentionHashTagsPopup(false);
 
 
@@ -414,7 +432,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                 selectionChangeFromMentioning = true;
                 ((LockableBottomSheetBehavior) bottomSheetBehavior).setLocked(true);
                 bottom_sheet.requestLayout();
-                selectionInStartHashTagging = rtEditText.getSelectionStart();
+                selectionInStartHashTagging = rtEditText.getSelectionStart()-1;
                 showMentionHashTagsPopup(true);
 
             }
@@ -1691,6 +1709,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     }
 
     public void showPostToolsBottomSheet(int position){
+        hideSoftKeyboard(rtEditText);
         new PostToolsBottomSheet().show(getSupportFragmentManager(),"postTools");
     }
 
@@ -1764,8 +1783,9 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
                public void onClick(View v) {
                    ForumPostModel forumPostModel = new ForumPostModel();
                    forumPostModel.setPostId("This is the post id for this post");
-                   forumPostModel.setRefText("Alan Pozo Rosadio post from 1997");
+                   forumPostModel.setRefText("Alan Pozo Rosadio's Post");
                    rtApi.addPostReference(forumPostModel.getReferencedPostObjectJson());
+                   bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                }
            });
 

@@ -28,6 +28,7 @@ import com.deltastream.example.edittextcontroller.spans.ForegroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.ForumPostModel;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
 import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.spans.StrikethroughSpan;
 import com.deltastream.example.edittextcontroller.spans.SubscriptSpan;
@@ -51,6 +52,8 @@ public class Effects {
     public static final Effect<Integer, BackgroundColorSpan> BGCOLOR = new BackgroundColorEffect();    // non-boolean effect
     public static final Effect<String, LinkSpan> LINK = new LinkEffect();
     public static final Effect<String, ReferenceSpan> POSTREF = new ReferenceEffect();
+    public static final Effect<String, MentionSpan> MENTION = new MentionEffect();
+    public static final Effect<String, ReferenceSpan> HASHTAG = new HashtagEffect();
     public static final Effect<RTTypeface, TypefaceSpan> TYPEFACE = new TypefaceEffect();  // non-boolean effect
 
     // paragraph effects
@@ -78,6 +81,8 @@ public class Effects {
         ALL_EFFECTS.add(BGCOLOR);
         ALL_EFFECTS.add(TYPEFACE);
         ALL_EFFECTS.add(LINK);
+        ALL_EFFECTS.add(MENTION);
+        ALL_EFFECTS.add(HASHTAG);
         // paragraph effects
         ALL_EFFECTS.add(BULLET);
         ALL_EFFECTS.add(NUMBER);
@@ -101,6 +106,8 @@ public class Effects {
         FORMATTING_EFFECTS.add(FONTSIZE);
         FORMATTING_EFFECTS.add(FONTCOLOR);
         FORMATTING_EFFECTS.add(POSTREF);
+        FORMATTING_EFFECTS.add(MENTION);
+        FORMATTING_EFFECTS.add(HASHTAG);
         FORMATTING_EFFECTS.add(TYPEFACE);
         FORMATTING_EFFECTS.add(BGCOLOR);
         FORMATTING_EFFECTS.add(LINK);

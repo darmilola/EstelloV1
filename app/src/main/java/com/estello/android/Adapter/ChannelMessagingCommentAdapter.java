@@ -46,13 +46,12 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
     private Queue<PostViewHolder> postViewHolderQueue = new LinkedList<>();
 
 
-    public interface hashTagClickListener{
-        public void onHashTagClicked(int position);
+    public interface hashTagClickListener {
+        public void onHashTagClicked(String hashTagId);
     }
-
     public interface MentionClickedListener{
 
-        public void onMentionClicked(int position);
+        public void onMentionClicked(String mentionJson);
     }
     public interface ProfilePictureClickedListener{
 
@@ -301,19 +300,18 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             });
 
         }
-
         @Override
-        public void onMentionClicked(int clickedPosition) {
+        public void onMentionClicked(String mentionJson) {
             pausePlayBackFromActivityOnPause();
             isMentionClicked = true;
-            mentionClickedListener.onMentionClicked(clickedPosition);
+            mentionClickedListener.onMentionClicked(mentionJson);
         }
 
         @Override
-        public void onHashTagClicked(int position) {
+        public void onHashTagClicked(String hashTagId) {
             pausePlayBackFromActivityOnPause();
             isHashTagClicked = true;
-            hashTagClickedListener.onHashTagClicked(position);
+            hashTagClickedListener.onHashTagClicked(hashTagId);
         }
 
         @Override

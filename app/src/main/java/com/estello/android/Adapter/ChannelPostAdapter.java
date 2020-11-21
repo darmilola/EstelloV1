@@ -56,7 +56,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     public interface hashTagClickedListener {
-        public void onHashTagClicked(int position);
+        public void onHashTagClicked(String hashTagId);
     }
 
     public interface ItemClickedListener{
@@ -65,7 +65,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public interface MentionClickedListener{
 
-        public void onMentionClicked(int position);
+        public void onMentionClicked(String mentionJson);
     }
     public interface ProfilePictureClickedListener{
 
@@ -507,17 +507,17 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
         @Override
-        public void onMentionClicked(int clickedPosition) {
+        public void onMentionClicked(String mentionJson) {
             pausePlayBackFromActivityOnPause();
             isMentionClicked = true;
-            mentionClickedListener.onMentionClicked(clickedPosition);
+            mentionClickedListener.onMentionClicked(mentionJson);
         }
 
         @Override
-        public void onHashTagClicked(int position) {
+        public void onHashTagClicked(String hashTagId) {
             pausePlayBackFromActivityOnPause();
             isHashTagClicked = true;
-            hashTagClickedListener.onHashTagClicked(position);
+            hashTagClickedListener.onHashTagClicked(hashTagId);
         }
 
         @Override
@@ -587,16 +587,17 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
         @Override
-        public void onMentionClicked(int clickedPosition) {
+        public void onMentionClicked(String mentionJson) {
+            pausePlayBackFromActivityOnPause();
             isMentionClicked = true;
-            mentionClickedListener.onMentionClicked(clickedPosition);
-
+            mentionClickedListener.onMentionClicked(mentionJson);
         }
 
         @Override
-        public void onHashTagClicked(int position) {
+        public void onHashTagClicked(String hashTagId) {
+            pausePlayBackFromActivityOnPause();
             isHashTagClicked = true;
-            hashTagClickedListener.onHashTagClicked(position);
+            hashTagClickedListener.onHashTagClicked(hashTagId);
         }
 
         @Override
@@ -666,18 +667,17 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         }
         @Override
-        public void onMentionClicked(int clickedPosition) {
+        public void onMentionClicked(String mentionJson) {
+            pausePlayBackFromActivityOnPause();
             isMentionClicked = true;
-            mentionClickedListener.onMentionClicked(clickedPosition);
-
+            mentionClickedListener.onMentionClicked(mentionJson);
         }
-
         @Override
-        public void onHashTagClicked(int position) {
+        public void onHashTagClicked(String hashTagId) {
+            pausePlayBackFromActivityOnPause();
             isHashTagClicked = true;
-            hashTagClickedListener.onHashTagClicked(position);
+            hashTagClickedListener.onHashTagClicked(hashTagId);
         }
-
         @Override
         public boolean onLongClick(View v) {
 

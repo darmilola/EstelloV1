@@ -39,9 +39,11 @@ import com.deltastream.example.edittextcontroller.spans.BackgroundColorSpan;
 import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 import com.deltastream.example.edittextcontroller.spans.BulletSpan;
 import com.deltastream.example.edittextcontroller.spans.ForegroundColorSpan;
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.IndentationSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
 import com.deltastream.example.edittextcontroller.spans.NumberSpan;
 import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.spans.StrikethroughSpan;
@@ -59,7 +61,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -288,8 +289,14 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         } else if (tag.equalsIgnoreCase("a")) {
             startAHref(attributes);
         }
-        else if (tag.equalsIgnoreCase("xa")) {
-            startXAHref(attributes);
+        else if (tag.equalsIgnoreCase("ref")) {
+            startREFHref(attributes);
+        }
+        else if (tag.equalsIgnoreCase("hash")) {
+            startHASHHref(attributes);
+        }
+        else if (tag.equalsIgnoreCase("ment")) {
+            startMENTHref(attributes);
         }
         else if (tag.equalsIgnoreCase("u")) {
             start(new Underline());
@@ -350,8 +357,14 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         } else if (tag.equalsIgnoreCase("a")) {
             endAHref();
         }
-        else if (tag.equalsIgnoreCase("xa")) {
-            endXAHref();
+        else if (tag.equalsIgnoreCase("ref")) {
+            endREFHref();
+        }
+        else if (tag.equalsIgnoreCase("hash")) {
+            endHASHHref();
+        }
+        else if (tag.equalsIgnoreCase("ment")) {
+            endMENTHref();
         }
         else if (tag.equalsIgnoreCase("u")) {
             end(Underline.class, new UnderlineSpan());
@@ -715,12 +728,22 @@ public class ConverterHtmlToSpanned implements ContentHandler {
         mResult.setSpan(new Href(href), len, len, Spanned.SPAN_MARK_MARK);
     }
 
-    private void startXAHref(Attributes attributes) {
+    private void startREFHref(Attributes attributes) {
         String href = attributes.getValue("", "href");
         int len = mResult.length();
         mResult.setSpan(new Href(href), len, len, Spanned.SPAN_MARK_MARK);
     }
-    private void endXAHref() {
+    private void startHASHHref(Attributes attributes) {
+        String href = attributes.getValue("", "href");
+        int len = mResult.length();
+        mResult.setSpan(new Href(href), len, len, Spanned.SPAN_MARK_MARK);
+    }
+    private void startMENTHref(Attributes attributes) {
+        String href = attributes.getValue("", "href");
+        int len = mResult.length();
+        mResult.setSpan(new Href(href), len, len, Spanned.SPAN_MARK_MARK);
+    }
+    private void endREFHref() {
         int len = mResult.length();
         Object obj = getLast(Href.class);
         int where = mResult.getSpanStart(obj);
@@ -730,6 +753,31 @@ public class ConverterHtmlToSpanned implements ContentHandler {
             Href h = (Href) obj;
             if (h.mHref != null) {
                 mResult.setSpan(new ReferenceSpan(h.mHref), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
+    private void endHASHHref() {
+        int len = mResult.length();
+        Object obj = getLast(Href.class);
+        int where = mResult.getSpanStart(obj);
+        mResult.removeSpan(obj);
+
+        if (where != len) {
+            Href h = (Href) obj;
+            if (h.mHref != null) {
+                mResult.setSpan(new HashTagSpan(h.mHref), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
+    private void endMENTHref() {
+        int len = mResult.length();
+        Object obj = getLast(Href.class);
+        int where = mResult.getSpanStart(obj);
+        mResult.removeSpan(obj);
+        if (where != len) {
+            Href h = (Href) obj;
+            if (h.mHref != null) {
+                mResult.setSpan(new MentionSpan(h.mHref), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }

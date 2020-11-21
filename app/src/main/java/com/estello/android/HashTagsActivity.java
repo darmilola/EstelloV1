@@ -197,7 +197,7 @@ public class HashTagsActivity extends AppCompatActivity {
 
             adapter = new HashTagPostAdapter(HashTagsActivity.this, forumPostModelArrayList, new HashTagPostAdapter.MentionClickedListener() {
                 @Override
-                public void onMentionClicked(int position) {
+                public void onMentionClicked(String mentionJson) {
 
                     UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
@@ -213,7 +213,7 @@ public class HashTagsActivity extends AppCompatActivity {
                 }
             }, new HashTagPostAdapter.hashTagClickedListener() {
                 @Override
-                public void onHashTagClicked(int position) {
+                public void onHashTagClicked(String hashtagText) {
 
                     startActivity(new Intent(HashTagsActivity.this,HashTagsActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

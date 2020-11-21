@@ -39,6 +39,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
@@ -419,8 +420,9 @@ public class ChannelPostDetails extends AppCompatActivity {
 
         rTextView.setHashTagClickedListener(new RTextView.HashTagClickedListener() {
             @Override
-            public void onHashTagClicked(int position) {
+            public void onHashTagClicked(String hashtagId) {
 
+                Toast.makeText(ChannelPostDetails.this,hashtagId,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -428,8 +430,8 @@ public class ChannelPostDetails extends AppCompatActivity {
         });
         rTextView.setMentionClickedListener(new RTextView.MentionClickedListener() {
             @Override
-            public void onMentionClicked(int clickedPosition) {
-
+            public void onMentionClicked(String mentionJson) {
+                Toast.makeText(ChannelPostDetails.this,mentionJson,Toast.LENGTH_LONG);
                 UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
             }
@@ -1974,7 +1976,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
             commentAdapter = new ChannelMessagingCommentAdapter(forumPostModelArrayList, ChannelPostDetails.this, new ChannelMessagingCommentAdapter.MentionClickedListener() {
                 @Override
-                public void onMentionClicked(int position) {
+                public void onMentionClicked(String mentionJson) {
 
                     UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
@@ -1988,7 +1990,7 @@ public class ChannelPostDetails extends AppCompatActivity {
                 }
             }, new ChannelMessagingCommentAdapter.hashTagClickListener() {
                 @Override
-                public void onHashTagClicked(int position) {
+                public void onHashTagClicked(String hashtagId) {
 
                     Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
                     startActivity(intent);

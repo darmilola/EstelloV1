@@ -25,12 +25,16 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.deltastream.example.edittextcontroller.api.format.RTFormat;
 import com.deltastream.example.edittextcontroller.api.format.RTText;
+import com.deltastream.example.edittextcontroller.converter.tagsoup.util.StringEscapeUtils;
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
 import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 
 
@@ -45,7 +49,7 @@ import androidx.core.content.ContextCompat;
 
  * The actual rich text editor (extending android.widget.EditText).
  */
-public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener, ReferenceSpan.ReferenceSpanListener {
+public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanListener, ReferenceSpan.ReferenceSpanListener, MentionSpan.MentionSpanListener, HashTagSpan.HashTagSpanListener {
 
     private MentionClickedListener mentionClickedListener;
     private HashTagClickedListener hashTagClickedListener;
@@ -55,11 +59,29 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
         Toast.makeText(getContext(), referenceSpan.getURL(), Toast.LENGTH_SHORT).show();
     }
 
-    public interface MentionClickedListener{
-        public void onMentionClicked(int clickedPosition);
+    @Override
+    public void onClick(LinkSpan linkSpan) {
+        Toast.makeText(getContext(), linkSpan.getURL(), Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onClick(HashTagSpan hashTagSpan) {
+        Toast.makeText(getContext(), hashTagSpan.getValue(), Toast.LENGTH_SHORT).show();
+        if(hashTagClickedListener != null)hashTagClickedListener.onHashTagClicked(hashTagSpan.getValue());
+    }
+
+    @Override
+    public void onClick(MentionSpan mentionSpan) {
+        Toast.makeText(getContext(),StringEscapeUtils.unescapeHtml4(mentionSpan.getValue()), Toast.LENGTH_SHORT).show();
+        if(mentionClickedListener != null)mentionClickedListener.onMentionClicked(StringEscapeUtils.unescapeHtml4(mentionSpan.getValue()));
+        Log.e(mentionSpan.getValue(), "onClick: ");
+    }
+
+    public interface MentionClickedListener{
+        public void onMentionClicked(String mentionJson);
+    }
+
     public interface HashTagClickedListener{
-        public void onHashTagClicked(int position);
+        public void onHashTagClicked(String hashtagText);
     }
 
 
@@ -103,12 +125,11 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
         if(rtText.getFormat()instanceof RTFormat.Html){
 
                 RTText rtSpanned = rtText.convertTo(RTFormat.SPANNED);
-                SpannableString clickedHashedText = clickHashTags(rtSpanned.getText());
-                super.setText(clickedHashedText,BufferType.SPANNABLE);
+                super.setText(rtSpanned.getText(),BufferType.SPANNABLE);
 
         }
     }
-    private SpannableString clickHashTags(CharSequence text){
+   /* private SpannableString clickHashTags(CharSequence text){
         SpannableString spannableString = new SpannableString(text);
         Matcher tagMatcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(text);
 
@@ -145,12 +166,8 @@ public class RTextView extends AppCompatTextView implements LinkSpan.LinkSpanLis
 
                  }
                  return spannableString;
-    }
+    }*/
 
-    @Override
-    public void onClick(LinkSpan linkSpan) {
-        Toast.makeText(getContext(), linkSpan.getURL(), Toast.LENGTH_SHORT).show();
-    }
 
     public abstract class RTTextViewHashTagsSpan extends ClickableSpan{
 

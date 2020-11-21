@@ -47,11 +47,14 @@ import com.deltastream.example.edittextcontroller.api.format.RTText;
 import com.deltastream.example.edittextcontroller.effects.Effect;
 import com.deltastream.example.edittextcontroller.effects.Effects;
 import com.deltastream.example.edittextcontroller.spans.BulletSpan;
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
 import com.deltastream.example.edittextcontroller.spans.LinkSpan.LinkSpanListener;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
 import com.deltastream.example.edittextcontroller.spans.NumberSpan;
 import com.deltastream.example.edittextcontroller.spans.RTSpan;
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.utils.Paragraph;
 import com.deltastream.example.edittextcontroller.utils.RTLayout;
 import com.deltastream.example.edittextcontroller.utils.Selection;
@@ -71,7 +74,7 @@ import androidx.core.util.Supplier;
 
  * The actual rich text editor (extending android.widget.EditText).
  */
-public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWatcher, LinkSpanListener{
+public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWatcher, LinkSpanListener, MentionSpan.MentionSpanListener, HashTagSpan.HashTagSpanListener, ReferenceSpan.ReferenceSpanListener {
 
 
     // don't allow any formatting in text mode
@@ -712,6 +715,27 @@ public class RTEditText extends AppCompatEditText implements TextWatcher, SpanWa
         }
 
 
+    }
+
+    @Override
+    public void onClick(HashTagSpan hashTagSpan) {
+        if (mUseRTFormatting && mListener != null) {
+            mListener.onClick(this, hashTagSpan);
+        }
+    }
+
+    @Override
+    public void onClick(MentionSpan mentionSpan) {
+        if (mUseRTFormatting && mListener != null) {
+            mListener.onClick(this, mentionSpan);
+        }
+    }
+
+    @Override
+    public void onClick(ReferenceSpan referenceSpan) {
+        if (mUseRTFormatting && mListener != null) {
+            mListener.onClick(this, referenceSpan);
+        }
     }
 
     private static class SavedState extends BaseSavedState {

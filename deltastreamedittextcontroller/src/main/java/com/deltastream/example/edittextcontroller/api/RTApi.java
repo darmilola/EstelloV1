@@ -173,6 +173,12 @@ public class RTApi implements RTProxy{
     public void addPostReference(String s){
         EventBus.getDefault().post(new ReferenceEvent(s));
     }
+    public void addPostMention(String s){
+        EventBus.getDefault().post(new MentionEvent(s));
+    }
+    public void addPostHashtag(String s){
+        EventBus.getDefault().post(new HashTagEvent(s));
+    }
     /*
      * RTMediaFactory Methods
      */
@@ -191,6 +197,28 @@ public class RTApi implements RTProxy{
         }
 
         public String getPostJson(){
+            return this.s;
+        }
+    }
+    public static class MentionEvent {
+
+        String s;
+        public MentionEvent(String s) {
+            this.s = s;
+        }
+
+        public String getMentionJson(){
+            return this.s;
+        }
+    }
+
+    public static class HashTagEvent {
+        String s;
+        public HashTagEvent(String s) {
+            this.s = s;
+        }
+
+        public String getHashTagJson(){
             return this.s;
         }
     }
