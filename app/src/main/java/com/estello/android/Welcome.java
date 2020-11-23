@@ -19,6 +19,7 @@ import com.estello.android.Fragments.welcome_secondpage;
 import com.estello.android.Fragments.welcome_thirdpage;
 import com.estello.android.ViewModel.AutoScrollViewPager;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.rd.PageIndicatorView;
@@ -70,22 +71,20 @@ public class Welcome extends AppCompatActivity {
         welcome_exp = findViewById(R.id.welcome_slide_exp);
         create_new_account = findViewById(R.id.welcome_slide_create_account);
         login_text = findViewById(R.id.welcome_slide_login);
-        Typeface customfont= Typeface.createFromAsset(getAssets(),"clanbold.ttf");
-        Typeface customfont2= Typeface.createFromAsset(getAssets(),"clanbook.ttf");
         PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
         pageIndicatorView.setCount(3); // specify total count of indicators
         pageIndicatorView.setSelection(0);
 
 
         materialShapeDrawable.setFillColor(ColorStateList.valueOf(ContextCompat.getColor(Welcome.this,R.color.White)));
-//        shapeAppearanceModel.setTopLeftCorner(CornerFamily.ROUNDED, 55);
-  //      shapeAppearanceModel.setTopRightCorner(CornerFamily.ROUNDED,55);
+        shapeAppearanceModel.setTopLeftCorner(CornerFamily.ROUNDED, 55);
+        shapeAppearanceModel.setTopRightCorner(CornerFamily.ROUNDED,55);
         materialShapeDrawable.setShapeAppearanceModel(shapeAppearanceModel);
 
 
         materialShapeDrawable2.setFillColor(ColorStateList.valueOf(ContextCompat.getColor(Welcome.this,R.color.colorPrimary)));
-    //    shapeAppearanceModel2.setTopLeftCorner(CornerFamily.ROUNDED, 40);
-      //  shapeAppearanceModel2.setBottomRightCorner(CornerFamily.ROUNDED,40);
+        shapeAppearanceModel2.setTopLeftCorner(CornerFamily.ROUNDED, 40);
+        shapeAppearanceModel2.setBottomRightCorner(CornerFamily.ROUNDED,40);
         materialShapeDrawable2.setShapeAppearanceModel(shapeAppearanceModel2);
 
 

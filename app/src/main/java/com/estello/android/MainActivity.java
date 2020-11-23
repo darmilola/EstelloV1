@@ -1,20 +1,19 @@
 package com.estello.android;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
-import com.estello.android.Fragments.DirectMessages;
-import com.estello.android.Fragments.ExploreFragment;
+import com.estello.android.Fragments.LearningFragment;
 import com.estello.android.Fragments.MyCourses;
-import com.estello.android.Fragments.UserProfile;
 import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
+import com.google.android.material.navigation.NavigationView;
 
 
 import java.util.ArrayList;
@@ -24,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -36,51 +37,65 @@ public class MainActivity extends AppCompatActivity {
     viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
     NoSwipeableViewPager viewPager;
     Toolbar toolbar;
+    DrawerLayout drawerLayout;
+    LinearLayout userProfileImageLayout;
+    LinearLayout viewProfileLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
-
         initView();
         setupViewPager(viewPager);
-
     }
 
 
     private void initView() {
 
 
+        viewProfileLayout = findViewById(R.id.activity_main_user_profile_view_profile_layout);
+        drawerLayout = findViewById(R.id.activity_main_drawer_layout);
         bottomNavigationView = findViewById(R.id.chip_navigation);
         viewPager = findViewById(R.id.content_frame);
-
-
+        userProfileImageLayout = findViewById(R.id.activity_main_user_profile_profile_image_layout);
         viewPager.setOffscreenPageLimit(4);
         viewPager.setCurrentItem(0, false);
-        bottomNavigationView.setSelectedItemId(R.id.explore);
+        bottomNavigationView.setSelectedItemId(R.id.learn);
         bottomNavigationView.setSelected(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int i = item.getItemId();
-                if (i == R.id.explore) {
+                if (i == R.id.learn) {
                     viewPager.setCurrentItem(0, false);
 
-                } else if (i == R.id.dm) {
-
+                }  else if (i == R.id.my_courses) {
                     viewPager.setCurrentItem(1, false);
-                } else if (i == R.id.learn) {
-                    viewPager.setCurrentItem(2, false);
                 }
-
-                if (i == R.id.userprofile) {
-
-                    viewPager.setCurrentItem(3, false);
-                }
-
                 return true;
+            }
+        });
+
+
+        viewProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserProfileBottomSheet userProfileBottomSheet = new UserProfileBottomSheet();
+                userProfileBottomSheet.show(getSupportFragmentManager(),"userprofile");
+
+            }
+        });
+
+        userProfileImageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END);
+                }
+                else{
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
             }
         });
 
@@ -88,13 +103,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-     public void displayUserProfile(){
-         UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
-         bottomSheet.show(getSupportFragmentManager(),"userbottomsheetprofile");
-     }
 
     /*private void ChangeToExploreFragment(){
-        Fragment fragment = new ExploreFragment();
+        Fragment fragment = new LearningFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.commit();
@@ -161,17 +172,12 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position) {
 
-                case 0:
+                  case 0:
 
-                    return new ExploreFragment();
-
-                case 1:
-                    return new DirectMessages();
-
-                case 2:
+                    return new LearningFragment();
+                  case 1:
                     return new com.estello.android.Fragments.MyCourses();
-                case 3:
-                    return new UserProfile();
+
 
 
             }
@@ -181,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
 
-            return 4;
+            return 2;
         }
 
 
@@ -200,10 +206,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter.addFragment(new ExploreFragment(), "first");
-        adapter.addFragment(new DirectMessages(), "second");
-        adapter.addFragment(new MyCourses(), "third");
-        adapter.addFragment(new UserProfile(),"fourth");
+        adapter.addFragment(new LearningFragment(), "first");
+        adapter.addFragment(new MyCourses(), "second");
         viewPager.setAdapter(adapter);
     }
 
@@ -213,8 +217,9 @@ public class MainActivity extends AppCompatActivity {
         public void onResume() {
 
            super.onResume();
+           getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.transparent));
+           getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this,R.color.transparent));
            getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this,R.color.white));
-           getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
     }

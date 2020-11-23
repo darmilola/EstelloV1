@@ -7,110 +7,7 @@
     android:orientation="vertical"
     android:layerType="hardware"
     android:background="@color/white"
-    tools:context=".Fragments.ExploreFragment">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            app:cardElevation="3dp"
-            android:id="@+id/fragment_explore_search_bar"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="5dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="50dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|left"
-                android:orientation="horizontal"
-                android:weightSum="5">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="0.5"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/explore_searchbar_search_icon"
-                    android:transitionName="@string/transition_search_icon"
-                    android:src="@drawable/legacy_search_icon"
-                    android:tint="#3C3A3A" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="4.5"
-                    android:id="@+id/explore_search_layout"
-                    android:transitionName="@string/transition_search_layout"
-                    android:weightSum="4.5">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4.5"
-                    android:ellipsize="end"
-                    android:transitionName="@string/transition_search_hint"
-                    android:fontFamily="@font/opensansreg"
-                    android:gravity="center|left"
-                    android:maxLines="1"
-                    android:layout_marginRight="10dp"
-                    android:textColorHint="#979797"
-                    android:background="@color/transparent"
-                    android:hint="Search for Courses,Instructors and  Organizations"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"  />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:gravity="center|right">
-
-
-                <LinearLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:id="@+id/explore_search_voice"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/circle_dot">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:transitionName="@string/transition_voice_search"
-                        android:src="@drawable/new_mic_icon"
-                        android:tint="@color/white" />
-                </LinearLayout>
-                </LinearLayout>
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-
-
-
-        </com.google.android.material.card.MaterialCardView>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="20dp"
-            android:background="#605A5959" />
-
-    </LinearLayout>
-
+    tools:context=".Fragments.LearningFragment">
 
     <androidx.core.widget.NestedScrollView
        android:layout_width="match_parent"
@@ -120,79 +17,12 @@
            android:layout_height="match_parent"
            android:orientation="vertical">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="bottom"
-               android:layout_marginTop="15dp"
-               android:orientation="vertical">
-
-
-
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:gravity="bottom"
-                   android:layout_alignParentTop="true"
-                   android:weightSum="3">
-
-                   <LinearLayout
-                       android:layout_width="0dp"
-                       android:layout_marginLeft="10dp"
-                       android:layout_height="match_parent"
-                       android:layout_weight="1.9"
-                       android:gravity="center">
-
-                       <TextView
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent"
-                           android:textSize="18dp"
-                           android:ellipsize="end"
-                           android:maxLines="1"
-                           android:layout_marginLeft="5dp"
-                           android:gravity="center|left"
-                           android:fontFamily="@font/opensansbold"
-                           android:textColor="@color/black"
-                           android:text="Explore"/>
-
-                   </LinearLayout>
-
-                   <LinearLayout
-                       android:layout_width="0dp"
-                       android:layout_weight="1"
-                       android:gravity="center|right"
-                       android:layout_marginRight="10dp"
-                       android:layout_height="match_parent"
-                       android:orientation="horizontal">
-
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="match_parent"
-                           android:text="Topics"
-                           android:textColor="@color/black"
-                           android:textSize="@dimen/small_regular_text_size"
-                           android:gravity="center"
-                           android:fontFamily="@font/opensansreg"/>
-                       <ImageView
-                           android:layout_width="15dp"
-                           android:layout_height="20dp"
-                           android:layout_marginLeft="5dp"
-                           android:layout_marginTop="2dp"
-                           android:src="@drawable/down_arrow_2_2x"
-                           android:tint="@color/black"/>
-                   </LinearLayout>
-               </LinearLayout>
-           </RelativeLayout>
-
-
-
-
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="70dp"
                android:orientation="horizontal"
                android:gravity="center"
+               android:layout_marginTop="10dp"
                android:background="@color/white">
 
 

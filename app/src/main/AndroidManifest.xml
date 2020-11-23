@@ -24,11 +24,7 @@
             android:theme="@style/slidingActivityTheme" />
         <activity android:name=".QandAChannel" />
         <activity android:name=".CourseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SpecializationCourseDetails" />
         <activity android:name=".SearchActivity" />
@@ -58,7 +54,13 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".login" />
         <activity android:name=".Sign_Up" />
-        <activity android:name=".splash_screen" />
+        <activity android:name=".splash_screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Welcome" />
     </application>
 

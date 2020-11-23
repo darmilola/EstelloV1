@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:fontFamily="@font/sourcereg"
+                android:fontFamily="@font/airreg"
                 android:id="@+id/direct_message_sender_name"
                 android:text="Damilola Akinterinwa"
                 android:textColor="@color/black"
@@ -61,8 +61,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:ellipsize="end"
-                android:fontFamily="@font/sourcereg"
+                android:fontFamily="@font/airreg"
                 android:maxLines="2"
+                android:lineSpacingExtra="6dp"
                 android:text="Also send files to yourself just select your own name from the owner fo the file then"
                 android:textColor="#969595"
                 android:textSize="17dp" />
@@ -84,7 +85,7 @@
                 android:id="@+id/direct_message_timestamp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:fontFamily="@font/sourcereg"
+                android:fontFamily="@font/airreg"
                 android:textColor="#969595"
                 android:textSize="16dp"/>
 
@@ -105,7 +106,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:text="9+"
-                    android:fontFamily="@font/larsseit"
+                    android:fontFamily="@font/airreg"
                     android:textColor="@color/White"
                     android:textSize="15dp"/>
             </LinearLayout>

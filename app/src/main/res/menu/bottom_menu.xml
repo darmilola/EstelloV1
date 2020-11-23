@@ -3,21 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/learn"
+        android:icon="@drawable/specialization"
+        android:title="Learn"/>
+    <item
+        android:id="@+id/my_courses"
+        android:icon="@drawable/newbookicon"
+        android:title="My Courses"/>
+    <item
         android:id="@+id/explore"
         android:icon="@drawable/newexploreicon"
         android:title="Explore"/>
     <item
-        android:id="@+id/dm"
-        android:icon="@drawable/newdmicon"
-        android:title="DMs" />
-
+        android:id="@+id/channel"
+        android:icon="@drawable/tv_2x"
+        android:title="Channels"/>
     <item
-        android:id="@+id/learn"
-        android:icon="@drawable/newbookicon"
-        android:title="My Courses"/>
-
-    <item
-        android:id="@+id/userprofile"
-        android:icon="@drawable/newuserprofile"
-        android:title="You"/>
+        android:id="@+id/notification"
+        android:icon="@drawable/bell_2x"
+        android:title="Notification"/>
 </menu>

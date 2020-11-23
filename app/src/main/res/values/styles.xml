@@ -26,8 +26,8 @@
     </style>
 
     <style name="BottomNavigationTextStyle" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textSize">12dp</item>
-        <item name="fontFamily">@font/clannews</item>
+        <item name="android:textSize">13dp</item>
+        <item name="fontFamily">@font/airreg</item>
         <item name="android:padding">0dp</item>
         <item name="android:layout_margin">0dp</item>
     </style>
