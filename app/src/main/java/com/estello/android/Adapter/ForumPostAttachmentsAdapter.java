@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
@@ -25,9 +26,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.estello.android.Arvi.Config;
 import com.estello.android.Arvi.widget.PlayableItemViewHolder;
 import com.estello.android.Arvi.widget.PlaybackState;
+import com.estello.android.ChannelVideoPlayerFullScreen;
 import com.estello.android.ViewModel.ForumPostAttachmentsModel;
 import com.estello.android.Utils.BitmapScaler;
 import com.estello.android.ViewModel.OnSwipeTouchListener;
+import com.estello.android.ViewModel.VideoModel;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.BaseDataSubscriber;
@@ -50,11 +53,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -65,23 +72,23 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static int typeImage = 1;
     private static int typeVideo = 2;
     private static int typeAudio = 3;
-    Config config;
-    NewPlayerStarted newPlayerStarted;
+    private Config config;
+    private NewPlayerStarted newPlayerStarted;
+    private GoingToFullScreen goingToFullScreen;
 
 
-
-
-
-
-
+    public interface GoingToFullScreen{
+        public void onGoingTofullscreen();
+    }
     public interface NewPlayerStarted{
         public void onNewPlayerStarted();
     }
-    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config,NewPlayerStarted newPlayerStarted){
+    public ForumPostAttachmentsAdapter(Context context, ArrayList<ForumPostAttachmentsModel> attachmentsList,Config config,NewPlayerStarted newPlayerStarted,GoingToFullScreen goingToFullScreen){
         this.context = context;
         this.attachmentsList = attachmentsList;
         this.config = config;
         this.newPlayerStarted = newPlayerStarted;
+        this.goingToFullScreen = goingToFullScreen;
 
     }
 
@@ -267,18 +274,19 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         AlphaAnimation alphaAnim2;
         LottieAnimationView playPauseView;
         String playbackCacheID = "";
+        String transitionName = "";
         private Handler mHandler = new Handler();
         boolean isCancelled = false;
         boolean isPaused = false;
         boolean isReady = false;
         boolean isStarted = false;
         boolean isLooping = false;
+        private int playerProgress = 0;
         private VideosViewHolder(ViewGroup parentViewGroup, View itemView, Config config) {
 
             super(parentViewGroup, itemView);
             this.config = config;
             player = itemView.findViewById(R.id.player_view);
-            //mPlayerView.setPlayer(player.getPlayer());
             playPauseView = itemView.findViewById(R.id.attachment_video_play_pause_view);
             playPauseLayout = itemView.findViewById(R.id.attachment_play_pause_layout);
             loader = itemView.findViewById(R.id.attachment_video_loader_view);
@@ -291,6 +299,32 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             fullScreen = itemView.findViewById(R.id.video_attachments_fullscreen_layout);
             controller = itemView.findViewById(R.id.video_attachments_controller);
             playPauseView.setMinAndMaxFrame(0,45);
+
+
+
+
+            fullScreen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goingToFullScreen.onGoingTofullscreen();
+                    setMuted(true);
+                    VideoModel videoModel = new VideoModel();
+                    videoModel.setPlaybackCacheID(getPlayBackCacheID());
+                    videoModel.setPlaybackPosition(playerProgress);
+                    videoModel.setVideoThumbnailUrl(attachmentsList.get(getAdapterPosition()).getAttachmentVideoThumbnailUrl());
+                    videoModel.setVideoUrl(attachmentsList.get(getAdapterPosition()).getAttachmentsVideoUrl());
+                    ArrayList<VideoModel> videoModelArrayList = new ArrayList<>();
+                    videoModelArrayList.add(videoModel);
+                    Intent intent = new Intent(context, ChannelVideoPlayerFullScreen.class);
+                    intent.putParcelableArrayListExtra("videomodel",videoModelArrayList);
+                    transitionName = generatePlaybackCacheID();
+                    touchArea.setTransitionName(transitionName);
+                    ViewCompat.setTransitionName(touchArea,transitionName);
+                    intent.putExtra("transition_name",transitionName);
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,touchArea, Objects.requireNonNull(ViewCompat.getTransitionName(touchArea)));
+                    context.startActivity(intent,optionsCompat.toBundle());
+                }
+            });
             setOnGestureListeners();
             playPauseView.addAnimatorListener(new Animator.AnimatorListener() {
                 @Override
@@ -344,7 +378,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
 
             @SuppressLint("ClickableViewAccessibility")
-        private void setOnGestureListeners() {
+            private void setOnGestureListeners() {
             mPlayerView.setOnTouchListener(new OnSwipeTouchListener(context){
                 @Override
                 public void onSwipeRight() {
@@ -567,7 +601,7 @@ public class ForumPostAttachmentsAdapter extends RecyclerView.Adapter<RecyclerVi
             videoProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                    playerProgress = progress;
                     if (mPlayerView != null && fromUser) {
                         if(alphaAnim2 != null && !alphaAnim2.hasEnded()){
                             isCancelled = true;

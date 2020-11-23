@@ -30,6 +30,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="centerCrop"
+                android:id="@+id/forum_post_profile_picture_type_suggestion"
                 android:contentDescription="Profile Picture Of Post Maker"
                 android:src="@drawable/uni1"/>
         </com.google.android.material.card.MaterialCardView>

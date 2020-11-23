@@ -33,7 +33,7 @@ import androidx.core.content.ContextCompat;
  */
 public class LinkSpan extends URLSpan implements RTSpan<String> {
 
-    Context context;
+
     public interface LinkSpanListener {
         void onClick(LinkSpan linkSpan);
     }

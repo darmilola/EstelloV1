@@ -18,7 +18,10 @@ package com.deltastream.example.edittextcontroller;
 
 import android.text.Spannable;
 
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 
 
 /**
@@ -67,6 +70,9 @@ public interface RTEditTextListener {
      * A link in a LinkSpan has been clicked.
      */
     public void onClick(RTEditText editor, LinkSpan span);
+    public void onClick(RTEditText editor, ReferenceSpan span);
+    public void onClick(RTEditText editor, MentionSpan span);
+    public void onClick(RTEditText editor, HashTagSpan span);
 
     void onMentionSelected();
     void onHashTagSelected();

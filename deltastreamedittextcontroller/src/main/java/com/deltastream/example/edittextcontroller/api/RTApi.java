@@ -17,6 +17,7 @@
 package com.deltastream.example.edittextcontroller.api;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -24,6 +25,12 @@ import android.util.AndroidRuntimeException;
 import android.widget.Toast;
 
 
+import com.deltastream.example.edittextcontroller.LinkFragment;
+import com.deltastream.example.edittextcontroller.spans.ForumPostModel;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Random;
 
 import androidx.annotation.AttrRes;
 
@@ -163,6 +170,15 @@ public class RTApi implements RTProxy{
         mRTProxy.removeFragment(fragmentTag);
     }
 
+    public void addPostReference(String s){
+        EventBus.getDefault().post(new ReferenceEvent(s));
+    }
+    public void addPostMention(String s){
+        EventBus.getDefault().post(new MentionEvent(s));
+    }
+    public void addPostHashtag(String s){
+        EventBus.getDefault().post(new HashTagEvent(s));
+    }
     /*
      * RTMediaFactory Methods
      */
@@ -173,4 +189,37 @@ public class RTApi implements RTProxy{
      * we allow access through this method as a convenience.
      */
 
+    public static class ReferenceEvent {
+
+        String s;
+        public ReferenceEvent(String s) {
+            this.s = s;
+        }
+
+        public String getPostJson(){
+            return this.s;
+        }
+    }
+    public static class MentionEvent {
+
+        String s;
+        public MentionEvent(String s) {
+            this.s = s;
+        }
+
+        public String getMentionJson(){
+            return this.s;
+        }
+    }
+
+    public static class HashTagEvent {
+        String s;
+        public HashTagEvent(String s) {
+            this.s = s;
+        }
+
+        public String getHashTagJson(){
+            return this.s;
+        }
+    }
 }

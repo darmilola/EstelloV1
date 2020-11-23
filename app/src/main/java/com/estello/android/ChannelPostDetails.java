@@ -39,6 +39,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 
 import com.deltastream.example.edittextcontroller.HorizontalRTToolbar;
@@ -177,6 +178,31 @@ public class ChannelPostDetails extends AppCompatActivity {
     RTextView rTextView;
     PlayableItemsRecyclerView playableItemsRecyclerView;
     SlidrConfig config;
+    ActivityPausedListener activityPausedListener;
+    ActivityResumedListener activityResumedListener;
+    ActivityDestroyedListener activityDestroyedListener;
+
+
+    public interface ActivityPausedListener{
+        public void onActivityPaused();
+    }
+    public interface ActivityResumedListener{
+        public void onActivityResumed();
+    }
+    public interface ActivityDestroyedListener{
+        public void onActivityDestroyed();
+    }
+
+
+    public void setActivityPausedListener(ActivityPausedListener activityPausedListener){
+        this.activityPausedListener = activityPausedListener;
+    }
+    public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener){
+        this.activityDestroyedListener = activityDestroyedListener;
+    }
+    public void setActivityResumedListener(ActivityResumedListener activityResumedListener){
+        this.activityResumedListener = activityResumedListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -394,8 +420,9 @@ public class ChannelPostDetails extends AppCompatActivity {
 
         rTextView.setHashTagClickedListener(new RTextView.HashTagClickedListener() {
             @Override
-            public void onHashTagClicked(int position) {
+            public void onHashTagClicked(String hashtagId) {
 
+                Toast.makeText(ChannelPostDetails.this,hashtagId,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -403,8 +430,8 @@ public class ChannelPostDetails extends AppCompatActivity {
         });
         rTextView.setMentionClickedListener(new RTextView.MentionClickedListener() {
             @Override
-            public void onMentionClicked(int clickedPosition) {
-
+            public void onMentionClicked(String mentionJson) {
+                Toast.makeText(ChannelPostDetails.this,mentionJson,Toast.LENGTH_LONG);
                 UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "userprofile");
             }
@@ -1074,31 +1101,20 @@ public class ChannelPostDetails extends AppCompatActivity {
 
             }
         });
-
-
-
     }
-
 
     @Override
     public void onResume() {
-
         super.onResume();
-        if(forumAdapter != null){
-
-            //forumAdapter.resumePlayBack();
-        }
+       if(activityResumedListener != null)activityResumedListener.onActivityResumed();
+        if(playableItemsRecyclerView != null && playableItemsRecyclerView.isPlayBackPlaying()) playableItemsRecyclerView.onResume();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
             getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.transparent));
             getWindow().setStatusBarColor(ContextCompat.getColor(ChannelPostDetails.this,R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
         }
-
-
     }
 
     @Override
@@ -1117,30 +1133,19 @@ public class ChannelPostDetails extends AppCompatActivity {
 
     @Override
     public void onPause(){
-
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         super.onPause();
-        Log.e("paused", "onPause: ");
-        if(forumAdapter != null){
-
-            //forumAdapter.pausePlayBack();
-        }
-
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        activityPausedListener.onActivityPaused();
+        playableItemsRecyclerView.onPause(true);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("destroyed", "onDestroy: ");
-
-       /*   if (ChannelPostDetailsArtManager != null) {
-              ChannelPostDetailsArtManager.onDestroy(true);
-        }*/
-        if (forumAdapter != null) {
-
-            //forumAdapter.destroyPlayer();
-        }
-
+        activityDestroyedListener.onActivityDestroyed();
+        playableItemsRecyclerView.onDestroy(false);
     }
+
     @Override public void onStop(){
         super.onStop();
         Log.e("stopped", "onStop: ");
@@ -1148,8 +1153,6 @@ public class ChannelPostDetails extends AppCompatActivity {
 
 
     private void initExpandedUi(){
-
-
 
         Log.e("iniTing", "initExpandedUi: ");
         mentionHashtagsRoot.setVisibility(View.GONE);
@@ -1824,15 +1827,14 @@ public class ChannelPostDetails extends AppCompatActivity {
 
 
 
-    public static class PostToolsBottomSheet extends BottomSheetDialogFragment {
-
+    public  class PostToolsBottomSheet extends BottomSheetDialogFragment {
 
         View view;
         private  BottomSheetBehavior bottomSheetBehavior;
         FrameLayout bottom_sheet;
         BottomSheetDialog dialog;
-        public ChannelBaseActivity.PostToolsBottomSheet postToolsBottomSheet(){
-            return new ChannelBaseActivity.PostToolsBottomSheet();
+        public PostToolsBottomSheet postToolsBottomSheet(){
+            return new PostToolsBottomSheet();
         }
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState){
@@ -1886,29 +1888,26 @@ public class ChannelPostDetails extends AppCompatActivity {
             forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel3);
 
         }
-
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
-        String text =  preferences.getString("2","");
-        RTHtml rtHtml = new RTHtml(text);
-        rTextView.setText(rtHtml);
+         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
+         String text =  preferences.getString("2","");
+         RTHtml rtHtml = new RTHtml(text);
+         rTextView.setText(rtHtml);
 
          LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(ChannelPostDetails.this, LinearLayoutManager.VERTICAL, false);
-        //LinearLayoutManager2.setInitialPrefetchItemCount(forumPostList.get(position).getPostAttachmentList().size());
-        playableItemsRecyclerView.setLayoutManager(LinearLayoutManager2);
-        playableItemsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-        playableItemsRecyclerView.setAutoplayEnabled(false);
-        playableItemsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
-        Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetails.this)).build();
-        ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetails.this, forumPostAttachmentsModelArrayList, config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+         playableItemsRecyclerView.setLayoutManager(LinearLayoutManager2);
+         Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(ChannelPostDetails.this)).build();
+         ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(ChannelPostDetails.this, forumPostAttachmentsModelArrayList, config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
             @Override
             public void onNewPlayerStarted() {
 
             }
-        });
+        }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+             @Override
+             public void onGoingTofullscreen() {
+                // onGoingToFullscreen = true;
+             }
+         });
         playableItemsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
-        playableItemsRecyclerView.onResume();
-
         if(richLinkView != null)
             richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
 
@@ -1947,7 +1946,6 @@ public class ChannelPostDetails extends AppCompatActivity {
         ArrayList<ForumPostModel> forumPostModelArrayList;
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelPostDetails.this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false);
 
-
         @Override
         protected Object doInBackground(Object[] objects) {
 
@@ -1957,12 +1955,9 @@ public class ChannelPostDetails extends AppCompatActivity {
 
                 userArrayList.add(user);
             }
-
-
+            ForumPostAttachmentsModel forumPostAttachmentsModel2 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
             ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
-            for (int i = 0; i < 1; i++) {
-
-            }
+            forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel2);
             ForumPostModel postModel = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 0);
             postModel.setPostGroupDate("October 15 2020");
             ForumPostModel postModel3 = new ForumPostModel(userArrayList, forumPostAttachmentsModelArrayList, 1);
@@ -1970,7 +1965,7 @@ public class ChannelPostDetails extends AppCompatActivity {
             forumPostModelArrayList = new ArrayList<>();
             for (int i = 0; i < 1; i++) {
                 forumPostModelArrayList.add(postModel);
-                for (int j = 0; j < 1; j++) {
+                for (int j = 0; j < 10; j++) {
 
                     forumPostModelArrayList.add(postModel3);
                     forumPostModelArrayList.add(postModel4);
@@ -1984,7 +1979,7 @@ public class ChannelPostDetails extends AppCompatActivity {
 
             commentAdapter = new ChannelMessagingCommentAdapter(forumPostModelArrayList, ChannelPostDetails.this, new ChannelMessagingCommentAdapter.MentionClickedListener() {
                 @Override
-                public void onMentionClicked(int position) {
+                public void onMentionClicked(String mentionJson) {
 
                     UserProfileBottomSheet bottomSheet = new UserProfileBottomSheet();
                     bottomSheet.show(getSupportFragmentManager(), "userprofile");
@@ -1998,7 +1993,7 @@ public class ChannelPostDetails extends AppCompatActivity {
                 }
             }, new ChannelMessagingCommentAdapter.hashTagClickListener() {
                 @Override
-                public void onHashTagClicked(int position) {
+                public void onHashTagClicked(String hashtagId) {
 
                     Intent intent = new Intent(ChannelPostDetails.this, HashTagsActivity.class);
                     startActivity(intent);
@@ -2010,7 +2005,6 @@ public class ChannelPostDetails extends AppCompatActivity {
                     showPostToolsBottomSheet(position);
                 }
             });
-
             commentsRecyclerview.setLayoutManager(LinearLayoutManager);
             commentsRecyclerview.setAdapter(commentAdapter);
 

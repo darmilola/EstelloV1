@@ -32,9 +32,12 @@ import com.deltastream.example.edittextcontroller.api.format.RTHtml;
 import com.deltastream.example.edittextcontroller.converter.tagsoup.util.StringEscapeUtils;
 import com.deltastream.example.edittextcontroller.spans.BoldSpan;
 
+import com.deltastream.example.edittextcontroller.spans.HashTagSpan;
 import com.deltastream.example.edittextcontroller.spans.ItalicSpan;
 import com.deltastream.example.edittextcontroller.spans.LinkSpan;
 
+import com.deltastream.example.edittextcontroller.spans.MentionSpan;
+import com.deltastream.example.edittextcontroller.spans.ReferenceSpan;
 import com.deltastream.example.edittextcontroller.spans.TypefaceSpan;
 import com.deltastream.example.edittextcontroller.spans.UnderlineSpan;
 import com.deltastream.example.edittextcontroller.utils.Helper;
@@ -338,13 +341,37 @@ public class ConverterSpannedToHtml {
             mOut.append(((URLSpan) style).getURL());
             mOut.append("\">");
         }
+        else if (style instanceof ReferenceSpan) {
+            mOut.append("<ref href=\"");
+            mOut.append(((ReferenceSpan) style).getValue());
+            mOut.append("\">");
+        }
+        else if (style instanceof HashTagSpan) {
+            mOut.append("<hash href=\"");
+            mOut.append(((HashTagSpan) style).getValue());
+            mOut.append("\">");
+        }
+        else if (style instanceof MentionSpan) {
+            mOut.append("<ment href=\"");
+            mOut.append(((MentionSpan) style).getValue());
+            mOut.append("\">");
+        }
         return true;
     }
 
     private void handleEndTag(CharacterStyle style) {
-        if (style instanceof URLSpan) {
+        if (style instanceof LinkSpan) {
             mOut.append("</a>");
-        } else if (style instanceof TypefaceSpan) {
+        }
+        else if (style instanceof ReferenceSpan) {
+            mOut.append("</ref>");
+        } else if (style instanceof HashTagSpan) {
+            mOut.append("</hash>");
+        }
+        else if (style instanceof MentionSpan) {
+            mOut.append("</ment>");
+        }
+        else if (style instanceof TypefaceSpan) {
             mOut.append("</font>");
         } else if (style instanceof ForegroundColorSpan) {
             mOut.append("</font>");

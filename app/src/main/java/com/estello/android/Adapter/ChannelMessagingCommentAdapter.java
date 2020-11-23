@@ -16,12 +16,18 @@ import com.estello.android.Arvi.Config;
 import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
 import com.estello.android.Arvi.widget.PlayableItemsContainer;
 import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
+import com.estello.android.ChannelBaseActivity;
+import com.estello.android.ChannelPostDetails;
 import com.estello.android.R;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RichLinkView.RichLinkView;
 import com.estello.android.ViewModel.RichLinkView.ViewListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,26 +35,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<ForumPostModel> forumPostModelArrayList;
+    private ArrayList<ForumPostModel> forumPostModelArrayList;
     Context context;
     private static int typeDate = 0;
     private static int typePost = 1;
+    private MentionClickedListener mentionClickedListener;
+    private ProfilePictureClickedListener profilePictureClickedListener;
+    private hashTagClickListener hashTagClickedListener;
+    private PostLongClickedListener postLongClickedListener;
+    private Queue<PostViewHolder> postViewHolderQueue = new LinkedList<>();
 
 
-
-   MentionClickedListener mentionClickedListener;
-   ProfilePictureClickedListener profilePictureClickedListener;
-   hashTagClickListener hashTagClickedListener;
-   PostLongClickedListener postLongClickedListener;
-
-
-    public interface hashTagClickListener{
-        public void onHashTagClicked(int position);
+    public interface hashTagClickListener {
+        public void onHashTagClicked(String hashTagId);
     }
-
     public interface MentionClickedListener{
 
-        public void onMentionClicked(int position);
+        public void onMentionClicked(String mentionJson);
     }
     public interface ProfilePictureClickedListener{
 
@@ -86,6 +89,95 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
         return null;
     }
 
+
+
+
+    @Override
+    public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewAttachedToWindow(viewHolder);
+
+        if (viewHolder instanceof PostViewHolder) {
+            if (!postViewHolderQueue.contains(viewHolder)) {
+                LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                PostViewHolder postViewHolder = (PostViewHolder) viewHolder;
+                postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+                Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+                ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(viewHolder.getAdapterPosition()).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+                    @Override
+                    public void onNewPlayerStarted() {
+                        for (PostViewHolder postViewHolder1 : postViewHolderQueue) {
+                            if (!postViewHolder1.attachmentsRecyclerView.isPlayBackPlaying() || viewHolder != postViewHolder1) {
+                                postViewHolder1.attachmentsRecyclerView.stopPlayback();
+                            }
+                        }
+                    }
+                }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                    @Override
+                    public void onGoingTofullscreen() {
+
+                    }
+                });
+
+                 postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                 ((ChannelPostDetails) postViewHolder.itemView.getContext()).setActivityPausedListener(ChannelMessagingCommentAdapter.this::pausePlayBackFromActivityOnPause);
+                 ((ChannelPostDetails) postViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelMessagingCommentAdapter.this::destroyPlayBackFromActivity);
+                 ((ChannelPostDetails) postViewHolder.itemView.getContext()).setActivityResumedListener(ChannelMessagingCommentAdapter.this::resumePlayBackFromActivity);
+                 postViewHolderQueue.add((PostViewHolder) viewHolder);
+            }
+
+
+        }
+
+    }
+
+
+    @Override
+    public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder){
+        if(viewHolder instanceof PostViewHolder){
+            boolean isRemoved = postViewHolderQueue.remove(viewHolder);
+            ((PostViewHolder) viewHolder).attachmentsRecyclerView.stopPlayback();
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewDetachedFromWindow(viewHolder);
+        if(viewHolder instanceof PostViewHolder){
+            PostViewHolder postViewHolder = postViewHolderQueue.peek();
+            if(postViewHolder != null)postViewHolder.attachmentsRecyclerView.stopPlayback();
+        }
+    }
+
+
+
+
+
+    private void resumePlayBackFromActivity(){
+        PostViewHolder PostViewHolderCache;
+        for (PostViewHolder postViewHolder: postViewHolderQueue) {
+            PostViewHolderCache = postViewHolder;
+            if (PostViewHolderCache != null && PostViewHolderCache.attachmentsRecyclerView.isPlayBackPlaying())
+                PostViewHolderCache.attachmentsRecyclerView.onResume();
+        }
+    }
+
+    private void pausePlayBackFromActivityOnPause(){
+        for (PostViewHolder videoCache: postViewHolderQueue){
+            videoCache.attachmentsRecyclerView.onPause(true);
+        }
+    }
+    private void destroyPlayBackFromActivity(){
+        for (PostViewHolder videoCache: postViewHolderQueue) {
+            videoCache.attachmentsRecyclerView.onDestroy(true);
+        }
+    }
+
+
+
+
+
+
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
@@ -94,40 +186,15 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
         if (forumPostModelArrayList.get(position).getType() == typePost) {
 
              PostViewHolder postViewHolder = (PostViewHolder) holder;
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            String text =  preferences.getString("2","");
-            RTHtml rtHtml = new RTHtml(text);
-            postViewHolder.textView.setText(rtHtml);
-
-            LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-            postViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
-            postViewHolder.attachmentsRecyclerView.setPlaybackTriggeringStates(PlayableItemsContainer.PlaybackTriggeringState.SETTLING, PlayableItemsContainer.PlaybackTriggeringState.DRAGGING);
-            postViewHolder.attachmentsRecyclerView.setAutoplayEnabled(false);
-            postViewHolder.attachmentsRecyclerView.setAutoplayMode(PlayableItemsContainer.AutoplayMode.ONE_AT_A_TIME);
-            Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
-            ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModelArrayList.get(position).getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
-                @Override
-                public void onNewPlayerStarted() {
-
-                }
-            });
-            postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
-            postViewHolder.attachmentsRecyclerView.onResume();
-
-            String link = "";
-            if(postViewHolder.richLinkView != null)
-
-                if(position == 1){
-                     link = "https://www.github.com/darmilola";
-                }
-            else{
-                     link  = "https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65";
-
-                }
-                postViewHolder.richLinkView.setLink(link, new ViewListener() {
-
-                    @Override
+             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+             String text =  preferences.getString("2","");
+             RTHtml rtHtml = new RTHtml(text);
+             postViewHolder.textView.setText(rtHtml);
+             String link = "";
+             if(postViewHolder.richLinkView != null)
+                 link = "https://www.github.com/darmilola";
+                 postViewHolder.richLinkView.setLink(link, new ViewListener() {
+                     @Override
                     public void onSuccess(boolean status) {
                         try {
                             if(postViewHolder.richLinkView != null) {
@@ -148,11 +215,6 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
                         }
                     }
                 });
-
-
-
-
-
 
         } else if (forumPostModelArrayList.get(position).getType() == typeDate) {
 
@@ -198,13 +260,14 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener {
-
+    public class PostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener,View.OnClickListener {
 
         PlayableItemsRecyclerView attachmentsRecyclerView;
         RTextView textView;
         RichLinkView richLinkView;
         ImageView profilePicture;
+        boolean isMentionClicked = false;
+        boolean isHashTagClicked = false;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -213,8 +276,9 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             textView.setMentionClickedListener(this);
             textView.setHashTagClickedListener(this);
             textView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            richLinkView = itemView.findViewById(R.id.Commentsrichlinkview);
+            richLinkView = itemView.findViewById(R.id.commentsrichlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
             profilePicture.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -225,28 +289,48 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
             });
 
 
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    if (isMentionClicked) {
+                        isMentionClicked = false;
+                    }
+                    else if(isHashTagClicked){
+                        isHashTagClicked = false;
+                    }else {
+
+                    }
+                }
+            });
+
+        }
+        @Override
+        public void onMentionClicked(String mentionJson) {
+            pausePlayBackFromActivityOnPause();
+            isMentionClicked = true;
+            mentionClickedListener.onMentionClicked(mentionJson);
         }
 
         @Override
-        public void onMentionClicked(int clickedPosition) {
-
-            mentionClickedListener.onMentionClicked(clickedPosition);
+        public void onHashTagClicked(String hashTagId) {
+            pausePlayBackFromActivityOnPause();
+            isHashTagClicked = true;
+            hashTagClickedListener.onHashTagClicked(hashTagId);
         }
-
-        @Override
-        public void onHashTagClicked(int position) {
-
-            hashTagClickedListener.onHashTagClicked(position);
-        }
-
 
         @Override
         public boolean onLongClick(View v) {
-
+            pausePlayBackFromActivityOnPause();
             postLongClickedListener.onPostLongClicked(getAdapterPosition());
-            return false;
+            return true;
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
+
 }
 
