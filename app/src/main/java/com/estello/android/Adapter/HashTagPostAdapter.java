@@ -38,6 +38,7 @@ public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int typeQuestion = 2;
     private static int typeSuggestion = 3;
     private static int typeInfo = 4;
+    private boolean onGoingToFullscreen = false;
     private MentionClickedListener mentionClickedListener;
     private ProfilePictureClickedListener profilePictureClickedListener;
     private hashTagClickedListener hashTagClickedListener;
@@ -131,6 +132,11 @@ public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             }
                         }
                     }
+                }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                    @Override
+                    public void onGoingTofullscreen() {
+                        onGoingToFullscreen = true;
+                    }
                 });
 
                 postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
@@ -160,6 +166,11 @@ public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             }
                         }
                     }
+                }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                    @Override
+                    public void onGoingTofullscreen() {
+                        onGoingToFullscreen = true;
+                    }
                 });
 
                 questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
@@ -185,6 +196,11 @@ public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                 suggestionsPostViewHolder1.attachmentsRecyclerView.stopPlayback();
                             }
                         }
+                    }
+                }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                    @Override
+                    public void onGoingTofullscreen() {
+                        onGoingToFullscreen = true;
                     }
                 });
 
@@ -426,15 +442,28 @@ public class HashTagPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void pausePlayBackFromActivityOnPause(){
-        for (PostViewHolder videoCache: postViewHolderQueue){
-             videoCache.attachmentsRecyclerView.onPause(true);
+          for (PostViewHolder videoCache: postViewHolderQueue) {
+            if (onGoingToFullscreen) {
+
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
         for (QuestionPostViewHolder videoCache: questionPostViewHolderQueue){
-            videoCache.attachmentsRecyclerView.onPause(true);
+            if (onGoingToFullscreen) {
+
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
         for (SuggestionsPostViewHolder videoCache: suggestionsPostViewHolderQueue){
-            videoCache.attachmentsRecyclerView.onPause(true);
+            if (onGoingToFullscreen) {
+
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
+        onGoingToFullscreen = false;
 
     }
     private void destroyPlayBackFromActivity(){

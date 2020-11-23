@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".VideoPlayerBaseActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/video_player_base_frame">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#90000000"
+            android:weightSum="7"
+            android:id="@+id/video_player_fullscreen_overlay"
+            android:elevation="2dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="top"
+                android:layout_weight="0.5"
+                android:layout_marginRight="15dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:weightSum="5"
+                    android:baselineAligned="false"
+                    android:layout_marginRight="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:strokeWidth="0.5dp"
+                            app:strokeColor="@color/grey"
+                            app:cardCornerRadius="3dp">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:scaleType="centerCrop"
+                                android:id="@+id/video_player_base_user_profile_picture"
+                                android:contentDescription="Profile Picture Of Post Maker"
+                                android:src="@drawable/uni1"/>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Alan Pozo Rosadio"
+                                android:textSize="17dp"
+                                android:gravity="center"
+                                android:layout_marginRight="5dp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/airbold"
+                                android:maxLines="1"
+                                android:maxWidth="250dp"
+                                android:ellipsize="end"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="2:54 PM"
+                                android:textSize="14dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#C3FFFFFF"
+                                android:fontFamily="@font/airreg"
+                                android:maxLines="1"
+                                android:maxWidth="250dp"
+                                android:ellipsize="end"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/airreg"
+                            android:maxLines="1"
+                            android:maxWidth="250dp"
+                            android:text="Hawaii, USA"
+                            android:textColor="#C3FFFFFF"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="27dp"
+                    android:padding="2dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/download_2_2x"
+                    android:tint="#C3FFFFFF"/>
+            </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/attachment_play_pause_layout"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/white_outline_circle"
+                android:gravity="center">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/attachment_video_play_pause_view"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:elevation="3dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"
+                    app:lottie_rawRes="@raw/playpause"
+                    app:tint="#D0FFFFFF" />
+            </LinearLayout>
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="5"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_gravity="bottom"
+                android:id="@+id/video_attachments_progress_layout"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:textColor="@color/white"
+                    android:text="0:00:00"
+                    android:textSize="12dp"
+                    android:id="@+id/video_attachments_playing_duration"
+                    android:fontFamily="@font/airreg"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.8"
+                    android:gravity="center">
+
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/video_attachments_progressbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/audio_listening_progress_drawable"
+                        android:thumbTint="@color/colorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/video_attachments_fullscreen_exit_layout"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:tint="@color/white"
+                        android:src="@drawable/iconfinder_fullscreenexit_1031515"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/attachment_video_loader_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="6dp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/loader"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@drawable/greyimage"
+            fresco:actualImageScaleType="centerCrop"
+            android:elevation="1dp"
+            android:id="@+id/attachment_video_thumbnail"
+            fresco:placeholderImageScaleType="centerCrop"/>
+
+
+
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:resize_mode="fixed_height"
+            app:surface_type="texture_view"
+            app:use_controller="false"/>
+
+
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

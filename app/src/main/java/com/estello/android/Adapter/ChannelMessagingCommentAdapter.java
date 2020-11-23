@@ -111,6 +111,11 @@ public class ChannelMessagingCommentAdapter extends RecyclerView.Adapter<Recycle
                             }
                         }
                     }
+                }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                    @Override
+                    public void onGoingTofullscreen() {
+
+                    }
                 });
 
                  postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);

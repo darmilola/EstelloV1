@@ -49,6 +49,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private hashTagClickedListener hashTagClickedListener;
     private PostLongClickedListener postLongClickedListener;
     private ItemClickedListener itemClickedListener;
+    private boolean onGoingToFullscreen = false;
     private Queue<PostViewHolder> postViewHolderQueue = new LinkedList<>();
     private Queue<QuestionPostViewHolder> questionPostViewHolderQueue = new LinkedList<>();
     private Queue<SuggestionsPostViewHolder> suggestionsPostViewHolderQueue = new LinkedList<>();
@@ -137,6 +138,11 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                               }
                           }
                       }
+                  }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                      @Override
+                      public void onGoingTofullscreen() {
+                        onGoingToFullscreen = true;
+                      }
                   });
 
                   postViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
@@ -166,6 +172,11 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                               }
                           }
                       }
+                  }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                      @Override
+                      public void onGoingTofullscreen() {
+                          onGoingToFullscreen = true;
+                      }
                   });
 
                   questionPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
@@ -192,6 +203,11 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                               }
                           }
                       }
+                  }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+                      @Override
+                      public void onGoingTofullscreen() {
+                          onGoingToFullscreen = true;
+                      }
                   });
 
                   suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
@@ -217,7 +233,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
           }
           if(viewHolder instanceof SuggestionsPostViewHolder){
-              boolean isRemoved = postViewHolderQueue.remove(viewHolder);
+              boolean isRemoved = suggestionsPostViewHolderQueue.remove(viewHolder);
               ((SuggestionsPostViewHolder)viewHolder).attachmentsRecyclerView.stopPlayback();
 
           }
@@ -432,17 +448,27 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void pausePlayBackFromActivityOnPause(){
-        for (PostViewHolder videoCache: postViewHolderQueue){
-             videoCache.attachmentsRecyclerView.onPause(true);
+        for (PostViewHolder videoCache: postViewHolderQueue) {
+            if (onGoingToFullscreen) {
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
         for (QuestionPostViewHolder videoCache: questionPostViewHolderQueue){
-            videoCache.attachmentsRecyclerView.onPause(true);
+            if (onGoingToFullscreen) {
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
         for (SuggestionsPostViewHolder videoCache: suggestionsPostViewHolderQueue){
-            videoCache.attachmentsRecyclerView.onPause(true);
+            if (onGoingToFullscreen) {
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
         }
-
+        onGoingToFullscreen = false;
     }
+
     private void destroyPlayBackFromActivity(){
         for (PostViewHolder videoCache: postViewHolderQueue) {
             videoCache.attachmentsRecyclerView.onDestroy(true);

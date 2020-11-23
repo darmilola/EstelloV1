@@ -90,7 +90,7 @@ dependencies {
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.github.davidmigloz:drag-to-close:1.1.0'
     implementation 'tm.charlie.androidlib:expandable-textview:2.0.2'
-   // implementation 'com.arthurivanets.arvi:arvi:1.2.0'
+    // implementation 'com.arthurivanets.arvi:arvi:1.2.0'
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.r0adkll:slidableactivity:2.1.0'
 

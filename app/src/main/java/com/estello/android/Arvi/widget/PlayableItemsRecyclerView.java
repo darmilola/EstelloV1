@@ -232,17 +232,25 @@ public final class PlayableItemsRecyclerView extends RecyclerView implements Pla
 
 
    private void handleItemPlayback() {
+
         final int childCount = getChildCount();
         ViewHolder viewHolder;
         // extracting all the playable visible items
         for(int i = 0; i < childCount; i++) {
             viewHolder = findContainingViewHolder(getChildAt(i));
-            if((viewHolder instanceof Playable)
-                    && ((Playable) viewHolder).isTrulyPlayable()) {
+
+            if(viewHolder instanceof Playable && ((PlayableItemViewHolder)viewHolder).isMuted()){
+                ((PlayableItemViewHolder)viewHolder).setMuted(false);
+            }
+            else {
+
+                if ((viewHolder instanceof Playable)
+                        && ((Playable) viewHolder).isTrulyPlayable()) {
                     Playable playable = ((Playable) viewHolder);
-                    if((!((PlayableItemViewHolder)viewHolder).isPausedByUser()) && !((PlayableItemViewHolder)viewHolder).getPlayBackCacheID().equalsIgnoreCase("") && !playable.isPlaying()) {
+                    if ((!((PlayableItemViewHolder) viewHolder).isPausedByUser()) && !((PlayableItemViewHolder) viewHolder).getPlayBackCacheID().equalsIgnoreCase("") && !playable.isPlaying()) {
                         playable.start();
                     }
+                }
             }
         }
     }

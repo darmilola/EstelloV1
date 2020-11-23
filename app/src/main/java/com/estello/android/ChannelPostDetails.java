@@ -1888,8 +1888,6 @@ public class ChannelPostDetails extends AppCompatActivity {
             forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel3);
 
         }
-
-
          SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelPostDetails.this);
          String text =  preferences.getString("2","");
          RTHtml rtHtml = new RTHtml(text);
@@ -1903,7 +1901,12 @@ public class ChannelPostDetails extends AppCompatActivity {
             public void onNewPlayerStarted() {
 
             }
-        });
+        }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+             @Override
+             public void onGoingTofullscreen() {
+                // onGoingToFullscreen = true;
+             }
+         });
         playableItemsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
         if(richLinkView != null)
             richLinkView.setLink("https://medium.com/@allisonmorgan/short-essay-on-web-crawling-scraping-8abf1b232b65", new ViewListener() {
