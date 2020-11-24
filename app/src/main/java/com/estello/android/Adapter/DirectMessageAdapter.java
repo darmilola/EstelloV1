@@ -3,6 +3,7 @@ package com.estello.android.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -17,9 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DirectMessageAdapter extends RecyclerView.Adapter<DirectMessageAdapter.itemViewHolder> {
 
     ArrayList<DirectMessageModel> directMessageModelArrayList;
+    ItemClickListener itemClickListener;
 
-    public DirectMessageAdapter(ArrayList<DirectMessageModel> directMessageModels){
+    public interface ItemClickListener{
+        void  onProfilePictureClick();
+        void onFullItemClick();
+    }
+
+    public DirectMessageAdapter(ArrayList<DirectMessageModel> directMessageModels,ItemClickListener itemClickListener){
         this.directMessageModelArrayList = directMessageModels;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -39,13 +47,26 @@ public class DirectMessageAdapter extends RecyclerView.Adapter<DirectMessageAdap
         return directMessageModelArrayList.size();
     }
 
-    public class itemViewHolder extends RecyclerView.ViewHolder{
+    public class itemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView sender_name,last_message,unread_count,timestamp;
+        ImageView userProfilePicture;
         public itemViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+            userProfilePicture = itemView.findViewById(R.id.direct_message_sender_profile_image);
 
+            userProfilePicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onProfilePictureClick();
+                }
+            });
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onFullItemClick();
         }
     }
 }

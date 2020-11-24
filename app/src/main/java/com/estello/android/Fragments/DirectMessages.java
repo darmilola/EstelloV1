@@ -1,6 +1,7 @@
 package com.estello.android.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.estello.android.Adapter.DirectMessageAdapter;
 
+import com.estello.android.ChannelPostDetails;
+import com.estello.android.DirectMessagesDetails;
+import com.estello.android.QandAChannel;
 import com.estello.android.ViewModel.DirectMessageModel;
 import com.estello.android.R;
 
@@ -45,7 +49,21 @@ public class DirectMessages extends Fragment {
 
     private void initRecyclerView(){
         recyclerView = view.findViewById(R.id.direct_message_recyclerview);
-        directMessageAdapter = new DirectMessageAdapter(messageModelArrayList);
+        directMessageAdapter = new DirectMessageAdapter(messageModelArrayList, new DirectMessageAdapter.ItemClickListener() {
+            @Override
+            public void onProfilePictureClick() {
+                UserProfileBottomSheet userProfileBottomSheet = new UserProfileBottomSheet();
+                userProfileBottomSheet.show(getChildFragmentManager(),"userprofile");
+
+            }
+
+            @Override
+            public void onFullItemClick() {
+
+                startActivity(new Intent(getContext(), DirectMessagesDetails.class));
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(directMessageAdapter);

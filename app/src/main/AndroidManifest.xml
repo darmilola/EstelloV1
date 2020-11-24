@@ -12,24 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".VideoPlayerBaseActivity"></activity>
+        <activity android:name=".DirectMessagesDetails"
+            android:theme="@style/slidingActivityTheme"></activity>
+        <activity android:name=".VideoPlayerBaseActivity" />
         <activity
             android:name=".ChannelPostDetails"
             android:theme="@style/slidingActivityTheme" />
         <activity android:name=".ChannelDetails" />
-        <activity android:name=".ChannelVideoPlayerFullScreen"/>
+        <activity android:name=".ChannelVideoPlayerFullScreen" />
         <activity android:name=".SwipeDismissBaseActivity" />
         <activity
             android:name=".HashTagsActivity"
             android:theme="@style/slidingActivityTheme" />
         <activity android:name=".QandAChannel" />
-        <activity android:name=".CourseActivity">
-
-        </activity>
+        <activity android:name=".CourseActivity"></activity>
         <activity android:name=".SpecializationCourseDetails" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ExploreDisplaySelectedTopic" />
         <activity android:name=".UserProfile" />
+        <activity android:name=".ChannelBaseActivity"/>
         <activity android:name=".OrganisationProfile" />
         <activity android:name=".InstructorsProfile" />
         <activity android:name=".PreviewQuestion" />
@@ -50,7 +51,6 @@
         <activity android:name=".ProposedMore" />
         <activity android:name=".ClassesYouMayLikeMore" />
         <activity android:name=".StartingSoonMore" />
-        <activity android:name=".PersonalProfilePage" />
         <activity android:name=".MainActivity" />
         <activity android:name=".login" />
         <activity android:name=".Sign_Up" />

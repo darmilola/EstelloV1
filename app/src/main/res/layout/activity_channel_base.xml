@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:id="@+id/channel_base_root"
     android:layerType="hardware"
+    android:fitsSystemWindows="true"
     android:background="@color/white">
 
 
@@ -26,6 +27,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     app:contentInsetStart="0dp"
+    android:id="@+id/channel_base_toolbar"
     app:contentInsetEnd="0dp">
   <LinearLayout
       android:layout_width="match_parent"

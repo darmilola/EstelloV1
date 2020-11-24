@@ -64,6 +64,7 @@ import java.util.HashSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -156,6 +157,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     int selectionInStartHashTagging;
     boolean selectionChangeFromMentioning = false;
     RecyclerView mentionHashTagSelectionRecyclerView;
+    Toolbar toolbar;
     ImageView channelInfoIcon;
     ActivityPausedListener activityPausedListener;
     ActivityResumedListener activityResumedListener;
@@ -311,6 +313,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         editor.apply();
         initializeAudioRecordView();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChannelBaseActivity.this);
+        toolbar = findViewById(R.id.channel_base_toolbar);
         mSoftInputHeight = preferences.getInt("softInputHeight", 0);
         edittextHeightWithKeyboard = preferences.getInt("edittextSize", 0);
         softInputHeight = preferences.getInt("softInputHeight", 0);

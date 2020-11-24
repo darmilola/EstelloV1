@@ -106,10 +106,8 @@ public class HashTagsActivity extends AppCompatActivity {
         super.onResume();
         if(activityResumedListener != null)activityResumedListener.onActivityResumed();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
             getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.transparent));
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.white));
-            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 

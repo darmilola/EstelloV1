@@ -1135,14 +1135,14 @@ public class ChannelPostDetails extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        activityPausedListener.onActivityPaused();
+        if(activityPausedListener != null)activityPausedListener.onActivityPaused();
         playableItemsRecyclerView.onPause(true);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        activityDestroyedListener.onActivityDestroyed();
+        if(activityDestroyedListener != null)activityDestroyedListener.onActivityDestroyed();
         playableItemsRecyclerView.onDestroy(false);
     }
 

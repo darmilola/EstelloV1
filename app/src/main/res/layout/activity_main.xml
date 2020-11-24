@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:layerType="hardware"
+    android:fitsSystemWindows="true"
     android:id="@+id/activity_main_drawer_layout"
     tools:context=".MainActivity">
 
@@ -28,9 +29,12 @@
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:layout_marginTop="10dp">
+                  android:orientation="vertical">
 
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="22dp"
+                      android:background="#2F000000" />
                   <LinearLayout
                       android:layout_width="match_parent"
                       android:layout_height="70dp"

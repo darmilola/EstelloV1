@@ -38,7 +38,7 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:tint="@color/colorPrimary"
-                        android:src="@drawable/ic_pause_white_36dp"/>
+                        android:src="@drawable/ic_play_arrow"/>
                 </LinearLayout>
             </LinearLayout>
 
