@@ -73,7 +73,7 @@
                         fresco:actualImageScaleType="fitXY"
                         android:layout_gravity="center|bottom"
                         fresco:roundedCornerRadius="5dp"
-                        fresco:roundAsCircle="true"
+                        fresco:roundAsCircle="false"
                         android:id="@+id/activity_main_user_profile_profile_image"
                         fresco:placeholderImage="@drawable/woman2"
                         fresco:placeholderImageScaleType="fitXY"/>

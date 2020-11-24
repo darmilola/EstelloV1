@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottom_nav_root_layout = findViewById(R.id.bottomnav_root_layout);
         toolbar = findViewById(R.id.activity_main_toolbar);
-        viewProfileLayout = findViewById(R.id.activity_main_user_profile_view_profile_layout);
+        viewProfileLayout = findViewById(R.id.activity_main_drawer_user_profile_layout);
         drawerLayout = findViewById(R.id.activity_main_drawer_layout);
         mainView = findViewById(R.id.activity_main_main_view);
         drawerToggle = new ActionBarDrawerToggle(MainActivity.this,drawerLayout,toolbar,R.string.app_name,R.string.app_name){

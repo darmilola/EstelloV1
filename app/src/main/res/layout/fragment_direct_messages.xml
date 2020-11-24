@@ -8,20 +8,50 @@
     android:background="@color/white"
     tools:context=".Fragments.DirectMessages">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="50dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="3dp"
+                app:strokeColor="#CFCFCF"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/airreg"
+                    android:gravity="center|left"
+                    android:text="Jump to..."
+                    android:textColor="@color/light_text_color"
+                    android:textSize="17dp" />
+            </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/direct_message_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:itemCount="20"
             tools:listitem="@layout/direct_message_item">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="55dp"
