@@ -52,6 +52,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrListener;
 import com.rd.utils.DensityUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -164,6 +167,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     ActivityDestroyedListener activityDestroyedListener;
     //NestedScrollView channelBaseNestedScrollView;
     int i = 0;
+    SlidrConfig config;
 
 
     public interface ActivityPausedListener{
@@ -181,12 +185,46 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeBaseFeaturesLayout();
+      /*  initSlidr();
+        Slidr.attach(this, config);*/
         populateView();
         initView();
         setUpAttachmentsView();
         setUpActivityattachmentsView();
 
     }
+    private void initSlidr(){
+        config = new SlidrConfig.Builder()
+                .primaryColor(ContextCompat.getColor(this,R.color.full_transparency))
+                .secondaryColor(ContextCompat.getColor(this,R.color.full_transparency))
+                .scrimColor(ContextCompat.getColor(this,R.color.black))
+                .listener(new SlidrListener() {
+                    @Override
+                    public void onSlideStateChanged(int state) {
+
+                    }
+
+                    @Override
+                    public void onSlideChange(float percent) {
+
+                    }
+
+                    @Override
+                    public void onSlideOpened() {
+
+                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.transparent));
+                    }
+
+                    @Override
+                    public boolean onSlideClosed() {
+
+                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.white));
+                        return false;
+                    }
+                }).build();
+    }
+
+
 
     private void initializeBaseFeaturesLayout() {
         setContentView(R.layout.activity_channel_base);
@@ -1002,7 +1040,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
         if(activityResumedListener != null)activityResumedListener.onActivityResumed();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.transparent));
             getWindow().setStatusBarColor(ContextCompat.getColor(ChannelBaseActivity.this, R.color.white));
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -1021,6 +1059,7 @@ public abstract class ChannelBaseActivity extends AppCompatActivity {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else {
             super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
         }
     }

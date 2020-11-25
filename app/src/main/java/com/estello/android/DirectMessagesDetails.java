@@ -33,46 +33,12 @@ public class DirectMessagesDetails extends ChannelBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initSlidr();
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.topMargin = DensityUtils.dpToPx(20);
-       // super.toolbar.setLayoutParams(lp);
-        //super.toolbar.requestLayout();
-        Slidr.attach(this, config);
         new populateTask().execute();
 
     }
 
-    private void initSlidr(){
-        config = new SlidrConfig.Builder()
-                .primaryColor(ContextCompat.getColor(this,R.color.white))
-                .secondaryColor(ContextCompat.getColor(this,R.color.full_transparency))
-                .scrimColor(ContextCompat.getColor(this,R.color.black))
-                .listener(new SlidrListener() {
-                    @Override
-                    public void onSlideStateChanged(int state) {
 
-                    }
 
-                    @Override
-                    public void onSlideChange(float percent) {
-
-                    }
-
-                    @Override
-                    public void onSlideOpened() {
-
-                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.transparent));
-                    }
-
-                    @Override
-                    public boolean onSlideClosed() {
-
-                        //getWindow().setNavigationBarColor(ContextCompat.getColor(HashTagsActivity.this,R.color.white));
-                        return false;
-                    }
-                }).build();
-    }
 
     @SuppressLint("UseSparseArrays")
     public class populateTask extends AsyncTask {
@@ -168,7 +134,6 @@ public class DirectMessagesDetails extends ChannelBaseActivity {
             setChannelPostAdapter(adapter);
         }
     }
-
     @Override
     public void setChannelPostAdapter(ChannelPostAdapter adapter){
         adapter = this.adapter;
@@ -180,8 +145,6 @@ public class DirectMessagesDetails extends ChannelBaseActivity {
         super.showPostToolsBottomSheet(position);
     }
 
-
-
     @Override
     public void onResume() {
 
@@ -189,14 +152,12 @@ public class DirectMessagesDetails extends ChannelBaseActivity {
         if(activityResumedListener != null)activityResumedListener.onActivityResumed();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.transparent));
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.transparent));
-            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS );
-            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            getWindow().setStatusBarColor(ContextCompat.getColor(DirectMessagesDetails.this,R.color.white));
+            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
+            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
     }
 }

@@ -54,7 +54,6 @@ public class DirectMessages extends Fragment {
             public void onProfilePictureClick() {
                 UserProfileBottomSheet userProfileBottomSheet = new UserProfileBottomSheet();
                 userProfileBottomSheet.show(getChildFragmentManager(),"userprofile");
-
             }
 
             @Override
