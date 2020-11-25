@@ -1,19 +1,11 @@
 package com.estello.android.Adapter;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 
-import com.estello.android.ViewModel.notification_model;
+import com.estello.android.ViewModel.NotificationModel;
 import com.estello.android.R;
 
 import java.util.ArrayList;
@@ -21,102 +13,92 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<notification_model> notificationModelArrayList;
+    private static int typeMentions = 1;
+    private static int typeReactions = 2;
+    private static int typeBot = 3;
+    ArrayList<NotificationModel> notificationModelArrayList;
 
 
-    public NotificationAdapter(ArrayList<notification_model> notification_models){
-        this.notificationModelArrayList = notification_models;
+    public NotificationAdapter(ArrayList<NotificationModel> NotificationModels){
+        this.notificationModelArrayList = NotificationModels;
     }
 
     @NonNull
     @Override
-    public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_type_like_share_mention_post, parent, false);
-        return new NotificationViewHolder(view2);
+        if(viewType == typeMentions){
 
-
-
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-
-    }
-
-
-
-    @Override
-    public int getItemCount() {
-        return notificationModelArrayList.size();
-    }
-
-
-
-
-  /*  public class createCourseViewHolder extends RecyclerView.ViewHolder{
-
-
-        private TextView notificationText;
-        private TextView timestamp;
-
-        public createCourseViewHolder(@NonNull View itemView) {
-            super(itemView);
-            notificationText = itemView.findViewById(R.id.notification_text);
-            timestamp = itemView.findViewById(R.id.notfication_timestamp);
-            Typeface customfont2= Typeface.createFromAsset(itemView.getContext().getAssets(),"montreg.ttf");
-            notificationText.setTypeface(customfont2);
-            timestamp.setTypeface(customfont2);
-            String source = "<b>Damilola Akinterinwa,Emmanuel and james Bond</b>"+" Followed you";
-            notificationText.setText(Html.fromHtml(source));
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_type_mentions, parent, false);
+            return new MentionsNotificationViewHolder(view2);
         }
-    }*/
+        else if(viewType == typeReactions){
 
-    public class NotificationViewHolder extends RecyclerView.ViewHolder{
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_type_reactions, parent, false);
+            return new ReactionsNotificationViewHolder(view2);
+        }
+        else if(viewType == typeBot){
 
+            View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_type_bots, parent, false);
+            return new BotNotificationViewHolder(view2);
+        }
+        return  null;
+    }
+        @Override
+        public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder,int position){
 
-         private TextView notificationText;
-         private TextView timestamp;
-         public NotificationViewHolder(@NonNull View itemView) {
-            super(itemView);
-            notificationText = itemView.findViewById(R.id.notification_text);
-            timestamp = itemView.findViewById(R.id.notfication_timestamp);
-            Typeface customfont2= Typeface.createFromAsset(itemView.getContext().getAssets(),"montreg.ttf");
-            notificationText.setTypeface(customfont2);
-            timestamp.setTypeface(customfont2);
-            String notifGen = "Damilola Akinterinwa,Emmanuel and james Bond,Mark and Cloudinary ";
-            String notifCause = "followed";
-            String lastPart = " You";
+        }
 
-            String myNotif = notifGen+notifCause+lastPart;
+        @Override
+        public int getItemCount () {
+            return notificationModelArrayList.size();
+        }
 
-            Spannable spannable = new SpannableString(myNotif);
+      @Override
+      public int getItemViewType(int position) {
 
-            spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#fa2d65")),notifGen.length(), (notifGen+notifCause).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            spannable.setSpan(new StyleSpan(Typeface.BOLD),0,notifGen.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            notificationText.setText(spannable, TextView.BufferType.SPANNABLE);
-            //notificationText.setText(Html.fromHtml(source));
+        if(notificationModelArrayList.get(position).getNotificationType() == typeMentions){
+            return typeMentions;
+        }
+        else if(notificationModelArrayList.get(position).getNotificationType() == typeReactions){
+            return typeReactions;
+        }
+        else if(notificationModelArrayList.get(position).getNotificationType() == typeBot){
+            return typeBot;
+        }
+        else {
+            return typeBot;
         }
     }
-   /* public class followingViewHolder extends RecyclerView.ViewHolder{
 
 
+        public class MentionsNotificationViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView notificationText;
-        private TextView timestamp;
-        public followingViewHolder(@NonNull View itemView) {
-            super(itemView);
-            notificationText = itemView.findViewById(R.id.notification_text);
-            timestamp = itemView.findViewById(R.id.notfication_timestamp);
-            Typeface customfont2= Typeface.createFromAsset(itemView.getContext().getAssets(),"montreg.ttf");
-            notificationText.setTypeface(customfont2);
-            timestamp.setTypeface(customfont2);
-            String source = "<b>Damilola Akinterinwa,Emmanuel and james Bond</b>"+" Followed you";
-            notificationText.setText(Html.fromHtml(source));
+
+            public MentionsNotificationViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+            }
+
         }
-    }*/
-}
+        public class ReactionsNotificationViewHolder extends RecyclerView.ViewHolder {
+
+
+        public ReactionsNotificationViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+        }
+
+    }
+       public class BotNotificationViewHolder extends RecyclerView.ViewHolder {
+
+
+        public BotNotificationViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+        }
+
+    }
+    }

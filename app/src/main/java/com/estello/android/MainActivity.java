@@ -14,12 +14,15 @@ import android.widget.LinearLayout;
 import com.estello.android.Fragments.DirectMessages;
 import com.estello.android.Fragments.LearningFragment;
 import com.estello.android.Fragments.MyCourses;
+import com.estello.android.Fragments.NotificationFragment;
 import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.rd.utils.DensityUtils;
 
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
                 }  else if (i == R.id.my_dm) {
                     viewPager.setCurrentItem(1, false);
+                }
+                else if (i == R.id.notification) {
+                    viewPager.setCurrentItem(2, false);
                 }
                 return true;
             }
@@ -198,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
             super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -206,10 +213,11 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
 
                   case 0:
-
-                    return new LearningFragment();
+                      return new LearningFragment();
                   case 1:
-                    return new DirectMessages();
+                      return new DirectMessages();
+                  case 2:
+                      return new NotificationFragment();
 
 
 
@@ -220,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
 
-            return 2;
+            return 3;
         }
 
 
@@ -241,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.addFragment(new LearningFragment(), "first");
         adapter.addFragment(new DirectMessages(), "second");
+        adapter.addFragment(new NotificationFragment(), "third");
         viewPager.setAdapter(adapter);
     }
 
