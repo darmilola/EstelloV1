@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.estello.android.ViewModel.ExploreCommunityGridViewItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="15dp"
+    android:layout_height="170dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="7dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/explore_courses_image"
+                android:src="@drawable/ucas"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/new_dark_text_color"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:id="@+id/explore_courses_title"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:fontFamily="@font/airreg"
+        android:textSize="14dp"
+        android:lineSpacingExtra="3dp"
+        android:text="June 12, 1993 M.k.O Abiola was killed by the *Americans"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/airreg"
+        android:gravity="center"
+        android:maxLines="1"
+        android:layout_marginTop="7dp"
+        android:text="397 Posts"
+        android:textColor="#7A7A7A"
+        android:textSize="13dp"/>
+</com.estello.android.ViewModel.ExploreCommunityGridViewItem>

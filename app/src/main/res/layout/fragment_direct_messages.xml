@@ -8,88 +8,58 @@
     android:background="@color/white"
     tools:context=".Fragments.DirectMessages">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/starting_soon_more_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimary">
-
+        android:layout_marginBottom="50dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
-            android:weightSum="5">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-            </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:gravity="bottom|center"
-                android:layout_marginTop="10dp"
-                android:layout_height="match_parent">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="3dp"
+                app:strokeColor="#CFCFCF"
+                app:strokeWidth="1dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/opensanssemibold"
-                    android:gravity="center|bottom"
-                    android:text="Direct Messages"
-                    android:textColor="#ffffff"
-                    android:textSize="18dp" />
-            </LinearLayout>
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/airreg"
+                    android:gravity="center|left"
+                    android:text="Jump to..."
+                    android:textColor="@color/light_text_color"
+                    android:textSize="17dp" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:gravity="center|right"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:layout_gravity="bottom"
-                    android:tint="@color/white"
-                    android:src="@drawable/newsearchicon"/>
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/direct_message_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:itemCount="20"
             tools:listitem="@layout/direct_message_item">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:src="@drawable/new_compose_message"
+        android:src="@drawable/write_2x"
         app:tint = "@color/white"
         app:maxImageSize="20dp"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="65dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

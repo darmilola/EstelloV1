@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.estello.android.Adapter.NotificationAdapter;
 
-import com.estello.android.ViewModel.notification_model;
+import com.estello.android.ViewModel.NotificationModel;
 import com.estello.android.R;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class NotificationFragment extends Fragment {
 
     RecyclerView recyclerView;
     View view;
-    ArrayList<notification_model> notificationModelArrayList = new ArrayList<>();
+    ArrayList<NotificationModel> notificationModelArrayList = new ArrayList<>();
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -56,18 +56,17 @@ public class NotificationFragment extends Fragment {
 
     private void populateList(){
 
-        notification_model notification_model = new notification_model();
-        notification_model notification_model2 = new notification_model();
-        notification_model notification_model3 = new notification_model();
+        NotificationModel NotificationModel = new NotificationModel(1);
+        NotificationModel notificationModel2 = new NotificationModel(2);
+        NotificationModel notificationModel3 = new NotificationModel(3);
 
 
         for(int i = 0; i < 3; i++){
-            notificationModelArrayList.add(notification_model);
-
+            notificationModelArrayList.add(NotificationModel);
+            notificationModelArrayList.add(notificationModel2);
+            notificationModelArrayList.add(notificationModel3);
         }
 
     }
-
-
 
 }

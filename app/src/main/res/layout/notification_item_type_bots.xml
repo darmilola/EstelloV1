@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="5">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|top"
+        android:layout_marginTop="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImage="@drawable/appicon"
+            fresco:placeholderImageScaleType="fitXY"
+            fresco:roundAsCircle="false"
+            fresco:roundedCornerRadius="5dp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_marginTop="10dp">
+
+            <com.deltastream.example.edittextcontroller.RTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:fontFamily="@font/airbold"
+                android:lineSpacingExtra="4dp"
+                android:textSize="17dp"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Estello-Bot"
+                android:textColor="@color/black"/>
+            <com.deltastream.example.edittextcontroller.RTextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/airreg"
+                android:lineSpacingExtra="4dp"
+                android:textSize="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Nov 20"
+                android:textColor="#575757"/>
+        </LinearLayout>
+
+
+        <com.deltastream.example.edittextcontroller.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:fontFamily="@font/airreg"
+            android:lineSpacingExtra="4dp"
+            android:textSize="17dp"
+            android:ellipsize="end"
+            android:layout_marginRight="20dp"
+            android:maxLines="4"
+            android:layout_marginTop="5dp"
+            android:text="Hi Damilola, i am Estello's Bot am going to be sending you things that really matters to you, as it been released on the platform nice meeting you, if you wish to filter what you wish to receive from me you can click here"
+            android:textColor="@color/black" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/light_grey"/>
+    </LinearLayout>
+
+
+</LinearLayout>

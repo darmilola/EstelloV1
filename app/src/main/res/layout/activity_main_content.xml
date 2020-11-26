@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/activity_main_main_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/activity_main_toolbar_overlay"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="10dp"
+                        android:layout_gravity="center|bottom"
+                        android:tint="@color/white"
+                        android:src="@drawable/newsearchicon"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:gravity="center|bottom"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/airsemi"
+                        android:gravity="center"
+                        android:text="Explore"
+                        android:textColor="#ffffff"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:gravity="center|right"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/activity_main_user_profile_profile_image_layout"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        fresco:actualImageScaleType="fitXY"
+                        android:layout_gravity="center|bottom"
+                        fresco:roundedCornerRadius="5dp"
+                        fresco:roundAsCircle="false"
+                        android:id="@+id/activity_main_user_profile_profile_image"
+                        fresco:placeholderImage="@drawable/woman2"
+                        fresco:placeholderImageScaleType="fitXY"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.estello.android.ViewModel.NoSwipeableViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_frame"
+                android:layout_marginBottom="55.5dp"
+                android:orientation="vertical"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_gravity="bottom"
+                android:paddingBottom="50dp"
+                android:id="@+id/bottomnav_root_layout"
+                android:layout_alignParentBottom="true">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#605A5959" />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:id="@+id/chip_navigation"
+                    app:menu="@menu/bottom_menu"
+                    app:itemIconSize="24dp"
+                    android:paddingTop="10dp"
+                    style="@style/Widget.BottomNavigationStyle"
+                    app:labelVisibilityMode="labeled"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -6,66 +6,10 @@
     android:orientation="vertical"
     android:background="@drawable/courses_background"
     tools:context=".Fragments.MyCourses">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:weightSum="5">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-            </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/opensanssemibold"
-                android:gravity="center"
-                android:text="My Courses"
-                android:textColor="#ffffff"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:gravity="center|right"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:tint="@color/white"
-                android:src="@drawable/newsettings"/>
-        </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-<androidx.recyclerview.widget.RecyclerView
+ <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+     android:paddingTop="30dp"
     tools:listitem="@layout/my_courses_recycler_item"
     android:id="@+id/my_courses_recyclerview">
 

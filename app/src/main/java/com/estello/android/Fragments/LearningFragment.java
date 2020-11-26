@@ -40,7 +40,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExploreFragment extends Fragment {
+public class LearningFragment extends Fragment {
 
 
     View view;
@@ -51,7 +51,7 @@ public class ExploreFragment extends Fragment {
     TextView exploreMostPopularCourseSeeAll;
     MaterialCardView cardView;
     ArrayList<explore_category_chip_model> explore_category_chip_models = new ArrayList<>();
-    public ExploreFragment() {
+    public LearningFragment() {
         // Required empty public constructor
     }
 
@@ -60,7 +60,7 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         view =  inflater.inflate(R.layout.fragment_explore, container, false);
+         view =  inflater.inflate(R.layout.fragment_learning, container, false);
 
          initView();
          setUpMostPopularCourse();
@@ -147,29 +147,12 @@ public class ExploreFragment extends Fragment {
 
     private void initView(){
 
-        exploreMostPopularCourseSeeAll = view.findViewById(R.id.explore_most_popular_course_see_all);
-        cardView = view.findViewById(R.id.fragment_explore_search_bar);
-        exploreMostPopularCourseSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ExploreDisplaySelectedTopic.class));
-            }
-        });
+
         CoursesModel courses_model = new CoursesModel();
 
         for(int i = 0; i < 10; i++){
             coursesList.add(courses_model);
         }
-
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair[]{new Pair<LinearLayout, String>(view.findViewById(R.id.explore_search_layout), getString(R.string.transition_search_layout))});
-
-                ActivityCompat.startActivity(getContext(),new Intent(getContext(), SearchActivity.class),optionsCompat.toBundle());
-            }
-        });
     }
 
     private void setUpCategoryRecycler(){

@@ -25,7 +25,7 @@
     </LinearLayout>
 
 
-    <com.estello.android.splashscreen.Model.AutoScrollViewPager
+    <com.estello.android.ViewModel.AutoScrollViewPager
         android:id="@+id/welcome_pager"
         android:layout_width="match_parent"
         android:layout_height="250dp"
