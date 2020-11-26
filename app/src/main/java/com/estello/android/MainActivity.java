@@ -2,24 +2,26 @@ package com.estello.android;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
 import com.estello.android.Fragments.DirectMessages;
+import com.estello.android.Fragments.ExploreCommunity;
 import com.estello.android.Fragments.LearningFragment;
-import com.estello.android.Fragments.MyCourses;
 import com.estello.android.Fragments.NotificationFragment;
 import com.estello.android.Fragments.UserProfileBottomSheet;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.rd.utils.DensityUtils;
 
 
@@ -29,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,7 +42,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ExploreCommunity.UpdateStatusAndToolbarBackgroundListener {
 
 
     BottomNavigationView bottomNavigationView;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     LinearLayout mainView;
     LinearLayout bottom_nav_root_layout;
+    LinearLayout toolbarOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
 
+
+        toolbarOverlay = findViewById(R.id.activity_main_toolbar_overlay);
         bottom_nav_root_layout = findViewById(R.id.bottomnav_root_layout);
         toolbar = findViewById(R.id.activity_main_toolbar);
         viewProfileLayout = findViewById(R.id.activity_main_drawer_user_profile_layout);
@@ -107,11 +111,14 @@ public class MainActivity extends AppCompatActivity {
                 if (i == R.id.learn) {
                     viewPager.setCurrentItem(0, false);
 
-                }  else if (i == R.id.my_dm) {
+                }
+                else if (i == R.id.explore) {
                     viewPager.setCurrentItem(1, false);
+                }else if (i == R.id.my_dm) {
+                    viewPager.setCurrentItem(2, false);
                 }
                 else if (i == R.id.notification) {
-                    viewPager.setCurrentItem(2, false);
+                    viewPager.setCurrentItem(3, false);
                 }
                 return true;
             }
@@ -141,6 +148,66 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onUpdate(Bitmap bitmap) {
+
+        if(viewPager.getCurrentItem() == 1) {
+            toolbarOverlay.setBackgroundColor(Color.parseColor("#80000000"));
+            toolbar.setBackground(new BitmapDrawable(getResources(),bitmap));
+            AnimateBackgroundChange();
+        }
+        else{
+            toolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
+            toolbarOverlay.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
+        }
+    }
+
+
+    public void AnimateBackgroundChange(){
+
+        AlphaAnimation alphaAnim2;
+        alphaAnim2 = new AlphaAnimation(1f, 0.8f);
+        alphaAnim2.setDuration(1000);
+        AlphaAnimation alphaAnim;
+        alphaAnim = new AlphaAnimation(0.8f, 1f);
+
+        alphaAnim2.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            public void onAnimationEnd(Animation animation) {
+
+               alphaAnim.start();
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        toolbar.setAnimation(alphaAnim2);
+
+
+        alphaAnim.setDuration(1000);
+        alphaAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            public void onAnimationEnd(Animation animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        toolbar.setAnimation(alphaAnim);
+    }
+
+
+
 
 
 
@@ -216,8 +283,10 @@ public class MainActivity extends AppCompatActivity {
                   case 0:
                       return new LearningFragment();
                   case 1:
-                      return new DirectMessages();
+                    return new ExploreCommunity();
                   case 2:
+                      return new DirectMessages();
+                  case 3:
                       return new NotificationFragment();
 
 
@@ -229,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
 
-            return 3;
+            return 4;
         }
 
 
@@ -249,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         adapter.addFragment(new LearningFragment(), "first");
+        adapter.addFragment(new ExploreCommunity(), "explore");
         adapter.addFragment(new DirectMessages(), "second");
         adapter.addFragment(new NotificationFragment(), "third");
         viewPager.setAdapter(adapter);

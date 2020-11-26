@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:fontFamily="@font/airreg"
+                android:fontFamily="@font/airsemi"
                 android:id="@+id/direct_message_sender_name"
                 android:text="Damilola Akinterinwa"
                 android:textColor="@color/black"

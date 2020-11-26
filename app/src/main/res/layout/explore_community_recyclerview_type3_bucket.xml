@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="535dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        app:cardElevation="1dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="3">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/pinkypinky"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/podcasts_2_2x"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="16dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginRight="20dp"
+                        android:textColor="@color/dark_text_color"
+                        android:fontFamily="@font/airsemi"
+                        android:text="CareerWise"
+                        android:gravity="center|left"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/rectangle_transparent_background"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Show all"
+                        android:textSize="13dp"
+                        android:textColor="@color/new_dark_text_color"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:spanCount="2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/explore_community_recyclerview_type3_item"
+                android:layout_marginBottom="5dp"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/light_grey"/>
+</LinearLayout>
