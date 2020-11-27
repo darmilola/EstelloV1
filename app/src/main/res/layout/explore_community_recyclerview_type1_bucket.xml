@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="420dp">
+    android:layout_height="430dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="415dp"
-        app:cardElevation="1dp">
+        app:cardElevation="0dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,25 +31,25 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_marginRight="20dp"
-            android:textColor="@color/new_dark_text_color"
-            android:fontFamily="@font/airsemi"
-            android:text="Welcome International Students in Uk"
+            android:textColor="@color/black"
+            android:fontFamily="@font/sourcesemi"
+            android:text="Welcome International Students in Uk and rest of the world"
             android:gravity="center|left"/>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:background="@drawable/rectangle_transparent_background"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="SHOW ALL"
+                android:text="Show all"
                 android:textSize="13dp"
-                android:textColor="@color/new_dark_text_color"
+                android:textColor="@color/dark_text_color"
                 android:gravity="center"/>
 
         </LinearLayout>
@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:spanCount="3"
+                android:id="@+id/explore_community_type1_recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/explore_community_recyclerview_type1_item"
                 android:layout_marginBottom="5dp"/>
@@ -68,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/light_grey"/>
 </LinearLayout>

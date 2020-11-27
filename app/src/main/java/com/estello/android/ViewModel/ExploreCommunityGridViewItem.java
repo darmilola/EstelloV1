@@ -22,6 +22,6 @@ public class ExploreCommunityGridViewItem extends LinearLayout {
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 
-        super.onMeasure(widthMeasureSpec,widthMeasureSpec);
+        super.onMeasure(widthMeasureSpec,widthMeasureSpec*2);
     }
 }

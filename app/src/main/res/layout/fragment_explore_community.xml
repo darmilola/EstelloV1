@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:layout_marginBottom="55dp"
     tools:context=".Fragments.ExploreCommunity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,12 +14,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:focusableInTouchMode="true"
             android:id="@+id/explore_community_billboard_recyclerview"
             tools:listitem="@layout/explore_community_billboard_item"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="5dp"
+            tools:listitem="@layout/explore_community_recyclerview_type3_bucket"
+            android:id="@+id/explore_community_main_recycler_view"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

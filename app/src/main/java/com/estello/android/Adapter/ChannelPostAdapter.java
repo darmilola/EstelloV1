@@ -210,7 +210,7 @@ public class ChannelPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                       }
                   });
 
-                  suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+                   suggestionsPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
                   ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityPausedListener(ChannelPostAdapter.this::pausePlayBackFromActivityOnPause);
                   ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityDestroyedListener(ChannelPostAdapter.this::destroyPlayBackFromActivity);
                   ((ChannelBaseActivity)suggestionsPostViewHolder.itemView.getContext()).setActivityResumedListener(ChannelPostAdapter.this::resumePlayBackFromActivity);

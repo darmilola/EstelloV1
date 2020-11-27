@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginBottom="15dp"
     android:layout_height="170dp">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="7dp">
+        app:cardElevation="0dp"
+        app:cardCornerRadius="3dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 android:id="@+id/explore_courses_image"
-                android:src="@drawable/ucas"/>
+                android:src="@drawable/ucasdeadline"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -39,7 +39,7 @@
         android:fontFamily="@font/airreg"
         android:textSize="14dp"
         android:lineSpacingExtra="3dp"
-        android:text="June 12, 1993 M.k.O Abiola was killed by the *Americans"/>
+        android:text="British Art, Photography and Subculture"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,8 +48,8 @@
         android:fontFamily="@font/airreg"
         android:gravity="center"
         android:maxLines="1"
-        android:layout_marginTop="7dp"
-        android:text="397 Posts"
+        android:layout_marginTop="5dp"
+        android:text="125k Posts"
         android:textColor="#7A7A7A"
         android:textSize="13dp"/>
 </com.estello.android.ViewModel.ExploreCommunityGridViewItem>
