@@ -1,21 +1,37 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.deltastream.example.edittextcontroller.RTextView;
+import com.estello.android.Arvi.Config;
+import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
+import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
+import com.estello.android.MainActivity;
 import com.estello.android.R;
 import com.estello.android.ViewModel.CommunityViewMetadata;
+import com.estello.android.ViewModel.ForumPostModel;
+import com.estello.android.ViewModel.RecyclerViewPagerIndicator;
+import com.estello.android.ViewModel.RichLinkView.RichLinkView;
+import com.rd.utils.DensityUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -24,7 +40,11 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
     private static int typeChannel = 0;
     private static int typeHashtags = 1;
     private static int typeVideos = 2;
+    private static int typeFeaturedPost = 3;
+    private static int typeBillboard = 4;
     Context context;
+    private Queue<ExploreFeaturedPostViewHolder> exploreFeaturedPostViewHolderQueue = new LinkedList<>();
+    boolean onGoingToFullscreen  = false;
 
     public ExploreCommunityRecyclerAdapter(List<Map<CommunityViewMetadata,List<Object>>> communityViewList,Context context){
            this.communityViewList = communityViewList;
@@ -46,24 +66,28 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type3_bucket, parent, false);
             return new ExploreVideosViewHolder(view);
         }
+        else if (viewType == typeFeaturedPost) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyler_type4_item, parent, false);
+            return new ExploreFeaturedPostViewHolder(view);
+        }
+        else if (viewType == typeBillboard) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type5_bucket_billboard, parent, false);
+            return new ExploreBillboardViewholder(view);
+        }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-
-
     }
+
 
     @Override
     public void onViewAttachedToWindow(@NotNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
+        Log.e("attached ", "onViewAttachedToWindow: ");
        int position = holder.getAdapterPosition();
-
-
-
-        if(holder instanceof ExploreChannelViewHolder){
+       if(holder instanceof ExploreChannelViewHolder){
 
             Map<CommunityViewMetadata,List<Object>> channelMap = communityViewList.get(position);
             Set<CommunityViewMetadata> communityViewMetadataHashSet = channelMap.keySet();
@@ -110,6 +134,109 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
 
         }
 
+       else if(holder instanceof ExploreFeaturedPostViewHolder){
+
+           Map<CommunityViewMetadata,List<Object>> featuredMap = communityViewList.get(position);
+           Set<CommunityViewMetadata> communityViewMetadataHashSet = featuredMap.keySet();
+           List<Object> featuredModelListObj = null;
+           for (CommunityViewMetadata communityViewMetadata: communityViewMetadataHashSet) {
+               featuredModelListObj = featuredMap.get(communityViewMetadata);
+           }
+           ExploreFeaturedPostViewHolder featuredPostViewHolder = (ExploreFeaturedPostViewHolder) holder;
+           ForumPostModel forumPostModel = (ForumPostModel) featuredModelListObj.get(0);
+           LinearLayoutManager LinearLayoutManager2 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+           featuredPostViewHolder.attachmentsRecyclerView.setLayoutManager(LinearLayoutManager2);
+           Config config = new Config.Builder().cache(ExoPlayerUtils.getCache(context)).build();
+           ForumPostAttachmentsAdapter forumPostAttachmentsAdapter = new ForumPostAttachmentsAdapter(context, forumPostModel.getPostAttachmentList(), config, new ForumPostAttachmentsAdapter.NewPlayerStarted() {
+               @Override
+               public void onNewPlayerStarted() {
+                   for (ExploreFeaturedPostViewHolder mexploreFeaturedPostViewHolder:exploreFeaturedPostViewHolderQueue) {
+                       if(!mexploreFeaturedPostViewHolder.attachmentsRecyclerView.isPlayBackPlaying() || mexploreFeaturedPostViewHolder != featuredPostViewHolder){
+                           mexploreFeaturedPostViewHolder.attachmentsRecyclerView.stopPlayback();
+                       }
+                   }
+               }
+           }, new ForumPostAttachmentsAdapter.GoingToFullScreen() {
+               @Override
+               public void onGoingTofullscreen() {
+                   onGoingToFullscreen = true;
+               }
+           });
+
+           featuredPostViewHolder.attachmentsRecyclerView.setAdapter(forumPostAttachmentsAdapter);
+           ((MainActivity)context).setActivityPausedListener(ExploreCommunityRecyclerAdapter.this::pausePlayBackFromActivityOnPause);
+           ((MainActivity)context).setActivityDestroyedListener(ExploreCommunityRecyclerAdapter.this::destroyPlayBackFromActivity);
+           ((MainActivity)context).setActivityResumedListener(ExploreCommunityRecyclerAdapter.this::resumePlayBackFromActivity);
+           exploreFeaturedPostViewHolderQueue.add(featuredPostViewHolder);
+       }
+
+       else if(holder instanceof ExploreBillboardViewholder){
+
+           Map<CommunityViewMetadata,List<Object>> billboardMap = communityViewList.get(position);
+           Set<CommunityViewMetadata> communityViewMetadataHashSet = billboardMap.keySet();
+           List<Object> billboardModelListObj = null;
+           for (CommunityViewMetadata communityViewMetadata: communityViewMetadataHashSet) {
+               billboardModelListObj = billboardMap.get(communityViewMetadata);
+           }
+           ExploreBillboardViewholder billboardViewholder = (ExploreBillboardViewholder) holder;
+           ExploreCommunityBillboardAdapter exploreCommunityBillboardAdapter = new ExploreCommunityBillboardAdapter(billboardModelListObj,context);
+           LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+           billboardViewholder.recyclerView.setLayoutManager(layoutManager);
+           billboardViewholder.recyclerView.setAdapter(exploreCommunityBillboardAdapter);
+   //        new PagerSnapHelper().attachToRecyclerView(billboardViewholder.recyclerView);
+           billboardViewholder.recyclerView.addItemDecoration(new RecyclerViewPagerIndicator(DensityUtils.dpToPx(3),DensityUtils.dpToPx(5),DensityUtils.dpToPx(30), ContextCompat.getColor(context,R.color.white),ContextCompat.getColor(context,R.color.pinkypinky)));
+       }
+    }
+
+
+    @Override
+    public void onViewRecycled(@NotNull RecyclerView.ViewHolder viewHolder) {
+           super.onViewRecycled(viewHolder);
+        if (viewHolder instanceof ExploreFeaturedPostViewHolder) {
+            ExploreFeaturedPostViewHolder exploreFeaturedPostViewHolder = (ExploreFeaturedPostViewHolder) viewHolder;
+            exploreFeaturedPostViewHolderQueue.remove(exploreFeaturedPostViewHolder);
+            exploreFeaturedPostViewHolder.attachmentsRecyclerView.stopPlayback();
+        }
+    }
+
+
+    @Override
+    public void onViewDetachedFromWindow(@NotNull RecyclerView.ViewHolder viewHolder){
+           super.onViewDetachedFromWindow(viewHolder);
+            Log.e("explore detach", "onViewDetachedFromWindow: ");
+            if (viewHolder instanceof ExploreFeaturedPostViewHolder) {
+                Log.e("explore 1 detach", "onViewDetachedFromWindow: ");
+                ExploreFeaturedPostViewHolder exploreFeaturedPostViewHolder = (ExploreFeaturedPostViewHolder) viewHolder;
+                exploreFeaturedPostViewHolderQueue.remove(exploreFeaturedPostViewHolder);
+                exploreFeaturedPostViewHolder.attachmentsRecyclerView.stopPlayback();
+            }
+        }
+
+
+    private void resumePlayBackFromActivity(){
+        ExploreFeaturedPostViewHolder exploreFeaturedPostViewHolderCache;
+        for (ExploreFeaturedPostViewHolder exploreFeaturedPostViewHolder:exploreFeaturedPostViewHolderQueue) {
+            exploreFeaturedPostViewHolderCache = exploreFeaturedPostViewHolder;
+            if (exploreFeaturedPostViewHolderCache != null && exploreFeaturedPostViewHolderCache.attachmentsRecyclerView.isPlayBackPlaying())
+                exploreFeaturedPostViewHolderCache.attachmentsRecyclerView.onResume();
+        }
+    }
+
+    private void pausePlayBackFromActivityOnPause(){
+        for (ExploreFeaturedPostViewHolder videoCache:exploreFeaturedPostViewHolderQueue) {
+            if (onGoingToFullscreen) {
+
+            } else {
+                videoCache.attachmentsRecyclerView.onPause(true);
+            }
+        }
+        onGoingToFullscreen = false;
+    }
+
+    private void destroyPlayBackFromActivity(){
+        for (ExploreFeaturedPostViewHolder videoCache:exploreFeaturedPostViewHolderQueue) {
+            videoCache.attachmentsRecyclerView.onDestroy(false);
+        }
     }
 
     @Override
@@ -130,6 +257,12 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
             return typeHashtags;
         } else if (communityViewMetadata1.getViewType() == typeVideos) {
             return typeVideos;
+        }
+        else if (communityViewMetadata1.getViewType() == typeFeaturedPost) {
+            return typeFeaturedPost;
+        }
+        else if (communityViewMetadata1.getViewType() == typeBillboard) {
+            return typeBillboard;
         }
         return typeChannel;
     }
@@ -160,6 +293,57 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
         public ExploreVideosViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_type3_recyclerview);
+        }
+    }
+
+    public class ExploreBillboardViewholder extends RecyclerView.ViewHolder{
+
+        RecyclerView recyclerView;
+        public ExploreBillboardViewholder(@NonNull View itemView) {
+            super(itemView);
+            recyclerView = itemView.findViewById(R.id.explore_community_billboard_recyclerview);
+        }
+    }
+
+    public class ExploreFeaturedPostViewHolder extends RecyclerView.ViewHolder implements RTextView.MentionClickedListener, RTextView.HashTagClickedListener,View.OnLongClickListener,View.OnClickListener{
+
+        PlayableItemsRecyclerView attachmentsRecyclerView;
+        RTextView textView;
+        RichLinkView richLinkView;
+        ImageView profilePicture;
+        boolean isMentionClicked = false;
+        boolean isHashTagClicked = false;
+
+        public ExploreFeaturedPostViewHolder(View ItemView){
+            super(ItemView);
+            attachmentsRecyclerView = ItemView.findViewById(R.id.forum_post_attachments_recyclerview);
+            textView = itemView.findViewById(R.id.forum_post_recycler_item_textview);
+            textView.setMentionClickedListener(this);
+            textView.setHashTagClickedListener(this);
+            textView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+            richLinkView = itemView.findViewById(R.id.richlinkview);
+            profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
+        }
+        @Override
+        public void onClick(View view) {
+
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return false;
+        }
+
+        @Override
+        public void onMentionClicked(String mentionJson) {
+
+        }
+
+        @Override
+        public void onHashTagClicked(String hashtagText) {
+
         }
     }
 }

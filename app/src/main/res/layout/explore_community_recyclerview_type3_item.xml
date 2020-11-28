@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginBottom="20dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="0dp"
-        app:cardCornerRadius="3dp">
+        app:cardCornerRadius="4dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                          <ImageView
                              android:layout_width="25dp"
                              android:layout_height="25dp"
-                             android:tint="#D0FFFFFF"
+                             android:tint="#FFFFFF"
                              android:src="@drawable/ic_play_arrow"/>
                         </LinearLayout>
                 </RelativeLayout>
@@ -80,7 +80,7 @@
         android:id="@+id/explore_courses_title"
         android:ellipsize="end"
         android:maxLines="2"
-        android:fontFamily="@font/airreg"
+        android:fontFamily="@font/airsemi"
         android:textSize="14dp"
         android:lineSpacingExtra="3dp"
         android:text="June 12, 1993 M.k.O Abiola was killed by the *Americans"/>
@@ -94,6 +94,6 @@
         android:maxLines="1"
         android:layout_marginTop="2dp"
         android:text="25k Views"
-        android:textColor="#7A7A7A"
+        android:textColor="#5A5A5A"
         android:textSize="13dp"/>
 </com.estello.android.ViewModel.ExploreCommunityGridViewItem>

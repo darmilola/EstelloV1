@@ -1,17 +1,13 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.estello.android.R;
-import com.estello.android.ViewModel.CommunityViewHashtagsModel;
-import com.estello.android.ViewModel.CoursesModel;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -35,6 +31,8 @@ public class CommunityViewHashtagsAdapter extends RecyclerView.Adapter<Community
         View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type2_item, parent, false);
         return new itemViewHolder(view2);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull itemViewHolder holder, int position) {

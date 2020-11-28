@@ -42,7 +42,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity implements ExploreCommunity.UpdateStatusAndToolbarBackgroundListener {
+public class MainActivity extends AppCompatActivity  {
 
 
     BottomNavigationView bottomNavigationView;
@@ -56,6 +56,34 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     LinearLayout mainView;
     LinearLayout bottom_nav_root_layout;
     LinearLayout toolbarOverlay;
+    ActivityPausedListener activityPausedListener;
+    ActivityResumedListener activityResumedListener;
+    ActivityDestroyedListener activityDestroyedListener;
+
+
+
+     public interface ActivityPausedListener{
+
+        public void onActivityPaused();
+    }
+    public interface ActivityResumedListener{
+        public void onActivityResumed();
+    }
+    public interface ActivityDestroyedListener{
+        public void onActivityDestroyed();
+    }
+
+    public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener) {
+        this.activityDestroyedListener = activityDestroyedListener;
+    }
+
+    public void setActivityPausedListener(ActivityPausedListener activityPausedListener) {
+        this.activityPausedListener = activityPausedListener;
+    }
+
+    public void setActivityResumedListener(ActivityResumedListener activityResumedListener) {
+        this.activityResumedListener = activityResumedListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,19 +178,6 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     }
 
 
-    @Override
-    public void onUpdate(Bitmap bitmap) {
-
-        if(viewPager.getCurrentItem() == 1) {
-            toolbarOverlay.setBackgroundColor(Color.parseColor("#80000000"));
-            toolbar.setBackground(new BitmapDrawable(getResources(),bitmap));
-            AnimateBackgroundChange();
-        }
-        else{
-            toolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
-            toolbarOverlay.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
-        }
-    }
 
 
     public void AnimateBackgroundChange(){
@@ -331,8 +346,8 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
         public void onResume() {
 
            super.onResume();
+           if(activityResumedListener != null)activityResumedListener.onActivityResumed();
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.full_transparency));
               // getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS );
                getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -342,6 +357,17 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
 
 
            }
+    }
+     @Override
+    public void onPause() {
+        activityPausedListener.onActivityPaused();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activityDestroyedListener.onActivityDestroyed();
     }
 
     private void setTransluscentNavFlag(boolean on){
