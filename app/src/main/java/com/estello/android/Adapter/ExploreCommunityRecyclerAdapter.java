@@ -42,6 +42,8 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
     private static int typeVideos = 2;
     private static int typeFeaturedPost = 3;
     private static int typeBillboard = 4;
+    private static int typeOneAd = 5;
+    private static int typeTwoAd = 6;
     Context context;
     private Queue<ExploreFeaturedPostViewHolder> exploreFeaturedPostViewHolderQueue = new LinkedList<>();
     boolean onGoingToFullscreen  = false;
@@ -73,6 +75,14 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
         else if (viewType == typeBillboard) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type5_bucket_billboard, parent, false);
             return new ExploreBillboardViewholder(view);
+        }
+        else if (viewType == typeOneAd) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type6_item, parent, false);
+            return new ExploreType1Ads(view);
+        }
+        else if (viewType == typeTwoAd) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_community_recyclerview_type6_item_type2, parent, false);
+            return new ExploreType2Ads(view);
         }
         return null;
     }
@@ -183,7 +193,6 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
            LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
            billboardViewholder.recyclerView.setLayoutManager(layoutManager);
            billboardViewholder.recyclerView.setAdapter(exploreCommunityBillboardAdapter);
-   //        new PagerSnapHelper().attachToRecyclerView(billboardViewholder.recyclerView);
            billboardViewholder.recyclerView.addItemDecoration(new RecyclerViewPagerIndicator(DensityUtils.dpToPx(3),DensityUtils.dpToPx(5),DensityUtils.dpToPx(30), ContextCompat.getColor(context,R.color.white),ContextCompat.getColor(context,R.color.pinkypinky)));
        }
     }
@@ -264,6 +273,12 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
         else if (communityViewMetadata1.getViewType() == typeBillboard) {
             return typeBillboard;
         }
+        else if(communityViewMetadata1.getViewType() == typeOneAd){
+            return  typeOneAd;
+        }
+        else if(communityViewMetadata1.getViewType() == typeTwoAd){
+            return  typeTwoAd;
+        }
         return typeChannel;
     }
 
@@ -302,6 +317,23 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
         public ExploreBillboardViewholder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_billboard_recyclerview);
+            new PagerSnapHelper().attachToRecyclerView(recyclerView);
+        }
+    }
+
+    public class ExploreType1Ads extends RecyclerView.ViewHolder{
+
+
+        public ExploreType1Ads(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class ExploreType2Ads extends RecyclerView.ViewHolder{
+
+
+        public ExploreType2Ads(@NonNull View itemView) {
+            super(itemView);
         }
     }
 

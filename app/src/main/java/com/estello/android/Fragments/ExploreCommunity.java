@@ -69,9 +69,9 @@ public class ExploreCommunity extends Fragment {
         communityRecyclerView = view.findViewById(R.id.explore_community_main_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         communityRecyclerView.setLayoutManager(layoutManager);
-        ExploreCommuntyBillboardItem exploreCommuntyBillboardItem = new ExploreCommuntyBillboardItem(R.drawable.ucas);
+        ExploreCommuntyBillboardItem exploreCommuntyBillboardItem = new ExploreCommuntyBillboardItem(R.drawable.wonkhe_ucas_building);
         ExploreCommuntyBillboardItem exploreCommuntyBillboardItem2 = new ExploreCommuntyBillboardItem(R.drawable.ucas1);
-        ExploreCommuntyBillboardItem exploreCommuntyBillboardItem3 = new ExploreCommuntyBillboardItem(R.drawable.ucasdeadline);
+        ExploreCommuntyBillboardItem exploreCommuntyBillboardItem3 = new ExploreCommuntyBillboardItem(R.drawable.ucas4);
         ExploreCommuntyBillboardItem exploreCommuntyBillboardItem4 = new ExploreCommuntyBillboardItem(R.drawable.ucasdeadline);
         ArrayList<Object> billboardList = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
@@ -82,21 +82,21 @@ public class ExploreCommunity extends Fragment {
             billboardList.add(exploreCommuntyBillboardItem4);
         }
 
-
-
-
         CommunityViewMetadata communityViewMetadata = new CommunityViewMetadata("Welcome to Estello Scholars Community for all Students in the Globe",0);
         CommunityViewMetadata communityViewMetadata2 = new CommunityViewMetadata("#Hello Estello",1);
         CommunityViewMetadata communityViewMetadata3= new CommunityViewMetadata("#Hello Estello",2);
         CommunityViewMetadata communityViewMetadata4= new CommunityViewMetadata("#Hello Estello",3);
         CommunityViewMetadata communityViewMetadata5= new CommunityViewMetadata("#Hello Estello",4);
+        CommunityViewMetadata communityViewMetadata6= new CommunityViewMetadata("#Hello Estello",5);
+        CommunityViewMetadata communityViewMetadata7= new CommunityViewMetadata("#Hello Estello",6);
 
         ArrayList<Object> channelsList = new ArrayList<>();
         ArrayList<Object> hashtagsList = new ArrayList<>();
         ArrayList<Object> videosList = new ArrayList<>();
         ArrayList<Object> featuredList = new ArrayList<>();
         ArrayList<Object> featuredList2 = new ArrayList<>();
-        ArrayList<Object> featuredList3 = new ArrayList<>();
+        ArrayList<Object> adsType1List = new ArrayList<>();
+        ArrayList<Object> adsType2List = new ArrayList<>();
         ArrayList<ForumPostAttachmentsModel> forumPostAttachmentsModelArrayList = new ArrayList<>();
         ForumPostAttachmentsModel forumPostAttachmentsModel2 = new ForumPostAttachmentsModel(2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4","https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
         forumPostAttachmentsModelArrayList.add(forumPostAttachmentsModel2);
@@ -146,20 +146,22 @@ public class ExploreCommunity extends Fragment {
         featuredMap2.put(communityViewMetadata4,featuredList2);
         Map<CommunityViewMetadata,List<Object>> BillboardMap = new HashMap<>();
         BillboardMap.put(communityViewMetadata5,billboardList);
+        Map<CommunityViewMetadata,List<Object>> adsType1Map = new HashMap<>();
+        adsType1Map.put(communityViewMetadata6,adsType1List);
+        Map<CommunityViewMetadata,List<Object>> adsType2Map = new HashMap<>();
+        adsType2Map.put(communityViewMetadata7,adsType2List);
 
-        for(int i = 0; i < 3; i++){
-
-
-            communityViewList.add(BillboardMap);
+        communityViewList.add(BillboardMap);
+        for(int i = 0; i < 4; i++){
             communityViewList.add(channlesMap1);
             communityViewList.add(hashtagsMap1);
             communityViewList.add(videosMap1);
+            communityViewList.add(adsType2Map);
             communityViewList.add(featuredMap);
             communityViewList.add(featuredMap2);
-
+            communityViewList.add(adsType1Map);
         }
         ExploreCommunityRecyclerAdapter exploreCommunityRecyclerAdapter = new ExploreCommunityRecyclerAdapter(communityViewList,getContext());
         communityRecyclerView.setAdapter(exploreCommunityRecyclerAdapter);
     }
-
 }
