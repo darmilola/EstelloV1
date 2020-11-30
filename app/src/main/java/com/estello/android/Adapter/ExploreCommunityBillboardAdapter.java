@@ -12,6 +12,7 @@ import com.estello.android.R;
 import com.estello.android.ViewModel.ExploreCommuntyBillboardItem;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -67,4 +68,6 @@ public class ExploreCommunityBillboardAdapter extends RecyclerView.Adapter<Explo
 
         }
     }
+
+
 }

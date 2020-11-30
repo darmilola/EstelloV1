@@ -13,6 +13,8 @@ import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
 import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
 import com.estello.android.MainActivity;
 import com.estello.android.R;
+import com.estello.android.ViewModel.AutoScrollLinearLayoutManager;
+import com.estello.android.ViewModel.AutoScrollRecyclerView;
 import com.estello.android.ViewModel.CommunityViewMetadata;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RecyclerViewPagerIndicator;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -47,6 +51,7 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
     Context context;
     private Queue<ExploreFeaturedPostViewHolder> exploreFeaturedPostViewHolderQueue = new LinkedList<>();
     boolean onGoingToFullscreen  = false;
+    private Timer billboardTimer;
 
     public ExploreCommunityRecyclerAdapter(List<Map<CommunityViewMetadata,List<Object>>> communityViewList,Context context){
            this.communityViewList = communityViewList;
@@ -89,7 +94,14 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+         if(holder instanceof ExploreBillboardViewholder){
+
+
+
+         }
     }
+
 
 
     @Override
@@ -180,21 +192,6 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
            exploreFeaturedPostViewHolderQueue.add(featuredPostViewHolder);
        }
 
-       else if(holder instanceof ExploreBillboardViewholder){
-
-           Map<CommunityViewMetadata,List<Object>> billboardMap = communityViewList.get(position);
-           Set<CommunityViewMetadata> communityViewMetadataHashSet = billboardMap.keySet();
-           List<Object> billboardModelListObj = null;
-           for (CommunityViewMetadata communityViewMetadata: communityViewMetadataHashSet) {
-               billboardModelListObj = billboardMap.get(communityViewMetadata);
-           }
-           ExploreBillboardViewholder billboardViewholder = (ExploreBillboardViewholder) holder;
-           ExploreCommunityBillboardAdapter exploreCommunityBillboardAdapter = new ExploreCommunityBillboardAdapter(billboardModelListObj,context);
-           LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
-           billboardViewholder.recyclerView.setLayoutManager(layoutManager);
-           billboardViewholder.recyclerView.setAdapter(exploreCommunityBillboardAdapter);
-           billboardViewholder.recyclerView.addItemDecoration(new RecyclerViewPagerIndicator(DensityUtils.dpToPx(3),DensityUtils.dpToPx(5),DensityUtils.dpToPx(30), ContextCompat.getColor(context,R.color.white),ContextCompat.getColor(context,R.color.pinkypinky)));
-       }
     }
 
 
@@ -314,10 +311,35 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
     public class ExploreBillboardViewholder extends RecyclerView.ViewHolder{
 
         RecyclerView recyclerView;
+
         public ExploreBillboardViewholder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_billboard_recyclerview);
             new PagerSnapHelper().attachToRecyclerView(recyclerView);
+
+            Map<CommunityViewMetadata,List<Object>> billboardMap = communityViewList.get(0);//billboard static position zero
+            Set<CommunityViewMetadata> communityViewMetadataHashSet = billboardMap.keySet();
+            List<Object> billboardModelListObj = null;
+            for (CommunityViewMetadata communityViewMetadata: communityViewMetadataHashSet) {
+                billboardModelListObj = billboardMap.get(communityViewMetadata);
+            }
+
+            ExploreCommunityBillboardAdapter exploreCommunityBillboardAdapter = new ExploreCommunityBillboardAdapter(billboardModelListObj,context);
+            AutoScrollLinearLayoutManager layoutManager = new AutoScrollLinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false,250);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(exploreCommunityBillboardAdapter);
+            recyclerView.addItemDecoration(new RecyclerViewPagerIndicator(DensityUtils.dpToPx(3),DensityUtils.dpToPx(5),DensityUtils.dpToPx(30), ContextCompat.getColor(context,R.color.white),ContextCompat.getColor(context,R.color.pinkypinky)));
+
+            billboardTimer = new Timer();
+            TimerTask timerTask = new TimerTask() {
+                public void run() {
+                    recyclerView.post(() -> {
+                        int nextPage = (layoutManager.findFirstVisibleItemPosition() + 1) % exploreCommunityBillboardAdapter.getItemCount();
+                        recyclerView.smoothScrollToPosition(nextPage);
+                    });
+                }
+            };
+            billboardTimer.schedule(timerTask, 5000, 8000);
         }
     }
 

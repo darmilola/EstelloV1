@@ -70,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:spanCount="2"
+                android:nestedScrollingEnabled="false"
                 android:id="@+id/explore_community_type3_recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/explore_community_recyclerview_type3_item"

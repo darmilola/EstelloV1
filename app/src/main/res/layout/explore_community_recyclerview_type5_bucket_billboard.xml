@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:focusableInTouchMode="true"
+        android:nestedScrollingEnabled="false"
         android:id="@+id/explore_community_billboard_recyclerview"
         tools:listitem="@layout/explore_community_billboard_item"/>
 </LinearLayout>
