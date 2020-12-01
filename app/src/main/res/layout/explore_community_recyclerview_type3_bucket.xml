@@ -44,6 +44,7 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:paddingLeft="5dp"
+                    android:id="@+id/explore_community_type_three_more"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0.8">
                     <TextView

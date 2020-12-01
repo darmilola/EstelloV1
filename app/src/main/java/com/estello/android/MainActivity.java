@@ -360,14 +360,14 @@ public class MainActivity extends AppCompatActivity  {
     }
      @Override
     public void onPause() {
-        activityPausedListener.onActivityPaused();
+       if(activityPausedListener != null) activityPausedListener.onActivityPaused();
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        activityDestroyedListener.onActivityDestroyed();
+       if(activityDestroyedListener != null) activityDestroyedListener.onActivityDestroyed();
     }
 
     private void setTransluscentNavFlag(boolean on){

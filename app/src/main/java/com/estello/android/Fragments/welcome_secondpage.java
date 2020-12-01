@@ -31,7 +31,7 @@ public class welcome_secondpage extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Welcome.AuthPage("Unlimited Access","Access ebooks,audios,videos and other content from trainers with no restrictions");
+       // Welcome.AuthPage("Unlimited Access","Access ebooks,audios,videos and other content from trainers with no restrictions");
     }
 
 }

@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".DirectMessagesDetails"></activity>
+        <activity android:name=".ExploreCommunityTypeThreeBucketDetails"></activity>
+        <activity android:name=".ExploreCommunityTypeTwoBucketDetails" />
+        <activity android:name=".ExploreCommunityTypeOneBucketDetails" />
+        <activity android:name=".ExploreCommunityType1Bucket" />
+        <activity android:name=".DirectMessagesDetails" />
         <activity android:name=".VideoPlayerBaseActivity" />
         <activity
             android:name=".ChannelPostDetails"
@@ -24,12 +28,12 @@
             android:name=".HashTagsActivity"
             android:theme="@style/slidingActivityTheme" />
         <activity android:name=".QandAChannel" />
-        <activity android:name=".CourseActivity"></activity>
+        <activity android:name=".CourseActivity" />
         <activity android:name=".SpecializationCourseDetails" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ExploreDisplaySelectedTopic" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".ChannelBaseActivity"/>
+        <activity android:name=".ChannelBaseActivity" />
         <activity android:name=".OrganisationProfile" />
         <activity android:name=".InstructorsProfile" />
         <activity android:name=".PreviewQuestion" />

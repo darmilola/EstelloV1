@@ -45,6 +45,7 @@
                     android:background="@drawable/rectangle_transparent_background"
                     android:orientation="horizontal"
                     android:gravity="center"
+                    android:id="@+id/explore_community_type2_more"
                     android:paddingLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1.2">

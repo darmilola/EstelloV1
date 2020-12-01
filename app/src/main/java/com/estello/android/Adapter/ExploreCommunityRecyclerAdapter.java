@@ -1,20 +1,25 @@
 package com.estello.android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.deltastream.example.edittextcontroller.RTextView;
 import com.estello.android.Arvi.Config;
 import com.estello.android.Arvi.util.misc.ExoPlayerUtils;
 import com.estello.android.Arvi.widget.PlayableItemsRecyclerView;
+import com.estello.android.ChannelPostDetails;
+import com.estello.android.ExploreCommunityTypeOneBucketDetails;
+import com.estello.android.ExploreCommunityTypeThreeBucketDetails;
+import com.estello.android.ExploreCommunityTypeTwoBucketDetails;
 import com.estello.android.MainActivity;
 import com.estello.android.R;
 import com.estello.android.ViewModel.AutoScrollLinearLayoutManager;
-import com.estello.android.ViewModel.AutoScrollRecyclerView;
 import com.estello.android.ViewModel.CommunityViewMetadata;
 import com.estello.android.ViewModel.ForumPostModel;
 import com.estello.android.ViewModel.RecyclerViewPagerIndicator;
@@ -283,28 +288,51 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
     public class ExploreChannelViewHolder extends RecyclerView.ViewHolder{
 
         RecyclerView recyclerView;
-
+        LinearLayout more;
         public ExploreChannelViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_type1_recyclerview);
+            more = itemView.findViewById(R.id.explore_community_type1_more);
+            more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ExploreCommunityTypeOneBucketDetails.class));
+                }
+            });
         }
     }
 
     public class ExploreHashtagsViewHolder extends RecyclerView.ViewHolder{
 
         RecyclerView recyclerView;
+        LinearLayout more;
         public ExploreHashtagsViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_type2_recyclerview);
+            more = itemView.findViewById(R.id.explore_community_type2_more);
+            more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ExploreCommunityTypeTwoBucketDetails.class));
+                }
+            });
         }
     }
 
     public class ExploreVideosViewHolder extends RecyclerView.ViewHolder{
 
         RecyclerView recyclerView;
+        LinearLayout more;
         public ExploreVideosViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.explore_community_type3_recyclerview);
+            more = itemView.findViewById(R.id.explore_community_type_three_more);
+            more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ExploreCommunityTypeThreeBucketDetails.class));
+                }
+            });
         }
     }
 
@@ -376,6 +404,7 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
             textView.setHashTagClickedListener(this);
             textView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
+            textView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             richLinkView = itemView.findViewById(R.id.richlinkview);
             profilePicture = itemView.findViewById(R.id.forum_post_profile_picture_type_post);
@@ -383,6 +412,7 @@ public class ExploreCommunityRecyclerAdapter extends RecyclerView.Adapter<Recycl
         @Override
         public void onClick(View view) {
 
+            context.startActivity(new Intent(context, ChannelPostDetails.class));
         }
 
         @Override

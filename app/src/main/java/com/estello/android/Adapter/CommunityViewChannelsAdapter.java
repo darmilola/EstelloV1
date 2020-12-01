@@ -38,7 +38,7 @@ public class CommunityViewChannelsAdapter extends RecyclerView.Adapter<Community
     @Override
     public void onBindViewHolder(@NonNull itemViewHolder holder, int position) {
 
-        CommunityViewChannelsModel channelsModel = (CommunityViewChannelsModel) communityViewChannelsModels.get(position);
+       // CommunityViewChannelsModel channelsModel = (CommunityViewChannelsModel) communityViewChannelsModels.get(position);
 
     }
 
