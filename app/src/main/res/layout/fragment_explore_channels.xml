@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginBottom="55dp"
+    tools:context=".Fragments.ExploreChannelsFragment">
+
+   <com.google.android.material.tabs.TabLayout
+        android:id="@+id/explore_channels_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/pinkypinky"
+        app:tabMode="auto"
+        app:tabIndicatorHeight="3dp"
+        app:tabPaddingEnd="30dp"
+        app:tabPaddingStart="30dp"
+        app:tabIndicator="@drawable/channel_tab_indicator"
+        app:tabIndicatorGravity="bottom"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/TabTextAppearance"
+        app:tabTextColor="@color/light_grey"/>
+
+   <androidx.viewpager.widget.ViewPager
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/explore_channel_viewpager"/>
+</LinearLayout>

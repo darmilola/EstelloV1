@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
 import com.estello.android.Fragments.DirectMessages;
+import com.estello.android.Fragments.ExploreChannelsFragment;
 import com.estello.android.Fragments.ExploreCommunity;
 import com.estello.android.Fragments.LearningFragment;
 import com.estello.android.Fragments.NotificationFragment;
@@ -138,15 +139,17 @@ public class MainActivity extends AppCompatActivity  {
                 int i = item.getItemId();
                 if (i == R.id.learn) {
                     viewPager.setCurrentItem(0, false);
-
+                }
+                else if(i == R.id.channel){
+                    viewPager.setCurrentItem(1,false);
                 }
                 else if (i == R.id.explore) {
-                    viewPager.setCurrentItem(1, false);
-                }else if (i == R.id.my_dm) {
                     viewPager.setCurrentItem(2, false);
+                }else if (i == R.id.my_dm) {
+                    viewPager.setCurrentItem(3, false);
                 }
                 else if (i == R.id.notification) {
-                    viewPager.setCurrentItem(3, false);
+                    viewPager.setCurrentItem(4, false);
                 }
                 return true;
             }
@@ -297,11 +300,13 @@ public class MainActivity extends AppCompatActivity  {
 
                   case 0:
                       return new LearningFragment();
-                  case 1:
-                    return new ExploreCommunity();
+                case 1:
+                    return new ExploreChannelsFragment();
                   case 2:
-                      return new DirectMessages();
+                    return new ExploreCommunity();
                   case 3:
+                      return new DirectMessages();
+                  case 4:
                       return new NotificationFragment();
 
 
@@ -313,7 +318,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public int getCount() {
 
-            return 4;
+            return 5;
         }
 
 
@@ -332,10 +337,11 @@ public class MainActivity extends AppCompatActivity  {
     }
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter.addFragment(new LearningFragment(), "first");
+        adapter.addFragment(new LearningFragment(), "learning");
+        adapter.addFragment(new ExploreChannelsFragment(), "channels");
         adapter.addFragment(new ExploreCommunity(), "explore");
-        adapter.addFragment(new DirectMessages(), "second");
-        adapter.addFragment(new NotificationFragment(), "third");
+        adapter.addFragment(new DirectMessages(), "Dm");
+        adapter.addFragment(new NotificationFragment(), "Notifs");
         viewPager.setAdapter(adapter);
     }
 

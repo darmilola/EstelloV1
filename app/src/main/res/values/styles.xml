@@ -57,8 +57,9 @@
         <item name="android:textSize">18dp</item>
     </style>
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:fontFamily">@font/opensansbold</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:fontFamily">@font/airsemi</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/light_grey</item>
         <item name="android:textAllCaps">false</item>
     </style>
 

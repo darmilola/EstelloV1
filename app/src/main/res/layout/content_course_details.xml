@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="60dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".course_details"
+    tools:context=".CourseDetails"
     android:background="@color/white">
 
 

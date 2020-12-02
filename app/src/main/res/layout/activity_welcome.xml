@@ -45,7 +45,7 @@
                 android:layout_marginRight="20dp"
                 android:lineSpacingExtra="5dp"
                 android:fontFamily="@font/kumelianbold"
-                android:text="Explore\nYour\nCreativity"/>
+                android:text="Explore\nYour\nPotentials"/>
 
             <TextView
                 android:layout_width="match_parent"

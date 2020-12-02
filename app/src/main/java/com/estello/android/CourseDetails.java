@@ -58,7 +58,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class course_details extends AppCompatActivity implements Player.EventListener {
+public class CourseDetails extends AppCompatActivity implements Player.EventListener {
 
     PlayerView intro_video_view;
     SimpleExoPlayer simpleExoPlayer;
@@ -118,7 +118,7 @@ public class course_details extends AppCompatActivity implements Player.EventLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(course_details.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(CourseDetails.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
         pageIndicatorView = findViewById(R.id.course_detail_instructor_pageIndicatorView);
 
 
@@ -163,7 +163,7 @@ public class course_details extends AppCompatActivity implements Player.EventLis
         enrollmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(course_details.this,CourseActivity.class));
+                startActivity(new Intent(CourseDetails.this,CourseActivity.class));
             }
         });
 
@@ -175,8 +175,8 @@ public class course_details extends AppCompatActivity implements Player.EventLis
     private void initRecyclerView(){
 
         recyclerView = findViewById(R.id.course_details_syllabus_recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(course_details.this, LinearLayoutManager.VERTICAL,false);
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(course_details.this, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CourseDetails.this, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(CourseDetails.this, LinearLayoutManager.VERTICAL,false);
 
 
         SyllabusSectionDetails syllabusSectionDetails = new SyllabusSectionDetails("This is going to be the place where the section description will be so thats fantastic okay yeah thank you mehn good to go","5 readings, 4 videos","3 hours live");
@@ -189,7 +189,7 @@ public class course_details extends AppCompatActivity implements Player.EventLis
         syllabusSectionList.add(section);
         syllabusSectionList.add(section2);
 
-        SyllabusAdapter adapter  = new SyllabusAdapter(course_details.this,syllabusSectionList);
+        SyllabusAdapter adapter  = new SyllabusAdapter(CourseDetails.this,syllabusSectionList);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -205,7 +205,7 @@ public class course_details extends AppCompatActivity implements Player.EventLis
         faqList.add(faqModel);
         faqList.add(faqModel);
         faqList.add(faqModel);
-        FaqAdapter faqAdapter = new FaqAdapter(course_details.this,faqList);
+        FaqAdapter faqAdapter = new FaqAdapter(CourseDetails.this,faqList);
 
         faqRecyclerView.setLayoutManager(linearLayoutManager2);
         faqRecyclerView.setAdapter(faqAdapter);

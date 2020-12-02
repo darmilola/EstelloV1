@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.estello.android.ViewModel.CoursesModel;
-import com.estello.android.course_details;
+import com.estello.android.CourseDetails;
 
 import com.estello.android.R;
 
@@ -62,7 +62,7 @@ public class MostPopularCertifiedCourseAdapter extends RecyclerView.Adapter<Most
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context, course_details.class));
+            context.startActivity(new Intent(context, CourseDetails.class));
         }
     }
 }

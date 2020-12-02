@@ -64,12 +64,8 @@ public class Welcome extends AppCompatActivity {
         facebookSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Welcome.this,login.class));
+                startActivity(new Intent(Welcome.this,MainActivity.class));
             }
         });
-
-
-
     }
-
 }
