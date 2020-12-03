@@ -4,27 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_primary"
+    android:background="#F5F5F5"
     android:orientation="vertical"
-    tools:context=".CreateNewCourse">
-<androidx.appcompat.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    app:contentInsetStart="0dp"
-    app:contentInsetEnd="0dp"
-    app:contentInsetRight="0dp"
-    app:contentInsetLeft="0dp"
-    android:id="@+id/create_new_course_toolbar"
-    android:background="@color/colorPrimary">
-    <TextView
+    tools:context=".CreateNewChannel">
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:fontFamily="@font/latoreg"
-        android:text="Create New Course"
-        android:gravity="center|left"/>
-</androidx.appcompat.widget.Toolbar>
+        android:layout_height="?actionBarSize"
+        app:contentInsetStart="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetLeft="0dp"
+        android:id="@+id/create_new_course_toolbar"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/airreg"
+            android:text="Create New Channel"
+            android:layout_marginLeft="20dp"
+            android:gravity="center|left"/>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <RelativeLayout
@@ -35,11 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:ms_stepperType="progress_bar"
+            app:ms_activeStepColor="@color/pinkypinky"
             app:ms_backButtonBackground="@color/transparent"
             app:ms_nextButtonColor="@color/colorPrimary"
             app:ms_bottomNavigationBackground="@color/white"
             app:ms_backButtonColor="@color/colorPrimary"
             app:ms_showBackButtonOnFirstStep="false"
+            style="@style/StepperLayoutStyle"
             android:id="@+id/create_new_course_stepper_layout"/>
     </RelativeLayout>
 </LinearLayout>

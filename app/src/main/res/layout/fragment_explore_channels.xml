@@ -8,11 +8,16 @@
     android:layout_marginBottom="55dp"
     tools:context=".Fragments.ExploreChannelsFragment">
 
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       app:cardElevation="2dp">
+
    <com.google.android.material.tabs.TabLayout
         android:id="@+id/explore_channels_tabs"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="bottom"
         android:background="@color/white"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/pinkypinky"
@@ -25,7 +30,7 @@
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TabTextAppearance"
         app:tabTextColor="@color/light_grey"/>
-
+   </androidx.cardview.widget.CardView>
    <androidx.viewpager.widget.ViewPager
        android:layout_width="match_parent"
        android:layout_height="match_parent"

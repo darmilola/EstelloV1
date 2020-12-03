@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".JoinCommunityActivity"></activity>
+        <activity android:name=".CreateNewChannel"></activity>
+        <activity android:name=".JoinCommunityActivity" />
         <activity android:name=".ExploreCommunityTypeThreeBucketDetails" />
         <activity android:name=".ExploreCommunityTypeTwoBucketDetails" />
         <activity android:name=".ExploreCommunityTypeOneBucketDetails" />

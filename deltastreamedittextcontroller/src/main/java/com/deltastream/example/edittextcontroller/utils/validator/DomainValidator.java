@@ -365,7 +365,7 @@ public class DomainValidator implements Serializable {
         "college",
         "cologne",
         "com",
-        "community",
+        "checkmark",
         "company",
         "computer",
         "condos",

@@ -48,7 +48,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="right|top"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#F5F5F5"
                 android:background="@drawable/messaging_area_file_remove">
 
                 <LinearLayout
