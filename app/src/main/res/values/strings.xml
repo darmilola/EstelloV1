@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:orientation="vertical">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Estello</string>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+    <!-- TODO:  Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password"><u>forgot password</u></string>
+    <string name="title_activity_course_details">course_details</string>
+    <string name="large_text">
 
-
-        <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="90dp" android:layout_height="90dp" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:orientation="vertical">
-
-            <com.google.android.material.card.MaterialCardView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="7dp" app:cardCornerRadius="3dp" app:cardElevation="0dp" app:strokeColor="@color/light_grey" app:strokeWidth="0.5dp">
-
-                <LinearLayout
-
-                <!-- TODO: Remove or change this placeholder text -->
-                <string name="hello_blank_fragment">Hello blank fragment</string>
-
-                <!-- TODO: Remove or change this placeholder text -->
-                <string name="hello_blank_fragment">Hello blank fragment</string>
-
-                <!-- TODO: Remove or change this placeholder text -->
-                <string name="hello_blank_fragment">Hello blank fragment</string>
+        Material is the metaphor For example, position the FAB to one side of stream of a cards so the FAB won’t interfere"when a user tries to pick up one of cards.Material is the metaphor For example, position the FAB to one side of stream of a cards so the FAB won’t interfere"when a user tries to pick up one of cards.
+        Material is thinterfample, position the FAB to one side of stream of a cards so the FAB won’t interfere"when a user tries to pick up one of cards.</string>
+    <string name="action_settings">Settings</string>
+    <string name="transition_search_hint">hint</string>
+    <string name="transition_voice_search">voice</string>
+    <string name="transition_search_layout">searchLayout</string>
+    <string name="transition_search_icon">searchicon</string>
+</resources>

@@ -6,8 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#F5F5F5"
     android:focusableInTouchMode="true"
     tools:context=".Fragments.sign_up_firstpage">
+
+    <LinearLayout
+        android:id="@+id/create_new_channel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/google_sign_in_background"
+        android:gravity="center"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width= "match_parent"
@@ -34,6 +47,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         app:errorEnabled="true"
+        android:layout_marginBottom="20dp"
         app:counterEnabled="true"
         app:counterMaxLength="80"
         app:counterTextColor="@color/green"
@@ -55,5 +69,5 @@
             android:textSize="18dp"
             android:textColor="@color/colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
-
+    </LinearLayout>
 </LinearLayout>

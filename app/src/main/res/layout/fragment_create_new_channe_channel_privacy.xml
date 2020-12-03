@@ -5,7 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#F5F5F5"
     tools:context=".Fragments.CreateNewChanneChannelPrivacy">
+
+    <LinearLayout
+        android:id="@+id/create_new_channel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/google_sign_in_background"
+        android:gravity="center"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width= "match_parent"
@@ -25,7 +38,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
@@ -72,8 +84,8 @@
                       android:layout_height="wrap_content"
                       android:text="Public"
                       android:textColor="@color/black"
-                      android:fontFamily="@font/airreg"
-                      android:textSize="17dp"/>
+                      android:fontFamily="@font/airsemi"
+                      android:textSize="16dp"/>
 
                   <TextView
                       android:layout_width="match_parent"
@@ -82,7 +94,7 @@
                       android:textColor="@color/light_text_color"
                       android:fontFamily="@font/airreg"
                       android:lineSpacingExtra="5dp"
-                      android:textSize="17dp"/>
+                      android:textSize="15dp"/>
               </LinearLayout>
           </LinearLayout>
           <LinearLayout
@@ -102,6 +114,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
         android:weightSum="4">
 
         <LinearLayout
@@ -141,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="Private"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/airreg"
+                    android:fontFamily="@font/airsemi"
                     android:textSize="17dp"/>
 
                 <TextView
@@ -151,7 +164,7 @@
                     android:textColor="@color/light_text_color"
                     android:fontFamily="@font/airreg"
                     android:lineSpacingExtra="5dp"
-                    android:textSize="17dp"/>
+                    android:textSize="15dp"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -167,5 +180,5 @@
 
         </LinearLayout>
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

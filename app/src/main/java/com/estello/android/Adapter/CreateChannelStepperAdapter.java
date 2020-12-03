@@ -72,28 +72,20 @@ public class CreateChannelStepperAdapter extends AbstractFragmentStepAdapter {
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
-        //Override this method to set Step title for the Tabs, not necessary for other stepper types
+
         StepViewModel.Builder builder = new StepViewModel.Builder(context);
-        builder.setBackButtonStartDrawableResId(R.drawable.leftarrow);
         switch (position){
             case 0:
-                builder.setTitle("Details");
+                builder.setBackButtonVisible(false);
+                builder.setEndButtonLabel("Purpose");
                 break;
             case 1:
-                builder.setTitle("Intro Video");
+                builder.setEndButtonLabel("Privacy");
+                builder.setBackButtonVisible(true);
 
                 break;
             case 2:
-                builder.setTitle("Syllabus");
-                break;
-            case 3:
-                builder.setTitle("Quiz");
-                break;
-            case 4:
-                builder.setTitle("Invite");
-                break;
-            case 5:
-                builder.setTitle("Review");
+                builder.setEndButtonLabel("Create");
                 break;
         }
         return builder.create();
