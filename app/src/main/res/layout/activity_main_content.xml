@@ -11,6 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:cardElevation="2dp">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_main_toolbar"
             android:layout_width="match_parent"
@@ -88,6 +93,7 @@
             </LinearLayout>
             </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.Toolbar>
+        </androidx.cardview.widget.CardView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -96,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/content_frame"
-                android:layout_marginBottom="55.5dp"
+                android:layout_marginBottom="105.5dp"
                 android:orientation="vertical"/>
 
 

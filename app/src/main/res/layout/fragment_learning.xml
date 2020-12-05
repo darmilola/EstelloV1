@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layerType="hardware"
-    android:background="@color/white"
+    android:background="#F7F7F7"
     tools:context=".Fragments.LearningFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -16,33 +16,6 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:orientation="vertical">
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="70dp"
-               android:orientation="horizontal"
-               android:gravity="center"
-               android:layout_marginTop="10dp"
-               android:background="@color/white">
-
-
-               <androidx.recyclerview.widget.RecyclerView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center"
-                   android:focusableInTouchMode="true"
-                   tools:listitem="@layout/explore_category_chip"
-                   android:id="@+id/category_recyler"
-                   android:paddingLeft="5dp"
-                   android:paddingTop="5dp"
-                   app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                   android:orientation="horizontal"
-                   />
-           </LinearLayout>
-
-
-
-
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
@@ -58,93 +31,27 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_most_popular_course_title"
+                       android:textSize="23dp"
+                       android:fontFamily="@font/airbold"
+                       android:id="@+id/learning_saved_class_title"
                        android:layout_marginLeft="10dp"
-                       android:maxLines="1"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
+                       android:focusableInTouchMode="true"
                        android:layout_alignParentLeft="true"
-                       android:text="Most Popular"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_most_popular_course_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
+                       android:text="Start your Saved Class"/>
                </RelativeLayout>
 
                <androidx.recyclerview.widget.RecyclerView
                    android:layout_width="match_parent"
-                   android:layout_height="250dp"
-                   tools:itemCount="10"
-                   android:id="@+id/explore_most_popular_course_recyclerview"
-                   android:layout_marginLeft="5dp"
-                   android:layout_marginTop="5dp"
-                   android:layout_marginBottom="5dp"
-                   app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                   android:orientation="horizontal"
-                   tools:listitem="@layout/explore_recycler_item_type4"/>
-           </LinearLayout>
-
-
-
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical">
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginBottom="15dp"
-                   android:gravity="center|left">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:fontFamily="@font/opensansbold"
-                       android:id="@+id/explore_recommended_course_title"
-                       android:layout_marginLeft="10dp"
-                       android:layout_alignParentLeft="true"
-                       android:text="Recommended"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:id="@+id/explore_recommended_course_see_all"
-                       android:layout_marginRight="20dp"
-                       android:fontFamily="@font/opensansreg"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
-               </RelativeLayout>
-
-               <androidx.recyclerview.widget.RecyclerView
-                   android:layout_width="match_parent"
-                   android:layout_height="250dp"
+                   android:layout_height="320dp"
                    tools:itemCount="10"
                    android:layout_marginLeft="5dp"
-                   android:id="@+id/explore_recommended_course_recyclerview"
+                   android:id="@+id/learning_saved_class_recyclerview"
                    android:layout_marginTop="5dp"
                    android:layout_marginBottom="5dp"
                    android:orientation="horizontal"
                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                   tools:listitem="@layout/explore_recycler_item_type1"/>
-
+                   tools:listitem="@layout/learning_recycler_item_type1"/>
            </LinearLayout>
-
 
            <LinearLayout
                android:layout_width="match_parent"
@@ -158,48 +65,44 @@
                    android:layout_marginBottom="15dp"
                    android:gravity="center|left">
                    <TextView
-                       android:layout_width="250dp"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_most_popular_with_practice_lab_title"
-                       android:layout_marginLeft="10dp"
-                       android:maxLines="2"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
-                       android:layout_alignParentLeft="true"
-                       android:text="Most Popular With Practice\n Lab"/>
-
-                   <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_most_popular_with_practice_lab_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_marginTop="5dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
+                       android:textColor="@color/black"
+                       android:textSize="25dp"
+                       android:fontFamily="@font/airbold"
+                       android:id="@+id/learning_recommended_class_title"
+                       android:layout_marginLeft="10dp"
+                       android:layout_alignParentLeft="true"
+                       android:text="Recommended For You"/>
                </RelativeLayout>
 
-               <RelativeLayout
+               <HorizontalScrollView
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-
-                   <androidx.recyclerview.widget.RecyclerView
-                       android:layout_width="match_parent"
+                   android:layout_height="330dp"
+                   android:scrollbars="none">
+                   <LinearLayout
+                       android:layout_width="wrap_content"
                        android:layout_height="match_parent"
-                       tools:itemCount="2"
-                       android:id="@+id/explore_most_popular_with_practice_lab_recyclerview"
-                       android:layout_marginLeft="5dp"
-                       android:layout_marginTop="5dp"
-                       android:layout_marginBottom="5dp"
-                       android:orientation="horizontal"
-                       tools:listitem="@layout/explore_recycler_item_type2"/>
-               </RelativeLayout>
-           </LinearLayout>
+                       android:orientation="horizontal">
+
+                       <include layout="@layout/playstore_rating_item"/>
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:layout_width="match_parent"
+                   android:layout_height="320dp"
+                   tools:itemCount="10"
+                   android:id="@+id/learning_recommended_class_recyclerview"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginBottom="5dp"
+                   android:orientation="horizontal"
+                   android:nestedScrollingEnabled="false"
+                   app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                   tools:listitem="@layout/learning_recycler_item_type1"/>
+               </LinearLayout>
+               </HorizontalScrollView>
+
+
+                   </LinearLayout>
 
            <LinearLayout
                android:layout_width="match_parent"
@@ -213,205 +116,92 @@
                    android:layout_marginBottom="15dp"
                    android:gravity="center|left">
                    <TextView
-                       android:layout_width="250dp"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_most_popular_one_to_one_title"
-                       android:layout_marginLeft="10dp"
-                       android:maxLines="2"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
-                       android:layout_alignParentLeft="true"
-                       android:text="Most Popular One-to-One"/>
-
-                   <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_most_popular_one_to_one_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
-               </RelativeLayout>
-
-                     <androidx.recyclerview.widget.RecyclerView
-                       android:layout_width="match_parent"
-                       android:layout_height="250dp"
-                       tools:itemCount="10"
-                       android:id="@+id/explore_most_popular_one_to_one_recyclerview"
-                       android:layout_marginLeft="5dp"
-                       android:layout_marginTop="5dp"
-                       app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                       android:layout_marginBottom="5dp"
-                       android:orientation="horizontal"
-                       tools:listitem="@layout/explore_recycler_item_type1"/>
-
-           </LinearLayout>
-
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical">
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginBottom="15dp"
-                   android:gravity="center|left">
-                   <TextView
-                       android:layout_width="250dp"
-                       android:layout_height="wrap_content"
                        android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_top_rated_course_title"
+                       android:textSize="23dp"
+                       android:fontFamily="@font/airbold"
+                       android:id="@+id/learning_live_title"
                        android:layout_marginLeft="10dp"
-                       android:maxLines="2"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
                        android:layout_alignParentLeft="true"
-                       android:text="Top Rated Courses"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_top_rated_course_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
-               </RelativeLayout>
-
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-
-                   <androidx.recyclerview.widget.RecyclerView
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       tools:itemCount="2"
-                       android:id="@+id/explore_top_rated_course_recycler_view"
-                       android:layout_marginLeft="5dp"
-                       android:layout_marginTop="5dp"
-                       android:layout_marginBottom="5dp"
-                       android:orientation="horizontal"
-                       tools:listitem="@layout/explore_recycler_item_type3"/>
-               </RelativeLayout>
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical">
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginBottom="15dp"
-                   android:gravity="center|left">
-                   <TextView
-                       android:layout_width="250dp"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_most_popular_certificate_title"
-                       android:layout_marginLeft="10dp"
-                       android:maxLines="2"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
-                       android:layout_alignParentLeft="true"
-                       android:text="Most Popular Certificates"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_most_popular_certificate_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
-
+                       android:text="Cherry-Picked Live Classes"/>
                </RelativeLayout>
 
                <androidx.recyclerview.widget.RecyclerView
-                       android:layout_width="match_parent"
-                       android:layout_height="250dp"
-                       tools:itemCount="10"
-                       android:id="@+id/explore_most_popular_certificate_recyclerview"
-                       android:layout_marginLeft="5dp"
-                       android:layout_marginTop="5dp"
-                       app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                       android:layout_marginBottom="5dp"
-                       android:orientation="horizontal"
-                       tools:listitem="@layout/explore_recycler_item_type4"/>
-
+                   android:layout_width="match_parent"
+                   android:layout_height="280dp"
+                   tools:itemCount="10"
+                   android:layout_marginLeft="5dp"
+                   android:id="@+id/learning_live_recyclerview"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginBottom="5dp"
+                   android:orientation="horizontal"
+                   app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                   tools:listitem="@layout/learning_recycler_item_type2_live"/>
            </LinearLayout>
-
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:orientation="vertical">
-               <RelativeLayout
+               <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="15dp"
                    android:layout_marginLeft="10dp"
                    android:layout_marginBottom="15dp"
-                   android:gravity="center|left">
-                   <TextView
-                       android:layout_width="250dp"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:textSize="18dp"
-                       android:id="@+id/explore_top_rated_one_to_one_title"
-                       android:layout_marginLeft="10dp"
-                       android:maxLines="2"
-                       android:ellipsize="end"
-                       android:fontFamily="@font/opensansbold"
-                       android:layout_alignParentLeft="true"
-                       android:text="Top Rated One-to-One"/>
-
+                   android:gravity="center|left"
+                   android:orientation="vertical">
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:textColor="#3C3A3A"
-                       android:textSize="@dimen/regular_text_size"
-                       android:fontFamily="@font/opensansreg"
-                       android:id="@+id/explore_top_rated_course_one_to_one_see_all"
-                       android:layout_marginRight="20dp"
-                       android:layout_alignParentRight="true"
-                       android:text="See All"/>
+                       android:textColor="@color/black"
+                       android:textSize="15dp"
+                       android:fontFamily="@font/airbold"
+                       android:id="@+id/learning_trending_class_title"
+                       android:layout_marginLeft="10dp"
+                       android:layout_alignParentLeft="true"
+                       android:text="Trending In"/>
 
-               </RelativeLayout>
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
 
-               <RelativeLayout
+
+                   <TextView
+                       android:id="@+id/learning_trending_class_value"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="15dp"
+                       android:fontFamily="@font/airbold"
+                       android:text="Productivity"
+                       android:textColor="#1B41A0"
+                       android:textSize="23dp"/>
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginTop="10dp"
+                           android:rotation="-90"
+                           android:tint="@color/dark_text_color"
+                           android:src="@drawable/iconfinder_chevron_left"/>
+                   </LinearLayout>
+               </LinearLayout>
+
+               <androidx.recyclerview.widget.RecyclerView
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-
-                   <androidx.recyclerview.widget.RecyclerView
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       tools:itemCount="2"
-                       android:id="@+id/explore_top_rated_one_to_one_recyclerview"
-                       android:layout_marginLeft="5dp"
-                       android:layout_marginTop="5dp"
-                       android:layout_marginBottom="5dp"
-                       android:orientation="horizontal"
-                       tools:listitem="@layout/explore_recycler_item_type2"/>
-               </RelativeLayout>
+                   android:layout_height="320dp"
+                   tools:itemCount="10"
+                   android:id="@+id/learning_trending_class_recyclerview"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginBottom="5dp"
+                   android:orientation="horizontal"
+                   app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                   tools:listitem="@layout/learning_recycler_item_type1"/>
            </LinearLayout>
-
-             </LinearLayout>
+       </LinearLayout>
    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

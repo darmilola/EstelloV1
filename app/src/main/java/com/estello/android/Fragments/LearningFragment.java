@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.estello.android.Adapter.LearningClassesAdapter;
+import com.estello.android.Adapter.LearningLiveClassesAdapter;
 import com.estello.android.Adapter.MostPopularCertifiedCourseAdapter;
 import com.estello.android.Adapter.MostPopularCourseAdapter;
 import com.estello.android.Adapter.MostPopularCourseWithPracticeLabAdapter;
@@ -44,13 +46,8 @@ public class LearningFragment extends Fragment {
 
 
     View view;
-    RecyclerView mostPopularCourseRecyclerView,RecommendedCourseRecyclerView,praticeLabRecyclerView;
-    RecyclerView mostPopularOneToOneRecyclerView,topRatedCourseRecyclerview,mostPopularCertificateRecyclerview,topRatedOneToOneRecyclerView;
+    RecyclerView savedClassesRecyclerview,recommendedRecyclerview,liveClassesRecyclerview,trendingCategoryRecyclerview;
     ArrayList<CoursesModel> coursesList = new ArrayList<>();
-    RecyclerView categoryRecycler;
-    TextView exploreMostPopularCourseSeeAll;
-    MaterialCardView cardView;
-    ArrayList<explore_category_chip_model> explore_category_chip_models = new ArrayList<>();
     public LearningFragment() {
         // Required empty public constructor
     }
@@ -63,138 +60,39 @@ public class LearningFragment extends Fragment {
          view =  inflater.inflate(R.layout.fragment_learning, container, false);
 
          initView();
-         setUpMostPopularCourse();
-         setUpRecommendedCourse();
-         setUpPracticeLabCourse();
-         setUpMostPopularOneToOneCourse();
-         setUpTopRatedCourse();
-         setUpTopMostPopularCertifiedCourse();
-         setUpTopRatedOneToOneCourse();
-         setUpCategoryRecycler();
+
          return  view;
 
     }
 
+    private void initView() {
 
+        liveClassesRecyclerview = view.findViewById(R.id.learning_live_recyclerview);
+        recommendedRecyclerview = view.findViewById(R.id.learning_recommended_class_recyclerview);
+        savedClassesRecyclerview = view.findViewById(R.id.learning_saved_class_recyclerview);
+        trendingCategoryRecyclerview = view.findViewById(R.id.learning_trending_class_recyclerview);
 
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
 
+        liveClassesRecyclerview.setLayoutManager(linearLayoutManager1);
+        recommendedRecyclerview.setLayoutManager(linearLayoutManager2);
+        savedClassesRecyclerview.setLayoutManager(linearLayoutManager3);
+        trendingCategoryRecyclerview.setLayoutManager(linearLayoutManager4);
 
-
-    private void setUpMostPopularCourse(){
-        mostPopularCourseRecyclerView = view.findViewById(R.id.explore_most_popular_course_recyclerview);
-        MostPopularCourseAdapter adapter = new MostPopularCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false);
-        mostPopularCourseRecyclerView.setLayoutManager(linearLayoutManager);
-        mostPopularCourseRecyclerView.setAdapter(adapter);
-    }
-
-    private void setUpRecommendedCourse(){
-        RecommendedCourseRecyclerView = view.findViewById(R.id.explore_recommended_course_recyclerview);
-        RecommendedCourseAdapter adapter = new RecommendedCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false);
-        RecommendedCourseRecyclerView.setLayoutManager(linearLayoutManager);
-        RecommendedCourseRecyclerView.setAdapter(adapter);
-    }
-
-    private void setUpPracticeLabCourse(){
-        praticeLabRecyclerView = view.findViewById(R.id.explore_most_popular_with_practice_lab_recyclerview);
-        MostPopularCourseWithPracticeLabAdapter adapter = new MostPopularCourseWithPracticeLabAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-        praticeLabRecyclerView.setLayoutManager(linearLayoutManager);
-        praticeLabRecyclerView.setAdapter(adapter);
-
-    }
-
-    private void setUpMostPopularOneToOneCourse(){
-
-        mostPopularOneToOneRecyclerView = view.findViewById(R.id.explore_most_popular_one_to_one_recyclerview);
-        MostPopularOneToOneCourseAdapter adapter = new MostPopularOneToOneCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false);
-        mostPopularOneToOneRecyclerView.setLayoutManager(linearLayoutManager);
-        mostPopularOneToOneRecyclerView.setAdapter(adapter);
-    }
-
-    private void setUpTopRatedCourse(){
-
-        topRatedCourseRecyclerview = view.findViewById(R.id.explore_top_rated_course_recycler_view);
-        TopRatedCourseAdapter adapter = new TopRatedCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-        topRatedCourseRecyclerview.setLayoutManager(linearLayoutManager);
-        topRatedCourseRecyclerview.setAdapter(adapter);
-    }
-
-
-    private void setUpTopMostPopularCertifiedCourse(){
-
-        mostPopularCertificateRecyclerview = view.findViewById(R.id.explore_most_popular_certificate_recyclerview);
-        MostPopularCertifiedCourseAdapter adapter = new MostPopularCertifiedCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false);
-        mostPopularCertificateRecyclerview.setLayoutManager(linearLayoutManager);
-        mostPopularCertificateRecyclerview.setAdapter(adapter);
-    }
-
-    private void setUpTopRatedOneToOneCourse(){
-
-        topRatedCourseRecyclerview = view.findViewById(R.id.explore_top_rated_one_to_one_recyclerview);
-        TopRatedOneToOneCourseAdapter adapter = new TopRatedOneToOneCourseAdapter(coursesList,getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-        topRatedCourseRecyclerview.setLayoutManager(linearLayoutManager);
-        topRatedCourseRecyclerview.setAdapter(adapter);
-    }
-
-
-
-
-    private void initView(){
-
-
-        CoursesModel courses_model = new CoursesModel();
-
+        CoursesModel coursesModel = new CoursesModel();
         for(int i = 0; i < 10; i++){
-            coursesList.add(courses_model);
+            coursesList.add(coursesModel);
         }
+        LearningClassesAdapter learningClassesAdapter = new LearningClassesAdapter(coursesList,getContext());
+        LearningLiveClassesAdapter learningLiveClassesAdapter = new LearningLiveClassesAdapter(coursesList,getContext());
+        liveClassesRecyclerview.setAdapter(learningLiveClassesAdapter);
+        recommendedRecyclerview.setAdapter(learningClassesAdapter);
+        savedClassesRecyclerview.setAdapter(learningClassesAdapter);
+        trendingCategoryRecyclerview.setAdapter(learningClassesAdapter);
+
     }
-
-    private void setUpCategoryRecycler(){
-        explore_category_chip_model explore_category_chip_model = new explore_category_chip_model("Art and Humanities");
-        explore_category_chip_model explore_category_chip_model1 = new explore_category_chip_model("Business");
-        explore_category_chip_model explore_category_chip_model2 = new explore_category_chip_model("Computer Science");
-        explore_category_chip_model explore_category_chip_model3 = new explore_category_chip_model("Data Science");
-        explore_category_chip_model explore_category_chip_model4 = new explore_category_chip_model("Information Technology");
-        explore_category_chip_model explore_category_chip_model5 = new explore_category_chip_model("Health");
-        explore_category_chip_model explore_category_chip_model6 = new explore_category_chip_model("Math and Logic");
-        explore_category_chip_model explore_category_chip_model7 = new explore_category_chip_model("Personal Development");
-        explore_category_chip_model explore_category_chip_model8 = new explore_category_chip_model("Physical Science and Engineering ");
-        explore_category_chip_model explore_category_chip_model9 = new explore_category_chip_model("Social Science");
-        explore_category_chip_model explore_category_chip_model10 = new explore_category_chip_model("Language Learning");
-        explore_category_chip_model explore_category_chip_model11 = new explore_category_chip_model("Religion");
-
-            explore_category_chip_models.add(explore_category_chip_model);
-            explore_category_chip_models.add(explore_category_chip_model1);
-            explore_category_chip_models.add(explore_category_chip_model2);
-            explore_category_chip_models.add(explore_category_chip_model3);
-            explore_category_chip_models.add(explore_category_chip_model4);
-            explore_category_chip_models.add(explore_category_chip_model5);
-            explore_category_chip_models.add(explore_category_chip_model6);
-            explore_category_chip_models.add(explore_category_chip_model7);
-            explore_category_chip_models.add(explore_category_chip_model8);
-            explore_category_chip_models.add(explore_category_chip_model9);
-            explore_category_chip_models.add(explore_category_chip_model10);
-            explore_category_chip_models.add(explore_category_chip_model11);
-
-
-
-        categoryRecycler = view.findViewById(R.id.category_recyler);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false);
-        explore_chip_adapter explore_chip_adapter = new explore_chip_adapter(explore_category_chip_models,getContext());
-        categoryRecycler.setLayoutManager(linearLayoutManager);
-        categoryRecycler.setAdapter(explore_chip_adapter);
-    }
-
-
-
-
-
-
 
 }

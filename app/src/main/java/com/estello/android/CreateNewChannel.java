@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.estello.android.Adapter.CreateChannelStepperAdapter;
-import com.estello.android.Adapter.StepperAdapter;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
@@ -34,10 +33,7 @@ public class CreateNewChannel extends AppCompatActivity implements StepperLayout
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-
-
     }
 
     @Override

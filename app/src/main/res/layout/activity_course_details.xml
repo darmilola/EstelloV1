@@ -15,22 +15,22 @@
         android:gravity="center"
         app:backgroundTint="#157ECF"
         android:textColor="@color/White"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:minHeight="0dp"
         android:minWidth="0dp"
         app:cornerRadius="0dp"
         android:layout_margin="0dp"
         android:padding="0dp"
         android:textAllCaps="false"
-        android:fontFamily="@font/opensansreg"
+        android:fontFamily="@font/airreg"
         android:id="@+id/course_details_enrollment_button"
-        android:text="Enroll for 30$ (starts Aug 5)"
+        android:text="Continue Watching"
         android:layout_gravity="bottom"/>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/course_details_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="470dp"
+        android:layout_height="520dp"
         android:fitsSystemWindows="true"
         android:background="@color/White"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -55,24 +55,25 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
+                    android:textSize="20dp"
                     android:textColor="@color/White"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="40dp"
-                    android:lineSpacingExtra="1dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="50dp"
+                    android:lineSpacingExtra="5dp"
                     android:gravity="center|left"
                     android:maxLines="3"
-                    android:fontFamily="@font/opensansbold"
+                    android:fontFamily="@font/airbold"
                     android:id="@+id/course_detail_course_title"
                     android:ellipsize="end"
-                    android:text="The Science Of Well-Being"/>
+                    android:text="Android Reversing and Malware Analysis for Software"/>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center|left"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
 
@@ -89,7 +90,7 @@
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_marginLeft="7dp"
-                         android:fontFamily="@font/opensansreg"
+                         android:fontFamily="@font/airreg"
                          android:textSize="@dimen/small_text_size"
                          android:textColor="@color/white"
                          android:text="4.9 (20k)"/>
@@ -98,35 +99,87 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Offered By"
+                    android:text="By"
                     android:layout_marginLeft="20dp"
                     android:textColor="@color/white"
                     android:textSize="18dp"
-                    android:fontFamily="@font/opensansreg"
-                    android:layout_marginTop="20dp"/>
+                    android:fontFamily="@font/airbold"
+                    android:layout_marginTop="15dp"/>
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:tint="@color/white"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="left"
-                    android:src="@drawable/yale"/>
-
-
-                <com.google.android.exoplayer2.ui.PlayerView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:id="@+id/course_details_intro_video"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="center|left"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    app:auto_show="true"
-                    app:use_artwork="true"
-                    app:keep_content_on_player_reset="true"
-                    app:surface_type="surface_view"
-                    app:show_buffering="always"
-                    app:controller_layout_id="@layout/custom_course_detail_player" />
+                    android:layout_marginTop="10dp">
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco = "http://schemas.android.com/apk/res-auto"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        fresco:roundAsCircle="true"
+                        fresco:actualImageScaleType="centerCrop"
+                        fresco:placeholderImageScaleType="centerCrop"
+                        fresco:placeholderImage="@drawable/ucasdeadline"
+                        android:src="@drawable/man"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:gravity="left"
+                                android:maxLines="1"
+                                android:maxWidth="250dp"
+                                android:ellipsize="end"
+                                android:layout_marginRight="10dp"
+                                android:fontFamily="@font/kumelianbold"
+                                android:textColor="@color/white"
+                                android:text="Toshendra Sharma"
+                                android:layout_marginLeft="10dp"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_marginTop="2dp"
+                                android:backgroundTint="#01D56F"
+                                android:background="@drawable/circle_dot"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/airbold"
+                                android:gravity="center"
+                                android:text="Follow"
+                                android:textColor="#01D56F"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="@font/kumelianbold"
+                            android:text="CEO @RecordKeeper"
+                            android:textColor="#F1F1F1"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+               <include layout="@layout/course_details_intro_video_player"/>
             </LinearLayout>
 
 
@@ -171,10 +224,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_height="50dp"/>
                 </RelativeLayout>
-
             </androidx.appcompat.widget.Toolbar>
-
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

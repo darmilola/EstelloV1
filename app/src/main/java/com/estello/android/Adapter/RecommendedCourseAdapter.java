@@ -34,7 +34,7 @@ public class RecommendedCourseAdapter extends RecyclerView.Adapter<RecommendedCo
     @Override
     public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_recycler_item_type1, parent, false);
+        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.learning_recycler_item_type1, parent, false);
         return new itemViewHolder(view2);
 
     }

@@ -239,9 +239,6 @@
             app:resize_mode="fixed_height"
             app:surface_type="texture_view"
             app:use_controller="false"/>
-
-
-
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
