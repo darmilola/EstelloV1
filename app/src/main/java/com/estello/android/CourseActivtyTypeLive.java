@@ -10,27 +10,21 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.estello.android.Fragments.CourseActivityForums;
-import com.estello.android.Fragments.CourseActivityGrades;
-import com.estello.android.Fragments.CourseActivityInfo;
 import com.estello.android.Fragments.CourseActivityLesson;
+import com.estello.android.Fragments.LiveLessons;
 import com.estello.android.ViewModel.CourseVideoPlayerMinView;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseActivity extends AppCompatActivity {
-
+public class CourseActivtyTypeLive extends AppCompatActivity {
 
     private NoSwipeableViewPager mViewPager;
     private TabLayout tabLayout;
@@ -40,14 +34,12 @@ public class CourseActivity extends AppCompatActivity {
     ViewGroup viewGroup;
     CourseVideoPlayerMinView courseVideoPlayerMinView;
     CourseActivityPagerAdapter adapter = new CourseActivityPagerAdapter(getSupportFragmentManager());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_course_activty_type_live);
         initView();
     }
-
 
 
     private void initView(){
@@ -61,17 +53,16 @@ public class CourseActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.course_activity_app_bar);
         collapsingToolbarLayout = findViewById(R.id.course_activity_collapsing_toolbar_layout);
         viewGroup = findViewById(R.id.video_min_view_video_frame);
-        courseVideoPlayerMinView = new CourseVideoPlayerMinView(CourseActivity.this,viewGroup);
+        courseVideoPlayerMinView = new CourseVideoPlayerMinView(CourseActivtyTypeLive.this,viewGroup);
         courseVideoPlayerMinView.setVideoUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4");
         courseVideoPlayerMinView.setVideoThumbnailUrl("https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
         courseVideoPlayerMinView.setUpPlayer();
-
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(CourseActivity.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(CourseActivtyTypeLive.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
 
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
@@ -117,7 +108,7 @@ public class CourseActivity extends AppCompatActivity {
 
                 case 0:
 
-                    return new CourseActivityLesson();
+                    return new LiveLessons();
 
                 case 1:
 
@@ -144,11 +135,8 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-
-        adapter.addFragment(new CourseActivityLesson(), "Lessons");
+        adapter.addFragment(new LiveLessons(), "Lessons");
         adapter.addFragment(new CourseActivityForums(), "Forums");
         viewPager.setAdapter(adapter);
     }
-
-
 }

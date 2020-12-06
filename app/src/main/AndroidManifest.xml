@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".CreateNewChannel"></activity>
+        <activity android:name=".LearningSearchFilter"></activity>
+        <activity android:name=".LearningSearch" />
+        <activity android:name=".CourseActivtyTypeLive" />
+        <activity android:name=".CourseDetailsTypeLive" />
+        <activity android:name=".CreateNewChannel" />
         <activity android:name=".JoinCommunityActivity" />
         <activity android:name=".ExploreCommunityTypeThreeBucketDetails" />
         <activity android:name=".ExploreCommunityTypeTwoBucketDetails" />

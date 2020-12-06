@@ -2,29 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="15dp"
     android:layout_marginBottom="5dp"
     android:background="@color/white"
     android:gravity="center|left"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
         android:layout_gravity="center"
-        android:src="@drawable/legacy_history_icon"
-        android:tint="#6B6A6A" />
+        android:tint="@color/colorPrimary"
+        android:src="@drawable/iconfinder_history"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:fontFamily="@font/opensansreg"
-        android:maxLines="2"
+        android:fontFamily="@font/airreg"
+        android:maxLines="1"
         android:ellipsize="end"
         android:id="@+id/search_query"
-        android:textColor="#3C3A3A"
+        android:textColor="@color/colorPrimary"
         android:layout_marginRight="10dp"
-        android:textSize="@dimen/small_regular_text_size"
+        android:textSize="14dp"
         android:text="University Of Michigan"/>
 </LinearLayout>

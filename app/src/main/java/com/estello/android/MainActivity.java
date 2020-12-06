@@ -2,6 +2,7 @@ package com.estello.android;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.estello.android.Fragments.DirectMessages;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity  {
     ActivityPausedListener activityPausedListener;
     ActivityResumedListener activityResumedListener;
     ActivityDestroyedListener activityDestroyedListener;
-
+    ImageView search;
 
 
      public interface ActivityPausedListener{
@@ -98,12 +100,20 @@ public class MainActivity extends AppCompatActivity  {
     private void initView() {
 
 
+        search = findViewById(R.id.main_search);
         toolbarOverlay = findViewById(R.id.activity_main_toolbar_overlay);
         bottom_nav_root_layout = findViewById(R.id.bottomnav_root_layout);
         toolbar = findViewById(R.id.activity_main_toolbar);
         viewProfileLayout = findViewById(R.id.activity_main_drawer_user_profile_layout);
         drawerLayout = findViewById(R.id.activity_main_drawer_layout);
         mainView = findViewById(R.id.activity_main_main_view);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LearningSearch.class));
+            }
+        });
         drawerToggle = new ActionBarDrawerToggle(MainActivity.this,drawerLayout,toolbar,R.string.app_name,R.string.app_name){
 
             @Override

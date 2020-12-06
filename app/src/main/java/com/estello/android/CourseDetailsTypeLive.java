@@ -1,69 +1,29 @@
 package com.estello.android;
 
-import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Bundle;
-
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.adroitandroid.chipcloud.ChipCloud;
 import com.estello.android.Adapter.CourseDetailsRelatedClassesAdapter;
-import com.estello.android.Adapter.FaqAdapter;
-import com.estello.android.Adapter.SyllabusAdapter;
-import com.estello.android.Fragments.course_detail_instructor_fragment;
-import com.estello.android.ViewModel.AutoScrollViewPager;
 import com.estello.android.ViewModel.CourseVideoPlayerMinView;
 import com.estello.android.ViewModel.CoursesModel;
-import com.estello.android.ViewModel.FaqAnswerModel;
-import com.estello.android.ViewModel.FaqModel;
-import com.estello.android.ViewModel.SyllabusSection;
-import com.estello.android.ViewModel.SyllabusSectionDetails;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-
-
-
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-
-import com.google.android.exoplayer2.ui.PlayerView;
-
-import com.google.android.exoplayer2.upstream.DataSource;
-
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-
-import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.button.MaterialButton;
-import com.rd.PageIndicatorView;
-
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class CourseDetails extends AppCompatActivity {
-
+public class CourseDetailsTypeLive extends AppCompatActivity {
 
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
@@ -76,13 +36,13 @@ public class CourseDetails extends AppCompatActivity {
     ViewGroup viewGroup;
     CourseVideoPlayerMinView courseVideoPlayerMinView;
     RecyclerView relatedCoursesRecyclerview;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_details);
+        setContentView(R.layout.activity_course_details_type_live);
         initView();
     }
+
 
     private void initView(){
 
@@ -96,7 +56,7 @@ public class CourseDetails extends AppCompatActivity {
         toolbar_title = findViewById(R.id.course_details_toolbar_title);
         viewGroup = findViewById(R.id.video_min_view_video_frame);
         relatedCoursesRecyclerview = findViewById(R.id.related_courses_recyclerview);
-        courseVideoPlayerMinView = new CourseVideoPlayerMinView(CourseDetails.this,viewGroup);
+        courseVideoPlayerMinView = new CourseVideoPlayerMinView(CourseDetailsTypeLive.this,viewGroup);
         courseVideoPlayerMinView.setVideoUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4");
         courseVideoPlayerMinView.setVideoThumbnailUrl("https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
         courseVideoPlayerMinView.setUpPlayer();
@@ -106,7 +66,7 @@ public class CourseDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(CourseDetails.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(CourseDetailsTypeLive.this,R.color.White), PorterDuff.Mode.SRC_ATOP);
 
 
 
@@ -125,33 +85,33 @@ public class CourseDetails extends AppCompatActivity {
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
 
-                boolean isShown = true;
-                int scrollRange = -1;
-                @Override
-                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                    if(scrollRange == -1){
-                        scrollRange = appBarLayout.getTotalScrollRange();
-                    }
-                    if(scrollRange + verticalOffset == 0){
-
-                        toolbar_title.setText("Android Reversing and Malware Analysis for Software");
-                        isShown = true;
-                        return;
-                    }
-                    else if(isShown){
-
-
-                        isShown = false;
-                        toolbar_title.setText("");
-                        return;
-                    }
+            boolean isShown = true;
+            int scrollRange = -1;
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(scrollRange == -1){
+                    scrollRange = appBarLayout.getTotalScrollRange();
                 }
+                if(scrollRange + verticalOffset == 0){
+
+                    toolbar_title.setText("Android Reversing and Malware Analysis for Software");
+                    isShown = true;
+                    return;
+                }
+                else if(isShown){
+
+
+                    isShown = false;
+                    toolbar_title.setText("");
+                    return;
+                }
+            }
         });
 
         enrollmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CourseDetails.this,CourseActivity.class));
+                startActivity(new Intent(CourseDetailsTypeLive.this,CourseActivtyTypeLive.class));
             }
         });
     }
@@ -172,9 +132,9 @@ public class CourseDetails extends AppCompatActivity {
         for(int i = 0; i < 4; i++){
             coursesModelArrayList.add(coursesModel);
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetails.this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailsTypeLive.this,LinearLayoutManager.VERTICAL,false);
         relatedCoursesRecyclerview.setLayoutManager(layoutManager);
-        CourseDetailsRelatedClassesAdapter classesAdapter = new CourseDetailsRelatedClassesAdapter(coursesModelArrayList,CourseDetails.this);
+        CourseDetailsRelatedClassesAdapter classesAdapter = new CourseDetailsRelatedClassesAdapter(coursesModelArrayList,CourseDetailsTypeLive.this);
         relatedCoursesRecyclerview.setAdapter(classesAdapter);
     }
 }
