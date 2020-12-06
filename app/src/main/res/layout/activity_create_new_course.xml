@@ -34,12 +34,12 @@
         <com.stepstone.stepper.StepperLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:ms_stepperType="tabs"
+            app:ms_stepperType="progress_bar"
             app:ms_backButtonBackground="@color/transparent"
             app:ms_nextButtonColor="@color/colorPrimary"
             app:ms_bottomNavigationBackground="@color/white"
             app:ms_backButtonColor="@color/colorPrimary"
+            app:ms_showBackButtonOnFirstStep="false"
             android:id="@+id/create_new_course_stepper_layout"/>
-
     </RelativeLayout>
 </LinearLayout>

@@ -66,7 +66,7 @@
                 android:maxLines="2"
                 android:lineSpacingExtra="4dp"
                 android:text="Also send files to yourself just select your own name from the owner fo the file then"
-                android:textColor="#969595"
+                android:textColor="@color/light_text_color"
                 android:textSize="18dp" />
         </LinearLayout>
 
@@ -92,13 +92,13 @@
 
             <LinearLayout
                 android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginTop="6dp"
                 android:id="@+id/direct_message_unread_count"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:background="@drawable/circle_unread_design">
+                android:background="@drawable/messaging_area_file_remove">
 
 
                 <TextView

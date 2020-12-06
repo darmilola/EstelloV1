@@ -37,7 +37,7 @@ public class welcome_firstpage extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Welcome.AuthPage("Acquire new Skills","Learn new Skills from top independent expert trainers from all around the world");
+      //  Welcome.AuthPage("Acquire new Skills","Learn new Skills from top independent expert trainers from all around the world");
     }
 
 }

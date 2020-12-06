@@ -11,12 +11,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.estello.android.Fragments.CourseActivityForums;
 import com.estello.android.Fragments.CourseActivityGrades;
 import com.estello.android.Fragments.CourseActivityInfo;
-import com.estello.android.Fragments.CourseActivityOverview;
+import com.estello.android.Fragments.CourseActivityLesson;
+import com.estello.android.ViewModel.CourseVideoPlayerMinView;
 import com.estello.android.ViewModel.NoSwipeableViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -35,8 +37,10 @@ public class CourseActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
-    TextView courseActivityToolbarTitle;
+    ViewGroup viewGroup;
+    CourseVideoPlayerMinView courseVideoPlayerMinView;
     CourseActivityPagerAdapter adapter = new CourseActivityPagerAdapter(getSupportFragmentManager());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,6 @@ public class CourseActivity extends AppCompatActivity {
     private void initView(){
 
         mViewPager = findViewById(R.id.course_activity_pager);
-
         mViewPager.setOffscreenPageLimit(3);
         setupViewPager(mViewPager);
         tabLayout = (TabLayout) findViewById(R.id.course_activity_tabs);
@@ -57,7 +60,12 @@ public class CourseActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.course_activity_toolbar);
         appBarLayout = findViewById(R.id.course_activity_app_bar);
         collapsingToolbarLayout = findViewById(R.id.course_activity_collapsing_toolbar_layout);
-        courseActivityToolbarTitle = findViewById(R.id.course_activity_toolbar_title);
+        viewGroup = findViewById(R.id.video_min_view_video_frame);
+        courseVideoPlayerMinView = new CourseVideoPlayerMinView(CourseActivity.this,viewGroup);
+        courseVideoPlayerMinView.setVideoUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4");
+        courseVideoPlayerMinView.setVideoThumbnailUrl("https://i.pinimg.com/564x/df/10/f8/df10f827ca7e1a2eee027b1c0998475f.jpg");
+        courseVideoPlayerMinView.setUpPlayer();
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,8 +85,6 @@ public class CourseActivity extends AppCompatActivity {
                 }
                 if(scrollRange + verticalOffset == 0){
 
-                    courseActivityToolbarTitle.setText("The Science Of WellBeing");
-                    tabLayout.setVisibility(View.GONE);
                     isShown = true;
                     return;
                 }
@@ -86,8 +92,6 @@ public class CourseActivity extends AppCompatActivity {
 
 
                     isShown = false;
-                    courseActivityToolbarTitle.setText("");
-                    tabLayout.setVisibility(View.VISIBLE);
                     return;
                 }
             }
@@ -108,29 +112,16 @@ public class CourseActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
 
             switch (position){
 
                 case 0:
 
-                    return new CourseActivityOverview();
+                    return new CourseActivityLesson();
 
                 case 1:
-                    return new CourseActivityGrades();
-
-
-                case 2:
 
                     return new CourseActivityForums();
-
-                case 3:
-
-                    return  new CourseActivityInfo();
-
-
-
             }
             return null;
         }
@@ -138,7 +129,7 @@ public class CourseActivity extends AppCompatActivity {
         @Override
         public int getCount() {
 
-            return 4;
+            return 2;
         }
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
@@ -154,10 +145,8 @@ public class CourseActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter.addFragment(new CourseActivityOverview(), "Overview");
-        adapter.addFragment(new CourseActivityGrades(), "Grades");
+        adapter.addFragment(new CourseActivityLesson(), "Lessons");
         adapter.addFragment(new CourseActivityForums(), "Forums");
-        adapter.addFragment(new CourseActivityInfo(), "Info");
         viewPager.setAdapter(adapter);
     }
 

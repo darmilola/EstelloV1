@@ -12,7 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".DirectMessagesDetails"></activity>
+        <activity android:name=".LearningSearchFilter"></activity>
+        <activity android:name=".LearningSearch" />
+        <activity android:name=".CourseActivtyTypeLive" />
+        <activity android:name=".CourseDetailsTypeLive" />
+        <activity android:name=".CreateNewChannel" />
+        <activity android:name=".JoinCommunityActivity" />
+        <activity android:name=".ExploreCommunityTypeThreeBucketDetails" />
+        <activity android:name=".ExploreCommunityTypeTwoBucketDetails" />
+        <activity android:name=".ExploreCommunityTypeOneBucketDetails" />
+        <activity android:name=".ExploreCommunityType1Bucket" />
+        <activity android:name=".DirectMessagesDetails" />
         <activity android:name=".VideoPlayerBaseActivity" />
         <activity
             android:name=".ChannelPostDetails"
@@ -24,12 +34,12 @@
             android:name=".HashTagsActivity"
             android:theme="@style/slidingActivityTheme" />
         <activity android:name=".QandAChannel" />
-        <activity android:name=".CourseActivity"></activity>
+        <activity android:name=".CourseActivity" />
         <activity android:name=".SpecializationCourseDetails" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ExploreDisplaySelectedTopic" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".ChannelBaseActivity"/>
+        <activity android:name=".ChannelBaseActivity" />
         <activity android:name=".OrganisationProfile" />
         <activity android:name=".InstructorsProfile" />
         <activity android:name=".PreviewQuestion" />
@@ -44,7 +54,7 @@
         <activity android:name=".MyCourses" />
         <activity android:name=".course_training_page" />
         <activity
-            android:name=".course_details"
+            android:name=".CourseDetails"
             android:label="@string/title_activity_course_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProposedMore" />

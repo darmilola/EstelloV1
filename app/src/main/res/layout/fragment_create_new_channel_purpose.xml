@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F5F5F5"
+    android:focusableInTouchMode="true"
+    tools:context=".Fragments.sign_up_firstpage">
+
+    <LinearLayout
+        android:id="@+id/create_new_channel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/google_sign_in_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width= "match_parent"
+        android:layout_height="wrap_content"
+        android:text="What is the Purpose of this Channel?"
+        android:textSize="23dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:lineSpacingExtra="7dp"
+        android:gravity="center"
+        android:fontFamily="@font/airreg"
+        android:id="@+id/sign_up_firstpage_hello"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"/>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_fullname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        app:errorEnabled="true"
+        android:layout_marginBottom="20dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="80"
+        app:counterTextColor="@color/green"
+        app:counterOverflowTextColor="@color/design_default_color_error"
+        style="@style/sign_up_field"
+        app:errorTextAppearance="@style/ErrorText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_up_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Channel Purpose"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="text"
+            android:fontFamily="@font/airreg"
+            android:textColorHint="@color/light_text_color"
+            android:background="#00000000"
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimary" />
+    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</LinearLayout>

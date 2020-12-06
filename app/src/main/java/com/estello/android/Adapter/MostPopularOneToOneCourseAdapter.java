@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.estello.android.ViewModel.CoursesModel;
-import com.estello.android.course_details;
+import com.estello.android.CourseDetails;
 
 import com.estello.android.R;
 
@@ -34,7 +34,7 @@ public class MostPopularOneToOneCourseAdapter extends RecyclerView.Adapter<MostP
     @Override
     public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_recycler_item_type1, parent, false);
+        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.learning_recycler_item_type1, parent, false);
         return new itemViewHolder(view2);
 
     }
@@ -62,7 +62,7 @@ public class MostPopularOneToOneCourseAdapter extends RecyclerView.Adapter<MostP
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context, course_details.class));
+            context.startActivity(new Intent(context, CourseDetails.class));
         }
     }
 }

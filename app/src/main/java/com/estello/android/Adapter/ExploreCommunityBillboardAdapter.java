@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import com.estello.android.R;
 import com.estello.android.ViewModel.ExploreCommuntyBillboardItem;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.TimerTask;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
@@ -18,11 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ExploreCommunityBillboardAdapter extends RecyclerView.Adapter<ExploreCommunityBillboardAdapter.itemViewHolder> {
 
-    ArrayList<ExploreCommuntyBillboardItem> exploreCommuntyBillboardItemArrayList;
+    List<Object> exploreCommuntyBillboardItemArrayList;
     Context context;
 
 
-    public ExploreCommunityBillboardAdapter(ArrayList<ExploreCommuntyBillboardItem> exploreCommuntyBillboardItems, Context context){
+    public ExploreCommunityBillboardAdapter(List<Object> exploreCommuntyBillboardItems, Context context){
         this.exploreCommuntyBillboardItemArrayList = exploreCommuntyBillboardItems;
         this.context = context;
     }
@@ -43,7 +46,8 @@ public class ExploreCommunityBillboardAdapter extends RecyclerView.Adapter<Explo
     @Override
     public void onBindViewHolder(@NonNull itemViewHolder holder, int position) {
 
-        holder.imageView.setImageResource(exploreCommuntyBillboardItemArrayList.get(position).getImageUrl());
+        ExploreCommuntyBillboardItem exploreCommuntyBillboardItem = (ExploreCommuntyBillboardItem) exploreCommuntyBillboardItemArrayList.get(position);
+        holder.imageView.setImageResource(exploreCommuntyBillboardItem.getImageUrl());
     }
 
     @Override
@@ -64,4 +68,6 @@ public class ExploreCommunityBillboardAdapter extends RecyclerView.Adapter<Explo
 
         }
     }
+
+
 }

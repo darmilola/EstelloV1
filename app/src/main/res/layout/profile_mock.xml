@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:background="#FDF9FD"
     android:padding="0dp"
-    tools:context=".course_details">
+    tools:context=".CourseDetails">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/course_details_app_bar"

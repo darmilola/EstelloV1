@@ -11,6 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:cardElevation="2dp">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_main_toolbar"
             android:layout_width="match_parent"
@@ -18,9 +23,12 @@
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetRight="0dp"
-            app:contentInsetEnd="0dp"
-            android:background="@color/colorPrimary">
+            app:contentInsetEnd="0dp">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/white">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -37,8 +45,9 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:padding="10dp"
+                        android:id="@+id/main_search"
                         android:layout_gravity="center|bottom"
-                        android:tint="@color/white"
+                        android:tint="@color/colorPrimary"
                         android:src="@drawable/newsearchicon"/>
                 </LinearLayout>
 
@@ -58,7 +67,7 @@
                         android:fontFamily="@font/airsemi"
                         android:gravity="center"
                         android:text="Explore"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="20dp" />
                 </LinearLayout>
 
@@ -83,7 +92,9 @@
                         fresco:placeholderImageScaleType="fitXY"/>
                 </LinearLayout>
             </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.Toolbar>
+        </androidx.cardview.widget.CardView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -92,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/content_frame"
-                android:layout_marginBottom="55.5dp"
+                android:layout_marginBottom="105.5dp"
                 android:orientation="vertical"/>
 
 

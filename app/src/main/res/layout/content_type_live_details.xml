@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CourseDetailsTypeLive"
+    android:background="@color/white">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/course_details_skills_you_will_gain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:fontFamily="@font/airbold"
+            android:text="Skills you will gain"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <com.adroitandroid.chipcloud.ChipCloud
+            android:id="@+id/course_details_skill_to_acquire_cloud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            app:allCaps="false"
+            app:deselectedColor="#E9E9E9"
+            app:deselectedFontColor="#3C3A3A"
+            app:gravity="left"
+            android:layout_marginLeft="20dp"
+            app:minHorizontalSpacing="5dp"
+            app:selectMode="none"
+            app:textSize="13sp"
+            app:typeface="@font/opensansreg"
+            app:verticalSpacing="10dp"/>
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EBEAEA"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/airbold"
+                    android:text="4.9"
+                    android:textColor="@color/yellow"
+                    android:textSize="22dp" />
+
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:padding="0dp"
+                    android:progressTint="@color/yellow"
+                    android:rating="5"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/airbold"
+                android:text="Top Live Reviews"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center|left">
+
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:padding="0dp"
+                            android:progressTint="@color/yellow"
+                            android:rating="5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8" />
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="2dp"
+                            android:src="@drawable/grey_circle"
+                            android:tint="#7A7A7A"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="By HA"
+                            android:textColor="#7A7A7A"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/airreg"
+                            android:textSize="@dimen/small_text_size"/>
+
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/grey_circle"
+                            android:tint="#7A7A7A"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aug 19, 2020"
+                            android:textColor="#7A7A7A"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/airreg"
+                            android:textSize="@dimen/small_text_size"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airreg"
+                        android:text="Thanks to Estello and Florida State University for offering this course. Grateful to SkillShare for articulating everything so nicely. I am so delighted to complete this course successfully"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="16dp"
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/new_dark_text_color"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center|left">
+
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:padding="0dp"
+                            android:progressTint="@color/yellow"
+                            android:rating="5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8" />
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="2dp"
+                            android:src="@drawable/grey_circle"
+                            android:tint="#7A7A7A"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="By HA"
+                            android:textColor="#7A7A7A"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/airreg"
+                            android:textSize="@dimen/small_text_size"/>
+
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/grey_circle"
+                            android:tint="#7A7A7A"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aug 19, 2020"
+                            android:textColor="#7A7A7A"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/airreg"
+                            android:textSize="@dimen/small_text_size"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airreg"
+                        android:text="Thanks to Estello and Florida State University for offering this course. Grateful to SkillShare for articulating everything so nicely. I am so delighted to complete this course successfully"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="16dp"
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/new_dark_text_color"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/airbold"
+            android:text="Related Classes"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/regular_text_size"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
+            android:id="@+id/related_courses_recyclerview"
+            tools:listitem="@layout/related_classes_recycler_item"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -2,6 +2,7 @@ package com.estello.android;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.estello.android.Fragments.DirectMessages;
+import com.estello.android.Fragments.ExploreChannelsFragment;
 import com.estello.android.Fragments.ExploreCommunity;
 import com.estello.android.Fragments.LearningFragment;
 import com.estello.android.Fragments.NotificationFragment;
@@ -42,7 +45,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity implements ExploreCommunity.UpdateStatusAndToolbarBackgroundListener {
+public class MainActivity extends AppCompatActivity  {
 
 
     BottomNavigationView bottomNavigationView;
@@ -56,6 +59,34 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     LinearLayout mainView;
     LinearLayout bottom_nav_root_layout;
     LinearLayout toolbarOverlay;
+    ActivityPausedListener activityPausedListener;
+    ActivityResumedListener activityResumedListener;
+    ActivityDestroyedListener activityDestroyedListener;
+    ImageView search;
+
+
+     public interface ActivityPausedListener{
+
+        public void onActivityPaused();
+    }
+    public interface ActivityResumedListener{
+        public void onActivityResumed();
+    }
+    public interface ActivityDestroyedListener{
+        public void onActivityDestroyed();
+    }
+
+    public void setActivityDestroyedListener(ActivityDestroyedListener activityDestroyedListener) {
+        this.activityDestroyedListener = activityDestroyedListener;
+    }
+
+    public void setActivityPausedListener(ActivityPausedListener activityPausedListener) {
+        this.activityPausedListener = activityPausedListener;
+    }
+
+    public void setActivityResumedListener(ActivityResumedListener activityResumedListener) {
+        this.activityResumedListener = activityResumedListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +100,20 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     private void initView() {
 
 
+        search = findViewById(R.id.main_search);
         toolbarOverlay = findViewById(R.id.activity_main_toolbar_overlay);
         bottom_nav_root_layout = findViewById(R.id.bottomnav_root_layout);
         toolbar = findViewById(R.id.activity_main_toolbar);
         viewProfileLayout = findViewById(R.id.activity_main_drawer_user_profile_layout);
         drawerLayout = findViewById(R.id.activity_main_drawer_layout);
         mainView = findViewById(R.id.activity_main_main_view);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LearningSearch.class));
+            }
+        });
         drawerToggle = new ActionBarDrawerToggle(MainActivity.this,drawerLayout,toolbar,R.string.app_name,R.string.app_name){
 
             @Override
@@ -110,15 +149,17 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
                 int i = item.getItemId();
                 if (i == R.id.learn) {
                     viewPager.setCurrentItem(0, false);
-
+                }
+                else if(i == R.id.channel){
+                    viewPager.setCurrentItem(1,false);
                 }
                 else if (i == R.id.explore) {
-                    viewPager.setCurrentItem(1, false);
-                }else if (i == R.id.my_dm) {
                     viewPager.setCurrentItem(2, false);
+                }else if (i == R.id.my_dm) {
+                    viewPager.setCurrentItem(3, false);
                 }
                 else if (i == R.id.notification) {
-                    viewPager.setCurrentItem(3, false);
+                    viewPager.setCurrentItem(4, false);
                 }
                 return true;
             }
@@ -150,19 +191,6 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     }
 
 
-    @Override
-    public void onUpdate(Bitmap bitmap) {
-
-        if(viewPager.getCurrentItem() == 1) {
-            toolbarOverlay.setBackgroundColor(Color.parseColor("#80000000"));
-            toolbar.setBackground(new BitmapDrawable(getResources(),bitmap));
-            AnimateBackgroundChange();
-        }
-        else{
-            toolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
-            toolbarOverlay.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
-        }
-    }
 
 
     public void AnimateBackgroundChange(){
@@ -282,11 +310,13 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
 
                   case 0:
                       return new LearningFragment();
-                  case 1:
-                    return new ExploreCommunity();
+                case 1:
+                    return new ExploreChannelsFragment();
                   case 2:
-                      return new DirectMessages();
+                    return new ExploreCommunity();
                   case 3:
+                      return new DirectMessages();
+                  case 4:
                       return new NotificationFragment();
 
 
@@ -298,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
         @Override
         public int getCount() {
 
-            return 4;
+            return 5;
         }
 
 
@@ -317,10 +347,11 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
     }
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter.addFragment(new LearningFragment(), "first");
+        adapter.addFragment(new LearningFragment(), "learning");
+        adapter.addFragment(new ExploreChannelsFragment(), "channels");
         adapter.addFragment(new ExploreCommunity(), "explore");
-        adapter.addFragment(new DirectMessages(), "second");
-        adapter.addFragment(new NotificationFragment(), "third");
+        adapter.addFragment(new DirectMessages(), "Dm");
+        adapter.addFragment(new NotificationFragment(), "Notifs");
         viewPager.setAdapter(adapter);
     }
 
@@ -331,17 +362,28 @@ public class MainActivity extends AppCompatActivity implements ExploreCommunity.
         public void onResume() {
 
            super.onResume();
+           if(activityResumedListener != null)activityResumedListener.onActivityResumed();
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.full_transparency));
               // getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS );
                getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-               getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+               getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
               // getWindow().setFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 
 
            }
+    }
+     @Override
+    public void onPause() {
+       if(activityPausedListener != null) activityPausedListener.onActivityPaused();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+       if(activityDestroyedListener != null) activityDestroyedListener.onActivityDestroyed();
     }
 
     private void setTransluscentNavFlag(boolean on){

@@ -35,7 +35,7 @@ public class welcome_thirdpage extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Welcome.AuthPage("Meet new People","Collaborate with thousands of learners in executing project");
+      //  Welcome.AuthPage("Meet new People","Collaborate with thousands of learners in executing project");
     }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="60dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".course_details"
+    tools:context=".CourseDetails"
     android:background="@color/white">
 
 
@@ -16,297 +16,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/course_details_about_this_course_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="left"
-            android:fontFamily="@font/opensansbold"
-            android:text="About This Course"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/opensansreg"
-            android:text="@string/large_text"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="16dp"
-            android:id="@+id/course_details_about_course"
-            android:textColor="#3C3A3A">
-
-        </TextView>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left|top"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:tint="#157ECF"
-                    android:src="@drawable/specialization"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp">
-
-                <TextView
-                    android:id="@+id/course_details_prerequisite_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:maxLines="2"
-                    android:fontFamily="@font/opensansbold"
-                    android:text="Prerequisite"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/course_details_prerequisite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:maxLines="2"
-                    android:fontFamily="@font/opensansreg"
-                    android:text="Introduction to Mathematical Computing for Colleges"
-                    android:textColor="#157ECF"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/beginner_level_layer_list"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/course_details_level_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:gravity="left"
-                android:fontFamily="@font/opensansbold"
-                android:text="Beginner Level"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:tint="#157ECF"
-                    android:src="@drawable/approxtime"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/course_details_approx_live_hours_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:gravity="left"
-                android:maxLines="2"
-                android:fontFamily="@font/opensansbold"
-                android:text="Approx. 37 hours Live Session"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left|top"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:tint="#157ECF"
-                    android:src="@drawable/unlimitedaccess"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp">
-
-                <TextView
-                    android:id="@+id/course_details_unlimited_access_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:maxLines="2"
-                    android:fontFamily="@font/opensansbold"
-                    android:text="Unlimited Access"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/course_details_unlimited_access_title_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:maxLines="2"
-                    android:fontFamily="@font/opensansreg"
-                    android:text="Download all course videos,Readings and live sessions for later access"
-                    android:textColor="#7A7A7A"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:tint="#157ECF"
-                    android:src="@drawable/conversationicon"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/course_details_instruction_language_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:gravity="left"
-                android:maxLines="2"
-                android:fontFamily="@font/opensansbold"
-                android:text="English"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                android:background="@drawable/grey_outline_circle">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:tint="#157ECF"
-                    android:src="@drawable/certificate"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/course_details_certificate_of_completion_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:gravity="left"
-                android:maxLines="2"
-                android:fontFamily="@font/opensansbold"
-                android:text="Certificate of Completion"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
         <TextView
             android:id="@+id/course_details_skills_you_will_gain"
             android:layout_width="match_parent"
@@ -315,10 +24,10 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:gravity="left"
-            android:fontFamily="@font/opensansbold"
+            android:fontFamily="@font/airbold"
             android:text="Skills you will gain"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <com.adroitandroid.chipcloud.ChipCloud
             android:id="@+id/course_details_skill_to_acquire_cloud"
@@ -335,37 +44,12 @@
             app:selectMode="none"
             app:textSize="13sp"
             app:typeface="@font/opensansreg"
-            app:verticalSpacing="10dp" />
+            app:verticalSpacing="10dp"/>
 
 
 
 
-        <TextView
-            android:id="@+id/course_details_what_you_will_learn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="left"
-            android:fontFamily="@font/opensansbold"
-            android:text="Syllabus: What you will learn in this course"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                tools:itemCount="2"
-                tools:listitem="@layout/syllabus_section"
-                android:id="@+id/course_details_syllabus_recyclerview"/>
-
-        </RelativeLayout>
 
 
         <LinearLayout
@@ -377,7 +61,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center|left"
                 android:orientation="horizontal">
 
@@ -386,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/opensansbold"
+                    android:fontFamily="@font/airbold"
                     android:text="4.9"
                     android:textColor="@color/yellow"
                     android:textSize="22dp" />
@@ -410,8 +94,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:fontFamily="@font/opensansbold"
+                android:fontFamily="@font/airbold"
                 android:text="Top Reviews"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/regular_text_size" />
 
@@ -424,7 +109,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -462,7 +147,7 @@
                         android:text="By HA"
                         android:textColor="#7A7A7A"
                         android:layout_marginLeft="5dp"
-                        android:fontFamily="@font/opensansreg"
+                        android:fontFamily="@font/airreg"
                         android:textSize="@dimen/small_text_size"/>
 
 
@@ -478,19 +163,20 @@
                             android:text="Aug 19, 2020"
                             android:textColor="#7A7A7A"
                             android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/opensansreg"
+                            android:fontFamily="@font/airreg"
                             android:textSize="@dimen/small_text_size"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/opensansreg"
-                        android:text="Thanks to DeltaStream and Georgia Institute of Technology for offering this course. Grateful to GL for articulating everything so nicely. I am so delighted to complete this course successfully"
+                        android:fontFamily="@font/airreg"
+                        android:text="Thanks to Estello and Florida State University for offering this course. Grateful to SkillShare for articulating everything so nicely. I am so delighted to complete this course successfully"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:textSize="16dp"
-                        android:textColor="#3C3A3A"/>
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/new_dark_text_color"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -543,7 +229,7 @@
                             android:text="By HA"
                             android:textColor="#7A7A7A"
                             android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/opensansreg"
+                            android:fontFamily="@font/airreg"
                             android:textSize="@dimen/small_text_size"/>
 
 
@@ -559,100 +245,39 @@
                             android:text="Aug 19, 2020"
                             android:textColor="#7A7A7A"
                             android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/opensansreg"
+                            android:fontFamily="@font/airreg"
                             android:textSize="@dimen/small_text_size"/>
                     </LinearLayout>
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/opensansreg"
-                        android:text=" I enjoyed every bit of this course. i would recommend all my friends and family members to take this course. Thanks to DeltaStream and Georgia Institute of Technology for offering this course. Grateful to GL for articulating everything so nicely. I am so delighted to complete this course successfully"
+                        android:fontFamily="@font/airreg"
+                        android:text="Thanks to Estello and Florida State University for offering this course. Grateful to SkillShare for articulating everything so nicely. I am so delighted to complete this course successfully"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:textSize="16dp"
-                        android:textColor="#3C3A3A"/>
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/new_dark_text_color"/>
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:text="Instructors"
-                android:id="@+id/course_detail_instructor_title"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/opensansbold"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/black"/>
-
-            <com.estello.android.ViewModel.AutoScrollViewPager
-                android:id="@+id/course_detail_instructor_pager"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/transparent"
-                android:layout_marginTop="5dp"/>
-
-            <com.rd.PageIndicatorView
-                android:id="@+id/course_detail_instructor_pageIndicatorView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:piv_animationType="scale"
-                android:layout_marginTop="5dp"
-                app:piv_dynamicCount="true"
-                app:piv_radius="3dp"
-                android:layout_marginBottom="5dp"
-                app:piv_interactiveAnimation="true"
-                app:piv_selectedColor="#fa2d65"
-                app:piv_unselectedColor="#c8c8c8"
-                app:piv_viewPager="@id/course_detail_instructor_pager"/>
-        </LinearLayout>
-
         <TextView
-            android:id="@+id/course_details_faq_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="30dp"
-            android:gravity="left"
-            android:fontFamily="@font/opensansbold"
-            android:text="Frequently Asked Questions"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:fontFamily="@font/airbold"
+            android:text="Related Classes"
             android:layout_marginTop="15dp"
-            android:background="#CCCBCB" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/regular_text_size"/>
 
-
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                tools:itemCount="2"
-                tools:listitem="@layout/faq_question"
-                android:id="@+id/course_details_faq_recyclerview"/>
-
-        </RelativeLayout>
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
+            android:id="@+id/related_courses_recyclerview"
+            tools:listitem="@layout/related_classes_recycler_item"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

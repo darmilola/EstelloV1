@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".course_details">
+    tools:context=".CourseDetails">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/course_details_app_bar"

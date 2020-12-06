@@ -64,7 +64,7 @@
                 slk:setTextSize="15dp"
                 slk:setViewType = "text"
                 android:layout_margin="10dp"
-                android:background="@drawable/quiz_option_background"
+                android:background="@drawable/search_class_type_background"
                 slk:setTypeFace="@font/latoreg"
                 slk:setPadding="10dp"/>
 
@@ -82,7 +82,7 @@
                 slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
                 slk:setEquationViewBackgroundColor="@color/transparent"
                 android:layout_margin="10dp"
-                android:background="@drawable/quiz_option_background"
+                android:background="@drawable/search_class_type_background"
                 slk:setTypeFace="@font/latoreg"
                 slk:setPadding="10dp"/>
             <com.slackwise.slackwisebuttongroup.SlackWiseButton
@@ -98,7 +98,7 @@
                 slk:selectedTextColor = "@color/green"
                 slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
                 android:layout_margin="10dp"
-                android:background="@drawable/quiz_option_background"
+                android:background="@drawable/search_class_type_background"
                 slk:setTypeFace="@font/latoreg"
                 slk:setPadding="10dp"/>
             <com.slackwise.slackwisebuttongroup.SlackWiseButton
@@ -112,7 +112,7 @@
                 slk:setCode = "x + y = 15;"
                 slk:setSelectedBackground = "@drawable/quiz_selected_options_background"
                 android:layout_margin="10dp"
-                android:background="@drawable/quiz_option_background"
+                android:background="@drawable/search_class_type_background"
                 slk:setPadding="10dp"/>
 
 
